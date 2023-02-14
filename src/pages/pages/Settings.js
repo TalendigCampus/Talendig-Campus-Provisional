@@ -1,7 +1,8 @@
 import React from "react";
-import styled from "styled-components/macro";
+import styled, { withTheme } from "styled-components/macro";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import Chart from "react-chartjs-2";
 
 import {
   Avatar,
@@ -16,6 +17,20 @@ import {
   TextField as MuiTextField,
   Typography,
 } from "@mui/material";
+
+import {
+  Avatar as MuiAvatar,
+  Box,
+  Chip as MuiChip,
+  Grid as MuiGrid,
+  LinearProgress as MuiLinearProgress,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Typography as MuiTypography,
+} from "@mui/material";
 import { CloudUpload as MuiCloudUpload } from "@mui/icons-material";
 import { spacing } from "@mui/system";
 
@@ -27,11 +42,20 @@ const Divider = styled(MuiDivider)(spacing);
 
 const FormControl = styled(MuiFormControl)(spacing);
 
+const Spacer = styled.div(spacing);
+
+const ChartWrapper = styled.div`
+  height: 300px;
+  width: 100%;
+`;
+
 const TextField = styled(MuiTextField)(spacing);
 
 const Button = styled(MuiButton)(spacing);
 
 const CloudUpload = styled(MuiCloudUpload)(spacing);
+
+const LinearProgress = styled(MuiLinearProgress)(spacing);
 
 const CenteredContent = styled.div`
   text-align: center;
@@ -43,71 +67,172 @@ const BigAvatar = styled(Avatar)`
   margin: 0 auto ${(props) => props.theme.spacing(2)};
 `;
 
-function Public() {
+const BarChart = withTheme(({ theme }) => {
+  const data = {
+    labels: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
+    datasets: [
+      {
+        label: "Año Pasado",
+        backgroundColor: theme.palette.secondary.main,
+        borderColor: theme.palette.secondary.main,
+        hoverBackgroundColor: theme.palette.secondary.main,
+        hoverBorderColor: theme.palette.secondary.main,
+        data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
+        barPercentage: 0.75,
+        categoryPercentage: 0.5,
+      },
+      {
+        label: "Este Año",
+        backgroundColor: theme.palette.grey[300],
+        borderColor: theme.palette.grey[300],
+        hoverBackgroundColor: theme.palette.grey[300],
+        hoverBorderColor: theme.palette.grey[300],
+        data: [69, 66, 24, 48, 52, 51, 44, 53, 62, 79, 51, 68],
+        barPercentage: 0.75,
+        categoryPercentage: 0.5,
+      },
+    ],
+  };
+
+  const options = {
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    scales: {
+      y: {
+        grid: {
+          display: false,
+        },
+        stacked: false,
+        ticks: {
+          stepSize: 20,
+        },
+      },
+
+      x: {
+        stacked: false,
+        grid: {
+          color: "transparent",
+        },
+      },
+    },
+  };
+
   return (
-    <Card mb={6}>
+    <Card mb={1}>
       <CardContent>
         <Typography variant="h6" gutterBottom>
-          Public info
+          Cantidad de Instructores por mes
         </Typography>
 
-        <Grid container spacing={6}>
-          <Grid item md={8}>
-            <TextField
-              id="username"
-              label="Username"
-              defaultValue="lucylavender"
-              variant="outlined"
-              fullWidth
-              my={2}
-            />
+        <Spacer mb={6} />
 
-            <FormControl fullWidth my={2} variant="outlined">
-              <TextField
-                label="Biography"
-                id="biography"
-                multiline={true}
-                rows={3}
-                maxRows={4}
-                variant="outlined"
-                defaultValue="Lucy is a Freelance Writer and Social Media Manager who helps finance professionals and Fin-tech startups build an audience and get more paying clients online."
-              />
-            </FormControl>
-          </Grid>
-          <Grid item md={4}>
-            <CenteredContent>
-              <BigAvatar
-                alt="Remy Sharp"
-                src="/static/img/avatars/avatar-1.jpg"
-              />
-              <input
-                accept="image/*"
-                style={{ display: "none" }}
-                id="raised-button-file"
-                multiple
-                type="file"
-              />
-              <label htmlFor="raised-button-file">
-                <Button variant="contained" color="primary" component="span">
-                  <CloudUpload mr={2} /> Upload
-                </Button>
-
-                <Typography variant="caption" display="block" gutterBottom>
-                  For best results, use an image at least 128px by 128px in .jpg
-                  format
-                </Typography>
-              </label>
-            </CenteredContent>
-          </Grid>
-        </Grid>
-
-        <Button variant="contained" color="primary">
-          Save changes
-        </Button>
+        <ChartWrapper>
+          <Chart type="bar" data={data} options={options} />
+        </ChartWrapper>
       </CardContent>
     </Card>
   );
-}
+});
+
+const LineChart = withTheme(({ theme }) => {
+  const data = {
+    labels: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
+    datasets: [
+      {
+        label: "Profesores",
+        fill: true,
+        backgroundColor: "transparent",
+        borderColor: theme.palette.secondary.main,
+        tension: 0.4,
+        data: [
+          2115, 1562, 1584, 1892, 1487, 2223, 2966, 2448, 2905, 3838, 2917,
+          3327,
+        ],
+      },
+      {
+        label: "Reseñas",
+        fill: true,
+        backgroundColor: "transparent",
+        borderColor: theme.palette.grey[500],
+        borderDash: [4, 4],
+        tension: 0.4,
+        data: [
+          958, 724, 629, 883, 915, 1214, 1476, 1212, 1554, 2128, 1466, 1827,
+        ],
+      },
+    ],
+  };
+
+  const options = {
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    scales: {
+      x: {
+        grid: {
+          color: "rgba(0,0,0,0.05)",
+        },
+      },
+      y: {
+        display: true,
+        borderDash: [5, 5],
+        grid: {
+          color: "rgba(0,0,0,0)",
+          fontColor: "#fff",
+        },
+      },
+    },
+  };
+
+  return (
+    <Card mb={1}>
+      <CardContent>
+        <Typography variant="h6" gutterBottom>
+          Reseñas Por Profesores
+        </Typography>
+
+        <Spacer mb={6} />
+
+        <ChartWrapper>
+          <Chart type="line" data={data} options={options} />
+        </ChartWrapper>
+      </CardContent>
+    </Card>
+  );
+});
 
 function Private() {
   return (
@@ -204,13 +329,85 @@ function Private() {
   );
 }
 
+function Earnings() {
+  return (
+    <Box position="relative">
+      <Card mb={6} pt={2}>
+        <CardContent>
+          <Typography variant="h2" gutterBottom>
+            <Box fontWeight="fontWeightRegular">225</Box>
+          </Typography>
+          <Typography variant="body2" gutterBottom mt={3} mb={0}>
+            Instructores Registrados
+          </Typography>
+
+          <LinearProgress
+            variant="determinate"
+            value={75}
+            color="secondary"
+            mt={4}
+          />
+        </CardContent>
+      </Card>
+    </Box>
+  );
+}
+
+function Orders() {
+  return (
+    <Box position="relative">
+      <Card mb={6} pt={2}>
+        <CardContent>
+          <Typography variant="h2" gutterBottom>
+            <Box fontWeight="fontWeightRegular">50</Box>
+          </Typography>
+          <Typography variant="body2" gutterBottom mt={3} mb={0}>
+            Instructores Conectados
+          </Typography>
+
+          <LinearProgress
+            variant="determinate"
+            value={30}
+            color="secondary"
+            mt={4}
+          />
+        </CardContent>
+      </Card>
+    </Box>
+  );
+}
+
+function Revenue() {
+  return (
+    <Box position="relative">
+      <Card mb={6} pt={2}>
+        <CardContent>
+          <Typography variant="h2" gutterBottom>
+            <Box fontWeight="fontWeightRegular">18</Box>
+          </Typography>
+          <Typography variant="body2" gutterBottom mt={3} mb={0}>
+            Instructores con Alta Valoración
+          </Typography>
+
+          <LinearProgress
+            variant="determinate"
+            value={50}
+            color="secondary"
+            mt={4}
+          />
+        </CardContent>
+      </Card>
+    </Box>
+  );
+}
+
 function Settings() {
   return (
     <React.Fragment>
-      <Helmet title="Settings" />
+      <Helmet title="Instructores" />
 
       <Typography variant="h3" gutterBottom display="inline">
-        Settings
+        Instructores
       </Typography>
 
       <Breadcrumbs aria-label="Breadcrumb" mt={2}>
@@ -220,15 +417,26 @@ function Settings() {
         <Link component={NavLink} to="/">
           Pages
         </Link>
-        <Typography>Settings</Typography>
+        <Typography>Instructores</Typography>
       </Breadcrumbs>
 
       <Divider my={6} />
 
       <Grid container spacing={6}>
-        <Grid item xs={12}>
-          <Public />
-          <Private />
+        <Grid item xs={12} md={12}>
+          <BarChart />
+        </Grid>
+        <Grid item xs={12} lg={4}>
+          <Earnings />
+        </Grid>
+        <Grid item xs={12} lg={4}>
+          <Orders />
+        </Grid>
+        <Grid item xs={12} lg={4}>
+          <Revenue />
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <LineChart />
         </Grid>
       </Grid>
     </React.Fragment>
