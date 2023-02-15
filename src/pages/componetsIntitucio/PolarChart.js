@@ -16,7 +16,7 @@ const ChartWrapper = styled.div`
 
 function PolarChart({ theme }) {
   const data = {
-    labels: ["MERN", "ASP.Net", "MEAN", "Python avanzado"],
+    labels: ["MEAN", "MERN", "Python avanzado", "ASP.Net"],
     datasets: [
       {
         label: "Model S",
