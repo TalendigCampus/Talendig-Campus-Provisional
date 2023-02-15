@@ -49,6 +49,7 @@ import MaterialIcons from "./pages/icons/MaterialIcons";
 import Blank from "./pages/pages/Blank";
 import InvoiceDetails from "./pages/pages/InvoiceDetails";
 import InvoiceList from "./pages/pages/InvoiceList";
+import TalentList from "./pages/pages/talent/TalentList";
 import Orders from "./pages/pages/Orders";
 import Pricing from "./pages/pages/Pricing";
 import Settings from "./pages/pages/Settings";
@@ -97,7 +98,7 @@ const Formik = async(() => import("./pages/forms/Formik"));
 
 // Icon components
 const FeatherIcons = async(() => import("./pages/icons/FeatherIcons"));
-const Profile = async(() => import("./pages/pages/Profile"));
+const Profile = async(() => import("./pages/pages/talent/Profile"));
 const Tasks = async(() => import("./pages/pages/Tasks"));
 const Calendar = async(() => import("./pages/pages/Calendar"));
 
@@ -138,7 +139,16 @@ const routes = [
             children: [
               {
                 path: "talents",
-                element: <Profile />,
+                children: [
+                  {
+                    index: true,
+                    element: <Profile />,
+                  },
+                  {
+                    path: "list",
+                    element: <TalentList />,
+                  },
+                ],
               },
               {
                 path: "instructors",

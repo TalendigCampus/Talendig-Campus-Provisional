@@ -16,7 +16,7 @@ const ChartWrapper = styled.div`
 
 function PieChart({ theme }) {
   const data = {
-    labels: ["Social", "Search Engines", "Direct", "Other"],
+    labels: ["Excelente", "Muy bueno", "Bueno", "En observación"],
     datasets: [
       {
         data: [260, 125, 54, 146],
