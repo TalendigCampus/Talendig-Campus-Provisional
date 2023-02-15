@@ -73,7 +73,7 @@ const Customer = styled.div`
 `;
 
 function createData(
-  recruiterName,
+  recruiter,
   recruiterEmail,
   recruiterAvatar,
   idCard,
@@ -83,7 +83,7 @@ function createData(
   id
 ) {
   return {
-    recruiterName,
+    recruiter,
     recruiterEmail,
     idCard,
     recruiterAvatar,
@@ -254,7 +254,7 @@ const EnhancedTableToolbar = (props) => {
 
 function EnhancedTable() {
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("customer");
+  const [orderBy, setOrderBy] = React.useState("recruiter");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -353,7 +353,7 @@ function EnhancedTable() {
                         <Customer>
                           <Avatar>{row.recruiterAvatar}</Avatar>
                           <Box ml={3}>
-                            {row.recruiterName}
+                            {row.recruiter}
                             <br />
                             {row.recruiterEmail}
                           </Box>
@@ -423,7 +423,8 @@ function InvoiceList() {
               Dashboard
             </Link>
             <Typography>Usuarios</Typography>
-            <Typography>Lista Reclutadores</Typography>
+            <Typography>Reclutadores</Typography>
+            <Typography>Lista </Typography>
           </Breadcrumbs>
         </Grid>
         <Grid item>

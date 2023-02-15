@@ -37,14 +37,14 @@ function PolarChart({ theme }) {
   return (
     <Card mb={1}>
       <CardContent>
-        <Typography variant="h6" gutterBottom>
+        <Typography
+          variant="h6"
+          gutterBottom
+          align="center"
+          sx={{ fontWeight: "bold" }}
+        >
           Bootcamps mas interesantes para las instituciones
         </Typography>
-        <Typography variant="body2" gutterBottom>
-          Polar area charts are similar to pie charts, but each segment has the
-          same angle.
-        </Typography>
-
         <Spacer mb={6} />
 
         <ChartWrapper>

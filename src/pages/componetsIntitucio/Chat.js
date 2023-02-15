@@ -41,8 +41,7 @@ const contentsDivsAnalityts = styled.div`
 function DivAnalityths() {
   return (
     <React.Fragment>
-      <Helmet title="Default Dashboard" />
-
+      <Helmet title="Institutions Dashboard" />
       <Grid container spacing={6}>
         <Grid item xs={12} lg={11.9}>
           <PolarChart />
@@ -53,7 +52,6 @@ function DivAnalityths() {
               <Stats
                 title="Intituciones registradas"
                 amount="200"
-                chip="Today"
                 percentagetext="+26%"
                 percentagecolor={green[500]}
               />
@@ -62,7 +60,6 @@ function DivAnalityths() {
               <Stats
                 title="Instituciones conectadas"
                 amount="50"
-                chip="Today"
                 percentagetext="+26%"
                 percentagecolor={green[500]}
               />
@@ -71,7 +68,6 @@ function DivAnalityths() {
               <Stats
                 title="Instituciones +5 talentos"
                 amount="22"
-                chip="Today"
                 percentagetext="+26%"
                 percentagecolor={green[500]}
               />
@@ -80,7 +76,6 @@ function DivAnalityths() {
               <Stats
                 title="Instituciones valoración +8"
                 amount="18"
-                chip="Today"
                 percentagetext="+26%"
                 percentagecolor={green[500]}
               />
@@ -112,6 +107,9 @@ function Chat() {
       <Helmet title="Chat" />
       <Grid justifyContent="space-between" container spacing={6}>
         <Grid item>
+          <Typography variant="h3" gutterBottom display="inline">
+            Estadisticas
+          </Typography>
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
             <Link component={NavLink} to="/">
               Panel
@@ -121,16 +119,12 @@ function Chat() {
             </Link>
             <Typography>Instituciones</Typography>
           </Breadcrumbs>
-          <Typography variant="h3" gutterBottom display="inline">
-            Estadisticas
-          </Typography>
         </Grid>
         <Grid item>
           <FilterIntitution />
         </Grid>
       </Grid>
       <Divider my={3} />
-
       <Content />
     </React.Fragment>
   );

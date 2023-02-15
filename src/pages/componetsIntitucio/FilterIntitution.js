@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/macro";
-import { NavLink, Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import { MoreHorizontal } from "react-feather";
 import { Button as MuiButton, Menu, MenuItem } from "@mui/material";
 import {
   Loop as LoopIcon,
@@ -23,6 +23,7 @@ const SmallButton = styled(Button)`
 
 function FilterIntitution() {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const navigate = useNavigate();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -30,6 +31,10 @@ function FilterIntitution() {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleChange = (pathToGo) => {
+    navigate(pathToGo, { replace: true });
   };
 
   return (
@@ -46,8 +51,9 @@ function FilterIntitution() {
         aria-owns={anchorEl ? "simple-menu" : undefined}
         aria-haspopup="true"
         onClick={handleClick}
+        mr={5}
       >
-        Mas informacion
+        <MoreHorizontal />
       </Button>
       <Menu
         id="simple-menu"
@@ -55,18 +61,17 @@ function FilterIntitution() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem>
-          <Link
-            component={NavLink}
-            to="/admin/dashboard/users/institutions/list"
-          >
-            Lista
-          </Link>
+        <MenuItem
+          onClick={() =>
+            handleChange("/admin/dashboard/users/institutions/list")
+          }
+        >
+          Lista
         </MenuItem>
-        <MenuItem>
-          <Link component={NavLink} to="/admin/dashboard/users/institutions">
-            Instituciones
-          </Link>
+        <MenuItem
+          onClick={() => handleChange("/admin/dashboard/users/institutions")}
+        >
+          Estadisticas
         </MenuItem>
       </Menu>
     </React.Fragment>

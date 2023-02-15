@@ -30,8 +30,11 @@ function Actions() {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = (pathToGo) => {
+  const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleChange = (pathToGo) => {
     navigate(pathToGo, { replace: true });
   };
 
@@ -60,12 +63,12 @@ function Actions() {
         onClose={handleClose}
       >
         <MenuItem
-          onClick={() => handleClose("/admin/dashboard/users/recruiters/list")}
+          onClick={() => handleChange("/admin/dashboard/users/recruiters/list")}
         >
           Lista
         </MenuItem>
         <MenuItem
-          onClick={() => handleClose("/admin/dashboard/users/recruiters")}
+          onClick={() => handleChange("/admin/dashboard/users/recruiters")}
         >
           Estadisticas
         </MenuItem>
