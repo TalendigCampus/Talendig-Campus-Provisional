@@ -51,10 +51,12 @@ import InvoiceDetails from "./pages/pages/InvoiceDetails";
 import InvoiceList from "./pages/pages/InvoiceList";
 import TalentList from "./pages/pages/talent/TalentList";
 import Orders from "./pages/pages/Orders";
-import Pricing from "./pages/pages/Pricing";
+import Recruiters from "./pages/pages/AdminRecruiters/Recruiters";
+import RecruitersList from "./pages/pages/AdminRecruiters/RecruitersList";
 import Settings from "./pages/pages/Settings";
 import Projects from "./pages/pages/Projects";
-import Chat from "./pages/pages/Chat";
+import Chat from "./pages/componetsIntitucio/Chat";
+import DataGridPage from "./pages/componetsIntitucio/DataGridPage";
 
 // Table components
 import SimpleTable from "./pages/tables/SimpleTable";
@@ -156,11 +158,29 @@ const routes = [
               },
               {
                 path: "recruiters",
-                element: <Pricing />,
+                children: [
+                  {
+                    index: true,
+                    element: <Recruiters />,
+                  },
+                  {
+                    path: "list",
+                    element: <RecruitersList />,
+                  },
+                ],
               },
               {
                 path: "institutions",
-                element: <Chat />,
+                children: [
+                  {
+                    index: true,
+                    element: <Chat />,
+                  },
+                  {
+                    path: "list",
+                    element: <DataGridPage />,
+                  },
+                ],
               },
             ],
           },

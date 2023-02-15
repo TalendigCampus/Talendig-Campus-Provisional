@@ -12,25 +12,26 @@ import { spacing } from "@mui/system";
 import { green, red } from "@mui/material/colors";
 
 import Actions from "./Actions";
-import BarChart from "./BarChart";
+import PieChart from "./PieChart";
 import LineChart from "./LineChart";
-import DoughnutChart from "./DoughnutChart";
 import Stats from "./Stats";
-import Table from "./Table";
 
 const Divider = styled(MuiDivider)(spacing);
 
 const Typography = styled(MuiTypography)(spacing);
 
-function Default() {
+function Recruiters() {
   const { t } = useTranslation();
 
   return (
     <React.Fragment>
-      <Helmet title="Default Dashboard" />
+      <Helmet title="Recruiters Dashboard" />
       <Grid justifyContent="space-between" container spacing={6}>
         <Grid item>
           <Typography variant="h3" gutterBottom>
+            Reclutadores
+          </Typography>
+          <Typography variant="subtitle1">
             {t("Welcome back")}, José Armando! {t("We've missed you")}.{" "}
             <span role="img" aria-label="Waving Hand Sign">
               👋
@@ -46,63 +47,48 @@ function Default() {
       <Divider my={6} />
 
       <Grid container spacing={6}>
-        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+        <Grid item xs={12} lg={11.9}>
+          <PieChart />
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={6} my={6}>
+        <Grid item xs={12} sm={12} md={6} lg={6} xl>
           <Stats
-            title="Sales Today"
-            amount="2.532"
-            chip="Today"
-            percentagetext="+26%"
+            title="Cazatalentos Registrados"
+            amount="200"
+            percentagetext="+14%"
             percentagecolor={green[500]}
+            icon="Person"
           />
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+        <Grid item xs={12} sm={12} md={6} lg={6} xl>
           <Stats
-            title="Visitors"
-            amount="170.212"
-            chip="Annual"
-            percentagetext="-14%"
-            percentagecolor={red[500]}
+            title="Cazatalentos Conectados"
+            amount="50"
+            percentagetext="+12%"
+            percentagecolor={green[500]}
+            icon="SignalWifi4Bar"
           />
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+        <Grid item xs={12} sm={12} md={6} lg={6} xl>
           <Stats
-            title="Total Earnings"
-            amount="$ 24.300"
-            chip="Monthly"
+            title="Cazatalentos +10 Talentos"
+            amount="18"
             percentagetext="+18%"
             percentagecolor={green[500]}
-          />
-        </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Stats
-            title="Pending Orders"
-            amount="45"
-            chip="Yearly"
-            percentagetext="-9%"
-            percentagecolor={red[500]}
-            illustration="/static/img/illustrations/waiting.png"
+            icon="CheckCircle"
           />
         </Grid>
       </Grid>
 
       <Grid container spacing={6}>
-        <Grid item xs={12} lg={12}>
+        <Grid item xs={12} lg={11.9}>
           <LineChart />
-        </Grid>
-        <Grid item xs={12} lg={4}>
-          <DoughnutChart />
-        </Grid>
-      </Grid>
-      <Grid container spacing={6}>
-        <Grid item xs={12} lg={4}>
-          <BarChart />
-        </Grid>
-        <Grid item xs={12} lg={8}>
-          <Table />
         </Grid>
       </Grid>
     </React.Fragment>
   );
 }
 
-export default Default;
+export default Recruiters;

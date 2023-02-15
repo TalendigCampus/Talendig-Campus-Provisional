@@ -84,7 +84,12 @@ const BarChart = ({ theme }) => {
   return (
     <Card mb={1}>
       <CardContent>
-        <Typography variant="h6" gutterBottom>
+        <Typography
+          variant="h6"
+          gutterBottom
+          align="center"
+          sx={{ fontWeight: "bold" }}
+        >
           Cantidad de instituciones por mes
         </Typography>
 
