@@ -53,7 +53,8 @@ import Orders from "./pages/pages/Orders";
 import Pricing from "./pages/pages/Pricing";
 import Settings from "./pages/pages/Settings";
 import Projects from "./pages/pages/Projects";
-import Chat from "./pages/pages/Chat";
+import Chat from "./pages/componetsIntitucio/Chat";
+import DataGridPage from "./pages/componetsIntitucio/DataGridPage";
 
 // Table components
 import SimpleTable from "./pages/tables/SimpleTable";
@@ -150,7 +151,16 @@ const routes = [
               },
               {
                 path: "institutions",
-                element: <Chat />,
+                children: [
+                  {
+                    index: true,
+                    element: <Chat />,
+                  },
+                  {
+                    path: "list",
+                    element: <DataGridPage />,
+                  },
+                ],
               },
             ],
           },
