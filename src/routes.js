@@ -51,7 +51,8 @@ import InvoiceDetails from "./pages/pages/InvoiceDetails";
 import InvoiceList from "./pages/pages/InvoiceList";
 import Orders from "./pages/pages/Orders";
 import Pricing from "./pages/pages/Pricing";
-import Settings from "./pages/pages/Settings";
+import Settings from "./pages/AdminInstructors/Instructores";
+import Lista_Instructores from "./pages/AdminInstructors/List_Instructors";
 import Projects from "./pages/pages/Projects";
 import Chat from "./pages/pages/Chat";
 
@@ -84,6 +85,7 @@ import Landing from "./pages/presentation/Landing";
 
 // Protected routes
 import ProtectedPage from "./pages/protected/ProtectedPage";
+import Instructores from "./pages/AdminInstructors/Instructores";
 
 // Dashboard components
 const Default = async(() => import("./pages/dashboards/Default"));
@@ -142,7 +144,16 @@ const routes = [
               },
               {
                 path: "instructors",
-                element: <Settings />,
+                children: [
+                  {
+                    index: true,
+                    element: <Instructores />,
+                  },
+                  {
+                    path: "list_instructors",
+                    element: <Lista_Instructores />,
+                  },
+                ],
               },
               {
                 path: "recruiters",

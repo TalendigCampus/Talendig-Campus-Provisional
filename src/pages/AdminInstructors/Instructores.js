@@ -33,6 +33,9 @@ import {
 } from "@mui/material";
 import { CloudUpload as MuiCloudUpload } from "@mui/icons-material";
 import { spacing } from "@mui/system";
+import Actions from "./Actions";
+import BarChart_Instructors from "./BarChart_Instructors";
+import LineChart_Instructors from "./LineChart_Instructors";
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
@@ -174,10 +177,7 @@ const LineChart = withTheme(({ theme }) => {
         backgroundColor: "transparent",
         borderColor: theme.palette.secondary.main,
         tension: 0.4,
-        data: [
-          2115, 1562, 1584, 1892, 1487, 2223, 2966, 2448, 2905, 3838, 2917,
-          3327,
-        ],
+        data: [13, 10, 15, 32, 24, 22, 19, 27, 32, 38, 40, 49],
       },
       {
         label: "Reseñas",
@@ -186,9 +186,7 @@ const LineChart = withTheme(({ theme }) => {
         borderColor: theme.palette.grey[500],
         borderDash: [4, 4],
         tension: 0.4,
-        data: [
-          958, 724, 629, 883, 915, 1214, 1476, 1212, 1554, 2128, 1466, 1827,
-        ],
+        data: [7, 5, 3, 6, 12, 13, 17, 12, 15, 21, 14, 18],
       },
     ],
   };
@@ -401,30 +399,44 @@ function Revenue() {
   );
 }
 
-function Settings() {
+function Instructores() {
   return (
     <React.Fragment>
       <Helmet title="Instructores" />
 
-      <Typography variant="h3" gutterBottom display="inline">
-        Instructores
-      </Typography>
+      <Grid justifyContent="space-between" container spacing={10}>
+        <Grid item>
+          <Typography variant="h3" gutterBottom display="inline">
+            Lista de Instructores
+          </Typography>
 
-      <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/">
-          Dashboard
-        </Link>
-        <Link component={NavLink} to="/">
-          Pages
-        </Link>
-        <Typography>Instructores</Typography>
-      </Breadcrumbs>
-
+          <Breadcrumbs aria-label="Breadcrumb" mt={2}>
+            <Link component={NavLink} to="/admin/dashboard/home">
+              Dashboard
+            </Link>
+            <Link component={NavLink} to="/admin/dashboard/home">
+              Usuarios
+            </Link>
+            <Typography gutterBottom display="inline">
+              Instructores
+            </Typography>
+            <Link
+              component={NavLink}
+              to="/admin/dashboard/users/instructors/list_instructors"
+            >
+              Lista
+            </Link>
+          </Breadcrumbs>
+        </Grid>
+        <Grid item>
+          <Actions />
+        </Grid>
+      </Grid>
       <Divider my={6} />
 
       <Grid container spacing={6}>
-        <Grid item xs={12} md={12}>
-          <BarChart />
+        <Grid item xs={12} lg={11.9} xl={11.99}>
+          <BarChart_Instructors />
         </Grid>
         <Grid item xs={12} lg={4}>
           <Earnings />
@@ -435,12 +447,12 @@ function Settings() {
         <Grid item xs={12} lg={4}>
           <Revenue />
         </Grid>
-        <Grid item xs={12} md={12}>
-          <LineChart />
+        <Grid item xs={12} lg={8} xl={11.99}>
+          <LineChart_Instructors />
         </Grid>
       </Grid>
     </React.Fragment>
   );
 }
 
-export default Settings;
+export default Instructores;
