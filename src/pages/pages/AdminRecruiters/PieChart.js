@@ -16,10 +16,10 @@ const ChartWrapper = styled.div`
 
 function PieChart({ theme }) {
   const data = {
-    labels: ["Excelente", "Muy bueno", "Bueno", "En observación"],
+    labels: ["React", "ASP.Net", "Python", "Angular"],
     datasets: [
       {
-        data: [260, 125, 54, 146],
+        data: [40, 20, 25, 15],
         backgroundColor: [
           theme.palette.secondary.main,
           orange[500],
@@ -43,12 +43,13 @@ function PieChart({ theme }) {
   return (
     <Card mb={1}>
       <CardContent>
-        <Typography variant="h6" gutterBottom>
-          Pie Chart
-        </Typography>
-        <Typography variant="body2" gutterBottom>
-          Pie charts are excellent at showing the relational proportions between
-          data.
+        <Typography
+          variant="h6"
+          gutterBottom
+          align="center"
+          sx={{ fontWeight: "bold" }}
+        >
+          Tecnologias mas buscadas por cazatalentos
         </Typography>
 
         <Spacer mb={6} />

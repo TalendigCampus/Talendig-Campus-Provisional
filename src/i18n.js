@@ -30,11 +30,18 @@ const resources = {
       "We've missed you": "We hebben je gemist",
     },
   },
+  es: {
+    translation: {
+      Search: "Buscador…",
+      "Welcome back": "Bienvenido de nuevo",
+      "We've missed you": "Te echamos de menos",
+    },
+  },
 };
 
 i18n.use(initReactI18next).init({
   resources,
-  lng: "en",
+  lng: "es",
   fallbackLng: "en",
   interpolation: {
     escapeValue: false,

@@ -16,11 +16,11 @@ const ChartWrapper = styled.div`
 
 function PolarChart({ theme }) {
   const data = {
-    labels: ["Speed", "Reliability", "Comfort", "Safety", "Efficiency"],
+    labels: ["MERN", "ASP.Net", "MEAN", "Python avanzado"],
     datasets: [
       {
         label: "Model S",
-        data: [35, 38, 65, 70, 24],
+        data: [35, 38, 65, 70],
         backgroundColor: [
           theme.palette.secondary.main,
           yellow[700],
@@ -38,7 +38,7 @@ function PolarChart({ theme }) {
     <Card mb={1}>
       <CardContent>
         <Typography variant="h6" gutterBottom>
-          Polar Area Chart
+          Bootcamps mas interesantes para las instituciones
         </Typography>
         <Typography variant="body2" gutterBottom>
           Polar area charts are similar to pie charts, but each segment has the

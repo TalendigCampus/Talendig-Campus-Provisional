@@ -39,6 +39,10 @@ const languageOptions = {
     icon: "/static/img/flags/nl.png",
     name: "Dutch",
   },
+  es: {
+    icon: "/static/img/flags/do.png",
+    name: "Español",
+  },
 };
 
 function NavbarLanguagesDropdown() {

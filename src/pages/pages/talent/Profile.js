@@ -3,6 +3,9 @@ import styled, { withTheme } from "styled-components/macro";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Chart from "react-chartjs-2";
+import * as Icon from "react-feather";
+import { useTranslation } from "react-i18next";
+import Actions from "./Actions";
 
 import {
   Briefcase,
@@ -36,6 +39,8 @@ import {
   Typography as MuiTypography,
 } from "@mui/material";
 import { spacing } from "@mui/system";
+
+import { orange, red } from "@mui/material/colors";
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
@@ -106,7 +111,7 @@ const TableWrapper = styled.div`
   max-width: calc(100vw - ${(props) => props.theme.spacing(12)});
 `;
 
-function Details() {
+/* function Details() {
   return (
     <Card mb={6}>
       <CardContent>
@@ -263,9 +268,9 @@ function Elsewhere() {
       </CardContent>
     </Card>
   );
-}
+} */
 
-function Earnings() {
+/* function Earnings() {
   return (
     <Box position="relative">
       <Card mb={6} pt={2}>
@@ -344,86 +349,237 @@ function Revenue() {
       </Card>
     </Box>
   );
+} */
+
+function RegisteredTalents() {
+  return (
+    <Box position="relative">
+      <Card mb={6} pt={2}>
+        <CardContent>
+          <Typography variant="h2" gutterBottom>
+            <Box fontWeight="fontWeightRegular">200</Box>
+          </Typography>
+          <Typography variant="body2" gutterBottom mt={3} mb={0}>
+            Total de talentos reistrados
+          </Typography>
+          <StatsIcon>
+            <Icon.Users />
+          </StatsIcon>
+          <LinearProgress
+            variant="determinate"
+            value={100}
+            color="secondary"
+            mt={4}
+          />
+        </CardContent>
+      </Card>
+    </Box>
+  );
 }
 
-function Products() {
+function ConnectedTalents() {
+  return (
+    <Box position="relative">
+      <Card mb={6} pt={2}>
+        <CardContent>
+          <Typography variant="h2" gutterBottom>
+            <Box fontWeight="fontWeightRegular">50</Box>
+          </Typography>
+          <Typography variant="body2" gutterBottom mt={3} mb={0}>
+            Talentos conectados
+          </Typography>
+
+          <StatsIcon>
+            <Icon.Activity />
+          </StatsIcon>
+          <LinearProgress
+            variant="determinate"
+            value={30}
+            color="secondary"
+            mt={4}
+          />
+        </CardContent>
+      </Card>
+    </Box>
+  );
+}
+
+function StatisticalPortfolios() {
+  return (
+    <Box position="relative">
+      <Card mb={6} pt={2}>
+        <CardContent>
+          <Typography variant="h2" gutterBottom>
+            <Box fontWeight="fontWeightRegular">22</Box>
+          </Typography>
+          <Typography variant="body2" gutterBottom mt={3} mb={0}>
+            Portafolios +5 proyectos
+          </Typography>
+
+          <StatsIcon>
+            <Briefcase />
+          </StatsIcon>
+          <LinearProgress
+            variant="determinate"
+            value={30}
+            color="secondary"
+            mt={4}
+          />
+        </CardContent>
+      </Card>
+    </Box>
+  );
+}
+
+function TalentAssessment() {
+  return (
+    <Box position="relative">
+      <Card mb={6} pt={2}>
+        <CardContent>
+          <Typography variant="h2" gutterBottom>
+            <Box fontWeight="fontWeightRegular">22</Box>
+          </Typography>
+          <Typography variant="body2" gutterBottom mt={3} mb={0}>
+            Talentos valoración +7
+          </Typography>
+
+          <StatsIcon>
+            <Icon.UserCheck />
+          </StatsIcon>
+          <LinearProgress
+            variant="determinate"
+            value={30}
+            color="secondary"
+            mt={4}
+          />
+        </CardContent>
+      </Card>
+    </Box>
+  );
+}
+
+function RoadmapTalents() {
+  return (
+    <Box position="relative">
+      <Card mb={6} pt={2}>
+        <CardContent>
+          <Typography variant="h2" gutterBottom>
+            <Box fontWeight="fontWeightRegular">12</Box>
+          </Typography>
+          <Typography variant="body2" gutterBottom mt={3} mb={0}>
+            Talentos roadmap 70%
+          </Typography>
+          <StatsIcon>
+            <ShoppingBag />
+          </StatsIcon>
+          <LinearProgress
+            variant="determinate"
+            value={30}
+            color="secondary"
+            mt={4}
+          />
+        </CardContent>
+      </Card>
+    </Box>
+  );
+}
+
+function GraduatedTalents() {
+  return (
+    <Box position="relative">
+      <Card mb={6} pt={2}>
+        <CardContent>
+          <Typography variant="h2" gutterBottom>
+            <Box fontWeight="fontWeightRegular">22</Box>
+          </Typography>
+          <Typography variant="body2" gutterBottom mt={3} mb={0}>
+            Talentos Egresados
+          </Typography>
+
+          <StatsIcon>
+            <Icon.UserMinus />
+          </StatsIcon>
+          <LinearProgress
+            variant="determinate"
+            value={30}
+            color="secondary"
+            mt={4}
+          />
+        </CardContent>
+      </Card>
+    </Box>
+  );
+}
+
+const GraphicBootcamps = withTheme(({ theme }) => {
+  const data = {
+    labels: ["MERN", "C#", ".NETCORE", "DATA SCIENCE", "PROGRAMACION"],
+    datasets: [
+      {
+        label: "Sales",
+        backgroundColor: theme.palette.secondary.main,
+        borderColor: theme.palette.secondary.main,
+        hoverBackgroundColor: theme.palette.secondary.main,
+        hoverBorderColor: theme.palette.secondary.main,
+        data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
+        barPercentage: 0.625,
+        categoryPercentage: 0.5,
+      },
+      {
+        label: "Revenue",
+        backgroundColor: theme.palette.grey[200],
+        borderColor: theme.palette.grey[200],
+        hoverBackgroundColor: theme.palette.grey[200],
+        hoverBorderColor: theme.palette.grey[200],
+        data: [69, 66, 24, 48, 52, 51, 44, 53, 62, 79, 51, 68],
+        barPercentage: 0.625,
+        categoryPercentage: 0.5,
+      },
+    ],
+  };
+
+  const options = {
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    scales: {
+      y: {
+        grid: {
+          display: false,
+        },
+        stacked: false,
+      },
+
+      x: {
+        stacked: false,
+        grid: {
+          color: "transparent",
+        },
+      },
+    },
+  };
   return (
     <Card mb={6}>
       <CardContent>
         <Typography variant="h6" gutterBottom>
-          Products
+          Grafico de los Bootcamps
         </Typography>
-        <TableWrapper>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Tech</TableCell>
-                <TableCell>License</TableCell>
-                <TableCell>Sales</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow>
-                <TableCell component="th" scope="row">
-                  AppStack
-                </TableCell>
-                <TableCell>
-                  <ProductsChip size="small" label="HTML" color="primary" />
-                </TableCell>
-                <TableCell>Single License</TableCell>
-                <TableCell>76</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell component="th" scope="row">
-                  Material App
-                </TableCell>
-                <TableCell>
-                  <ProductsChip size="small" label="React" color="success" />
-                </TableCell>
-                <TableCell>Single License</TableCell>
-                <TableCell>38</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell component="th" scope="row">
-                  Milo
-                </TableCell>
-                <TableCell>
-                  <ProductsChip size="small" label="HTML" color="primary" />
-                </TableCell>
-                <TableCell>Single License</TableCell>
-                <TableCell>43</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell component="th" scope="row">
-                  Robust UI Kit
-                </TableCell>
-                <TableCell>
-                  <ProductsChip size="small" label="Angular" color="error" />
-                </TableCell>
-                <TableCell>Single License</TableCell>
-                <TableCell>27</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell component="th" scope="row">
-                  Spark
-                </TableCell>
-                <TableCell>
-                  <ProductsChip size="small" label="React" color="success" />
-                </TableCell>
-                <TableCell>Single License</TableCell>
-                <TableCell>12</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableWrapper>
+
+        <Spacer mb={6} />
+
+        <ChartWrapper>
+          <Chart type="bar" data={data} options={options} />
+        </ChartWrapper>
       </CardContent>
     </Card>
   );
-}
+});
 
 const SalesRevenue = withTheme(({ theme }) => {
-  const data = {
+  /* const data = {
     labels: [
       "Jan",
       "Feb",
@@ -500,51 +656,109 @@ const SalesRevenue = withTheme(({ theme }) => {
         </ChartWrapper>
       </CardContent>
     </Card>
+  ); */
+
+  const data = {
+    labels: ["Excelente", "Muy bueno", "En observación", "Bueno"],
+    datasets: [
+      {
+        data: [260, 125, 54, 146],
+        backgroundColor: [
+          theme.palette.secondary.main,
+          orange[500],
+          red[500],
+          theme.palette.grey[300],
+        ],
+        borderColor: "transparent",
+      },
+    ],
+  };
+
+  const options = {
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+  };
+
+  return (
+    <Card mb={1}>
+      <CardContent>
+        <Typography variant="h6" gutterBottom>
+          Talentos por calificación
+        </Typography>
+        <Typography variant="body2" gutterBottom>
+          Una vista general de las calificaciones desde observacion hasta
+          excelente
+        </Typography>
+
+        <Spacer mb={6} />
+
+        <ChartWrapper>
+          <Chart type="pie" data={data} options={options} />
+        </ChartWrapper>
+      </CardContent>
+    </Card>
   );
 });
 
 function Profile() {
+  const { t } = useTranslation();
   return (
     <React.Fragment>
       <Helmet title="Profile" />
-
-      <Typography variant="h3" gutterBottom display="inline">
-        Profile
-      </Typography>
-
-      <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/">
-          Dashboard
-        </Link>
-        <Link component={NavLink} to="/">
-          Pages
-        </Link>
-        <Typography>Profile</Typography>
-      </Breadcrumbs>
-
+      <Grid justifyContent="space-between" container spacing={6}>
+        {" "}
+        <Grid item>
+          {" "}
+          <Typography variant="h3" gutterBottom>
+            Talentos{" "}
+          </Typography>{" "}
+          <Typography variant="subtitle1">
+            {/* {t("Welcome back")}, José Armando! {t("We've missed you")}.{" "}
+            <span role="img" aria-label="Waving Hand Sign">
+              👋{" "}
+            </span>{" "} */}
+            Bienvenido de nuevo Jose Armando te echamos de menos 👋
+          </Typography>{" "}
+        </Grid>{" "}
+        <Grid item>
+          <Actions />{" "}
+        </Grid>{" "}
+      </Grid>
       <Divider my={6} />
-
       <Grid container spacing={6}>
-        <Grid item xs={12} lg={4} xl={3}>
+        {/* <Grid item xs={12} lg={4} xl={3}>
           <Details />
           <Skills />
           <About />
           <Elsewhere />
-        </Grid>
-        <Grid item xs={12} lg={8} xl={9}>
+        </Grid> */}
+        <Grid item xs={12} lg={12} xl={12}>
           <SalesRevenue />
           <Grid container spacing={6}>
             <Grid item xs={12} lg={4}>
-              <Earnings />
+              <RegisteredTalents />
             </Grid>
             <Grid item xs={12} lg={4}>
-              <Orders />
+              <ConnectedTalents />
             </Grid>
             <Grid item xs={12} lg={4}>
-              <Revenue />
+              <StatisticalPortfolios />
+            </Grid>
+            <Grid item xs={12} lg={4}>
+              <TalentAssessment />
+            </Grid>
+            <Grid item xs={12} lg={4}>
+              <RoadmapTalents />
+            </Grid>
+            <Grid item xs={12} lg={4}>
+              <GraduatedTalents />
             </Grid>
           </Grid>
-          <Products />
+          <GraphicBootcamps />
         </Grid>
       </Grid>
     </React.Fragment>
