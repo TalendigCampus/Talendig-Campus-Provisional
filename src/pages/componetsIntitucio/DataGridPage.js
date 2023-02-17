@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components/macro";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import EditProfile from "./EditProfile";
 
 import {
   Avatar as MuiAvatar,
@@ -251,6 +252,12 @@ function EnhancedTable() {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const navigate = useNavigate();
+  const [idDataSelected, setIdDataSelected] = React.useState(0);
+
+  const handleChange = (pathToGo) => {
+    navigate(pathToGo, { replace: true });
+  };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -270,6 +277,8 @@ function EnhancedTable() {
   const handleClick = (event, id) => {
     const selectedIndex = selected.indexOf(id);
     let newSelected = [];
+    setIdDataSelected(id);
+    EditProfile(id);
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, id);
@@ -364,7 +373,13 @@ function EnhancedTable() {
                           <Edit />
                         </IconButton>
                         <IconButton aria-label="info" size="large" color="info">
-                          <Info />
+                          <Info
+                            onClick={() =>
+                              handleChange(
+                                "/admin/dashboard/users/institutions/profile"
+                              )
+                            }
+                          />
                         </IconButton>
                         <IconButton
                           aria-label="delete"

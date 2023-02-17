@@ -57,6 +57,7 @@ import Settings from "./pages/pages/Settings";
 import Projects from "./pages/pages/Projects";
 import Chat from "./pages/componetsIntitucio/Chat";
 import DataGridPage from "./pages/componetsIntitucio/DataGridPage";
+import EditProfile from "./pages/componetsIntitucio/EditProfile";
 
 // Table components
 import SimpleTable from "./pages/tables/SimpleTable";
@@ -179,6 +180,10 @@ const routes = [
                   {
                     path: "list",
                     element: <DataGridPage />,
+                  },
+                  {
+                    path: "profile",
+                    element: <EditProfile />,
                   },
                 ],
               },
