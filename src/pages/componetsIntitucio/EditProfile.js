@@ -3,6 +3,7 @@ import styled from "styled-components/macro";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Rows from "./InfoDataInstitution";
+import { IdDataTable } from "./componets/IdDataTableLIst";
 
 import {
   Avatar,
@@ -19,8 +20,6 @@ import {
 } from "@mui/material";
 import { CloudUpload as MuiCloudUpload } from "@mui/icons-material";
 import { spacing } from "@mui/system";
-
-console.log(Rows);
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
@@ -41,163 +40,117 @@ const CenteredContent = styled.div`
 `;
 
 const BigAvatar = styled(Avatar)`
-  width: 120px;
-  height: 120px;
+  width: 300px;
+  height: 300px;
   margin: 0 auto ${(props) => props.theme.spacing(2)};
 `;
 
-function Public() {
+function Public({ dataRows }) {
+  console.log(dataRows);
   return (
     <Card mb={6}>
       <CardContent>
         <Typography variant="h6" gutterBottom>
           Public info
         </Typography>
-
-        <Grid container spacing={6}>
-          <Grid item md={8}>
-            <TextField
-              id="username"
-              label="Username"
-              defaultValue="lucylavender"
-              variant="outlined"
-              fullWidth
-              my={2}
-            />
-
-            <FormControl fullWidth my={2} variant="outlined">
-              <TextField
-                label="Biography"
-                id="biography"
-                multiline={true}
-                rows={3}
-                maxRows={4}
-                variant="outlined"
-                defaultValue="Lucy is a Freelance Writer and Social Media Manager who helps finance professionals and Fin-tech startups build an audience and get more paying clients online."
-              />
-            </FormControl>
-          </Grid>
-          <Grid item md={4}>
-            <CenteredContent>
-              <BigAvatar
-                alt="Remy Sharp"
-                src="/static/img/avatars/avatar-1.jpg"
-              />
-              <input
-                accept="image/*"
-                style={{ display: "none" }}
-                id="raised-button-file"
-                multiple
-                type="file"
-              />
-              <label htmlFor="raised-button-file">
-                <Button variant="contained" color="primary" component="span">
-                  <CloudUpload mr={2} /> Upload
-                </Button>
-
-                <Typography variant="caption" display="block" gutterBottom>
-                  For best results, use an image at least 128px by 128px in .jpg
-                  format
-                </Typography>
-              </label>
-            </CenteredContent>
-          </Grid>
-        </Grid>
-
-        <Button variant="contained" color="primary">
-          Guardar cambios
-        </Button>
+        <CenteredContent>
+          <BigAvatar alt="Remy Sharp" src={dataRows.institutionAvatar} />
+          <input
+            accept="image/*"
+            style={{ display: "none" }}
+            id="raised-button-file"
+            multiple
+            type="file"
+          />
+          <label htmlFor="raised-button-file">
+            <Button variant="contained" color="primary" component="span">
+              <CloudUpload mr={2} /> Subir Foto
+            </Button>
+            <Typography variant="caption" display="block" gutterBottom>
+              {dataRows.lastConection}
+            </Typography>
+            <Typography variant="caption" display="block" gutterBottom>
+              {dataRows.dateCreateAccount}
+            </Typography>
+          </label>
+        </CenteredContent>
       </CardContent>
     </Card>
   );
 }
 
-function Private() {
+function Private({ dataRows }) {
   return (
     <Card mb={6}>
       <CardContent>
         <Typography variant="h6" gutterBottom>
           Private info
         </Typography>
-
-        <Grid container spacing={6}>
-          <Grid item md={6}>
-            <TextField
-              id="first-name"
-              label="First name"
-              variant="outlined"
-              defaultValue="Lucy"
-              fullWidth
-              my={2}
-            />
-          </Grid>
-          <Grid item md={6}>
-            <TextField
-              id="last-name"
-              label="Last name"
-              variant="outlined"
-              defaultValue="Lavender"
-              fullWidth
-              my={2}
-            />
-          </Grid>
-        </Grid>
+        <TextField
+          id="name"
+          label="Name"
+          defaultValue={dataRows.institution}
+          variant="outlined"
+          fullWidth
+          my={2}
+        />
 
         <TextField
-          id="email"
-          label="Email"
+          id="date"
+          label="Fecha"
+          defaultValue={dataRows.date}
           variant="outlined"
-          type="email"
-          defaultValue="lucylavender@gmail.com"
           fullWidth
           my={2}
         />
 
         <TextField
           id="address"
-          label="Address"
+          label="Direccion"
+          defaultValue={dataRows.address}
           variant="outlined"
           fullWidth
           my={2}
         />
 
         <TextField
-          id="address2"
-          label="Apartment, studio, or floor"
+          id="phoneNumber"
+          label="Telefono"
+          defaultValue={dataRows.phoneNumber}
           variant="outlined"
           fullWidth
           my={2}
         />
 
-        <Grid container spacing={6}>
-          <Grid item md={6}>
-            <TextField
-              id="city"
-              label="City"
-              variant="outlined"
-              fullWidth
-              my={2}
-            />
-          </Grid>
-          <Grid item md={4}>
-            <TextField
-              id="state"
-              label="State"
-              variant="outlined"
-              fullWidth
-              my={2}
-            />
-          </Grid>
-          <Grid item md={2}>
-            <TextField
-              id="zip"
-              label="Zip"
-              variant="outlined"
-              fullWidth
-              my={2}
-            />
-          </Grid>
-        </Grid>
+        <TextField
+          id="institutionEmail"
+          label="Correo"
+          variant="outlined"
+          type="email"
+          defaultValue={dataRows.institutionEmail}
+          fullWidth
+          my={2}
+        />
+
+        <TextField
+          id="newPassword"
+          label="Ingrese Clave Nueva"
+          type="password"
+          defaultValue={dataRows.newPassword}
+          variant="outlined"
+          fullWidth
+          my={2}
+        />
+
+        <TextField
+          id="confirmPassword"
+          label="Repita Clave Nueva"
+          type="password"
+          defaultValue={dataRows.confirmPassword}
+          variant="outlined"
+          fullWidth
+          my={2}
+        />
 
         <Button variant="contained" color="primary" mt={3}>
           Guardar cambios
@@ -208,6 +161,9 @@ function Private() {
 }
 
 function EditProfile() {
+  const IdTable = IdDataTable.id;
+  const dataRows = Rows[IdTable];
+
   return (
     <React.Fragment>
       <Helmet title="Settings" />
@@ -229,9 +185,11 @@ function EditProfile() {
       <Divider my={6} />
 
       <Grid container spacing={6}>
-        <Grid item xs={12}>
-          <Public />
-          <Private />
+        <Grid item xs={4}>
+          <Public dataRows={dataRows} />
+        </Grid>
+        <Grid item xs={8}>
+          <Private dataRows={dataRows} />
         </Grid>
       </Grid>
     </React.Fragment>

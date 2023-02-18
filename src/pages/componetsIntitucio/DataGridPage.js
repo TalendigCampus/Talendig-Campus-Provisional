@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/macro";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import EditProfile from "./EditProfile";
+import { IdDataTable } from "./componets/IdDataTableLIst";
 
 import {
   Avatar as MuiAvatar,
@@ -35,6 +35,7 @@ import {
   FilterList as FilterListIcon,
   RemoveRedEye as RemoveRedEyeIcon,
   Edit,
+  Close,
   RemoveCircle,
   Info,
 } from "@mui/icons-material";
@@ -246,6 +247,23 @@ const EnhancedTableToolbar = (props) => {
   );
 };
 
+// const infoComponetControl = (e,value) => {
+
+// }
+
+// function infoContent() {
+//   const CenteredContent = styled.div`
+//     text-align: center;
+//   `;
+//   return (
+//     <CenteredContent>
+//       <IconButton aria-label="edit" size="large" color="primary">
+//         <Close />
+//       </IconButton>
+//     </CenteredContent>
+//   );
+// }
+
 function EnhancedTable() {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("institution");
@@ -253,9 +271,26 @@ function EnhancedTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const navigate = useNavigate();
-  const [idDataSelected, setIdDataSelected] = React.useState(0);
 
-  const handleChange = (pathToGo) => {
+  const handleChange = (pathToGo, id) => {
+    const selectedIndex = selected.indexOf(id);
+    let newSelected = [];
+
+    if (selectedIndex === -1) {
+      newSelected = newSelected.concat(selected, id);
+      IdDataTable.id = newSelected[0] - 1;
+      console.log(IdDataTable.id);
+    } else if (selectedIndex === 0) {
+      newSelected = newSelected.concat(selected.slice(1));
+    } else if (selectedIndex === selected.length - 1) {
+      newSelected = newSelected.concat(selected.slice(0, -1));
+    } else if (selectedIndex > 0) {
+      newSelected = newSelected.concat(
+        selected.slice(0, selectedIndex),
+        selected.slice(selectedIndex + 1)
+      );
+    }
+    setSelected(newSelected);
     navigate(pathToGo, { replace: true });
   };
 
@@ -277,8 +312,6 @@ function EnhancedTable() {
   const handleClick = (event, id) => {
     const selectedIndex = selected.indexOf(id);
     let newSelected = [];
-    setIdDataSelected(id);
-    EditProfile(id);
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, id);
@@ -334,7 +367,6 @@ function EnhancedTable() {
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
-
                   return (
                     <TableRow
                       hover
@@ -370,16 +402,17 @@ function EnhancedTable() {
                           size="large"
                           color="primary"
                         >
-                          <Edit />
-                        </IconButton>
-                        <IconButton aria-label="info" size="large" color="info">
-                          <Info
-                            onClick={() =>
+                          <Edit
+                            onClick={(event) =>
                               handleChange(
-                                "/admin/dashboard/users/institutions/profile"
+                                "/admin/dashboard/users/institutions/profile",
+                                row.id
                               )
                             }
                           />
+                        </IconButton>
+                        <IconButton aria-label="info" size="large" color="info">
+                          <Info />
                         </IconButton>
                         <IconButton
                           aria-label="delete"
@@ -414,7 +447,7 @@ function EnhancedTable() {
   );
 }
 
-function InvoiceList() {
+function DataGridPage() {
   return (
     <React.Fragment>
       <Helmet title="Invoices" />
@@ -450,4 +483,4 @@ function InvoiceList() {
   );
 }
 
-export default InvoiceList;
+export default DataGridPage;
