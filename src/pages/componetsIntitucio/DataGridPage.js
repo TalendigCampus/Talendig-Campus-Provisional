@@ -9,6 +9,8 @@ import {
   Box,
   Breadcrumbs as MuiBreadcrumbs,
   Button,
+  Card,
+  CardContent,
   Checkbox,
   Chip as MuiChip,
   Divider as MuiDivider,
@@ -24,6 +26,7 @@ import {
   TablePagination,
   TableRow,
   TableSortLabel,
+  TextField,
   Toolbar,
   Tooltip,
   Typography,
@@ -39,7 +42,7 @@ import {
   RemoveCircle,
   Info,
 } from "@mui/icons-material";
-import { spacing } from "@mui/system";
+import { spacing, style } from "@mui/system";
 import Actions from "./FilterIntitution";
 
 const Divider = styled(MuiDivider)(spacing);
@@ -48,14 +51,36 @@ const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
 const Paper = styled(MuiPaper)(spacing);
 
-const Chip = styled(MuiChip)`
-  ${spacing};
-
-  background: ${(props) => props.paid && green[500]};
-  background: ${(props) => props.sent && orange[700]};
-  color: ${(props) =>
-    (props.paid || props.sent) && props.theme.palette.common.white};
+const CenteredContentInfo = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -150px;
+  height: 70vh;
+  width: 75%;
 `;
+const ContentDataInfo = styled.div`
+  position: fixed;
+  display: flex;
+  z-index: 1;
+  width: 45%;
+  box-shadow: 0 0 6px rgb(238, 73, 51);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+`;
+
+const CenteredContent = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+`;
+
+const TitleContentInfo = styled.h2``;
+
+const DivEmpty = styled.div``;
 
 const Spacer = styled.div`
   flex: 1 1 100%;
@@ -247,22 +272,57 @@ const EnhancedTableToolbar = (props) => {
   );
 };
 
-// const infoComponetControl = (e,value) => {
-
-// }
-
-// function infoContent() {
-//   const CenteredContent = styled.div`
-//     text-align: center;
-//   `;
-//   return (
-//     <CenteredContent>
-//       <IconButton aria-label="edit" size="large" color="primary">
-//         <Close />
-//       </IconButton>
-//     </CenteredContent>
-//   );
-// }
+const InfoComponetControl = () => {
+  return (
+    <Grid item xs={12}>
+      <Card mb={6}>
+        <CardContent>
+          <TextField
+            id="name"
+            label="Name"
+            defaultValue={rows.institution}
+            variant="outlined"
+            fullWidth
+            my={2}
+          />
+          <TextField
+            id="date"
+            label="Fecha"
+            defaultValue={rows.date}
+            variant="outlined"
+            fullWidth
+            my={2}
+          />
+          <TextField
+            id="address"
+            label="Direccion"
+            defaultValue={rows.address}
+            variant="outlined"
+            fullWidth
+            my={2}
+          />
+          <TextField
+            id="phoneNumber"
+            label="Telefono"
+            defaultValue={rows.phoneNumber}
+            variant="outlined"
+            fullWidth
+            my={2}
+          />
+          <TextField
+            id="institutionEmail"
+            label="Correo"
+            variant="outlined"
+            type="email"
+            defaultValue={rows.institutionEmail}
+            fullWidth
+            my={2}
+          />
+        </CardContent>
+      </Card>
+    </Grid>
+  );
+};
 
 function EnhancedTable() {
   const [order, setOrder] = React.useState("asc");
@@ -270,6 +330,7 @@ function EnhancedTable() {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [clickOn, setClickOn] = React.useState(false);
   const navigate = useNavigate();
 
   const handleChange = (pathToGo, id) => {
@@ -298,6 +359,10 @@ function EnhancedTable() {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
+  };
+
+  const handleClickInfo = (e, boolean) => {
+    setClickOn(boolean);
   };
 
   const handleSelectAllClick = (event) => {
@@ -347,6 +412,30 @@ function EnhancedTable() {
     <div>
       <Paper>
         <EnhancedTableToolbar numSelected={selected.length} />
+
+        {clickOn === true && (
+          <CenteredContentInfo>
+            <ContentDataInfo>
+              <CenteredContent>
+                <ToolbarTitle>
+                  <TitleContentInfo>Usuarios</TitleContentInfo>
+                </ToolbarTitle>
+                <IconButton aria-label="edit" size="large" color="primary">
+                  <Close onClick={(event) => handleClickInfo(event, false)} />
+                </IconButton>
+              </CenteredContent>
+              <InfoComponetControl />
+              <Button
+                onClick={(event) => handleClickInfo(event, false)}
+                variant="contained"
+                color="primary"
+                mt={3}
+              >
+                Guardar cambios
+              </Button>
+            </ContentDataInfo>
+          </CenteredContentInfo>
+        )}
         <TableContainer>
           <Table
             aria-labelledby="tableTitle"
@@ -412,7 +501,9 @@ function EnhancedTable() {
                           />
                         </IconButton>
                         <IconButton aria-label="info" size="large" color="info">
-                          <Info />
+                          <Info
+                            onClick={(event) => handleClickInfo(event, true)}
+                          />
                         </IconButton>
                         <IconButton
                           aria-label="delete"
