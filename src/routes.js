@@ -56,8 +56,6 @@ import RecruitersList from "./pages/pages/AdminRecruiters/RecruitersList";
 import Settings from "./pages/pages/Settings";
 import Lista_Instructores from "./pages/AdminInstructors/List_Instructors";
 
-
-
 import Projects from "./pages/pages/Projects";
 import Chat from "./pages/componetsIntitucio/Chat";
 import DataGridPage from "./pages/componetsIntitucio/DataGridPage";

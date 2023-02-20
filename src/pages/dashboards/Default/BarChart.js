@@ -2,7 +2,6 @@ import React from "react";
 import styled, { withTheme } from "styled-components/macro";
 import Chart from "react-chartjs-2";
 import { MoreVertical } from "react-feather";
-import { rgba } from "polished";
 
 import {
   Card as MuiCard,
@@ -21,44 +20,19 @@ const ChartWrapper = styled.div`
 
 const BarChart = ({ theme }) => {
   const firstDatasetColor = theme.palette.secondary.main;
-  const secondDatasetColor = rgba(theme.palette.secondary.main, 0.33);
 
   const data = {
-    labels: [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ],
+    labels: ["Talentos", "Instructores", "Cazatalentos", "Instituciones"],
     datasets: [
       {
-        label: "Mobile",
+        label: "Usuarios conectados",
         backgroundColor: firstDatasetColor,
         borderColor: firstDatasetColor,
         hoverBackgroundColor: firstDatasetColor,
         hoverBorderColor: firstDatasetColor,
-        data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
-        barPercentage: 0.5,
-        categoryPercentage: 0.5,
-      },
-      {
-        label: "Desktop",
-        backgroundColor: secondDatasetColor,
-        borderColor: secondDatasetColor,
-        hoverBackgroundColor: secondDatasetColor,
-        hoverBorderColor: secondDatasetColor,
-        data: [69, 66, 24, 48, 52, 51, 44, 53, 62, 79, 51, 68],
-        barPercentage: 0.5,
-        categoryPercentage: 0.5,
-        borderRadius: 6,
+        data: [85, 10, 2, 5],
+        barPercentage: 0.8,
+        categoryPercentage: 0.8,
       },
     ],
   };
@@ -102,7 +76,7 @@ const BarChart = ({ theme }) => {
             <MoreVertical />
           </IconButton>
         }
-        title="Mobile / Desktop"
+        title="Usuarios conectados"
       />
 
       <CardContent>
