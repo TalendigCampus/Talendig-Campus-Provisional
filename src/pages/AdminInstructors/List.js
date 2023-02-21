@@ -1,20 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components/macro";
-import { NavLink } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
-import { useNavigate } from "react-router-dom";
 
 import {
   Avatar as MuiAvatar,
   Box,
-  Breadcrumbs as MuiBreadcrumbs,
-  Button,
   Checkbox,
-  Chip as MuiChip,
-  Divider as MuiDivider,
-  Grid,
   IconButton,
-  Link,
   Paper as MuiPaper,
   Table,
   TableBody,
@@ -28,36 +19,16 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { green, orange } from "@mui/material/colors";
 import {
-  Add as AddIcon,
   Archive as ArchiveIcon,
   FilterList as FilterListIcon,
-  RemoveRedEye as RemoveRedEyeIcon,
   Edit,
   RemoveCircle,
   Info,
 } from "@mui/icons-material";
 import { spacing } from "@mui/system";
-import Actions from "./Actions";
-import RecruitersInfo from "./RecruiterInfo.json";
-import RecruiterDialog from "./RecruiterDialog";
-import UndoAction from "./UndoAction";
-
-const Divider = styled(MuiDivider)(spacing);
-
-const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
 const Paper = styled(MuiPaper)(spacing);
-
-const Chip = styled(MuiChip)`
-  ${spacing};
-
-  background: ${(props) => props.paid && green[500]};
-  background: ${(props) => props.sent && orange[700]};
-  color: ${(props) =>
-    (props.paid || props.sent) && props.theme.palette.common.white};
-`;
 
 const Spacer = styled.div`
   flex: 1 1 100%;
@@ -76,72 +47,72 @@ const Customer = styled.div`
   align-items: center;
 `;
 
-// function createData(
-//   recruiter,
-//   recruiterEmail,
-//   recruiterAvatar,
-//   idCard,
-//   company,
-//   birth,
-//   tecnology,
-//   id
-// ) {
-//   return {
-//     recruiter,
-//     recruiterEmail,
-//     idCard,
-//     recruiterAvatar,
-//     company,
-//     birth,
-//     tecnology,
-//     id,
-//   };
-// }
+function createData(
+  instructors,
+  instructorsEmail,
+  instructorsAvatar,
+  idCard,
+  profile,
+  birth,
+  bootcamp,
+  tecnology,
+  id
+) {
+  return {
+    instructors,
+    instructorsEmail,
+    instructorsAvatar,
+    idCard,
+    profile,
+    birth,
+    bootcamp,
+    tecnology,
+    id,
+  };
+}
 
-//const rows = RecruitersInfo;
-
-// const rows = [
-//   createData(
-//     "Alexander Santos",
-//     "alex@gmail.com",
-//     "A",
-//     "012-09879879-0",
-//     "Banco Popular",
-//     "1980-05-22",
-//     "Angular, Javascript, React",
-//     "1"
-//   ),
-//   createData(
-//     "Ramon Hernandez",
-//     "ramon@gmail.com	",
-//     "R",
-//     "008-9878768-3",
-//     "Banco Reservas",
-//     "1920-04-10",
-//     "Ruby, MERN, Nodejs",
-//     "2"
-//   ),
-//   createData(
-//     "Juana Jimenez",
-//     "juana@gmail.com",
-//     "J",
-//     "002-1591642-0",
-//     "Altice",
-//     "1986-02-10",
-//     "C#, SQL Server, .Net",
-//     "3"
-//   ),
-//   createData(
-//     "Yacaira Rodriguez",
-//     "yacaira@gmail.com",
-//     "Y",
-//     "012-9089798-0",
-//     "Claro",
-//     "1995-12-10",
-//     "React, Javascript",
-//     "4"
-//   ),
-// ];
+const rows = [
+  createData(
+    "Luis Soto",
+    "soto@gmail.com",
+    "L",
+    "109-3013214-3",
+    "Instructor",
+    "1990-01-23",
+    "MERN",
+    "React, Express, Javascript"
+  ),
+  createData(
+    "Miguel Ramirez",
+    "miguel@gmail.com",
+    "M",
+    "111-2152993-0",
+    "Instructor",
+    "1992-08-10",
+    "MEAN",
+    "Angular, Nodejs, Javascript"
+  ),
+  createData(
+    "Juan Santana",
+    "juan@gmail.com",
+    "J",
+    "302-084544-0",
+    "Instructor",
+    "1985-09-04",
+    "ASP.NET",
+    "C#, Java, Python"
+  ),
+  createData(
+    "Ana Sanchez",
+    "ana@gmail.com",
+    "A",
+    "302-605315-8 ",
+    "Instructor",
+    "1980-10-12",
+    "MERN",
+    "Nodejs, React, Javascript"
+  ),
+];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -173,12 +144,13 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: "firstName", alignment: "left", label: "Reclutador" },
-  { id: "identificationCard", alignment: "left", label: "Cedula" },
-  { id: "company", alignment: "right", label: "Empresa" },
-  { id: "birth", alignment: "right", label: "Fecha de Nacimiento" },
-  { id: "technology", alignment: "left", label: "Tecnologias Buscadas" },
-  { id: "actions", alignment: "right", label: "Acción" },
+  { id: "instructors", alignment: "left", label: "Nombre" },
+  { id: "idCard", alignment: "left", label: "Cedula" },
+  { id: "profile", alignment: "left", label: "Perfil" },
+  { id: "birth", alignment: "left", label: "Fecha de Nacimiento" },
+  { id: "bootcamp", alignment: "left", label: "Bootcamp" },
+  { id: "tecnology", alignment: "left", label: "Tecnologías" },
+  { id: "actions", alignment: "center", label: "Acción" },
 ];
 
 const EnhancedTableHead = (props) => {
@@ -258,14 +230,12 @@ const EnhancedTableToolbar = (props) => {
   );
 };
 
-function EnhancedTable({ setDeleteRecruiterModal, rows }) {
+function EnhancedTable() {
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("recruiter");
+  const [orderBy, setOrderBy] = React.useState("customer");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-  const navigate = useNavigate();
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -316,17 +286,6 @@ function EnhancedTable({ setDeleteRecruiterModal, rows }) {
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
-  const handleShowInfo = (pathToGo) => {
-    navigate(pathToGo);
-  };
-
-  const handleDelete = (recruiterId) => {
-    setDeleteRecruiterModal({
-      showModal: true,
-      recruiterId: recruiterId,
-    });
-  };
-
   return (
     <div>
       <Paper>
@@ -370,36 +329,34 @@ function EnhancedTable({ setDeleteRecruiterModal, rows }) {
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row">
                         <Customer>
-                          <Avatar>{row.avatar}</Avatar>
+                          <Avatar>{row.instructorsAvatar}</Avatar>
                           <Box ml={3}>
-                            {`${row.firstName} ${row.lastName}`}
+                            {row.instructors}
                             <br />
-                            {row.email}
+                            {row.instructorsEmail}
                           </Box>
                         </Customer>
                       </TableCell>
-                      <TableCell>{row.identificationCard}</TableCell>
-                      <TableCell align="right">{row.company}</TableCell>
-                      <TableCell align="right">{row.birth}</TableCell>
-                      <TableCell>{row.technology}</TableCell>
-                      <TableCell align="right">
+                      <TableCell>{row.idCard}</TableCell>
+                      <TableCell align="left">{row.profile}</TableCell>
+                      <TableCell align="left">{row.birth}</TableCell>
+                      <TableCell>{row.bootcamp}</TableCell>
+                      <TableCell align="left">{row.tecnology}</TableCell>
+                      <TableCell align="center">
                         <IconButton
-                          aria-label="info"
+                          aria-label="edit"
                           size="large"
-                          color="info"
-                          onClick={() =>
-                            handleShowInfo(
-                              `/admin/dashboard/users/recruiters/recruiters-profile/${row.id}`
-                            )
-                          }
+                          color="primary"
                         >
+                          <Edit />
+                        </IconButton>
+                        <IconButton aria-label="info" size="large" color="info">
                           <Info />
                         </IconButton>
                         <IconButton
                           aria-label="delete"
                           size="large"
                           color="error"
-                          onClick={() => handleDelete(row.id)}
                         >
                           <RemoveCircle />
                         </IconButton>
@@ -429,68 +386,4 @@ function EnhancedTable({ setDeleteRecruiterModal, rows }) {
   );
 }
 
-function InvoiceList() {
-  const [deleteRecruiterModal, setDeleteRecruiterModal] = React.useState({
-    showModal: false,
-    recruiterId: null,
-  });
-  const [rows, setRows] = useState(RecruitersInfo);
-
-  const [showUndoDelete, setShowUndoDelete] = React.useState({
-    showUndo: false,
-    recruiter: null,
-  });
-  return (
-    <React.Fragment>
-      <Helmet title="Invoices" />
-
-      <Grid justifyContent="space-between" container spacing={10}>
-        <Grid item>
-          <Typography variant="h3" gutterBottom display="inline">
-            Lista de Reclutadores
-          </Typography>
-
-          <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/admin/dashboard/home">
-              Dashboard
-            </Link>
-            <Typography>Usuarios</Typography>
-            <Typography>Reclutadores</Typography>
-            <Typography>Lista </Typography>
-          </Breadcrumbs>
-        </Grid>
-        <Grid item>
-          <Actions />
-        </Grid>
-      </Grid>
-
-      <Divider my={6} />
-
-      <Grid container spacing={6}>
-        <Grid item xs={12}>
-          <EnhancedTable
-            setDeleteRecruiterModal={setDeleteRecruiterModal}
-            rows={rows}
-          />
-          {deleteRecruiterModal.showModal && (
-            <RecruiterDialog
-              deleteRecruiterModal={deleteRecruiterModal}
-              setDeleteRecruiterModal={setDeleteRecruiterModal}
-              setUsers={setRows}
-              recruiters={rows}
-              setShowUndoDelete={setShowUndoDelete}
-            />
-          )}
-
-          <UndoAction
-            showUndoDelete={showUndoDelete}
-            setShowUndoDelete={setShowUndoDelete}
-            setUsers={setRows}
-          />
-        </Grid>
-      </Grid>
-    </React.Fragment>
-  );
-}
-
-export default InvoiceList;
+export default EnhancedTable;

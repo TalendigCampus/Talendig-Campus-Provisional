@@ -6,7 +6,6 @@ import {
   Box,
   Card as MuiCard,
   CardContent as MuiCardContent,
-  Chip as MuiChip,
   Typography as MuiTypography,
 } from "@mui/material";
 import { spacing } from "@mui/system";
@@ -34,89 +33,33 @@ const CardContent = styled(MuiCardContent)`
   }
 `;
 
-const Chip = styled(MuiChip)`
+const StatsIcon = styled.div`
   position: absolute;
-  top: 16px;
   right: 16px;
-  height: 20px;
-  padding: 4px 0;
-  font-size: 85%;
-  background-color: ${(props) => props.theme.palette.secondary.main};
-  color: ${(props) => props.theme.palette.common.white};
-  margin-bottom: ${(props) => props.theme.spacing(4)};
+  top: 32px;
 
-  span {
-    padding-left: ${(props) => props.theme.spacing(2)};
-    padding-right: ${(props) => props.theme.spacing(2)};
+  svg {
+    width: 32px;
+    height: 32px;
+    color: ${(props) => props.theme.palette.secondary.main};
   }
 `;
 
-const Percentage = styled(MuiTypography)`
-  span {
-    color: ${(props) => props.percentagecolor};
-    font-weight: ${(props) => props.theme.typography.fontWeightBold};
-    background: ${(props) => rgba(props.percentagecolor, 0.1)};
-    padding: 2px;
-    border-radius: 3px;
-    margin-right: ${(props) => props.theme.spacing(2)};
-  }
-
-  ${(props) =>
-    props.illustration &&
-    props.theme.palette.mode !== "dark" &&
-    css`
-      color: ${(props) => rgba(props.theme.palette.primary.main, 0.85)};
-    `}
-`;
-
-const IllustrationImage = styled.img`
-  height: 100px;
-  position: absolute;
-  right: ${(props) => props.theme.spacing(1)};
-  bottom: ${(props) => props.theme.spacing(1)};
-  display: none;
-
-  ${(props) => props.theme.breakpoints.between("xs", "lg")} {
-    display: block;
-  }
-
-  @media (min-width: 1600px) {
-    display: block;
-  }
-`;
-
-const Stats = ({
-  title,
-  amount,
-  chip,
-  percentagetext,
-  percentagecolor,
-  illustration,
-}) => {
+const Stats = ({ title, stat, icon }) => {
   return (
-    <Card illustration={illustration}>
-      <CardContent>
-        <Typography variant="h6" mb={4}>
-          {title}
-        </Typography>
-        <Typography variant="h3" mb={3}>
-          <Box fontWeight="fontWeightRegular">{amount}</Box>
-        </Typography>
-        <Percentage
-          variant="subtitle2"
-          color="textSecondary"
-          percentagecolor={percentagecolor}
-          illustration={illustration}
-        >
-          <span>{percentagetext}</span> Since last month
-        </Percentage>
-        {!illustration && <Chip label={chip} />}
-      </CardContent>
-
-      {!!illustration && (
-        <IllustrationImage src={illustration} alt="Illustration" />
-      )}
-    </Card>
+    <Box position="relative">
+      <Card mb={6} pt={2}>
+        <CardContent>
+          <Typography variant="h2" gutterBottom>
+            <Box fontWeight="fontWeightRegular">{stat}</Box>
+          </Typography>
+          <Typography variant="body2" gutterBottom mt={3} mb={0}>
+            {title}
+          </Typography>
+          <StatsIcon>{icon}</StatsIcon>
+        </CardContent>
+      </Card>
+    </Box>
   );
 };
 

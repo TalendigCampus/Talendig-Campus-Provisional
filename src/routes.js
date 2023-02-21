@@ -53,7 +53,10 @@ import TalentList from "./pages/pages/talent/TalentList";
 import Orders from "./pages/pages/Orders";
 import Recruiters from "./pages/pages/AdminRecruiters/Recruiters";
 import RecruitersList from "./pages/pages/AdminRecruiters/RecruitersList";
+import RecruitersProfile from "./pages/pages/AdminRecruiters/RecruitersProfile";
 import Settings from "./pages/pages/Settings";
+import Lista_Instructores from "./pages/AdminInstructors/List_Instructors";
+
 import Projects from "./pages/pages/Projects";
 import Chat from "./pages/componetsIntitucio/Chat";
 import DataGridPage from "./pages/componetsIntitucio/DataGridPage";
@@ -89,6 +92,7 @@ import Landing from "./pages/presentation/Landing";
 
 // Protected routes
 import ProtectedPage from "./pages/protected/ProtectedPage";
+import Instructores from "./pages/AdminInstructors/Instructores";
 
 // Dashboard components
 const Default = async(() => import("./pages/dashboards/Default"));
@@ -156,7 +160,16 @@ const routes = [
               },
               {
                 path: "instructors",
-                element: <Settings />,
+                children: [
+                  {
+                    index: true,
+                    element: <Instructores />,
+                  },
+                  {
+                    path: "list_instructors",
+                    element: <Lista_Instructores />,
+                  },
+                ],
               },
               {
                 path: "recruiters",
@@ -168,6 +181,10 @@ const routes = [
                   {
                     path: "list",
                     element: <RecruitersList />,
+                  },
+                  {
+                    path: "recruiters-profile/:id",
+                    element: <RecruitersProfile />,
                   },
                 ],
               },

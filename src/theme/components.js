@@ -4,6 +4,24 @@ const components = {
       disableRipple: true,
     },
   },
+  MuiInputLabel: {
+    defaultProps: {
+      sx: {
+        fontSize: 15,
+        fontWeight: "bold",
+      },
+    },
+  },
+  MuiOutlinedInput: {
+    defaultProps: {
+      sx: {
+        fontSize: 15,
+        "& .MuiInputBase-input.Mui-disabled": {
+          WebkitTextFillColor: "#979797",
+        },
+      },
+    },
+  },
   MuiLink: {
     defaultProps: {
       underline: "hover",
