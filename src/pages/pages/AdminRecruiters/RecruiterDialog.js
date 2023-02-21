@@ -32,8 +32,19 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Add as AddIcon, Person as PersonIcon } from "@mui/icons-material";
+import {
+  Add as AddIcon,
+  Person as PersonIcon,
+  TramRounded,
+} from "@mui/icons-material";
 import { spacing } from "@mui/system";
+
+import { useSelector, useDispatch } from "react-redux";
+import {
+  deleteRecruiter,
+  recruiterToBeRemoved,
+  setShowUndo,
+} from "../../../redux/slices/recruiterSlice";
 
 const Card = styled(MuiCard)(spacing);
 
@@ -43,40 +54,23 @@ const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
 const Paper = styled(MuiPaper)(spacing);
 
-function AlertDialog({
-  deleteRecruiterModal,
-  setDeleteRecruiterModal,
-  setUsers,
-  recruiters,
-  setShowUndoDelete,
-}) {
+function AlertDialog({ deleteRecruiterModal, setDeleteRecruiterModal }) {
+  const recruiterToDelete = useSelector(recruiterToBeRemoved);
+  const dispatch = useDispatch();
+
   const handleClose = () => {
-    setDeleteRecruiterModal({
-      showModal: false,
-      recruiterId: null,
-    });
+    setDeleteRecruiterModal(false);
   };
 
   const handleDelete = () => {
-    setShowUndoDelete({
-      showUndo: true,
-      recruiter: recruiters.find(
-        (recruiter) => recruiter.id === deleteRecruiterModal.recruiterId
-      ),
-    });
-
-    setUsers((currentState) =>
-      currentState.filter(
-        (recruiter) => recruiter.id !== deleteRecruiterModal.recruiterId
-      )
-    );
-
+    dispatch(deleteRecruiter({ recruiterId: recruiterToDelete.id }));
     handleClose();
+    dispatch(setShowUndo({ status: true }));
   };
 
   return (
     <Dialog
-      open={deleteRecruiterModal.showModal}
+      open={deleteRecruiterModal}
       onClose={handleClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
@@ -101,13 +95,7 @@ function AlertDialog({
   );
 }
 
-function Dialogs({
-  deleteRecruiterModal,
-  setDeleteRecruiterModal,
-  setUsers,
-  recruiters,
-  setShowUndoDelete,
-}) {
+function Dialogs({ deleteRecruiterModal, setDeleteRecruiterModal }) {
   return (
     <React.Fragment>
       <Helmet title="Dialogs" />
@@ -116,9 +104,6 @@ function Dialogs({
           <AlertDialog
             deleteRecruiterModal={deleteRecruiterModal}
             setDeleteRecruiterModal={setDeleteRecruiterModal}
-            setUsers={setUsers}
-            recruiters={recruiters}
-            setShowUndoDelete={setShowUndoDelete}
           />
         </Grid>
       </Grid>
