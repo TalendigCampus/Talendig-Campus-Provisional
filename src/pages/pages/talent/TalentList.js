@@ -330,18 +330,13 @@ function EnhancedTable({
   const handleDelete = (id) => {
     setTalentAlert(true);
     setId(id);
+    setSelected([]);
   };
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-  if (allowDelete) {
-    setRows((currentState) =>
-      currentState.filter((row) => row.talentId === Number(id))
-    );
-    setAllowDelete(false);
-  }
 
   return (
     <div>
@@ -447,7 +442,11 @@ function EnhancedTable({
 
 function InvoiceList() {
   const [TalentAlert, setTalentAlert] = React.useState(false);
-  const [allowDelete, setAllowDelete] = React.useState(false);
+  const [allowDelete, setAllowDelete] = React.useState({
+    value: false,
+    function: null,
+  });
+  const [Talentlist, setTalentlist] = React.useState(JsonInfo);
   const [id, setId] = React.useState(null);
 
   return (
@@ -478,14 +477,16 @@ function InvoiceList() {
             setTalentAlert={setTalentAlert}
             allowDelete={allowDelete}
             setAllowDelete={setAllowDelete}
-            id={id}
             setId={setId}
           />
           {TalentAlert && (
             <AlertDialog
               TalentAlert={TalentAlert}
+              setTalentlist={setTalentlist}
+              Talentlist={Talentlist}
               setTalentAlert={setTalentAlert}
               setAllowDelete={setAllowDelete}
+              id={id}
             />
           )}
         </Grid>

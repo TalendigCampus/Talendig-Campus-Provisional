@@ -14,18 +14,31 @@ import {
 } from "@mui/material";
 
 import { spacing } from "@mui/system";
-import JsonInfo from "./info.json";
 
 const Card = styled(MuiCard)(spacing);
 const Paper = styled(MuiPaper)(spacing);
 
-function AlertDialog({ TalentAlert, setTalentAlert, setAllowDelete }) {
+function AlertDialog({
+  TalentAlert,
+  setTalentAlert,
+  setAllowDelete,
+  id,
+  setTalentlist,
+  Talentlist,
+}) {
+  console.log(id);
   const handleClose = () => {
     setTalentAlert(false);
   };
 
   const handleDelete = () => {
-    setAllowDelete(true);
+    setTalentAlert(false);
+    setAllowDelete({
+      value: true,
+      function: setTalentlist(() => {
+        Talentlist.filter((item) => item.id !== id);
+      }),
+    });
   };
 
   return (
