@@ -44,6 +44,13 @@ import RecruitersInfo from "./RecruiterInfo.json";
 import RecruiterDialog from "./RecruiterDialog";
 import UndoAction from "./UndoAction";
 
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectRecruiters,
+  recruiterToDelete,
+  setShowUndo,
+} from "../../../redux/slices/recruiterSlice";
+
 const Divider = styled(MuiDivider)(spacing);
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
@@ -258,7 +265,10 @@ const EnhancedTableToolbar = (props) => {
   );
 };
 
-function EnhancedTable({ setDeleteRecruiterModal, rows }) {
+function EnhancedTable({ setDeleteRecruiterModal }) {
+  const rows = useSelector(selectRecruiters);
+  const dispatch = useDispatch();
+
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("recruiter");
   const [selected, setSelected] = React.useState([]);
@@ -321,10 +331,9 @@ function EnhancedTable({ setDeleteRecruiterModal, rows }) {
   };
 
   const handleDelete = (recruiterId) => {
-    setDeleteRecruiterModal({
-      showModal: true,
-      recruiterId: recruiterId,
-    });
+    dispatch(recruiterToDelete({ recruiterId }));
+    dispatch(setShowUndo({ status: false }));
+    setDeleteRecruiterModal(true);
   };
 
   return (
@@ -430,16 +439,8 @@ function EnhancedTable({ setDeleteRecruiterModal, rows }) {
 }
 
 function InvoiceList() {
-  const [deleteRecruiterModal, setDeleteRecruiterModal] = React.useState({
-    showModal: false,
-    recruiterId: null,
-  });
-  const [rows, setRows] = useState(RecruitersInfo);
+  const [deleteRecruiterModal, setDeleteRecruiterModal] = React.useState(false);
 
-  const [showUndoDelete, setShowUndoDelete] = React.useState({
-    showUndo: false,
-    recruiter: null,
-  });
   return (
     <React.Fragment>
       <Helmet title="Invoices" />
@@ -468,25 +469,15 @@ function InvoiceList() {
 
       <Grid container spacing={6}>
         <Grid item xs={12}>
-          <EnhancedTable
-            setDeleteRecruiterModal={setDeleteRecruiterModal}
-            rows={rows}
-          />
-          {deleteRecruiterModal.showModal && (
+          <EnhancedTable setDeleteRecruiterModal={setDeleteRecruiterModal} />
+          {deleteRecruiterModal && (
             <RecruiterDialog
               deleteRecruiterModal={deleteRecruiterModal}
               setDeleteRecruiterModal={setDeleteRecruiterModal}
-              setUsers={setRows}
-              recruiters={rows}
-              setShowUndoDelete={setShowUndoDelete}
             />
           )}
 
-          <UndoAction
-            showUndoDelete={showUndoDelete}
-            setShowUndoDelete={setShowUndoDelete}
-            setUsers={setRows}
-          />
+          <UndoAction />
         </Grid>
       </Grid>
     </React.Fragment>

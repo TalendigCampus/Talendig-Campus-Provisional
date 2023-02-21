@@ -21,6 +21,14 @@ import {
 import { Close as CloseIcon } from "@mui/icons-material";
 import { spacing } from "@mui/system";
 
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addRecruiter,
+  recruiterToBeRemoved,
+  setShowUndo,
+  showUndo,
+} from "../../../redux/slices/recruiterSlice";
+
 const Card = styled(MuiCard)(spacing);
 
 const Divider = styled(MuiDivider)(spacing);
@@ -31,9 +39,12 @@ const Paper = styled(MuiPaper)(spacing);
 
 const Button = styled(MuiButton)(spacing);
 
-function SimpleSnackbar({ showUndoDelete, setShowUndoDelete, setUsers }) {
+function SimpleSnackbar() {
+  const recruiterToDeleted = useSelector(recruiterToBeRemoved);
+  const showUndoSnackbar = useSelector(showUndo);
+  const dispatch = useDispatch();
   const handleClick = () => {
-    setUsers((currentState) => [showUndoDelete.recruiter, ...currentState]);
+    dispatch(addRecruiter({ recruiter: recruiterToDeleted }));
     handleClose();
   };
 
@@ -42,7 +53,7 @@ function SimpleSnackbar({ showUndoDelete, setShowUndoDelete, setUsers }) {
       return;
     }
 
-    setShowUndoDelete(false);
+    dispatch(setShowUndo({ status: false }));
   };
 
   return (
@@ -52,7 +63,7 @@ function SimpleSnackbar({ showUndoDelete, setShowUndoDelete, setUsers }) {
           vertical: "bottom",
           horizontal: "left",
         }}
-        open={showUndoDelete.showUndo}
+        open={showUndoSnackbar}
         autoHideDuration={6000}
         onClose={handleClose}
         message="Deshacer acción"
@@ -76,17 +87,13 @@ function SimpleSnackbar({ showUndoDelete, setShowUndoDelete, setUsers }) {
   );
 }
 
-function Snackbars({ showUndoDelete, setShowUndoDelete, setUsers }) {
+function Snackbars() {
   return (
     <React.Fragment>
       <Helmet title="Snackbars" />
       <Grid container spacing={6}>
         <Grid item xs={12} md={6}>
-          <SimpleSnackbar
-            showUndoDelete={showUndoDelete}
-            setShowUndoDelete={setShowUndoDelete}
-            setUsers={setUsers}
-          />
+          <SimpleSnackbar />
         </Grid>
       </Grid>
     </React.Fragment>
