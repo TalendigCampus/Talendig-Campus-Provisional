@@ -7,6 +7,8 @@ import {
   FilterList as FilterListIcon,
 } from "@mui/icons-material";
 import { spacing } from "@mui/system";
+import { MoreHorizontal } from "react-feather";
+import { useNavigate } from "react-router-dom";
 
 const Button = styled(MuiButton)(spacing);
 
@@ -23,12 +25,15 @@ const SmallButton = styled(Button)`
 function Actions() {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
+  const navigate = useNavigate();
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClose = (pathToGo) => {
     setAnchorEl(null);
+    navigate(pathToGo, { replace: true });
   };
 
   return (
@@ -46,7 +51,7 @@ function Actions() {
         aria-haspopup="true"
         onClick={handleClick}
       >
-        Today: April 29
+        <MoreHorizontal />
       </Button>
       <Menu
         id="simple-menu"
@@ -54,12 +59,18 @@ function Actions() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Today</MenuItem>
-        <MenuItem onClick={handleClose}>Yesterday</MenuItem>
-        <MenuItem onClick={handleClose}>Last 7 days</MenuItem>
-        <MenuItem onClick={handleClose}>Last 30 days</MenuItem>
-        <MenuItem onClick={handleClose}>This month</MenuItem>
-        <MenuItem onClick={handleClose}>Last month</MenuItem>
+        <MenuItem
+          onClick={() =>
+            handleClose("/admin/dashboard/users/instructors/list_instructors")
+          }
+        >
+          Lista
+        </MenuItem>
+        <MenuItem
+          onClick={() => handleClose("/admin/dashboard/users/instructors")}
+        >
+          Estadisticas
+        </MenuItem>
       </Menu>
     </React.Fragment>
   );

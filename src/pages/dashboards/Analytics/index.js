@@ -11,7 +11,7 @@ import {
 import { green, red } from "@mui/material/colors";
 import { spacing } from "@mui/system";
 
-import Actions from "./Actions";
+import Actions from "../../pages/Actions";
 import BarChart from "./BarChart";
 import DoughnutChart from "./DoughnutChart";
 import LanguagesTable from "./LanguagesTable";
