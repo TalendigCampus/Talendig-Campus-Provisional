@@ -53,10 +53,9 @@ import TalentList from "./pages/pages/talent/TalentList";
 import Orders from "./pages/pages/Orders";
 import Recruiters from "./pages/pages/AdminRecruiters/Recruiters";
 import RecruitersList from "./pages/pages/AdminRecruiters/RecruitersList";
+import RecruitersProfile from "./pages/pages/AdminRecruiters/RecruitersProfile";
 import Settings from "./pages/pages/Settings";
 import Lista_Instructores from "./pages/AdminInstructors/List_Instructors";
-
-
 
 import Projects from "./pages/pages/Projects";
 import Chat from "./pages/componetsIntitucio/Chat";
@@ -180,6 +179,10 @@ const routes = [
                   {
                     path: "list",
                     element: <RecruitersList />,
+                  },
+                  {
+                    path: "recruiters-profile/:id",
+                    element: <RecruitersProfile />,
                   },
                 ],
               },

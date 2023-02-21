@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components/macro";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { useNavigate } from "react-router-dom";
 
 import {
   Avatar as MuiAvatar,
@@ -39,6 +40,9 @@ import {
 } from "@mui/icons-material";
 import { spacing } from "@mui/system";
 import Actions from "./Actions";
+import RecruitersInfo from "./RecruiterInfo.json";
+import RecruiterDialog from "./RecruiterDialog";
+import UndoAction from "./UndoAction";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -72,70 +76,72 @@ const Customer = styled.div`
   align-items: center;
 `;
 
-function createData(
-  recruiter,
-  recruiterEmail,
-  recruiterAvatar,
-  idCard,
-  company,
-  birth,
-  tecnology,
-  id
-) {
-  return {
-    recruiter,
-    recruiterEmail,
-    idCard,
-    recruiterAvatar,
-    company,
-    birth,
-    tecnology,
-    id,
-  };
-}
+// function createData(
+//   recruiter,
+//   recruiterEmail,
+//   recruiterAvatar,
+//   idCard,
+//   company,
+//   birth,
+//   tecnology,
+//   id
+// ) {
+//   return {
+//     recruiter,
+//     recruiterEmail,
+//     idCard,
+//     recruiterAvatar,
+//     company,
+//     birth,
+//     tecnology,
+//     id,
+//   };
+// }
 
-const rows = [
-  createData(
-    "Alexander Santos",
-    "alex@gmail.com",
-    "A",
-    "012-09879879-0",
-    "Banco Popular",
-    "1980-05-22",
-    "Angular, Javascript, React",
-    "1"
-  ),
-  createData(
-    "Ramon Hernandez",
-    "ramon@gmail.com	",
-    "R",
-    "008-9878768-3",
-    "Banco Reservas",
-    "1920-04-10",
-    "Ruby, MERN, Nodejs",
-    "2"
-  ),
-  createData(
-    "Juana Jimenez",
-    "juana@gmail.com",
-    "J",
-    "002-1591642-0",
-    "Altice",
-    "1986-02-10",
-    "C#, SQL Server, .Net",
-    "3"
-  ),
-  createData(
-    "Yacaira Rodriguez",
-    "yacaira@gmail.com",
-    "Y",
-    "012-9089798-0",
-    "Claro",
-    "1995-12-10",
-    "React, Javascript",
-    "4"
-  ),
-];
+//const rows = RecruitersInfo;
+
+// const rows = [
+//   createData(
+//     "Alexander Santos",
+//     "alex@gmail.com",
+//     "A",
+//     "012-09879879-0",
+//     "Banco Popular",
+//     "1980-05-22",
+//     "Angular, Javascript, React",
+//     "1"
+//   ),
+//   createData(
+//     "Ramon Hernandez",
+//     "ramon@gmail.com	",
+//     "R",
+//     "008-9878768-3",
+//     "Banco Reservas",
+//     "1920-04-10",
+//     "Ruby, MERN, Nodejs",
+//     "2"
+//   ),
+//   createData(
+//     "Juana Jimenez",
+//     "juana@gmail.com",
+//     "J",
+//     "002-1591642-0",
+//     "Altice",
+//     "1986-02-10",
+//     "C#, SQL Server, .Net",
+//     "3"
+//   ),
+//   createData(
+//     "Yacaira Rodriguez",
+//     "yacaira@gmail.com",
+//     "Y",
+//     "012-9089798-0",
+//     "Claro",
+//     "1995-12-10",
+//     "React, Javascript",
+//     "4"
+//   ),
+// ];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -167,11 +173,11 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: "recruiter", alignment: "left", label: "Reclutador" },
-  { id: "idCard", alignment: "left", label: "Cedula" },
+  { id: "firstName", alignment: "left", label: "Reclutador" },
+  { id: "identificationCard", alignment: "left", label: "Cedula" },
   { id: "company", alignment: "right", label: "Empresa" },
   { id: "birth", alignment: "right", label: "Fecha de Nacimiento" },
-  { id: "tecnology", alignment: "left", label: "Tecnologias Buscadas" },
+  { id: "technology", alignment: "left", label: "Tecnologias Buscadas" },
   { id: "actions", alignment: "right", label: "Acción" },
 ];
 
@@ -252,12 +258,14 @@ const EnhancedTableToolbar = (props) => {
   );
 };
 
-function EnhancedTable() {
+function EnhancedTable({ setDeleteRecruiterModal, rows }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("recruiter");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const navigate = useNavigate();
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -308,6 +316,17 @@ function EnhancedTable() {
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
+  const handleShowInfo = (pathToGo) => {
+    navigate(pathToGo);
+  };
+
+  const handleDelete = (recruiterId) => {
+    setDeleteRecruiterModal({
+      showModal: true,
+      recruiterId: recruiterId,
+    });
+  };
+
   return (
     <div>
       <Paper>
@@ -351,33 +370,36 @@ function EnhancedTable() {
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row">
                         <Customer>
-                          <Avatar>{row.recruiterAvatar}</Avatar>
+                          <Avatar>{row.avatar}</Avatar>
                           <Box ml={3}>
-                            {row.recruiter}
+                            {`${row.firstName} ${row.lastName}`}
                             <br />
-                            {row.recruiterEmail}
+                            {row.email}
                           </Box>
                         </Customer>
                       </TableCell>
-                      <TableCell>{row.idCard}</TableCell>
+                      <TableCell>{row.identificationCard}</TableCell>
                       <TableCell align="right">{row.company}</TableCell>
                       <TableCell align="right">{row.birth}</TableCell>
-                      <TableCell>{row.tecnology}</TableCell>
+                      <TableCell>{row.technology}</TableCell>
                       <TableCell align="right">
                         <IconButton
-                          aria-label="edit"
+                          aria-label="info"
                           size="large"
-                          color="primary"
+                          color="info"
+                          onClick={() =>
+                            handleShowInfo(
+                              `/admin/dashboard/users/recruiters/recruiters-profile/${row.id}`
+                            )
+                          }
                         >
-                          <Edit />
-                        </IconButton>
-                        <IconButton aria-label="info" size="large" color="info">
                           <Info />
                         </IconButton>
                         <IconButton
                           aria-label="delete"
                           size="large"
                           color="error"
+                          onClick={() => handleDelete(row.id)}
                         >
                           <RemoveCircle />
                         </IconButton>
@@ -408,6 +430,16 @@ function EnhancedTable() {
 }
 
 function InvoiceList() {
+  const [deleteRecruiterModal, setDeleteRecruiterModal] = React.useState({
+    showModal: false,
+    recruiterId: null,
+  });
+  const [rows, setRows] = useState(RecruitersInfo);
+
+  const [showUndoDelete, setShowUndoDelete] = React.useState({
+    showUndo: false,
+    recruiter: null,
+  });
   return (
     <React.Fragment>
       <Helmet title="Invoices" />
@@ -436,7 +468,25 @@ function InvoiceList() {
 
       <Grid container spacing={6}>
         <Grid item xs={12}>
-          <EnhancedTable />
+          <EnhancedTable
+            setDeleteRecruiterModal={setDeleteRecruiterModal}
+            rows={rows}
+          />
+          {deleteRecruiterModal.showModal && (
+            <RecruiterDialog
+              deleteRecruiterModal={deleteRecruiterModal}
+              setDeleteRecruiterModal={setDeleteRecruiterModal}
+              setUsers={setRows}
+              recruiters={rows}
+              setShowUndoDelete={setShowUndoDelete}
+            />
+          )}
+
+          <UndoAction
+            showUndoDelete={showUndoDelete}
+            setShowUndoDelete={setShowUndoDelete}
+            setUsers={setRows}
+          />
         </Grid>
       </Grid>
     </React.Fragment>
