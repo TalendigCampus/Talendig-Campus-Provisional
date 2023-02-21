@@ -2,7 +2,9 @@ import React from "react";
 import styled from "styled-components/macro";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { IdDataTable } from "./componets/IdDataTableLIst";
+import { IdDataTable } from "./componets/IdDataTableList";
+import Rows from "./InfoDataInstitution";
+import SimpleSnackbar from "./componets/AlertUndo";
 
 import {
   Avatar as MuiAvatar,
@@ -13,11 +15,19 @@ import {
   CardContent,
   Checkbox,
   Chip as MuiChip,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Divider as MuiDivider,
   Grid,
   IconButton,
   Link,
+  ListItem,
+  ListItemAvatar,
   Paper as MuiPaper,
+  Snackbar,
   Table,
   TableBody,
   TableCell,
@@ -44,6 +54,7 @@ import {
 } from "@mui/icons-material";
 import { spacing, style } from "@mui/system";
 import Actions from "./FilterIntitution";
+import { List } from "react-feather";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -119,7 +130,7 @@ function createData(
   };
 }
 
-const rows = [
+const newRow = [
   createData(
     "Claro Dominicana",
     "claro@gmail.com",
@@ -272,57 +283,80 @@ const EnhancedTableToolbar = (props) => {
   );
 };
 
-const InfoComponetControl = () => {
-  return (
-    <Grid item xs={12}>
-      <Card mb={6}>
-        <CardContent>
-          <TextField
-            id="name"
-            label="Name"
-            defaultValue={rows.institution}
-            variant="outlined"
-            fullWidth
-            my={2}
-          />
-          <TextField
-            id="date"
-            label="Fecha"
-            defaultValue={rows.date}
-            variant="outlined"
-            fullWidth
-            my={2}
-          />
-          <TextField
-            id="address"
-            label="Direccion"
-            defaultValue={rows.address}
-            variant="outlined"
-            fullWidth
-            my={2}
-          />
-          <TextField
-            id="phoneNumber"
-            label="Telefono"
-            defaultValue={rows.phoneNumber}
-            variant="outlined"
-            fullWidth
-            my={2}
-          />
-          <TextField
-            id="institutionEmail"
-            label="Correo"
-            variant="outlined"
-            type="email"
-            defaultValue={rows.institutionEmail}
-            fullWidth
-            my={2}
-          />
-        </CardContent>
-      </Card>
-    </Grid>
-  );
-};
+// const InfoComponetControl = () => {
+//   let id = IdDataTable.id;
+//   return (
+//     <Grid item xs={12}>
+//       <Card mb={6}>
+//         <CardContent>
+//           <TextField
+//             id="name"
+//             label="Name"
+//             defaultValue={Rows[id].institution}
+//             variant="outlined"
+//             disabled="disabled"
+//             fullWidth
+//             my={2}
+//           />
+//           <TextField
+//             id="date"
+//             label="Fecha"
+//             defaultValue={Rows[id].dateCreateAccount}
+//             variant="outlined"
+//             disabled="disabled"
+//             fullWidth
+//             my={2}
+//           />
+//           <TextField
+//             id="address"
+//             label="Direccion"
+//             defaultValue={Rows[id].address}
+//             variant="outlined"
+//             disabled="disabled"
+//             fullWidth
+//             my={2}
+//           />
+//           <TextField
+//             id="phoneNumber"
+//             label="Telefono"
+//             defaultValue={Rows[id].phoneNumber}
+//             variant="outlined"
+//             disabled="disabled"
+//             fullWidth
+//             my={2}
+//           />
+//           <TextField
+//             id="institutionEmail"
+//             label="Correo"
+//             variant="outlined"
+//             type="email"
+//             defaultValue={Rows[id].institutionEmail}
+//             disabled="disabled"
+//             fullWidth
+//             my={2}
+//           />
+//         </CardContent>
+//       </Card>
+//     </Grid>
+//   );
+// };
+
+// const infoComponetControl = (e,value) => {
+
+// }
+
+// function infoContent() {
+//   const CenteredContent = styled.div`
+//     text-align: center;
+//   `;
+//   return (
+//     <CenteredContent>
+//       <IconButton aria-label="edit" size="large" color="primary">
+//         <Close />
+//       </IconButton>
+//     </CenteredContent>
+//   );
+// }
 
 function EnhancedTable() {
   const [order, setOrder] = React.useState("asc");
@@ -330,9 +364,51 @@ function EnhancedTable() {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [clickOn, setClickOn] = React.useState(false);
   const navigate = useNavigate();
+  const [open, setOpen] = React.useState(false);
+  const [eliminateData, SetEliminateData] = React.useState({});
+  const [eliminateDone, setEliminateDone] = React.useState(false);
+  const [indexDataeliminate, setIndexDataeliminate] = React.useState(0);
+  const [rows, setNewRow] = React.useState(newRow);
 
+  const handleClose = () => {
+    setOpen(false);
+    setEliminateDone(false);
+  };
+
+  const confirmEliminateData = () => {
+    let newIndexDataeliminate = rows.indexOf(eliminateData);
+    setIndexDataeliminate(newIndexDataeliminate);
+    newRow.splice(newIndexDataeliminate, 1);
+    setNewRow(newRow);
+    setEliminateDone(true);
+    setOpen(false);
+  };
+
+  const EliminateDataList = (id) => {
+    const selectedIndex = selected.indexOf(id);
+    let newSelected = [];
+
+    if (selectedIndex === -1) {
+      newSelected = newSelected.concat(selected, id);
+    } else if (selectedIndex === 0) {
+      newSelected = newSelected.concat(selected.slice(1));
+    } else if (selectedIndex === selected.length - 1) {
+      newSelected = newSelected.concat(selected.slice(0, -1));
+    } else if (selectedIndex > 0) {
+      newSelected = newSelected.concat(
+        selected.slice(0, selectedIndex),
+        selected.slice(selectedIndex + 1)
+      );
+    }
+
+    rows.filter((row) => {
+      row.id === newSelected[0]
+        ? SetEliminateData(row)
+        : console.log("negativo");
+    });
+    setOpen(true);
+  };
   const handleChange = (pathToGo, id) => {
     const selectedIndex = selected.indexOf(id);
     let newSelected = [];
@@ -359,10 +435,6 @@ function EnhancedTable() {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
-  };
-
-  const handleClickInfo = (e, boolean) => {
-    setClickOn(boolean);
   };
 
   const handleSelectAllClick = (event) => {
@@ -412,30 +484,6 @@ function EnhancedTable() {
     <div>
       <Paper>
         <EnhancedTableToolbar numSelected={selected.length} />
-
-        {clickOn === true && (
-          <CenteredContentInfo>
-            <ContentDataInfo>
-              <CenteredContent>
-                <ToolbarTitle>
-                  <TitleContentInfo>Usuarios</TitleContentInfo>
-                </ToolbarTitle>
-                <IconButton aria-label="edit" size="large" color="primary">
-                  <Close onClick={(event) => handleClickInfo(event, false)} />
-                </IconButton>
-              </CenteredContent>
-              <InfoComponetControl />
-              <Button
-                onClick={(event) => handleClickInfo(event, false)}
-                variant="contained"
-                color="primary"
-                mt={3}
-              >
-                Guardar cambios
-              </Button>
-            </ContentDataInfo>
-          </CenteredContentInfo>
-        )}
         <TableContainer>
           <Table
             aria-labelledby="tableTitle"
@@ -486,36 +534,75 @@ function EnhancedTable() {
                       <TableCell align="right">{row.address}</TableCell>
                       <TableCell align="right">{row.phoneNumber}</TableCell>
                       <TableCell align="right">
-                        <IconButton
-                          aria-label="edit"
-                          size="large"
-                          color="primary"
-                        >
-                          <Edit
+                        <IconButton aria-label="info" size="large" color="info">
+                          <Info
                             onClick={(event) =>
                               handleChange(
-                                "/admin/dashboard/users/institutions/profile",
+                                "/admin/dashboard/users/institutions/info",
                                 row.id
                               )
                             }
-                          />
-                        </IconButton>
-                        <IconButton aria-label="info" size="large" color="info">
-                          <Info
-                            onClick={(event) => handleClickInfo(event, true)}
                           />
                         </IconButton>
                         <IconButton
                           aria-label="delete"
                           size="large"
                           color="error"
+                          onClick={(event) => EliminateDataList(row.id)}
                         >
                           <RemoveCircle />
                         </IconButton>
+                        <Dialog
+                          open={open}
+                          onClose={handleClose}
+                          aria-labelledby="alert-dialog-title"
+                          aria-describedby="alert-dialog-description"
+                        >
+                          <DialogTitle id="alert-dialog-title">
+                            {"Alerta"}
+                          </DialogTitle>
+                          <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                              Desea eliminar
+                            </DialogContentText>
+                          </DialogContent>
+                          <DialogActions>
+                            <Button onClick={handleClose} color="primary">
+                              No
+                            </Button>
+                            <Button
+                              onClick={confirmEliminateData}
+                              color="primary"
+                              autoFocus
+                            >
+                              Si
+                            </Button>
+                          </DialogActions>
+                        </Dialog>
                       </TableCell>
                     </TableRow>
                   );
                 })}
+              <Snackbar
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                open={eliminateDone}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                message="Note archived"
+                action={
+                  <SimpleSnackbar
+                    eliminateDone={eliminateDone}
+                    rows={rows}
+                    indexDataeliminate={indexDataeliminate}
+                    setNewRow={setNewRow}
+                    eliminateData={eliminateData}
+                    setEliminateDone={setEliminateDone}
+                  />
+                }
+              />
               {emptyRows > 0 && (
                 <TableRow style={{ height: 53 * emptyRows }}>
                   <TableCell colSpan={7} />

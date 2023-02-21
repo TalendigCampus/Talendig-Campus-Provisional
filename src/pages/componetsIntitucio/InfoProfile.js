@@ -62,10 +62,15 @@ function Public({ dataRows }) {
             multiple
             type="file"
           />
+          <Typography
+            fontSize="20px"
+            variant="caption"
+            display="block"
+            gutterBottom
+          >
+            {dataRows.institution}
+          </Typography>
           <label htmlFor="raised-button-file">
-            <Button variant="contained" color="primary" component="span">
-              <CloudUpload mr={2} /> Subir Foto
-            </Button>
             <Typography variant="caption" display="block" gutterBottom>
               {dataRows.lastConection}
             </Typography>
@@ -116,6 +121,7 @@ function Private({ dataRows }) {
           label="Name"
           defaultValue={dataRows.institution}
           variant="outlined"
+          disabled="disabled"
           fullWidth
           my={2}
         />
@@ -125,6 +131,7 @@ function Private({ dataRows }) {
           label="Fecha"
           defaultValue={dataRows.date}
           variant="outlined"
+          disabled="disabled"
           fullWidth
           my={2}
         />
@@ -134,6 +141,7 @@ function Private({ dataRows }) {
           label="Direccion"
           defaultValue={dataRows.address}
           variant="outlined"
+          disabled="disabled"
           fullWidth
           my={2}
         />
@@ -143,6 +151,7 @@ function Private({ dataRows }) {
           label="Telefono"
           defaultValue={dataRows.phoneNumber}
           variant="outlined"
+          disabled="disabled"
           fullWidth
           my={2}
         />
@@ -153,6 +162,7 @@ function Private({ dataRows }) {
           variant="outlined"
           type="email"
           defaultValue={dataRows.institutionEmail}
+          disabled="disabled"
           fullWidth
           my={2}
         />
@@ -163,6 +173,7 @@ function Private({ dataRows }) {
           type="password"
           defaultValue={dataRows.newPassword}
           variant="outlined"
+          disabled="disabled"
           fullWidth
           my={2}
         />
@@ -173,6 +184,7 @@ function Private({ dataRows }) {
           type="password"
           defaultValue={dataRows.confirmPassword}
           variant="outlined"
+          disabled="disabled"
           fullWidth
           my={2}
         />
@@ -181,6 +193,7 @@ function Private({ dataRows }) {
           variant="contained"
           color="primary"
           mt={3}
+          marginRight="15px"
           onClick={(event) =>
             handleChange(
               "/admin/dashboard/users/institutions/list",
@@ -188,14 +201,27 @@ function Private({ dataRows }) {
             )
           }
         >
-          Guardar cambios
+          Volver
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          mt={3}
+          onClick={(event) =>
+            handleChange(
+              "/admin/dashboard/users/institutions/profile",
+              dataRows.id
+            )
+          }
+        >
+          Editar
         </Button>
       </CardContent>
     </Card>
   );
 }
 
-function EditProfile() {
+function InfoProfile() {
   const IdTable = IdDataTable.id;
   const dataRows = Rows[IdTable];
 
@@ -231,4 +257,4 @@ function EditProfile() {
   );
 }
 
-export default EditProfile;
+export default InfoProfile;
