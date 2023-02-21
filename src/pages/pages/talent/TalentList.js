@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/macro";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
 import {
@@ -27,6 +27,7 @@ import {
   Toolbar,
   Tooltip,
   Typography,
+  Dialog,
 } from "@mui/material";
 import { green, orange } from "@mui/material/colors";
 import {
@@ -41,6 +42,8 @@ import {
 } from "@mui/icons-material";
 import { spacing } from "@mui/system";
 import Actions from "./Actions";
+import JsonInfo from "./info.json";
+import AlertDialog from "./Alert";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -95,9 +98,7 @@ function createData(
     id,
   };
 }
-
-const rows = [
-  createData(
+/* createData(
     "Anthony Peralta",
     "anthony@gmail.com",
     "A",
@@ -146,8 +147,7 @@ const rows = [
     "Mern",
     "React, Javascript, Nodejs",
     "5"
-  ),
-];
+  ), */
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -264,12 +264,20 @@ const EnhancedTableToolbar = (props) => {
   );
 };
 
-function EnhancedTable() {
+function EnhancedTable({
+  setTalentAlert,
+  allowDelete,
+  setAllowDelete,
+  id,
+  setId,
+}) {
+  const navigate = useNavigate();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("talentName");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rows, setRows] = React.useState(JsonInfo);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -284,6 +292,10 @@ function EnhancedTable() {
       return;
     }
     setSelected([]);
+  };
+
+  const handdlePath = (pathToGo) => {
+    navigate(pathToGo, { replace: true });
   };
 
   const handleClick = (event, id) => {
@@ -315,10 +327,21 @@ function EnhancedTable() {
     setPage(0);
   };
 
+  const handleDelete = (id) => {
+    setTalentAlert(true);
+    setId(id);
+  };
+
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+  if (allowDelete) {
+    setRows((currentState) =>
+      currentState.filter((row) => row.talentId === Number(id))
+    );
+    setAllowDelete(false);
+  }
 
   return (
     <div>
@@ -342,7 +365,7 @@ function EnhancedTable() {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.id);
+                  const isItemSelected = isSelected(row.talentId);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
@@ -351,52 +374,48 @@ function EnhancedTable() {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={`${row.id}-${index}`}
+                      key={`${row.talentId}-${index}`}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
                           checked={isItemSelected}
                           inputProps={{ "aria-labelledby": labelId }}
-                          onClick={(event) => handleClick(event, row.id)}
+                          onClick={(event) => handleClick(event, row.talentId)}
                         />
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row">
                         <Customer>
                           <Avatar>{row.recruiterAvatar}</Avatar>
                           <Box ml={3}>
-                            {row.talentName}
+                            {`${row.talentName} ${row.talentLastName}`}
                             <br />
                             {row.talentEmail}
                           </Box>
                         </Customer>
                       </TableCell>
                       <TableCell>{row.idCard}</TableCell>
-                      <TableCell align="right">{row.birth}</TableCell>
+                      <TableCell align="center">{row.birth}</TableCell>
                       <TableCell align="right">{row.bootcamp}</TableCell>
                       <TableCell>{row.tecnology}</TableCell>
                       <TableCell align="right">
                         <IconButton
-                          aria-label="edit"
-                          size="large"
-                          color="primary"
-                        >
-                          <Edit />
-                        </IconButton>
-                        <IconButton aria-label="info" size="large" color="info">
-                          <Info />
-                        </IconButton>
-                        <IconButton
-                          aria-label="description"
+                          aria-label="info"
                           size="large"
                           color="info"
+                          onClick={() =>
+                            handdlePath(
+                              `/admin/dashboard/users/talents/info/${row.talentId}`
+                            )
+                          }
                         >
-                          <LibraryBooks />
+                          <Info />
                         </IconButton>
                         <IconButton
                           aria-label="delete"
                           size="large"
                           color="error"
+                          onClick={() => handleDelete(row.talentId)}
                         >
                           <RemoveCircle />
                         </IconButton>
@@ -427,10 +446,13 @@ function EnhancedTable() {
 }
 
 function InvoiceList() {
+  const [TalentAlert, setTalentAlert] = React.useState(false);
+  const [allowDelete, setAllowDelete] = React.useState(false);
+  const [id, setId] = React.useState(null);
+
   return (
     <React.Fragment>
       <Helmet title="Invoices" />
-
       <Grid justifyContent="space-between" container spacing={10}>
         <Grid item>
           <Typography variant="h3" gutterBottom display="inline">
@@ -449,12 +471,23 @@ function InvoiceList() {
           <Actions />
         </Grid>
       </Grid>
-
       <Divider my={6} />
-
       <Grid container spacing={6}>
         <Grid item xs={12}>
-          <EnhancedTable />
+          <EnhancedTable
+            setTalentAlert={setTalentAlert}
+            allowDelete={allowDelete}
+            setAllowDelete={setAllowDelete}
+            id={id}
+            setId={setId}
+          />
+          {TalentAlert && (
+            <AlertDialog
+              TalentAlert={TalentAlert}
+              setTalentAlert={setTalentAlert}
+              setAllowDelete={setAllowDelete}
+            />
+          )}
         </Grid>
       </Grid>
     </React.Fragment>

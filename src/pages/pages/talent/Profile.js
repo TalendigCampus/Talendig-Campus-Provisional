@@ -312,12 +312,6 @@ function Orders() {
           <StatsIcon>
             <ShoppingBag />
           </StatsIcon>
-          <LinearProgress
-            variant="determinate"
-            value={30}
-            color="secondary"
-            mt={4}
-          />
         </CardContent>
       </Card>
     </Box>
@@ -354,23 +348,17 @@ function Revenue() {
 function RegisteredTalents() {
   return (
     <Box position="relative">
-      <Card mb={6} pt={2}>
+      <Card mb={3} pt={2}>
         <CardContent>
           <Typography variant="h2" gutterBottom>
             <Box fontWeight="fontWeightRegular">200</Box>
           </Typography>
-          <Typography variant="body2" gutterBottom mt={3} mb={0}>
+          <Typography variant="body2" gutterBottom mt={2} mb={0}>
             Total de talentos reistrados
           </Typography>
           <StatsIcon>
             <Icon.Users />
           </StatsIcon>
-          <LinearProgress
-            variant="determinate"
-            value={100}
-            color="secondary"
-            mt={4}
-          />
         </CardContent>
       </Card>
     </Box>
@@ -380,24 +368,18 @@ function RegisteredTalents() {
 function ConnectedTalents() {
   return (
     <Box position="relative">
-      <Card mb={6} pt={2}>
+      <Card mb={3} pt={2}>
         <CardContent>
           <Typography variant="h2" gutterBottom>
             <Box fontWeight="fontWeightRegular">50</Box>
           </Typography>
-          <Typography variant="body2" gutterBottom mt={3} mb={0}>
+          <Typography variant="body2" gutterBottom mt={2} mb={0}>
             Talentos conectados
           </Typography>
 
           <StatsIcon>
             <Icon.Activity />
           </StatsIcon>
-          <LinearProgress
-            variant="determinate"
-            value={30}
-            color="secondary"
-            mt={4}
-          />
         </CardContent>
       </Card>
     </Box>
@@ -407,24 +389,18 @@ function ConnectedTalents() {
 function StatisticalPortfolios() {
   return (
     <Box position="relative">
-      <Card mb={6} pt={2}>
+      <Card mb={3} pt={2}>
         <CardContent>
           <Typography variant="h2" gutterBottom>
             <Box fontWeight="fontWeightRegular">22</Box>
           </Typography>
-          <Typography variant="body2" gutterBottom mt={3} mb={0}>
+          <Typography variant="body2" gutterBottom mt={2} mb={0}>
             Portafolios +5 proyectos
           </Typography>
 
           <StatsIcon>
             <Briefcase />
           </StatsIcon>
-          <LinearProgress
-            variant="determinate"
-            value={30}
-            color="secondary"
-            mt={4}
-          />
         </CardContent>
       </Card>
     </Box>
@@ -434,24 +410,18 @@ function StatisticalPortfolios() {
 function TalentAssessment() {
   return (
     <Box position="relative">
-      <Card mb={6} pt={2}>
+      <Card mb={6} pt={1}>
         <CardContent>
           <Typography variant="h2" gutterBottom>
             <Box fontWeight="fontWeightRegular">22</Box>
           </Typography>
-          <Typography variant="body2" gutterBottom mt={3} mb={0}>
+          <Typography variant="body2" gutterBottom mt={2} mb={0}>
             Talentos valoración +7
           </Typography>
 
           <StatsIcon>
             <Icon.UserCheck />
           </StatsIcon>
-          <LinearProgress
-            variant="determinate"
-            value={30}
-            color="secondary"
-            mt={4}
-          />
         </CardContent>
       </Card>
     </Box>
@@ -461,23 +431,17 @@ function TalentAssessment() {
 function RoadmapTalents() {
   return (
     <Box position="relative">
-      <Card mb={6} pt={2}>
+      <Card mb={6} pt={1}>
         <CardContent>
           <Typography variant="h2" gutterBottom>
             <Box fontWeight="fontWeightRegular">12</Box>
           </Typography>
-          <Typography variant="body2" gutterBottom mt={3} mb={0}>
+          <Typography variant="body2" gutterBottom mt={2} mb={0}>
             Talentos roadmap 70%
           </Typography>
           <StatsIcon>
             <ShoppingBag />
           </StatsIcon>
-          <LinearProgress
-            variant="determinate"
-            value={30}
-            color="secondary"
-            mt={4}
-          />
         </CardContent>
       </Card>
     </Box>
@@ -487,24 +451,18 @@ function RoadmapTalents() {
 function GraduatedTalents() {
   return (
     <Box position="relative">
-      <Card mb={6} pt={2}>
+      <Card mb={6} pt={1}>
         <CardContent>
           <Typography variant="h2" gutterBottom>
             <Box fontWeight="fontWeightRegular">22</Box>
           </Typography>
-          <Typography variant="body2" gutterBottom mt={3} mb={0}>
+          <Typography variant="body2" gutterBottom mt={2} mb={0}>
             Talentos Egresados
           </Typography>
 
           <StatsIcon>
             <Icon.UserMinus />
           </StatsIcon>
-          <LinearProgress
-            variant="determinate"
-            value={30}
-            color="secondary"
-            mt={4}
-          />
         </CardContent>
       </Card>
     </Box>
@@ -684,7 +642,7 @@ const SalesRevenue = withTheme(({ theme }) => {
   };
 
   return (
-    <Card mb={1}>
+    <Card mb={4}>
       <CardContent>
         <Typography variant="h6" gutterBottom>
           Talentos por calificación
