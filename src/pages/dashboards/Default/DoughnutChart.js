@@ -17,7 +17,7 @@ const ChartWrapper = styled.div`
 
 const DoughnutChart = ({ theme }) => {
   const data = {
-    labels: ["Talentos", "Instituciones", "Cazatalentos", "Instructor"],
+    labels: ["Talentos", "Instituciones", "Reclutadores", "Instructores"],
     datasets: [
       {
         data: [70, 2, 3, 25],
@@ -62,7 +62,7 @@ const DoughnutChart = ({ theme }) => {
         <Spacer mb={3} />
 
         <Typography align="center" variant="body2" gutterBottom>
-          Datos en porcentage
+          Datos en %
         </Typography>
       </CardContent>
     </Card>

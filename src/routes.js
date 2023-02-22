@@ -58,6 +58,8 @@ import RecruitersList from "./pages/pages/AdminRecruiters/RecruitersList";
 import RecruitersProfile from "./pages/pages/AdminRecruiters/RecruitersProfile";
 import Settings from "./pages/pages/Settings";
 import Lista_Instructores from "./pages/AdminInstructors/List_Instructors";
+import BootcampsStatistics from "./pages/Bootcamps/index";
+import BootcampsList from "./pages/Bootcamps/BootcampList";
 
 import Projects from "./pages/pages/Projects";
 import Chat from "./pages/componetsIntitucio/Chat";
@@ -95,6 +97,7 @@ import Landing from "./pages/presentation/Landing";
 // Protected routes
 import ProtectedPage from "./pages/protected/ProtectedPage";
 import Instructores from "./pages/AdminInstructors/Instructores";
+import BootcampProfile from "./pages/Bootcamps/BootcampProfile";
 
 // Dashboard components
 const Default = async(() => import("./pages/dashboards/Default"));
@@ -143,6 +146,23 @@ const routes = [
           {
             path: "home",
             element: <Default />,
+          },
+          {
+            path: "bootcamps",
+            children: [
+              {
+                index: true,
+                element: <BootcampsStatistics />,
+              },
+              {
+                path: "list",
+                element: <BootcampsList />,
+              },
+              {
+                path: "bootcamp-profile/:id",
+                element: <BootcampProfile />,
+              },
+            ],
           },
           {
             path: "Users",

@@ -12,6 +12,7 @@ import "../../vendor/perfect-scrollbar.css";
 const baseScrollbar = css`
   background-color: ${(props) => props.theme.sidebar.background};
   border-right: 1px solid rgba(0, 0, 0, 0.12);
+  height: 100%;
 `;
 
 const Scrollbar = styled.div`

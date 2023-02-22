@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "bootcampName": "Desarrollo web Stack MERN",
+    "initialDate": "2022-12-10",
+    "endDate": "2023-12-10",
+    "teacher": "Luis Soto",
+    "talentsName":
+      "Anthony Peralta,Madelson Acosta,Felix Ortega,Kiancis Dominguez",
+    "tecnologies": "React, Javascript, Nodejs, SCSS",
+    "instructorId": 1,
+    "image": ""
+  },
+  {
+    "id": 2,
+    "bootcampName": "Desarrollo web Stack MEAN",
+    "initialDate": "2023-02-10",
+    "endDate": "2023-08-10",
+    "teacher": "Miguel Ramirez",
+    "talentsName": "Ana Ramirez,Miguel Sandoval,Maria Dominguez,Karla Ruiz",
+    "tecnologies": "Angular, Typescript, Nodejs, CSS",
+    "instructorId": 2,
+    "image": ""
+  },
+  {
+    "id": 3,
+    "bootcampName": "Desarrollo Web con ASP.Net",
+    "initialDate": "2023-02-10",
+    "endDate": "2023-08-10",
+    "teacher": "Juan Santana",
+    "talentsName": "Juan Ochoa,Antonia Sanchez,Martin Perez,Jose Guzman",
+    "tecnologies": "C#, SQL Server, Blazor, .Net Framework",
+    "instructorId": 3,
+    "image": ""
+  },
+  {
+    "id": 4,
+    "bootcampName": "Cloud Computing",
+    "initialDate": "2023-01-10",
+    "endDate": "2023-07-10",
+    "teacher": "Juan Santana",
+    "talentsName": "Roberto Peralta,Steven Rosa,Alexis Pedral,Junior Moron",
+    "tecnologies": "Python, Amazon Web Services",
+    "instructorId": 3,
+    "image": ""
+  }
+]
