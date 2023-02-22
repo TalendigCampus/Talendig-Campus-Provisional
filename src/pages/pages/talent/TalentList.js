@@ -44,6 +44,17 @@ import { spacing } from "@mui/system";
 import Actions from "./Actions";
 import JsonInfo from "./info.json";
 import AlertDialog from "./Alert";
+import TalentUndo from "./TalentUndo";
+
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectTalents,
+  talentToDelete,
+  setShowAlert,
+  deleteTalent,
+  allowDelete,
+  showUndo,
+} from "../../../redux/slices/talentSlice";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -264,20 +275,17 @@ const EnhancedTableToolbar = (props) => {
   );
 };
 
-function EnhancedTable({
-  setTalentAlert,
-  allowDelete,
-  setAllowDelete,
-  id,
-  setId,
-}) {
+function EnhancedTable({ setAllowDelete }) {
   const navigate = useNavigate();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("talentName");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [rows, setRows] = React.useState(JsonInfo);
+  /* const [rows, setRows] = React.useState(JsonInfo); */
+  const rows = useSelector(selectTalents);
+  const allowDeleteTalent = useSelector(allowDelete);
+  const dispatch = useDispatch();
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -327,10 +335,9 @@ function EnhancedTable({
     setPage(0);
   };
 
-  const handleDelete = (id) => {
-    setTalentAlert(true);
-    setId(id);
-    setSelected([]);
+  const handleDelete = (talentId) => {
+    setAllowDelete(true);
+    dispatch(talentToDelete({ talentId }));
   };
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
@@ -441,12 +448,8 @@ function EnhancedTable({
 }
 
 function InvoiceList() {
-  const [TalentAlert, setTalentAlert] = React.useState(false);
-  const [allowDelete, setAllowDelete] = React.useState({
-    value: false,
-    function: null,
-  });
-  const [Talentlist, setTalentlist] = React.useState(JsonInfo);
+  const [allowDelete, setAllowDelete] = React.useState(false);
+  let status = useSelector(showUndo);
   const [id, setId] = React.useState(null);
 
   return (
@@ -473,22 +476,14 @@ function InvoiceList() {
       <Divider my={6} />
       <Grid container spacing={6}>
         <Grid item xs={12}>
-          <EnhancedTable
-            setTalentAlert={setTalentAlert}
-            allowDelete={allowDelete}
-            setAllowDelete={setAllowDelete}
-            setId={setId}
-          />
-          {TalentAlert && (
+          <EnhancedTable setAllowDelete={setAllowDelete} setId={setId} />
+          {allowDelete && (
             <AlertDialog
-              TalentAlert={TalentAlert}
-              setTalentlist={setTalentlist}
-              Talentlist={Talentlist}
-              setTalentAlert={setTalentAlert}
+              allowDelete={allowDelete}
               setAllowDelete={setAllowDelete}
-              id={id}
             />
           )}
+          {status && <TalentUndo />}
         </Grid>
       </Grid>
     </React.Fragment>

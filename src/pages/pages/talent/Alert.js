@@ -15,36 +15,34 @@ import {
 
 import { spacing } from "@mui/system";
 
+import { useSelector, useDispatch } from "react-redux";
+import {
+  setShowUndo,
+  deleteTalent,
+  talentToBeRemoved,
+} from "../../../redux/slices/talentSlice";
+
 const Card = styled(MuiCard)(spacing);
 const Paper = styled(MuiPaper)(spacing);
 
-function AlertDialog({
-  TalentAlert,
-  setTalentAlert,
-  setAllowDelete,
-  id,
-  setTalentlist,
-  Talentlist,
-}) {
-  console.log(id);
+function AlertDialog({ allowDelete, setAllowDelete }) {
+  const dispatch = useDispatch();
+  let currentTalent = useSelector(talentToBeRemoved);
+
   const handleClose = () => {
-    setTalentAlert(false);
+    setAllowDelete(false);
   };
 
   const handleDelete = () => {
-    setTalentAlert(false);
-    setAllowDelete({
-      value: true,
-      function: setTalentlist(() => {
-        Talentlist.filter((item) => item.id !== id);
-      }),
-    });
+    dispatch(deleteTalent({ talentId: currentTalent.talentId }));
+    dispatch(setShowUndo({ status: true }));
+    setAllowDelete(false);
   };
 
   return (
     <Card mb={6}>
       <Dialog
-        open={TalentAlert}
+        open={allowDelete}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
