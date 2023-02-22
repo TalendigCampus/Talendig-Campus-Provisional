@@ -22,62 +22,61 @@ const Flag = styled.img`
   height: 22px;
 `;
 
-const languageOptions = {
-  en: {
-    icon: "/static/img/flags/us.png",
-    name: "English",
-  },
-  fr: {
-    icon: "/static/img/flags/fr.png",
-    name: "French",
-  },
-  de: {
-    icon: "/static/img/flags/de.png",
-    name: "German",
-  },
-  nl: {
-    icon: "/static/img/flags/nl.png",
-    name: "Dutch",
-  },
-  es: {
-    icon: "/static/img/flags/do.png",
-    name: "Español",
-  },
-};
+// const languageOptions = {
+//   en: {
+//     icon: "/static/img/flags/us.png",
+//     name: "English",
+//   },
+//   fr: {
+//     icon: "/static/img/flags/fr.png",
+//     name: "French",
+//   },
+//   de: {
+//     icon: "/static/img/flags/de.png",
+//     name: "German",
+//   },
+//   nl: {
+//     icon: "/static/img/flags/nl.png",
+//     name: "Dutch",
+//   },
+//   es: {
+//     icon: "/static/img/flags/do.png",
+//     name: "Español",
+//   },
+// };
 
 function NavbarLanguagesDropdown() {
   const { i18n } = useTranslation();
   const [anchorMenu, setAnchorMenu] = React.useState(null);
 
-  const selectedLanguage = languageOptions[i18n.language];
+  // const selectedLanguage = languageOptions[i18n.language];
 
   const toggleMenu = (event) => {
     setAnchorMenu(event.currentTarget);
   };
 
-  const closeMenu = () => {
-    setAnchorMenu(null);
-  };
+  // const closeMenu = () => {
+  //   setAnchorMenu(null);
+  // };
 
-  const handleLanguageChange = (language) => {
-    i18n.changeLanguage(language);
-    closeMenu();
-  };
+  // const handleLanguageChange = (language) => {
+  //   i18n.changeLanguage(language);
+  //   closeMenu();
+  // };
 
   return (
     <React.Fragment>
-      <Tooltip title="Languages">
-        <IconButton
-          aria-owns={Boolean(anchorMenu) ? "menu-appbar" : undefined}
-          aria-haspopup="true"
-          onClick={toggleMenu}
-          color="inherit"
-          size="large"
-        >
-          <Flag src={selectedLanguage.icon} alt={selectedLanguage.name} />
-        </IconButton>
-      </Tooltip>
-      <Menu
+      <IconButton
+        sx={{ "&:hover": { backgroundColor: "transparent", cursor: "auto" } }}
+        aria-owns={Boolean(anchorMenu) ? "menu-appbar" : undefined}
+        aria-haspopup="true"
+        onClick={toggleMenu}
+        color="inherit"
+        size="large"
+      >
+        <Flag src="/static/img/flags/do.png" alt="Español" />
+      </IconButton>
+      {/* <Menu
         id="menu-appbar"
         anchorEl={anchorMenu}
         open={Boolean(anchorMenu)}
@@ -91,7 +90,7 @@ function NavbarLanguagesDropdown() {
             {languageOptions[language].name}
           </MenuItem>
         ))}
-      </Menu>
+      </Menu> */}
     </React.Fragment>
   );
 }

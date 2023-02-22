@@ -31,7 +31,7 @@ function LineChart({ theme }) {
       labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
       datasets: [
         {
-          label: "Talentos",
+          label: "MERN",
           fill: true,
           backgroundColor: gradient,
           borderColor: orange[500],
@@ -39,7 +39,7 @@ function LineChart({ theme }) {
           data: [2115, 1562, 1584, 1892, 1587, 1923],
         },
         {
-          label: "Instructores",
+          label: "MEAN",
           fill: true,
           backgroundColor: gradient,
           borderColor: blue[500],
@@ -47,7 +47,7 @@ function LineChart({ theme }) {
           data: [928, 744, 679, 813, 925, 1114],
         },
         {
-          label: "Reclutadores",
+          label: "ASP.Net",
           fill: true,
           backgroundColor: gradient,
           borderColor: green[500],
@@ -55,7 +55,7 @@ function LineChart({ theme }) {
           data: [2135, 1462, 1554, 1892, 1387, 2023],
         },
         {
-          label: "Instituciones",
+          label: "Cloud Computing",
           fill: true,
           backgroundColor: gradient,
           borderColor: red[500],
@@ -90,7 +90,7 @@ function LineChart({ theme }) {
 
   return (
     <Card mb={6}>
-      <CardHeader title="Usuario por mes" />
+      <CardHeader title="Popularidad de algunos bootcamps a través del tiempo" />
       <CardContent>
         <ChartWrapper>
           <Chart type="line" data={data} options={options} />

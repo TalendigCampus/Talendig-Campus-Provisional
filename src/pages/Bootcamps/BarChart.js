@@ -22,10 +22,10 @@ const BarChart = ({ theme }) => {
   const firstDatasetColor = theme.palette.secondary.main;
 
   const data = {
-    labels: ["Talentos", "Instructores", "Reclutadores", "Instituciones"],
+    labels: ["MERN", "MEAN", "ASP.Net", "Cloud Computing"],
     datasets: [
       {
-        label: "Usuarios conectados",
+        label: "Porcentaje completado de los bootcamps actuales",
         backgroundColor: firstDatasetColor,
         borderColor: firstDatasetColor,
         hoverBackgroundColor: firstDatasetColor,
@@ -70,7 +70,7 @@ const BarChart = ({ theme }) => {
 
   return (
     <Card mb={6}>
-      <CardHeader title="Usuarios conectados" />
+      <CardHeader title="Porcentaje completado" />
 
       <CardContent>
         <ChartWrapper>
