@@ -54,9 +54,7 @@ import Orders from "./pages/pages/Orders";
 import Recruiters from "./pages/pages/AdminRecruiters/Recruiters";
 import RecruitersList from "./pages/pages/AdminRecruiters/RecruitersList";
 import Settings from "./pages/pages/Settings";
-import Lista_Instructores from "./pages/AdminInstructors/List_Instructors";
-
-
+import ListaInstructores from "./pages/AdminInstructors/List_Instructors";
 
 import Projects from "./pages/pages/Projects";
 import Chat from "./pages/componetsIntitucio/Chat";
@@ -92,6 +90,9 @@ import Landing from "./pages/presentation/Landing";
 // Protected routes
 import ProtectedPage from "./pages/protected/ProtectedPage";
 import Instructores from "./pages/AdminInstructors/Instructores";
+
+import EditInstructors from "./pages/AdminInstructors/Edit_Instructors";
+import ViewInstructors from "./pages/AdminInstructors/View_Instructors";
 
 // Dashboard components
 const Default = async(() => import("./pages/dashboards/Default"));
@@ -166,7 +167,15 @@ const routes = [
                   },
                   {
                     path: "list_instructors",
-                    element: <Lista_Instructores />,
+                    element: <ListaInstructores />,
+                  },
+                  {
+                    path: "edit_instructors",
+                    element: <EditInstructors />,
+                  },
+                  {
+                    path: "view_instructors",
+                    element: <ViewInstructors />,
                   },
                 ],
               },

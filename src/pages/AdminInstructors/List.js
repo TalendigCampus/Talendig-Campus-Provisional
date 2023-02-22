@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components/macro";
+import { useNavigate } from "react-router-dom";
 
 import {
   Avatar as MuiAvatar,
@@ -22,7 +23,6 @@ import {
 import {
   Archive as ArchiveIcon,
   FilterList as FilterListIcon,
-  Edit,
   RemoveCircle,
   Info,
 } from "@mui/icons-material";
@@ -80,7 +80,8 @@ const rows = [
     "Instructor",
     "1990-01-23",
     "MERN",
-    "React, Express, Javascript"
+    "React, Express, Javascript",
+    "001"
   ),
   createData(
     "Miguel Ramirez",
@@ -90,7 +91,8 @@ const rows = [
     "Instructor",
     "1992-08-10",
     "MEAN",
-    "Angular, Nodejs, Javascript"
+    "Angular, Nodejs, Javascript",
+    "002"
   ),
   createData(
     "Juan Santana",
@@ -100,7 +102,8 @@ const rows = [
     "Instructor",
     "1985-09-04",
     "ASP.NET",
-    "C#, Java, Python"
+    "C#, Java, Python",
+    "003"
   ),
   createData(
     "Ana Sanchez",
@@ -110,7 +113,8 @@ const rows = [
     "Instructor",
     "1980-10-12",
     "MERN",
-    "Nodejs, React, Javascript"
+    "Nodejs, React, Javascript",
+    "004"
   ),
 ];
 
@@ -231,6 +235,15 @@ const EnhancedTableToolbar = (props) => {
 };
 
 function EnhancedTable() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const navigate = useNavigate();
+
+  const handleClose = (pathToGo) => {
+    setAnchorEl(null);
+    navigate(pathToGo, { replace: true });
+  };
+
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("customer");
   const [selected, setSelected] = React.useState([]);
@@ -331,6 +344,8 @@ function EnhancedTable() {
                         <Customer>
                           <Avatar>{row.instructorsAvatar}</Avatar>
                           <Box ml={3}>
+                            {row.id}
+                            <br />
                             {row.instructors}
                             <br />
                             {row.instructorsEmail}
@@ -343,16 +358,20 @@ function EnhancedTable() {
                       <TableCell>{row.bootcamp}</TableCell>
                       <TableCell align="left">{row.tecnology}</TableCell>
                       <TableCell align="center">
+                        {/* Info button */}
                         <IconButton
-                          aria-label="edit"
+                          aria-label="info"
                           size="large"
-                          color="primary"
+                          color="info"
+                          onClick={() =>
+                            handleClose(
+                              "/admin/dashboard/users/instructors/edit_instructors"
+                            )
+                          }
                         >
-                          <Edit />
-                        </IconButton>
-                        <IconButton aria-label="info" size="large" color="info">
                           <Info />
                         </IconButton>
+                        {/* Delete button */}
                         <IconButton
                           aria-label="delete"
                           size="large"
