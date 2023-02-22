@@ -53,6 +53,7 @@ import TalentList from "./pages/pages/talent/TalentList";
 import Orders from "./pages/pages/Orders";
 import Recruiters from "./pages/pages/AdminRecruiters/Recruiters";
 import RecruitersList from "./pages/pages/AdminRecruiters/RecruitersList";
+import RecruitersProfile from "./pages/pages/AdminRecruiters/RecruitersProfile";
 import Settings from "./pages/pages/Settings";
 import Lista_Instructores from "./pages/AdminInstructors/List_Instructors";
 import BootcampsStatistics from "./pages/Bootcamps/index";
@@ -61,6 +62,8 @@ import BootcampsList from "./pages/Bootcamps/BootcampList";
 import Projects from "./pages/pages/Projects";
 import Chat from "./pages/componetsIntitucio/Chat";
 import DataGridPage from "./pages/componetsIntitucio/DataGridPage";
+import EditProfile from "./pages/componetsIntitucio/EditProfile";
+import InfoProfile from "./pages/componetsIntitucio/InfoProfile";
 
 // Table components
 import SimpleTable from "./pages/tables/SimpleTable";
@@ -199,6 +202,10 @@ const routes = [
                     path: "list",
                     element: <RecruitersList />,
                   },
+                  {
+                    path: "recruiters-profile/:id",
+                    element: <RecruitersProfile />,
+                  },
                 ],
               },
               {
@@ -211,6 +218,14 @@ const routes = [
                   {
                     path: "list",
                     element: <DataGridPage />,
+                  },
+                  {
+                    path: "profile",
+                    element: <EditProfile />,
+                  },
+                  {
+                    path: "info",
+                    element: <InfoProfile />,
                   },
                 ],
               },
