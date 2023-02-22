@@ -1,0 +1,94 @@
+[
+  {
+    "firstName": "Alexander",
+    "lastName": "Santos",
+    "avatar": "A",
+    "email": "alex@gmail.com",
+    "phoneNumber": "829-098-0987",
+    "identificationCard": "012-0987987-9",
+    "company": "Banco Popular",
+    "birth": "1980-05-22",
+    "technology": "Angular, Javascript, React",
+    "affiliationDate": "05-12-2022",
+    "lastConnectionDate": "05-12-2022 3:00 PM",
+    "address": {
+      "street": "Nueva Vista",
+      "numHouseOrApartment": "#99",
+      "neighborhood": "Los Jardinez",
+      "city": "Santo Domingo"
+    },
+    "password": "mypassword123",
+    "confirmPassword": "mypassword123",
+    "photoUrl": "/static/img/recruiters/recruiter-1.jpg",
+    "id": "1"
+  },
+  {
+    "firstName": "Ramon",
+    "lastName": "Hernandez",
+    "avatar": "R",
+    "email": "ramon@gmail.com",
+    "phoneNumber": "849-098-0987",
+    "identificationCard": "008-9878768-3",
+    "company": "Banco Reservas",
+    "birth": "1920-04-10",
+    "technology": "Ruby, MERN, Nodejs",
+    "affiliationDate": "07-12-2022",
+    "lastConnectionDate": "09-8-2022 10:00 AM",
+    "address": {
+      "street": "Los canelos",
+      "numHouseOrApartment": "#55",
+      "neighborhood": "Villa Mella",
+      "city": "Santo Domingo Norte"
+    },
+    "password": "mypassword123",
+    "confirmPassword": "mypassword123",
+    "photoUrl": "/static/img/recruiters/recruiter-2.jpg",
+    "id": "2"
+  },
+  {
+    "firstName": "Juana",
+    "lastName": "Jimenez",
+    "avatar": "J",
+    "email": "juana@gmail.com",
+    "phoneNumber": "829-498-0987",
+    "identificationCard": "002-345345435-0",
+    "company": "Altice",
+    "birth": "1986-02-10",
+    "technology": "C#, SQL Server, .Net",
+    "affiliationDate": "03-4-2022",
+    "lastConnectionDate": "09-10-2022 7:00 AM",
+    "address": {
+      "street": "Los Cacicazgos",
+      "numHouseOrApartment": "#47",
+      "neighborhood": "Pantoja",
+      "city": "Santo Domingo"
+    },
+    "password": "mypassword123",
+    "confirmPassword": "mypassword123",
+    "photoUrl": "/static/img/recruiters/recruiter-3.jpg",
+    "id": "3"
+  },
+  {
+    "firstName": "Yacaira",
+    "lastName": "Rodriguez",
+    "avatar": "Y",
+    "email": "yacaira@gmail.com",
+    "phoneNumber": "829-098-0987",
+    "identificationCard": "012-9089798-0",
+    "company": "Claro",
+    "birth": "1995-12-10",
+    "technology": "React, Javascript",
+    "affiliationDate": "01-3-2022",
+    "lastConnectionDate": "12-12-2022 5:00 AM",
+    "address": {
+      "street": "Sabana Perdida",
+      "numHouseOrApartment": "#99",
+      "neighborhood": "Villa Mella",
+      "city": "Santo Domingo Norte"
+    },
+    "password": "mypassword123",
+    "confirmPassword": "mypassword123",
+    "photoUrl": "/static/img/recruiters/recruiter-4.jpg",
+    "id": "4"
+  }
+] 

@@ -407,7 +407,7 @@ function Instructores() {
       <Grid justifyContent="space-between" container spacing={10}>
         <Grid item>
           <Typography variant="h3" gutterBottom display="inline">
-            Lista de Instructores
+            Instructores
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>

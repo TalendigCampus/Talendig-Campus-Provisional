@@ -2,6 +2,7 @@ import React from "react";
 import styled, { withTheme } from "styled-components/macro";
 import Chart from "react-chartjs-2";
 import { MoreVertical } from "react-feather";
+import { orange, red, green, blue } from "@mui/material/colors";
 
 import {
   Card as MuiCard,
@@ -27,42 +28,39 @@ function LineChart({ theme }) {
     gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
 
     return {
-      labels: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
+      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
       datasets: [
         {
-          label: "Sales ($)",
+          label: "Talentos",
           fill: true,
           backgroundColor: gradient,
-          borderColor: theme.palette.secondary.main,
+          borderColor: orange[500],
           tension: 0.4,
-          data: [
-            2115, 1562, 1584, 1892, 1587, 1923, 2566, 2448, 2805, 3438, 2917,
-            3327,
-          ],
+          data: [2115, 1562, 1584, 1892, 1587, 1923],
         },
         {
-          label: "Orders",
+          label: "Instructores",
           fill: true,
-          backgroundColor: "transparent",
-          borderColor: theme.palette.grey[500],
-          borderDash: [4, 4],
+          backgroundColor: gradient,
+          borderColor: blue[500],
           tension: 0.4,
-          data: [
-            958, 724, 629, 883, 915, 1214, 1476, 1212, 1554, 2128, 1466, 1827,
-          ],
+          data: [928, 744, 679, 813, 925, 1114],
+        },
+        {
+          label: "Cazatalentos",
+          fill: true,
+          backgroundColor: gradient,
+          borderColor: green[500],
+          tension: 0.4,
+          data: [2135, 1462, 1554, 1892, 1387, 2023],
+        },
+        {
+          label: "Instituciones",
+          fill: true,
+          backgroundColor: gradient,
+          borderColor: red[500],
+          tension: 0.4,
+          data: [958, 724, 629, 883, 915, 1214],
         },
       ],
     };
@@ -98,7 +96,7 @@ function LineChart({ theme }) {
             <MoreVertical />
           </IconButton>
         }
-        title="Total revenue"
+        title="Usuario por mes"
       />
       <CardContent>
         <ChartWrapper>
