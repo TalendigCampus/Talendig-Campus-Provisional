@@ -50,10 +50,14 @@ import Blank from "./pages/pages/Blank";
 import InvoiceDetails from "./pages/pages/InvoiceDetails";
 import InvoiceList from "./pages/pages/InvoiceList";
 import TalentList from "./pages/pages/talent/TalentList";
+import TalentEdit from "./pages/pages/talent/RecruitersProfileForm";
+import TalentDetails from "./pages/pages/talent/TalentDetails";
 import Orders from "./pages/pages/Orders";
 import Recruiters from "./pages/pages/AdminRecruiters/Recruiters";
 import RecruitersList from "./pages/pages/AdminRecruiters/RecruitersList";
 import RecruitersProfile from "./pages/pages/AdminRecruiters/RecruitersProfile";
+import ProjectsIndex from "./pages/pages/AdminProyects/index";
+import ProjectsList from "./pages/pages/AdminProyects/ProjectsList";
 import Settings from "./pages/pages/Settings";
 import Lista_Instructores from "./pages/AdminInstructors/List_Instructors";
 import BootcampsStatistics from "./pages/Bootcamps/index";
@@ -176,6 +180,14 @@ const routes = [
                     path: "list",
                     element: <TalentList />,
                   },
+                  {
+                    path: "edit/:talentId",
+                    element: <TalentEdit />,
+                  },
+                  {
+                    path: "info/:talentId",
+                    element: <TalentDetails />,
+                  },
                 ],
               },
               {
@@ -226,6 +238,19 @@ const routes = [
                   {
                     path: "info",
                     element: <InfoProfile />,
+                  },
+                ],
+              },
+              {
+                path: "projects",
+                children: [
+                  {
+                    index: true,
+                    element: <ProjectsIndex />,
+                  },
+                  {
+                    path: "list",
+                    element: <ProjectsList />,
                   },
                 ],
               },

@@ -51,7 +51,7 @@ const pagesSection = [
     title: "Bootcamps",
   },
   {
-    href: "/admin/dashboard/projects",
+    href: "/admin/dashboard/users/projects",
     icon: NORMALICONS.project,
     title: "Proyectos",
   },
