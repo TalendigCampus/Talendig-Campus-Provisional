@@ -43,16 +43,13 @@ function Footer() {
           <Grid container item xs={12} md={6}>
             <List>
               <ListItemButton component="a" href="#">
-                <ListItemText primary="Support" />
+                <ListItemText primary="Soporte" />
               </ListItemButton>
               <ListItemButton component="a" href="#">
-                <ListItemText primary="Help Center" />
+                <ListItemText primary="Privacidad" />
               </ListItemButton>
               <ListItemButton component="a" href="#">
-                <ListItemText primary="Privacy" />
-              </ListItemButton>
-              <ListItemButton component="a" href="#">
-                <ListItemText primary="Terms of Service" />
+                <ListItemText primary="Terminos de servicio" />
               </ListItemButton>
             </List>
           </Grid>

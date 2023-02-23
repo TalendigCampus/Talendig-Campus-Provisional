@@ -220,7 +220,7 @@ const routes = [
                     element: <RecruitersList />,
                   },
                   {
-                    path: "recruiters-profile/:id",
+                    path: "recruiters-profile",
                     element: <RecruitersProfile />,
                   },
                 ],
