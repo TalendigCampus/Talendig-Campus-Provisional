@@ -239,7 +239,14 @@ function Public(props) {
           </Grid>
         </Grid>
 
-        <Button variant="contained" color="primary" mr={3}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() =>
+            handdlePath(`/admin/dashboard/users/talents/curriculum/${props.talentId}`)
+          }
+          mr={3}
+        >
           Curriculum
         </Button>
         <Button
