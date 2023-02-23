@@ -139,16 +139,19 @@ function Private() {
             />
           </Grid>
         </Grid>
-
-        <TextField
-          id="email"
-          label="Email"
-          variant="outlined"
-          type="email"
-          defaultValue="lucylavender@gmail.com"
-          fullWidth
-          my={2}
-        />
+        <Grid container spacing={6}>
+          <Grid item md={6}>
+            <TextField
+              id="email"
+              label="Email"
+              variant="outlined"
+              type="email"
+              defaultValue="lucylavender@gmail.com"
+              fullWidth
+              my={2}
+            />
+          </Grid>
+        </Grid>
 
         <TextField
           id="address"

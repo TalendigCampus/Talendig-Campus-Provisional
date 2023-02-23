@@ -49,10 +49,9 @@ const pagesSection = [
     href: "/admin/dashboard/bootcamps",
     icon: NORMALICONS.bootcamp,
     title: "Bootcamps",
-    badge: "8",
   },
   {
-    href: "/admin/dashboard/projects",
+    href: "/admin/dashboard/users/projects",
     icon: NORMALICONS.project,
     title: "Proyectos",
   },
@@ -283,7 +282,7 @@ const pagesSection = [
 
 const navItems = [
   {
-    title: "Pages",
+    title: "Secciones",
     pages: pagesSection,
   },
   // {

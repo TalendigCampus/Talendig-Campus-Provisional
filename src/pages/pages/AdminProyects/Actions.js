@@ -7,8 +7,8 @@ import {
   FilterList as FilterListIcon,
 } from "@mui/icons-material";
 import { spacing } from "@mui/system";
-import { DATEKEYS } from "../../../common/constants/data";
-import { getSpanishDate } from "../../../utils/date";
+import { MoreHorizontal } from "react-feather";
+import { useNavigate } from "react-router-dom";
 
 const Button = styled(MuiButton)(spacing);
 
@@ -24,6 +24,7 @@ const SmallButton = styled(Button)`
 
 function Actions() {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const navigate = useNavigate();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -33,33 +34,39 @@ function Actions() {
     setAnchorEl(null);
   };
 
-  const date = getSpanishDate(DATEKEYS.large);
+  const handleChange = (pathToGo) => {
+    navigate(pathToGo, { replace: true });
+  };
 
   return (
     <React.Fragment>
       <Button
-        sx={{ "&:hover": { cursor: "auto" } }}
         variant="contained"
         color="secondary"
         aria-owns={anchorEl ? "simple-menu" : undefined}
         aria-haspopup="true"
         onClick={handleClick}
+        mr={5}
       >
-        Hoy: {date}
+        <MoreHorizontal />
       </Button>
-      {/* <Menu
+      <Menu
         id="simple-menu"
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Hoy</MenuItem>
-        <MenuItem onClick={handleClose}>Ayer</MenuItem>
-        <MenuItem onClick={handleClose}>Hace 7 días</MenuItem>
-        <MenuItem onClick={handleClose}>Hace 30 días</MenuItem>
-        <MenuItem onClick={handleClose}>Este mes</MenuItem>
-        <MenuItem onClick={handleClose}>El mes pasado</MenuItem>
-      </Menu> */}
+        <MenuItem
+          onClick={() => handleChange("/admin/dashboard/users/projects/list")}
+        >
+          Lista
+        </MenuItem>
+        <MenuItem
+          onClick={() => handleChange("/admin/dashboard/users/projects")}
+        >
+          Estadisticas
+        </MenuItem>
+      </Menu>
     </React.Fragment>
   );
 }

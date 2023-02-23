@@ -17,7 +17,7 @@ const ChartWrapper = styled.div`
 
 const DoughnutChart = ({ theme }) => {
   const data = {
-    labels: ["Talentos", "Instituciones", "Reclutadores", "Instructores"],
+    labels: ["JavaScript", "PHP", "C#", "Python"],
     datasets: [
       {
         data: [70, 2, 3, 25],
@@ -46,11 +46,11 @@ const DoughnutChart = ({ theme }) => {
     <Card mb={1}>
       <CardContent>
         <Typography variant="h6" gutterBottom>
-          Usuarios por perfil
+          Proyectos por tecnologías
         </Typography>
         <Typography variant="body2" gutterBottom>
-          Una vista rápida de la cantidad de usuarios registrados, dividos por
-          perfil.
+          Una vista rápida de la cantidad de proyectos registrados, dividos por
+          bootcamps.
         </Typography>
 
         <Spacer mb={6} />

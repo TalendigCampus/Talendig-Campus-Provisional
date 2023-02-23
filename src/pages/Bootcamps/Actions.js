@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import React from "react";
 import styled from "styled-components/macro";
 
@@ -7,45 +8,47 @@ import {
   FilterList as FilterListIcon,
 } from "@mui/icons-material";
 import { spacing } from "@mui/system";
-import { DATEKEYS } from "../../../common/constants/data";
-import { getSpanishDate } from "../../../utils/date";
+import { MoreHorizontal } from "react-feather";
 
 const Button = styled(MuiButton)(spacing);
 
 const SmallButton = styled(Button)`
   padding: 4px;
   min-width: 0;
-
   svg {
     width: 0.9em;
     height: 0.9em;
   }
 `;
 
-function Actions() {
+function Actions({ btnName, path }) {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  // const handleClick = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
+  const handleClose = (pathToGo) => {
     setAnchorEl(null);
+    navigate(pathToGo, { replace: true });
   };
-
-  const date = getSpanishDate(DATEKEYS.large);
 
   return (
     <React.Fragment>
+      {/* <SmallButton size="small" mr={2}>
+        <LoopIcon />
+      </SmallButton>
+      <SmallButton size="small" mr={2}>
+        <FilterListIcon />
+      </SmallButton> */}
       <Button
-        sx={{ "&:hover": { cursor: "auto" } }}
         variant="contained"
         color="secondary"
         aria-owns={anchorEl ? "simple-menu" : undefined}
         aria-haspopup="true"
-        onClick={handleClick}
+        onClick={() => handleClose(path)}
       >
-        Hoy: {date}
+        {btnName}
       </Button>
       {/* <Menu
         id="simple-menu"
@@ -53,12 +56,14 @@ function Actions() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Hoy</MenuItem>
-        <MenuItem onClick={handleClose}>Ayer</MenuItem>
-        <MenuItem onClick={handleClose}>Hace 7 días</MenuItem>
-        <MenuItem onClick={handleClose}>Hace 30 días</MenuItem>
-        <MenuItem onClick={handleClose}>Este mes</MenuItem>
-        <MenuItem onClick={handleClose}>El mes pasado</MenuItem>
+        <MenuItem
+          onClick={() => handleClose("/admin/dashboard/bootcamps/list")}
+        >
+          Lista{" "}
+        </MenuItem>{" "}
+        <MenuItem onClick={() => handleClose("/admin/dashboard/bootcamps/")}>
+          Estadisticas{" "}
+        </MenuItem>
       </Menu> */}
     </React.Fragment>
   );

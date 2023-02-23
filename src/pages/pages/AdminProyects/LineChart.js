@@ -28,10 +28,17 @@ function LineChart({ theme }) {
     gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
 
     return {
-      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+      labels: [
+        "2022-01",
+        "2022-02",
+        "2022-03",
+        "2022-04",
+        "2022-05",
+        "2022-06",
+      ],
       datasets: [
         {
-          label: "Talentos",
+          label: "CRUD React",
           fill: true,
           backgroundColor: gradient,
           borderColor: orange[500],
@@ -39,7 +46,7 @@ function LineChart({ theme }) {
           data: [2115, 1562, 1584, 1892, 1587, 1923],
         },
         {
-          label: "Instructores",
+          label: "API NodeJs",
           fill: true,
           backgroundColor: gradient,
           borderColor: blue[500],
@@ -47,7 +54,7 @@ function LineChart({ theme }) {
           data: [928, 744, 679, 813, 925, 1114],
         },
         {
-          label: "Reclutadores",
+          label: "Server Side Render .NET",
           fill: true,
           backgroundColor: gradient,
           borderColor: green[500],
@@ -55,7 +62,7 @@ function LineChart({ theme }) {
           data: [2135, 1462, 1554, 1892, 1387, 2023],
         },
         {
-          label: "Instituciones",
+          label: "FullStack MERN",
           fill: true,
           backgroundColor: gradient,
           borderColor: red[500],
@@ -90,7 +97,7 @@ function LineChart({ theme }) {
 
   return (
     <Card mb={6}>
-      <CardHeader title="Usuario por mes" />
+      <CardHeader title="Proyectos más visitados" />
       <CardContent>
         <ChartWrapper>
           <Chart type="line" data={data} options={options} />
