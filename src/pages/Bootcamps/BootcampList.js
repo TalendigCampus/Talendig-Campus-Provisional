@@ -4,6 +4,7 @@ import styled from "styled-components/macro";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import bootcampData from "./bootcamp.json";
+import { JSXICONS } from "../../common/constants/data";
 
 import {
   Avatar as MuiAvatar,
@@ -43,6 +44,14 @@ import {
 } from "@mui/icons-material";
 import { spacing } from "@mui/system";
 import Actions from "./Actions";
+import {
+  selectBootcamps,
+  bootcampToDelete,
+  setShowUndo,
+} from "../../redux/slices/bootcampSlice";
+import { useSelector, useDispatch } from "react-redux";
+import UndoAction from "./UndoAction";
+import BootcampDialog from "./BootcampDialog";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -75,56 +84,6 @@ const Customer = styled.div`
   display: flex;
   align-items: center;
 `;
-
-// const rows = [
-//   {
-//     id: 1,
-//     bootcampName: "Desarrollo web Stack MERN",
-//     initialDate: "2022-12-10",
-//     endDate: "2023-12-10",
-//     teacher: "Luis Soto",
-//     talentsName:
-//       "Anthony Peralta,Madelson Acosta,Felix Ortega,Kiancis Dominguez",
-//     tecnologies: "React, Javascript, Nodejs, SCSS",
-//     instructorId: 1,
-//     image: "",
-//   },
-//   {
-//     id: 2,
-//     bootcampName: "Desarrollo web Stack MEAN",
-//     initialDate: "2023-02-10",
-//     endDate: "2023-08-10",
-//     teacher: "Miguel Ramirez",
-//     talentsName: "Ana Ramirez,Miguel Sandoval,Maria Dominguez,Karla Ruiz",
-//     tecnologies: "Angular, Typescript, Nodejs, CSS",
-//     instructorId: 2,
-//     image: "",
-//   },
-//   {
-//     id: 3,
-//     bootcampName: "Desarrollo Web con ASP.Net",
-//     initialDate: "2023-02-10",
-//     endDate: "2023-08-10",
-//     teacher: "Juan Santana",
-//     talentsName: "Juan Ochoa,Antonia Sanchez,Martin Perez,Jose Guzman",
-//     tecnologies: "C#, SQL Server, Blazor, .Net Framework",
-//     instructorId: 3,
-//     image: "",
-//   },
-//   {
-//     id: 4,
-//     bootcampName: "Cloud Computing",
-//     initialDate: "2023-01-10",
-//     endDate: "2023-07-10",
-//     teacher: "Juan Santana",
-//     talentsName: "Roberto Peralta,Steven Rosa,Alexis Pedral,Junior Moron",
-//     tecnologies: "Python, Amazon Web Services",
-//     instructorId: 3,
-//     image: "",
-//   },
-// ];
-
-const rows = bootcampData;
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -161,7 +120,7 @@ const headCells = [
   { id: "endDate", alignment: "right", label: "Fecha de fin" },
   { id: "teacher", alignment: "right", label: "Instructor" },
   { id: "tecnologies", alignment: "left", label: "Tecnologías" },
-  { id: "actions", alignment: "right", label: "Acción" },
+  { id: "actions", alignment: "center", label: "Acción" },
 ];
 
 const EnhancedTableHead = (props) => {
@@ -173,6 +132,7 @@ const EnhancedTableHead = (props) => {
     rowCount,
     onRequestSort,
   } = props;
+
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -241,7 +201,10 @@ const EnhancedTableToolbar = (props) => {
   );
 };
 
-function EnhancedTable() {
+function EnhancedTable({ setDeleteBootcampModal }) {
+  const rows = useSelector(selectBootcamps);
+  const dispatch = useDispatch();
+
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("bootcampName");
   const [selected, setSelected] = React.useState([]);
@@ -303,6 +266,12 @@ function EnhancedTable() {
     navigate(pathToGo, { replace: true });
   };
 
+  const handleDelete = (id) => {
+    dispatch(bootcampToDelete({ id }));
+    dispatch(setShowUndo({ status: false }));
+    setDeleteBootcampModal(true);
+  };
+
   return (
     <div>
       <Paper>
@@ -346,7 +315,7 @@ function EnhancedTable() {
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row">
                         <Customer>
-                          <Avatar>{row.recruiterAvatar}</Avatar>
+                          <Avatar>{JSXICONS["bootcamp"]}</Avatar>
                           <Box ml={3}>{row.bootcampName}</Box>
                         </Customer>
                       </TableCell>
@@ -354,7 +323,7 @@ function EnhancedTable() {
                       <TableCell align="right">{row.endDate}</TableCell>
                       <TableCell align="right">{row.teacher}</TableCell>
                       <TableCell>{row.tecnologies}</TableCell>
-                      <TableCell align="right">
+                      <TableCell align="left">
                         <IconButton
                           aria-label="info"
                           size="large"
@@ -372,6 +341,7 @@ function EnhancedTable() {
                           aria-label="delete"
                           size="large"
                           color="error"
+                          onClick={() => handleDelete(row.id)}
                         >
                           <RemoveCircle />
                         </IconButton>
@@ -402,6 +372,8 @@ function EnhancedTable() {
 }
 
 function BootcampsList() {
+  const [deleteBootcampModal, setDeleteBootcampModal] = React.useState(false);
+
   return (
     <React.Fragment>
       <Helmet title="Bootcamps" />
@@ -414,13 +386,16 @@ function BootcampsList() {
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
             <Link component={NavLink} to="/admin/dashboard/bootcamps">
-              Bootcamps
+              Bootcamps Dashboard
             </Link>
             <Typography>Lista de Bootcamps</Typography>
           </Breadcrumbs>
         </Grid>
         <Grid item>
-          <Actions />
+          <Actions
+            path={"/admin/dashboard/bootcamps/"}
+            btnName={"Estadísticas"}
+          />
         </Grid>
       </Grid>
 
@@ -428,7 +403,15 @@ function BootcampsList() {
 
       <Grid container spacing={6}>
         <Grid item xs={12}>
-          <EnhancedTable />
+          <EnhancedTable setDeleteBootcampModal={setDeleteBootcampModal} />
+          {deleteBootcampModal && (
+            <BootcampDialog
+              deleteBootcampModal={deleteBootcampModal}
+              setDeleteBootcampModal={setDeleteBootcampModal}
+            />
+          )}
+
+          <UndoAction />
         </Grid>
       </Grid>
     </React.Fragment>
