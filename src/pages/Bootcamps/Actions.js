@@ -21,12 +21,12 @@ const SmallButton = styled(Button)`
   }
 `;
 
-function Actions() {
+function Actions({ btnName, path }) {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  // const handleClick = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
 
   const handleClose = (pathToGo) => {
     setAnchorEl(null);
@@ -35,22 +35,22 @@ function Actions() {
 
   return (
     <React.Fragment>
-      <SmallButton size="small" mr={2}>
+      {/* <SmallButton size="small" mr={2}>
         <LoopIcon />
       </SmallButton>
       <SmallButton size="small" mr={2}>
         <FilterListIcon />
-      </SmallButton>
+      </SmallButton> */}
       <Button
         variant="contained"
         color="secondary"
         aria-owns={anchorEl ? "simple-menu" : undefined}
         aria-haspopup="true"
-        onClick={handleClick}
+        onClick={() => handleClose(path)}
       >
-        <MoreHorizontal />
+        {btnName}
       </Button>
-      <Menu
+      {/* <Menu
         id="simple-menu"
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
@@ -64,7 +64,7 @@ function Actions() {
         <MenuItem onClick={() => handleClose("/admin/dashboard/bootcamps/")}>
           Estadisticas{" "}
         </MenuItem>
-      </Menu>
+      </Menu> */}
     </React.Fragment>
   );
 }
