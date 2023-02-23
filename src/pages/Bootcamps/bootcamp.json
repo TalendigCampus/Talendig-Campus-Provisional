@@ -7,9 +7,9 @@
     "teacher": "Luis Soto",
     "talentsName":
       "Anthony Peralta,Madelson Acosta,Felix Ortega,Kiancis Dominguez",
-    "tecnologies": "React, Javascript, Nodejs, SCSS",
-    "instructorId": 1,
-    "image": ""
+    "tecnologies": "React,Javascript,Nodejs, SCSS",
+    "teacherId": 1,
+    "image": "https://komarcalabs.com/images/mern.png"
   },
   {
     "id": 2,
@@ -18,9 +18,9 @@
     "endDate": "2023-08-10",
     "teacher": "Miguel Ramirez",
     "talentsName": "Ana Ramirez,Miguel Sandoval,Maria Dominguez,Karla Ruiz",
-    "tecnologies": "Angular, Typescript, Nodejs, CSS",
-    "instructorId": 2,
-    "image": ""
+    "tecnologies": "Angular,Typescript,Nodejs, CSS",
+    "teacherId": 2,
+    "image": "https://www.enukesoftware.com/blog/wp-content/uploads/2016/10/meanjs-1024x492-1024x575.jpg"
   },
   {
     "id": 3,
@@ -29,9 +29,9 @@
     "endDate": "2023-08-10",
     "teacher": "Juan Santana",
     "talentsName": "Juan Ochoa,Antonia Sanchez,Martin Perez,Jose Guzman",
-    "tecnologies": "C#, SQL Server, Blazor, .Net Framework",
-    "instructorId": 3,
-    "image": ""
+    "tecnologies": "C#, SQL Server,Blazor,.Net Framework",
+    "teacherId": 3,
+    "image": "https://www.programandoamedianoche.com/wp-content/uploads/2008/09/asp.net_.logo_.png"
   },
   {
     "id": 4,
@@ -40,8 +40,8 @@
     "endDate": "2023-07-10",
     "teacher": "Juan Santana",
     "talentsName": "Roberto Peralta,Steven Rosa,Alexis Pedral,Junior Moron",
-    "tecnologies": "Python, Amazon Web Services",
-    "instructorId": 3,
-    "image": ""
+    "tecnologies": "Python,Amazon Web Services",
+    "teacherId": 3,
+    "image": "https://miro.medium.com/max/640/1*ngkHgQq7ij1NBNr62er3zA.png"
   }
 ]

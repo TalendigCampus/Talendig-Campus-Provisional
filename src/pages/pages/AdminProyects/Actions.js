@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import React from "react";
 import styled from "styled-components/macro";
 
@@ -9,62 +8,65 @@ import {
 } from "@mui/icons-material";
 import { spacing } from "@mui/system";
 import { MoreHorizontal } from "react-feather";
+import { useNavigate } from "react-router-dom";
 
 const Button = styled(MuiButton)(spacing);
 
 const SmallButton = styled(Button)`
   padding: 4px;
   min-width: 0;
+
   svg {
     width: 0.9em;
     height: 0.9em;
   }
 `;
 
-function Actions({ btnName, path }) {
-  const navigate = useNavigate();
+function Actions() {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  // const handleClick = (event) => {
-  //   setAnchorEl(event.currentTarget);
-  // };
+  const navigate = useNavigate();
 
-  const handleClose = (pathToGo) => {
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleChange = (pathToGo) => {
     navigate(pathToGo, { replace: true });
   };
 
   return (
     <React.Fragment>
-      {/* <SmallButton size="small" mr={2}>
-        <LoopIcon />
-      </SmallButton>
-      <SmallButton size="small" mr={2}>
-        <FilterListIcon />
-      </SmallButton> */}
       <Button
         variant="contained"
         color="secondary"
         aria-owns={anchorEl ? "simple-menu" : undefined}
         aria-haspopup="true"
-        onClick={() => handleClose(path)}
+        onClick={handleClick}
+        mr={5}
       >
-        {btnName}
+        <MoreHorizontal />
       </Button>
-      {/* <Menu
+      <Menu
         id="simple-menu"
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
         <MenuItem
-          onClick={() => handleClose("/admin/dashboard/bootcamps/list")}
+          onClick={() => handleChange("/admin/dashboard/users/projects/list")}
         >
-          Lista{" "}
-        </MenuItem>{" "}
-        <MenuItem onClick={() => handleClose("/admin/dashboard/bootcamps/")}>
-          Estadisticas{" "}
+          Lista
         </MenuItem>
-      </Menu> */}
+        <MenuItem
+          onClick={() => handleChange("/admin/dashboard/users/projects")}
+        >
+          Estadisticas
+        </MenuItem>
+      </Menu>
     </React.Fragment>
   );
 }
