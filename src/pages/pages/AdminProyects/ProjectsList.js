@@ -43,18 +43,8 @@ import {
 import { spacing } from "@mui/system";
 import Actions from "./Actions";
 import JsonInfo from "./info.json";
-import AlertDialog from "./Alert";
-import TalentUndo from "./TalentUndo";
 
 import { useSelector, useDispatch } from "react-redux";
-import {
-  selectTalents,
-  talentToDelete,
-  setShowAlert,
-  deleteTalent,
-  allowDelete,
-  showUndo,
-} from "../../../redux/slices/talentSlice";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -88,7 +78,7 @@ const Customer = styled.div`
   align-items: center;
 `;
 
-function createData(
+/* function createData(
   talentName,
   talentEmail,
   recruiterAvatar,
@@ -108,57 +98,7 @@ function createData(
     tecnology,
     id,
   };
-}
-/* createData(
-    "Anthony Peralta",
-    "anthony@gmail.com",
-    "A",
-    "012-09879879-0",
-    "1999-10-08",
-    "ASP.Net",
-    "PHP, Angular, Javascript, ASP.net",
-    "1"
-  ),
-  createData(
-    "Madelson Acosta",
-    "madelson@gmail.com",
-    "M",
-    "402-2342343-0",
-    "1920-04-10",
-    "MERN",
-    "Ruby, MERN, Nodejs",
-    "2"
-  ),
-  createData(
-    "Felix Ortega",
-    "felix@gmail.com",
-    "F",
-    "002-1591642-0",
-    "1986-02-10",
-    "ASP.Net",
-    "C#, SQL Server, .Net",
-    "3"
-  ),
-  createData(
-    "Kiancis Dominguez",
-    "kiancis@gmail.com",
-    "K",
-    "012-9089798-0",
-    "1995-12-10",
-    "MERN",
-    "React, Javascript",
-    "4"
-  ),
-  createData(
-    "Gabriel Encarnacion",
-    "gabriel@gmail.com",
-    "G",
-    "012-9089798-0",
-    "1995-12-10",
-    "Mern",
-    "React, Javascript, Nodejs",
-    "5"
-  ), */
+} */
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -190,12 +130,15 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: "talentName", alignment: "left", label: "Nombre" },
-  { id: "idCard", alignment: "left", label: "Cedula" },
-  { id: "birth", alignment: "right", label: "Fecha de Nacimiento" },
-  { id: "Bootcamp", alignment: "right", label: "Bootcamp" },
-  { id: "tecnology", alignment: "left", label: "Tecnologias" },
-  { id: "actions", alignment: "right", label: "Acción" },
+  { id: "projectName", alignment: "center", label: "Nombre" },
+  {
+    id: "lastModification",
+    alignment: "center",
+    label: "Ultima fecha de modificacion",
+  },
+  { id: "talentName", alignment: "center", label: "Talento" },
+  { id: "tecnology", alignment: "center", label: "Tecnologias" },
+  { id: "actions", alignment: "center", label: "Acción" },
 ];
 
 const EnhancedTableHead = (props) => {
@@ -282,10 +225,7 @@ function EnhancedTable({ setAllowDelete }) {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  /* const [rows, setRows] = React.useState(JsonInfo); */
-  const rows = useSelector(selectTalents);
-  const allowDeleteTalent = useSelector(allowDelete);
-  const dispatch = useDispatch();
+  const [rows, setRows] = React.useState(JsonInfo);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -335,9 +275,8 @@ function EnhancedTable({ setAllowDelete }) {
     setPage(0);
   };
 
-  const handleDelete = (talentId) => {
+  const handleDelete = (projectId) => {
     setAllowDelete(true);
-    dispatch(talentToDelete({ talentId }));
   };
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
@@ -367,7 +306,7 @@ function EnhancedTable({ setAllowDelete }) {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.talentId);
+                  const isItemSelected = isSelected(row.projectId);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
@@ -376,48 +315,42 @@ function EnhancedTable({ setAllowDelete }) {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={`${row.talentId}-${index}`}
+                      key={`${row.projectId}-${index}`}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
                           checked={isItemSelected}
                           inputProps={{ "aria-labelledby": labelId }}
-                          onClick={(event) => handleClick(event, row.talentId)}
+                          onClick={(event) => handleClick(event, row.projectId)}
                         />
                       </TableCell>
-                      <TableCell component="th" id={labelId} scope="row">
-                        <Customer>
-                          <Avatar>{row.recruiterAvatar}</Avatar>
-                          <Box ml={3}>
-                            {`${row.talentName} ${row.talentLastName}`}
-                            <br />
-                            {row.talentEmail}
-                          </Box>
-                        </Customer>
+                      <TableCell align="center">{row.projectName}</TableCell>
+                      <TableCell align="center">
+                        {row.lastModification}
                       </TableCell>
-                      <TableCell>{row.idCard}</TableCell>
-                      <TableCell align="center">{row.birth}</TableCell>
-                      <TableCell align="right">{row.bootcamp}</TableCell>
+                      {/* <TableCell>{row.idCard}</TableCell> */}
+                      <TableCell align="center">{`${row.talentName} ${row.talentLastName}`}</TableCell>
                       <TableCell>{row.tecnology}</TableCell>
-                      <TableCell align="right">
-                        <IconButton
+                      <TableCell align="center">
+                        {/* <IconButton
                           aria-label="info"
                           size="large"
                           color="info"
                           onClick={() =>
                             handdlePath(
-                              `/admin/dashboard/users/talents/info/${row.talentId}`
+                              `/admin/dashboard/users/talents/info/${row.projectId}`
                             )
                           }
                         >
                           <Info />
-                        </IconButton>
+                        </IconButton> */}
                         <IconButton
                           aria-label="delete"
+                          align="center"
                           size="large"
                           color="error"
-                          onClick={() => handleDelete(row.talentId)}
+                          onClick={() => handleDelete(row.projectId)}
                         >
                           <RemoveCircle />
                         </IconButton>
@@ -449,7 +382,6 @@ function EnhancedTable({ setAllowDelete }) {
 
 function InvoiceList() {
   const [allowDelete, setAllowDelete] = React.useState(false);
-  let status = useSelector(showUndo);
   const [id, setId] = React.useState(null);
 
   return (
@@ -458,7 +390,7 @@ function InvoiceList() {
       <Grid justifyContent="space-between" container spacing={10}>
         <Grid item>
           <Typography variant="h3" gutterBottom display="inline">
-            Lista de Talentos
+            Lista de Proyectos
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
@@ -466,7 +398,7 @@ function InvoiceList() {
               Dashboard
             </Link>
             <Typography>Usuarios</Typography>
-            <Typography>Lista Talentos</Typography>
+            <Typography>Lista proyectos</Typography>
           </Breadcrumbs>
         </Grid>
         <Grid item>
@@ -477,13 +409,13 @@ function InvoiceList() {
       <Grid container spacing={6}>
         <Grid item xs={12}>
           <EnhancedTable setAllowDelete={setAllowDelete} setId={setId} />
-          {allowDelete && (
+          {/* {allowDelete && (
             <AlertDialog
               allowDelete={allowDelete}
               setAllowDelete={setAllowDelete}
             />
-          )}
-          {status && <TalentUndo />}
+          )} */}
+          {/* {status && <TalentUndo />} */}
         </Grid>
       </Grid>
     </React.Fragment>
