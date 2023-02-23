@@ -243,7 +243,9 @@ function Public(props) {
           variant="contained"
           color="primary"
           onClick={() =>
-            handdlePath(`/admin/dashboard/users/talents/curriculum/${props.talentId}`)
+            handdlePath(
+              `/admin/dashboard/users/talents/curriculum/${props.talentId}`
+            )
           }
           mr={3}
         >

@@ -139,7 +139,7 @@ function Skills(props) {
     <Card mb={6}>
       <CardContent>
         <Typography variant="h6" gutterBottom>
-          Skills
+          Habilidades
         </Typography>
 
         <Spacer mb={4} />
@@ -167,7 +167,7 @@ function About(props) {
     <Card mb={6}>
       <CardContent>
         <Typography variant="h6" gutterBottom>
-          About
+          Informacion personal
         </Typography>
 
         <Spacer mb={4} />
@@ -320,7 +320,7 @@ function Education(props) {
     <Card mb={6}>
       <CardContent>
         <Typography variant="h6" gutterBottom>
-          Experiencia
+          Educacion
         </Typography>
 
         <Spacer mb={4} />
