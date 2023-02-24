@@ -47,7 +47,7 @@ function LineChart({ theme }) {
           data: [928, 744, 679, 813, 925, 1114],
         },
         {
-          label: "Cazatalentos",
+          label: "Reclutadores",
           fill: true,
           backgroundColor: gradient,
           borderColor: green[500],
@@ -90,14 +90,7 @@ function LineChart({ theme }) {
 
   return (
     <Card mb={6}>
-      <CardHeader
-        action={
-          <IconButton aria-label="settings" size="large">
-            <MoreVertical />
-          </IconButton>
-        }
-        title="Usuario por mes"
-      />
+      <CardHeader title="Usuario por mes" />
       <CardContent>
         <ChartWrapper>
           <Chart type="line" data={data} options={options} />

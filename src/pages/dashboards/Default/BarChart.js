@@ -22,7 +22,7 @@ const BarChart = ({ theme }) => {
   const firstDatasetColor = theme.palette.secondary.main;
 
   const data = {
-    labels: ["Talentos", "Instructores", "Cazatalentos", "Instituciones"],
+    labels: ["Talentos", "Instructores", "Reclutadores", "Instituciones"],
     datasets: [
       {
         label: "Usuarios conectados",
@@ -70,14 +70,7 @@ const BarChart = ({ theme }) => {
 
   return (
     <Card mb={6}>
-      <CardHeader
-        action={
-          <IconButton aria-label="settings" size="large">
-            <MoreVertical />
-          </IconButton>
-        }
-        title="Usuarios conectados"
-      />
+      <CardHeader title="Usuarios conectados" />
 
       <CardContent>
         <ChartWrapper>

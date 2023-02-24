@@ -50,12 +50,19 @@ import Blank from "./pages/pages/Blank";
 import InvoiceDetails from "./pages/pages/InvoiceDetails";
 import InvoiceList from "./pages/pages/InvoiceList";
 import TalentList from "./pages/pages/talent/TalentList";
+import TalentEdit from "./pages/pages/talent/RecruitersProfileForm";
+import TalentDetails from "./pages/pages/talent/TalentDetails";
 import Orders from "./pages/pages/Orders";
 import Recruiters from "./pages/pages/AdminRecruiters/Recruiters";
 import RecruitersList from "./pages/pages/AdminRecruiters/RecruitersList";
 import RecruitersProfile from "./pages/pages/AdminRecruiters/RecruitersProfile";
+import ProjectsIndex from "./pages/pages/AdminProyects/index";
+import ProjectsList from "./pages/pages/AdminProyects/ProjectsList";
 import Settings from "./pages/pages/Settings";
 import ListaInstructores from "./pages/AdminInstructors/List_Instructors";
+import Lista_Instructores from "./pages/AdminInstructors/List_Instructors";
+import BootcampsStatistics from "./pages/Bootcamps/index";
+import BootcampsList from "./pages/Bootcamps/BootcampList";
 
 import Projects from "./pages/pages/Projects";
 import Chat from "./pages/componetsIntitucio/Chat";
@@ -93,6 +100,8 @@ import Landing from "./pages/presentation/Landing";
 // Protected routes
 import ProtectedPage from "./pages/protected/ProtectedPage";
 import Instructores from "./pages/AdminInstructors/Instructores";
+import BootcampProfile from "./pages/Bootcamps/BootcampProfile";
+import Curriculum from "./pages/pages/talent/Curriculum";
 
 import EditInstructors from "./pages/AdminInstructors/Edit_Instructors";
 import ViewInstructors from "./pages/AdminInstructors/InstructorsList/View_Instructors";
@@ -146,6 +155,23 @@ const routes = [
             element: <Default />,
           },
           {
+            path: "bootcamps",
+            children: [
+              {
+                index: true,
+                element: <BootcampsStatistics />,
+              },
+              {
+                path: "list",
+                element: <BootcampsList />,
+              },
+              {
+                path: "bootcamp-profile/:id",
+                element: <BootcampProfile />,
+              },
+            ],
+          },
+          {
             path: "Users",
             children: [
               {
@@ -158,6 +184,18 @@ const routes = [
                   {
                     path: "list",
                     element: <TalentList />,
+                  },
+                  {
+                    path: "edit/:talentId",
+                    element: <TalentEdit />,
+                  },
+                  {
+                    path: "info/:talentId",
+                    element: <TalentDetails />,
+                  },
+                  {
+                    path: "curriculum/:talentId",
+                    element: <Curriculum />,
                   },
                 ],
               },
@@ -190,7 +228,7 @@ const routes = [
                     element: <RecruitersList />,
                   },
                   {
-                    path: "recruiters-profile/:id",
+                    path: "recruiters-profile",
                     element: <RecruitersProfile />,
                   },
                 ],
@@ -213,6 +251,19 @@ const routes = [
                   {
                     path: "info",
                     element: <InfoProfile />,
+                  },
+                ],
+              },
+              {
+                path: "projects",
+                children: [
+                  {
+                    index: true,
+                    element: <ProjectsIndex />,
+                  },
+                  {
+                    path: "list",
+                    element: <ProjectsList />,
                   },
                 ],
               },

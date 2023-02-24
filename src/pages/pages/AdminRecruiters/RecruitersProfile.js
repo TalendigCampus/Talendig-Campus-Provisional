@@ -2,8 +2,6 @@ import React from "react";
 import styled from "styled-components/macro";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { useParams } from "react-router-dom";
-import RecruitersInfo from "./RecruiterInfo.json";
 
 import {
   Avatar,
@@ -22,6 +20,9 @@ import { CloudUpload as MuiCloudUpload } from "@mui/icons-material";
 import { spacing } from "@mui/system";
 import RecruiterTecnologyList from "./RecruiterTecnologyList";
 import RecruitersProfileForm from "./RecruitersProfileForm";
+
+import { useSelector } from "react-redux";
+import { currentRecruiter } from "../../../redux/slices/recruiterSlice";
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
@@ -47,14 +48,15 @@ const BigAvatar = styled(Avatar)`
   margin: 0 auto ${(props) => props.theme.spacing(2)};
 `;
 
-function Public(recruiterPublic) {
+function Public() {
+  const recruiter = useSelector(currentRecruiter);
   return (
     <Card mb={6}>
       <CardContent>
         <Grid container spacing={6}>
           <Grid item md={4}>
             <CenteredContent>
-              <BigAvatar alt="Remy Sharp" src={recruiterPublic.photoUrl} />
+              <BigAvatar alt="Remy Sharp" src={recruiter.photoUrl} />
               <input
                 accept="image/*"
                 style={{ display: "none" }}
@@ -73,7 +75,7 @@ function Public(recruiterPublic) {
             <TextField
               id="username"
               label="Usuario desde"
-              defaultValue={recruiterPublic.affiliationDate}
+              defaultValue={recruiter.affiliationDate}
               variant="outlined"
               fullWidth
               my={2}
@@ -84,7 +86,7 @@ function Public(recruiterPublic) {
               <TextField
                 id="lastConnection"
                 label="Última conexión"
-                defaultValue={recruiterPublic.lastConnectionDate}
+                defaultValue={recruiter.lastConnectionDate}
                 variant="outlined"
                 fullWidth
                 my={2}
@@ -98,23 +100,23 @@ function Public(recruiterPublic) {
   );
 }
 
-function Private(recruiterPrivate) {
+function Private() {
   return (
     <Card mb={6}>
       <CardContent>
-        <RecruitersProfileForm {...recruiterPrivate} />
+        <RecruitersProfileForm />
       </CardContent>
     </Card>
   );
 }
 
-function Tecnology(recruiterTechnology) {
+function Tecnology() {
   return (
     <Card mb={6}>
       <CardContent>
         <Grid container spacing={6}>
           <Grid item md={12}>
-            <RecruiterTecnologyList {...recruiterTechnology} />
+            <RecruiterTecnologyList />
           </Grid>
         </Grid>
       </CardContent>
@@ -153,42 +155,8 @@ const formRecruiterStructure = (recruiter) => {
 };
 
 function Settings() {
-  const { id: recruiterId } = useParams();
-  const recruiter = RecruitersInfo.find(
-    (recruiter) => recruiter.id === recruiterId
-  );
+  const recruiter = useSelector(currentRecruiter);
 
-  if (!recruiter) {
-    return (
-      <React.Fragment>
-        <Helmet title="Recruiter Profile" />
-
-        <Typography variant="h3" gutterBottom display="inline">
-          Perfil Reclutador
-        </Typography>
-
-        <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-          <Link component={NavLink} to="/">
-            Dashboard
-          </Link>
-          <Typography>Usuario</Typography>
-          <Typography>Reclutador</Typography>
-          <Typography>Perfil</Typography>
-        </Breadcrumbs>
-
-        <Divider my={6} />
-
-        <Grid container spacing={6}>
-          <Grid item xs={12}>
-            <Typography variant="h3" gutterBottom display="inline">
-              Reclutador no encontrado!
-            </Typography>
-          </Grid>
-        </Grid>
-      </React.Fragment>
-    );
-  }
-  const recruiterStructure = formRecruiterStructure(recruiter);
   return (
     <React.Fragment>
       <Helmet title="Recruiter Profile" />
@@ -210,9 +178,17 @@ function Settings() {
 
       <Grid container spacing={6}>
         <Grid item xs={12}>
-          <Public {...recruiterStructure.recruiterPublic} />
-          <Private {...recruiterStructure.recruiterPrivate} />
-          <Tecnology {...recruiterStructure.recruiterTechnology} />
+          {recruiter ? (
+            <>
+              <Public />
+              <Private />
+              <Tecnology />
+            </>
+          ) : (
+            <Typography variant="h3" gutterBottom display="inline">
+              Reclutador no encontrado!
+            </Typography>
+          )}
         </Grid>
       </Grid>
     </React.Fragment>
