@@ -27,8 +27,6 @@ const FooterSubText = styled(Typography)`
 const FooterBadge = styled(Badge)`
   margin-right: ${(props) => props.theme.spacing(1)};
   span {
-    background-color: ${(props) =>
-      props.theme.sidebar.footer.online.background};
     border: 1.5px solid ${(props) => props.theme.palette.common.white};
     height: 12px;
     width: 12px;
@@ -36,14 +34,20 @@ const FooterBadge = styled(Badge)`
   }
 `;
 
+// background-color: ${(props) =>
+//   props.theme.sidebar.footer.online.background};
+
 const SidebarFooter = ({ ...rest }) => {
   const { user } = useAuth();
+  const onLine = true;
+  let styleOnline = onLine ? "green" : "red";
 
   return (
     <Footer {...rest}>
       <Grid container spacing={2}>
         <Grid item>
           <FooterBadge
+            sx={{ span: { backgroundColor: styleOnline } }}
             overlap="circular"
             anchorOrigin={{
               vertical: "bottom",
