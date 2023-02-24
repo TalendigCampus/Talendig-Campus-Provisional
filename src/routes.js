@@ -100,6 +100,7 @@ import Landing from "./pages/presentation/Landing";
 import ProtectedPage from "./pages/protected/ProtectedPage";
 import Instructores from "./pages/AdminInstructors/Instructores";
 import BootcampProfile from "./pages/Bootcamps/BootcampProfile";
+import Curriculum from "./pages/pages/talent/Curriculum";
 
 // Dashboard components
 const Default = async(() => import("./pages/dashboards/Default"));
@@ -188,6 +189,10 @@ const routes = [
                     path: "info/:talentId",
                     element: <TalentDetails />,
                   },
+                  {
+                    path: "curriculum/:talentId",
+                    element: <Curriculum />,
+                  },
                 ],
               },
               {
@@ -215,7 +220,7 @@ const routes = [
                     element: <RecruitersList />,
                   },
                   {
-                    path: "recruiters-profile/:id",
+                    path: "recruiters-profile",
                     element: <RecruitersProfile />,
                   },
                 ],

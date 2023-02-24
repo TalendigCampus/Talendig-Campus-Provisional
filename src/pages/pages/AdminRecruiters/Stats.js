@@ -35,6 +35,14 @@ const CardContent = styled(MuiCardContent)`
   }
 `;
 
+const StatsIcon = styled.div`
+  svg {
+    width: 32px;
+    height: 32px;
+    color: ${(props) => props.theme.palette.secondary.main};
+  }
+`;
+
 const Chip = styled(MuiChip)`
   position: absolute;
   top: 16px;
@@ -104,18 +112,20 @@ const Stats = ({
   return (
     <Card illustration={illustration}>
       <CardContent>
-        <Typography
-          variant="h6"
-          mb={4}
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignContent: "center",
-            alignItems: "center",
-          }}
-        >
-          {title} {icon && ICONS[icon]}
-        </Typography>
+        <>
+          <Typography
+            variant="h6"
+            mb={4}
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {title} <StatsIcon>{icon && ICONS[icon]}</StatsIcon>
+          </Typography>
+        </>
         <Typography variant="h3" mb={3}>
           <Box fontWeight="fontWeightRegular">{amount}</Box>
         </Typography>

@@ -5,7 +5,7 @@ const recruiterSlice = createSlice({
   name: "recruiter",
   initialState: {
     RecruitersInfo,
-    setRecruiterToDelete: null,
+    currentRecruiter: null,
     showUndo: false,
   },
   reducers: {
@@ -15,15 +15,22 @@ const recruiterSlice = createSlice({
       );
     },
     addRecruiter: (state, action) => {
-      state.RecruitersInfo = [
-        action.payload.recruiter,
-        ...state.RecruitersInfo,
-      ];
+      state.RecruitersInfo.unshift(action.payload.recruiter);
     },
-    recruiterToDelete: (state, action) => {
-      state.setRecruiterToDelete = state.RecruitersInfo.find(
+    setCurrentRecruiter: (state, action) => {
+      state.currentRecruiter = state.RecruitersInfo.find(
         (recruiter) => recruiter.id === action.payload.recruiterId
       );
+    },
+    updateRecruiter: (state, action) => {
+      state.currentRecruiter = action.payload.currentRecruiter;
+
+      const index = state.RecruitersInfo.findIndex(
+        (recruiter) => recruiter.id === action.payload.currentRecruiter.id
+      );
+
+      if (index !== -1)
+        state.RecruitersInfo[index] = action.payload.currentRecruiter;
     },
     setShowUndo: (state, action) => {
       state.showUndo = action.payload.status;
@@ -31,11 +38,15 @@ const recruiterSlice = createSlice({
   },
 });
 
-export const { deleteRecruiter, recruiterToDelete, addRecruiter, setShowUndo } =
-  recruiterSlice.actions;
+export const {
+  deleteRecruiter,
+  setCurrentRecruiter,
+  addRecruiter,
+  setShowUndo,
+  updateRecruiter,
+} = recruiterSlice.actions;
 export const selectRecruiters = (state) => state.recruiter.RecruitersInfo;
-export const recruiterToBeRemoved = (state) =>
-  state.recruiter.setRecruiterToDelete;
+export const currentRecruiter = (state) => state.recruiter.currentRecruiter;
 export const showUndo = (state) => state.recruiter.showUndo;
 
 export default recruiterSlice.reducer;

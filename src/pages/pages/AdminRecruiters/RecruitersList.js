@@ -47,7 +47,7 @@ import UndoAction from "./UndoAction";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectRecruiters,
-  recruiterToDelete,
+  setCurrentRecruiter,
   setShowUndo,
 } from "../../../redux/slices/recruiterSlice";
 
@@ -326,12 +326,13 @@ function EnhancedTable({ setDeleteRecruiterModal }) {
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
-  const handleShowInfo = (pathToGo) => {
+  const handleShowInfo = (pathToGo, recruiterId) => {
+    dispatch(setCurrentRecruiter({ recruiterId }));
     navigate(pathToGo);
   };
 
   const handleDelete = (recruiterId) => {
-    dispatch(recruiterToDelete({ recruiterId }));
+    dispatch(setCurrentRecruiter({ recruiterId }));
     dispatch(setShowUndo({ status: false }));
     setDeleteRecruiterModal(true);
   };
@@ -398,7 +399,8 @@ function EnhancedTable({ setDeleteRecruiterModal }) {
                           color="info"
                           onClick={() =>
                             handleShowInfo(
-                              `/admin/dashboard/users/recruiters/recruiters-profile/${row.id}`
+                              "/admin/dashboard/users/recruiters/recruiters-profile",
+                              row.id
                             )
                           }
                         >

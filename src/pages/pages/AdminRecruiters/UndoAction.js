@@ -24,7 +24,7 @@ import { spacing } from "@mui/system";
 import { useSelector, useDispatch } from "react-redux";
 import {
   addRecruiter,
-  recruiterToBeRemoved,
+  currentRecruiter,
   setShowUndo,
   showUndo,
 } from "../../../redux/slices/recruiterSlice";
@@ -40,7 +40,7 @@ const Paper = styled(MuiPaper)(spacing);
 const Button = styled(MuiButton)(spacing);
 
 function SimpleSnackbar() {
-  const recruiterToDeleted = useSelector(recruiterToBeRemoved);
+  const recruiterToDeleted = useSelector(currentRecruiter);
   const showUndoSnackbar = useSelector(showUndo);
   const dispatch = useDispatch();
   const handleClick = () => {

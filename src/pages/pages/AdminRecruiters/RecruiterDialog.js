@@ -42,7 +42,7 @@ import { spacing } from "@mui/system";
 import { useSelector, useDispatch } from "react-redux";
 import {
   deleteRecruiter,
-  recruiterToBeRemoved,
+  currentRecruiter,
   setShowUndo,
 } from "../../../redux/slices/recruiterSlice";
 
@@ -55,7 +55,7 @@ const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 const Paper = styled(MuiPaper)(spacing);
 
 function AlertDialog({ deleteRecruiterModal, setDeleteRecruiterModal }) {
-  const recruiterToDelete = useSelector(recruiterToBeRemoved);
+  const recruiterToDelete = useSelector(currentRecruiter);
   const dispatch = useDispatch();
 
   const handleClose = () => {

@@ -103,10 +103,7 @@ function Public(props) {
           </Grid>
           <Grid item md={4}>
             <CenteredContent>
-              <BigAvatar
-                alt="Remy Sharp"
-                src="/static/img/avatars/avatar-1.jpg"
-              />
+              <BigAvatar alt="Remy Sharp" src={props.imgTalent} />
               <input
                 accept="image/*"
                 style={{ display: "none" }}
