@@ -57,6 +57,11 @@ function DataGridDemo(bootcampStudents) {
       <Paper>
         <div style={{ height: 300, width: "100%" }}>
           <DataGrid
+            componentsProps={{
+              pagination: {
+                labelRowsPerPage: "Filas por página",
+              },
+            }}
             rowsPerPageOptions={[5, 10, 25]}
             rows={rows}
             columns={columns}
