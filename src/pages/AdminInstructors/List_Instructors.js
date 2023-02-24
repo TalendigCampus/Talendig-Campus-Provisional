@@ -115,8 +115,9 @@ function stableSort(array, comparator) {
 const headCells = [
   { id: "firstName", alignment: "left", label: "Instructor" },
   { id: "identificationCard", alignment: "left", label: "Cedula" },
-  { id: "company", alignment: "right", label: "Empresa" },
+  { id: "company", alignment: "right", label: "Perfil" },
   { id: "birth", alignment: "right", label: "Fecha de Nacimiento" },
+  { id: "bootcamps", alignment: "right", label: "Bootcamps" },
   { id: "technology", alignment: "left", label: "Tecnologias" },
   { id: "actions", alignment: "right", label: "Acción" },
 ];
@@ -323,6 +324,7 @@ function EnhancedTable({ setDeleteInstructorModal }) {
                       <TableCell>{row.identificationCard}</TableCell>
                       <TableCell align="right">{row.company}</TableCell>
                       <TableCell align="right">{row.birth}</TableCell>
+                      <TableCell align="right">{row.bootcamps}</TableCell>
                       <TableCell>{row.technology}</TableCell>
                       <TableCell align="right">
                         <IconButton

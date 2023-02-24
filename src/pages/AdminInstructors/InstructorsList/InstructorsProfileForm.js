@@ -240,6 +240,20 @@ function BasicForm(instructorPrivate) {
                 </Grid>
 
                 <TextField
+                  name="bootcamps"
+                  label="Bootcamps"
+                  value={values.bootcamps}
+                  disabled={isNotEditing}
+                  error={Boolean(touched.bootcamps && errors.bootcamps)}
+                  fullWidth
+                  helperText={touched.bootcamps && errors.bootcamps}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  variant="outlined"
+                  my={2}
+                />
+
+                <TextField
                   name="email"
                   label="Correo"
                   value={values.email}

@@ -136,6 +136,7 @@ const formInstructorStructure = (instructor) => {
       identificationCard: instructor.identificationCard,
       phoneNumber: instructor.phoneNumber,
       company: instructor.company,
+      bootcamps: instructor.bootcamps,
       email: instructor.email,
       address: {
         street: instructor.address.street,
@@ -194,16 +195,25 @@ function View_Instructors() {
       <Helmet title="Instructor Profile" />
 
       <Typography variant="h3" gutterBottom display="inline">
-        Perfil Reclutador
+        Perfil Instructor
       </Typography>
 
       <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/">
+        <Link component={NavLink} to="/admin/dashboard/home">
           Dashboard
         </Link>
-        <Typography>Usuario</Typography>
-        <Typography>Reclutador</Typography>
-        <Typography>Perfil</Typography>
+        <Link component={NavLink} to="/admin/dashboard/home">
+          Usuarios
+        </Link>
+        <Link component={NavLink} to="/admin/dashboard/users/instructors">
+          Instructores
+        </Link>
+        <Link
+          component={NavLink}
+          to="/admin/dashboard/users/instructors/list_instructors"
+        >
+          Lista
+        </Link>
       </Breadcrumbs>
 
       <Divider my={6} />

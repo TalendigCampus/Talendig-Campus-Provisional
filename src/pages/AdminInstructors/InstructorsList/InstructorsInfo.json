@@ -9,6 +9,7 @@
     "company": "Talendig",
     "birth": "1980-05-22",
     "technology": "React, Express, Javascript",
+    "bootcamps": "MERN",
     "affiliationDate": "05-12-2022",
     "lastConnectionDate": "05-12-2022 3:00 PM",
     "address": {
@@ -32,6 +33,7 @@
     "company": "Talendig",
     "birth": "1980-05-22",
     "technology": "Angular, Nodejs, Javascript",
+    "bootcamps": "MEAN",
     "affiliationDate": "05-12-2022",
     "lastConnectionDate": "05-12-2022 3:00 PM",
     "address": {
@@ -55,6 +57,7 @@
     "company": "Talendig",
     "birth": "1980-05-22",
     "technology": "C#, Java, Python",
+    "bootcamps": "ASP.Net",
     "affiliationDate": "05-12-2022",
     "lastConnectionDate": "05-12-2022 3:00 PM",
     "address": {
@@ -78,6 +81,7 @@
     "company": "Talendig",
     "birth": "1980-05-22",
     "technology": "Nodejs, React, Javascript",
+    "bootcamps": "Cloud Computing",
     "affiliationDate": "05-12-2022",
     "lastConnectionDate": "05-12-2022 3:00 PM",
     "address": {
