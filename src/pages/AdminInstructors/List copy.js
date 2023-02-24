@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components/macro";
 import { useNavigate } from "react-router-dom";
-import { IdDataTable } from "./idDataTableList";
-import SimpleSnackbar from "./AlertUndo";
 
 import {
   Avatar as MuiAvatar,
@@ -14,20 +12,13 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  Button,
   TableHead,
   TablePagination,
   TableRow,
-  Snackbar,
   TableSortLabel,
   Toolbar,
   Tooltip,
   Typography,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
 } from "@mui/material";
 import {
   Archive as ArchiveIcon,
@@ -80,7 +71,7 @@ function createData(
   };
 }
 
-const newRow = [
+const rows = [
   createData(
     "Luis Soto",
     "soto@gmail.com",
@@ -244,77 +235,20 @@ const EnhancedTableToolbar = (props) => {
 };
 
 function EnhancedTable() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const navigate = useNavigate();
+
+  const handleClose = (pathToGo) => {
+    setAnchorEl(null);
+    navigate(pathToGo, { replace: true });
+  };
+
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("id");
+  const [orderBy, setOrderBy] = React.useState("customer");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const navigate = useNavigate();
-  const [open, setOpen] = React.useState(false);
-  const [eliminateData, SetEliminateData] = React.useState({});
-  const [eliminateDone, setEliminateDone] = React.useState(false);
-  const [indexDataeliminate, setIndexDataeliminate] = React.useState(0);
-  const [rows, setNewRow] = React.useState(newRow);
-
-  const handleClose = () => {
-    setOpen(false);
-    setEliminateDone(false);
-  };
-
-  const confirmEliminateData = () => {
-    let newIndexDataeliminate = rows.indexOf(eliminateData);
-    setIndexDataeliminate(newIndexDataeliminate);
-    newRow.splice(newIndexDataeliminate, 1);
-    setNewRow(newRow);
-    setEliminateDone(true);
-    setOpen(false);
-  };
-
-  const EliminateDataList = (id) => {
-    const selectedIndex = selected.indexOf(id);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-
-    rows.filter((row) => {
-      row.id === newSelected[0]
-        ? SetEliminateData(row)
-        : console.log("negativo");
-    });
-    setOpen(true);
-  };
-  const handleChange = (pathToGo, id) => {
-    const selectedIndex = selected.indexOf(id);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
-      IdDataTable.id = newSelected[0] - 1;
-      console.log(IdDataTable.id);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-    setSelected(newSelected);
-    navigate(pathToGo, { replace: true });
-  };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -389,6 +323,7 @@ function EnhancedTable() {
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
+
                   return (
                     <TableRow
                       hover
@@ -423,75 +358,31 @@ function EnhancedTable() {
                       <TableCell>{row.bootcamp}</TableCell>
                       <TableCell align="left">{row.tecnology}</TableCell>
                       <TableCell align="center">
-                        <IconButton aria-label="info" size="large" color="info">
-                          <Info
-                            onClick={(event) =>
-                              handleChange(
-                                "/admin/dashboard/users/instructors/view_instructors",
-                                row.id
-                              )
-                            }
-                          />
+                        {/* Info button */}
+                        <IconButton
+                          aria-label="info"
+                          size="large"
+                          color="info"
+                          onClick={() =>
+                            handleClose(
+                              "/admin/dashboard/users/instructors/edit_instructors"
+                            )
+                          }
+                        >
+                          <Info />
                         </IconButton>
+                        {/* Delete button */}
                         <IconButton
                           aria-label="delete"
                           size="large"
                           color="error"
-                          onClick={(event) => EliminateDataList(row.id)}
                         >
                           <RemoveCircle />
                         </IconButton>
-                        <Dialog
-                          open={open}
-                          onClose={handleClose}
-                          aria-labelledby="alert-dialog-title"
-                          aria-describedby="alert-dialog-description"
-                        >
-                          <DialogTitle id="alert-dialog-title">
-                            {"Alerta"}
-                          </DialogTitle>
-                          <DialogContent>
-                            <DialogContentText id="alert-dialog-description">
-                              Desea eliminar
-                            </DialogContentText>
-                          </DialogContent>
-                          <DialogActions>
-                            <Button onClick={handleClose} color="primary">
-                              No
-                            </Button>
-                            <Button
-                              onClick={confirmEliminateData}
-                              color="primary"
-                              autoFocus
-                            >
-                              Si
-                            </Button>
-                          </DialogActions>
-                        </Dialog>
                       </TableCell>
                     </TableRow>
                   );
                 })}
-              <Snackbar
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-                open={eliminateDone}
-                autoHideDuration={6000}
-                onClose={handleClose}
-                message="Note archived"
-                action={
-                  <SimpleSnackbar
-                    eliminateDone={eliminateDone}
-                    rows={rows}
-                    indexDataeliminate={indexDataeliminate}
-                    setNewRow={setNewRow}
-                    eliminateData={eliminateData}
-                    setEliminateDone={setEliminateDone}
-                  />
-                }
-              />
               {emptyRows > 0 && (
                 <TableRow style={{ height: 53 * emptyRows }}>
                   <TableCell colSpan={7} />

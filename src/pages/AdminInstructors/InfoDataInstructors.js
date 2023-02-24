@@ -24,7 +24,7 @@ function createData(
   };
 }
 
-const TableData = [
+const Rows = [
   createData(
     "Luis Soto",
     "soto@gmail.com",
@@ -71,4 +71,4 @@ const TableData = [
   ),
 ];
 
-export default TableData;
+export default Rows;
