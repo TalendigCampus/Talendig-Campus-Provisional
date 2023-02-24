@@ -101,6 +101,8 @@ import ProtectedPage from "./pages/protected/ProtectedPage";
 import Instructores from "./pages/AdminInstructors/Instructores";
 import BootcampProfile from "./pages/Bootcamps/BootcampProfile";
 import Curriculum from "./pages/pages/talent/Curriculum";
+import Index from "./pages/pages/Portafolio/Index";
+import BriefcaseList from "./pages/pages/Portafolio/briefcaseList";
 
 // Dashboard components
 const Default = async(() => import("./pages/dashboards/Default"));
@@ -256,6 +258,19 @@ const routes = [
                   {
                     path: "list",
                     element: <ProjectsList />,
+                  },
+                ],
+              },
+              {
+                path: "briefcase",
+                children: [
+                  {
+                    index: true,
+                    element: <Index />,
+                  },
+                  {
+                    path: "list",
+                    element: <BriefcaseList />,
                   },
                 ],
               },
