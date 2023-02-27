@@ -1,20 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components/macro";
-import { NavLink } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 
 import {
   Avatar as MuiAvatar,
   Box,
-  Breadcrumbs as MuiBreadcrumbs,
-  Button,
   Checkbox,
-  Chip as MuiChip,
-  Divider as MuiDivider,
-  Grid,
   IconButton,
-  Link,
   Paper as MuiPaper,
   Table,
   TableBody,
@@ -28,43 +20,15 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { green, orange } from "@mui/material/colors";
 import {
-  Add as AddIcon,
   Archive as ArchiveIcon,
   FilterList as FilterListIcon,
-  RemoveRedEye as RemoveRedEyeIcon,
-  Edit,
   RemoveCircle,
   Info,
 } from "@mui/icons-material";
 import { spacing } from "@mui/system";
-import Actions from "./InstructorsList/Actions";
-import InstructorsInfo from "./InstructorsList/InstructorsInfo.json";
-import InstructorDialog from "./InstructorsList/InstructorDialog";
-import UndoAction from "./InstructorsList/UndoAction";
-
-import { useSelector, useDispatch } from "react-redux";
-import {
-  selectInstructors,
-  setCurrentInstructor,
-  setShowUndo,
-} from "../../redux/slices/instructorSlice.js";
-
-const Divider = styled(MuiDivider)(spacing);
-
-const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
 const Paper = styled(MuiPaper)(spacing);
-
-const Chip = styled(MuiChip)`
-  ${spacing};
-
-  background: ${(props) => props.paid && green[500]};
-  background: ${(props) => props.sent && orange[700]};
-  color: ${(props) =>
-    (props.paid || props.sent) && props.theme.palette.common.white};
-`;
 
 const Spacer = styled.div`
   flex: 1 1 100%;
@@ -82,6 +46,77 @@ const Customer = styled.div`
   display: flex;
   align-items: center;
 `;
+
+function createData(
+  instructors,
+  instructorsEmail,
+  instructorsAvatar,
+  idCard,
+  profile,
+  birth,
+  bootcamp,
+  tecnology,
+  id
+) {
+  return {
+    instructors,
+    instructorsEmail,
+    instructorsAvatar,
+    idCard,
+    profile,
+    birth,
+    bootcamp,
+    tecnology,
+    id,
+  };
+}
+
+const rows = [
+  createData(
+    "Luis Soto",
+    "soto@gmail.com",
+    "L",
+    "109-3013214-3",
+    "Instructor",
+    "1990-01-23",
+    "MERN",
+    "React, Express, Javascript",
+    "001"
+  ),
+  createData(
+    "Miguel Ramirez",
+    "miguel@gmail.com",
+    "M",
+    "111-2152993-0",
+    "Instructor",
+    "1992-08-10",
+    "MEAN",
+    "Angular, Nodejs, Javascript",
+    "002"
+  ),
+  createData(
+    "Juan Santana",
+    "juan@gmail.com",
+    "J",
+    "302-084544-0",
+    "Instructor",
+    "1985-09-04",
+    "ASP.NET",
+    "C#, Java, Python",
+    "003"
+  ),
+  createData(
+    "Ana Sanchez",
+    "ana@gmail.com",
+    "A",
+    "302-605315-8 ",
+    "Instructor",
+    "1980-10-12",
+    "MERN",
+    "Nodejs, React, Javascript",
+    "004"
+  ),
+];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -113,13 +148,13 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: "firstName", alignment: "left", label: "Instructor" },
-  { id: "identificationCard", alignment: "left", label: "Cedula" },
-  { id: "company", alignment: "right", label: "Perfil" },
-  { id: "birth", alignment: "right", label: "Fecha de Nacimiento" },
-  { id: "bootcamps", alignment: "right", label: "Bootcamps" },
-  { id: "technology", alignment: "left", label: "Tecnologias" },
-  { id: "actions", alignment: "right", label: "Acción" },
+  { id: "instructors", alignment: "left", label: "Nombre" },
+  { id: "idCard", alignment: "left", label: "Cedula" },
+  { id: "profile", alignment: "left", label: "Perfil" },
+  { id: "birth", alignment: "left", label: "Fecha de Nacimiento" },
+  { id: "bootcamp", alignment: "left", label: "Bootcamp" },
+  { id: "tecnology", alignment: "left", label: "Tecnologías" },
+  { id: "actions", alignment: "center", label: "Acción" },
 ];
 
 const EnhancedTableHead = (props) => {
@@ -199,17 +234,21 @@ const EnhancedTableToolbar = (props) => {
   );
 };
 
-function EnhancedTable({ setDeleteInstructorModal }) {
-  const rows = useSelector(selectInstructors);
-  const dispatch = useDispatch();
+function EnhancedTable() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const navigate = useNavigate();
+
+  const handleClose = (pathToGo) => {
+    setAnchorEl(null);
+    navigate(pathToGo, { replace: true });
+  };
 
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("instructor");
+  const [orderBy, setOrderBy] = React.useState("customer");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-  const navigate = useNavigate();
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -260,17 +299,6 @@ function EnhancedTable({ setDeleteInstructorModal }) {
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
-  const handleShowInfo = (pathToGo, instructorId) => {
-    dispatch(setCurrentInstructor({ instructorId }));
-    navigate(pathToGo);
-  };
-
-  const handleDelete = (instructorId) => {
-    dispatch(setCurrentInstructor({ instructorId }));
-    dispatch(setShowUndo({ status: false }));
-    setDeleteInstructorModal(true);
-  };
-
   return (
     <div>
       <Paper>
@@ -314,38 +342,40 @@ function EnhancedTable({ setDeleteInstructorModal }) {
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row">
                         <Customer>
-                          <Avatar>{row.avatar}</Avatar>
+                          <Avatar>{row.instructorsAvatar}</Avatar>
                           <Box ml={3}>
-                            {`${row.firstName} ${row.lastName}`}
+                            {row.id}
                             <br />
-                            {row.email}
+                            {row.instructors}
+                            <br />
+                            {row.instructorsEmail}
                           </Box>
                         </Customer>
                       </TableCell>
-                      <TableCell>{row.identificationCard}</TableCell>
-                      <TableCell align="right">{row.company}</TableCell>
-                      <TableCell align="right">{row.birth}</TableCell>
-                      <TableCell align="right">{row.bootcamps}</TableCell>
-                      <TableCell>{row.technology}</TableCell>
-                      <TableCell align="right">
+                      <TableCell>{row.idCard}</TableCell>
+                      <TableCell align="left">{row.profile}</TableCell>
+                      <TableCell align="left">{row.birth}</TableCell>
+                      <TableCell>{row.bootcamp}</TableCell>
+                      <TableCell align="left">{row.tecnology}</TableCell>
+                      <TableCell align="center">
+                        {/* Info button */}
                         <IconButton
                           aria-label="info"
                           size="large"
                           color="info"
                           onClick={() =>
-                            handleShowInfo(
-                              "/admin/dashboard/users/instructors/view_instructors",
-                              row.id
+                            handleClose(
+                              "/admin/dashboard/users/instructors/edit_instructors"
                             )
                           }
                         >
                           <Info />
                         </IconButton>
+                        {/* Delete button */}
                         <IconButton
                           aria-label="delete"
                           size="large"
                           color="error"
-                          onClick={() => handleDelete(row.id)}
                         >
                           <RemoveCircle />
                         </IconButton>
@@ -366,7 +396,6 @@ function EnhancedTable({ setDeleteInstructorModal }) {
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}
-          labelRowsPerPage={"Filas por página"}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
@@ -376,55 +405,4 @@ function EnhancedTable({ setDeleteInstructorModal }) {
   );
 }
 
-function List_instructors() {
-  const [deleteInstructorModal, setDeleteInstructorModal] =
-    React.useState(false);
-
-  return (
-    <React.Fragment>
-      <Helmet title="List" />
-
-      <Grid justifyContent="space-between" container spacing={10}>
-        <Grid item>
-          <Typography variant="h3" gutterBottom display="inline">
-            Lista de Instructores
-          </Typography>
-
-          <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/admin/dashboard/home">
-              Dashboard
-            </Link>
-            <Link component={NavLink} to="/admin/dashboard/home">
-              Usuarios
-            </Link>
-            <Link component={NavLink} to="/admin/dashboard/users/instructors">
-              Instructores
-            </Link>
-            <Typography>Lista </Typography>
-          </Breadcrumbs>
-        </Grid>
-        <Grid item>
-          <Actions />
-        </Grid>
-      </Grid>
-
-      <Divider my={6} />
-
-      <Grid container spacing={6}>
-        <Grid item xs={12}>
-          <EnhancedTable setDeleteInstructorModal={setDeleteInstructorModal} />
-          {deleteInstructorModal && (
-            <InstructorDialog
-              deleteInstructorModal={deleteInstructorModal}
-              setDeleteInstructorModal={setDeleteInstructorModal}
-            />
-          )}
-
-          <UndoAction />
-        </Grid>
-      </Grid>
-    </React.Fragment>
-  );
-}
-
-export default List_instructors;
+export default EnhancedTable;
