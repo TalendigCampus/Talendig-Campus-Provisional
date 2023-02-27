@@ -1,42 +1,37 @@
 [
   {
-    "projectName": "Empleados-app",
-    "talentName": "Anthony",
-    "talentLastName": "Peralta",
+    "briefcaseName": "Anthony",
+    "briefcaseLastName": "Peralta",
     "lastModification": "1999-10-08",
-    "tecnology": "PHP, Angular, Javascript, ASP.net",
-    "projectId": 1
+    "profile": "Portafolio",
+    "briefcaseId": 1
   },
   {
-    "projectName": "Clientes-app",
-    "talentName": "Kiancis",
-    "talentLastName": "Dominguez",
+    "briefcaseName": "Kiancis",
+    "briefcaseLastName": "Dominguez",
     "lastModification": "2020-10-15",
-    "tecnology": "Angular, Javascript, ASP.net",
-    "projectId": 2
+    "profile": "Portafolio",
+    "briefcaseId": 2
   },
   {
-    "projectName": "Usuario-login-frontend",
-    "talentName": "Madelson",
-    "talentLastName": "Acosta",
+    "briefcaseName": "Madelson",
+    "briefcaseLastName": "Acosta",
     "lastModification": "2023-12-21",
-    "tecnology": "Angular, Javascript, NodeJs",
-    "projectId": 3
+    "profile": "Portafolio",
+    "briefcaseId": 3
   },
   {
-    "projectName": "Usuario-login-backend",
-    "talentName": "Felix",
-    "talentLastName": "Ortega",
+    "briefcaseName": "Felix",
+    "briefcaseLastName": "Ortega",
     "lastModification": "2010-08-14",
-    "tecnology": "NodeJs, React, Express, MongoDb",
-    "projectId": 4
+    "profile": "Portafolio",
+    "briefcaseId": 4
   },
   {
-    "projectName": "SummerWork Page",
-    "talentName": "Gabriel",
-    "talentLastName": "Encarnacion",
+    "briefcaseName": "Gabriel",
+    "briefcaseLastName": "Encarnacion",
     "lastModification": "2022-10-15",
-    "tecnology": "PHP, Angular, Javascript, ASP.net",
-    "projectId": 5
+    "profile": "Portafolio",
+    "briefcaseId": 5
   }
 ]

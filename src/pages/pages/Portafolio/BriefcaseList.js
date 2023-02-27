@@ -43,8 +43,18 @@ import {
 import { spacing } from "@mui/system";
 import Actions from "./Actions";
 import JsonInfo from "./info.json";
+import JsonIndoProyect from "../AdminProyects/info.json";
 
 import { useSelector, useDispatch } from "react-redux";
+import { ListBriefcaseSelected } from "./ListBriefcaseSelected";
+import BriefcaseUndo from "./BriefcaseUndo";
+import {
+  allowDelete,
+  briefcaseToDelete,
+  selectbriefcases,
+  showUndo,
+} from "../../../redux/slices/brieftcaseSlice";
+import BriefcaseDialogs from "./BriefcaseDialog";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -78,28 +88,6 @@ const Customer = styled.div`
   align-items: center;
 `;
 
-/* function createData(
-  talentName,
-  talentEmail,
-  recruiterAvatar,
-  idCard,
-  birth,
-  bootcamp,
-  tecnology,
-  id
-) {
-  return {
-    talentName,
-    talentEmail,
-    idCard,
-    recruiterAvatar,
-    birth,
-    bootcamp,
-    tecnology,
-    id,
-  };
-} */
-
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -130,14 +118,13 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: "projectName", alignment: "center", label: "Nombre" },
+  { id: "briefcaseName", alignment: "center", label: "Nombre" },
   {
     id: "lastModification",
     alignment: "center",
     label: "Ultima fecha de modificacion",
   },
-  { id: "talentName", alignment: "center", label: "Talento" },
-  { id: "tecnology", alignment: "center", label: "Tecnologias" },
+  { id: "profile", alignment: "center", label: "Perfil" },
   { id: "actions", alignment: "center", label: "Acción" },
 ];
 
@@ -221,11 +208,14 @@ const EnhancedTableToolbar = (props) => {
 function EnhancedTable({ setAllowDelete }) {
   const navigate = useNavigate();
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("talentName");
+  const [orderBy, setOrderBy] = React.useState("briefcaseName");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [rows, setRows] = React.useState(JsonInfo);
+  const rows = useSelector(selectbriefcases);
+  console.log(rows);
+  const allowDeletebriefcase = useSelector(allowDelete);
+  const dispatch = useDispatch();
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -242,7 +232,9 @@ function EnhancedTable({ setAllowDelete }) {
     setSelected([]);
   };
 
-  const handdlePath = (pathToGo) => {
+  const handdlePath = (pathToGo, id) => {
+    ListBriefcaseSelected.id = id;
+    ListBriefcaseSelected.correct = true;
     navigate(pathToGo, { replace: true });
   };
 
@@ -275,8 +267,10 @@ function EnhancedTable({ setAllowDelete }) {
     setPage(0);
   };
 
-  const handleDelete = (projectId) => {
+  const handleDelete = (briefcaseId) => {
     setAllowDelete(true);
+    dispatch(briefcaseToDelete({ briefcaseId }));
+    console.log(briefcaseId);
   };
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
@@ -306,7 +300,7 @@ function EnhancedTable({ setAllowDelete }) {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.projectId);
+                  const isItemSelected = isSelected(row.briefcaseId);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
@@ -315,42 +309,44 @@ function EnhancedTable({ setAllowDelete }) {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={`${row.projectId}-${index}`}
+                      key={`${row.briefcaseId}-${index}`}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
                           checked={isItemSelected}
                           inputProps={{ "aria-labelledby": labelId }}
-                          onClick={(event) => handleClick(event, row.projectId)}
+                          onClick={(event) =>
+                            handleClick(event, row.briefcaseId)
+                          }
                         />
                       </TableCell>
-                      <TableCell align="center">{row.projectName}</TableCell>
+                      <TableCell align="center">{`${row.briefcaseName} ${row.briefcaseLastName}`}</TableCell>
                       <TableCell align="center">
                         {row.lastModification}
                       </TableCell>
                       {/* <TableCell>{row.idCard}</TableCell> */}
-                      <TableCell align="center">{`${row.talentName} ${row.talentLastName}`}</TableCell>
-                      <TableCell>{row.tecnology}</TableCell>
+                      <TableCell align="center">{row.profile}</TableCell>
                       <TableCell align="center">
-                        {/* <IconButton
+                        <IconButton
                           aria-label="info"
                           size="large"
                           color="info"
                           onClick={() =>
                             handdlePath(
-                              `/admin/dashboard/users/talents/info/${row.projectId}`
+                              `/admin/dashboard/users/projects/list`,
+                              row.briefcaseId
                             )
                           }
                         >
                           <Info />
-                        </IconButton> */}
+                        </IconButton>
                         <IconButton
                           aria-label="delete"
                           align="center"
                           size="large"
                           color="error"
-                          onClick={() => handleDelete(row.projectId)}
+                          onClick={() => handleDelete(row.briefcaseId)}
                         >
                           <RemoveCircle />
                         </IconButton>
@@ -382,6 +378,7 @@ function EnhancedTable({ setAllowDelete }) {
 
 function BriefcaseList() {
   const [allowDelete, setAllowDelete] = React.useState(false);
+  let status = useSelector(showUndo);
   const [id, setId] = React.useState(null);
 
   return (
@@ -409,13 +406,13 @@ function BriefcaseList() {
       <Grid container spacing={6}>
         <Grid item xs={12}>
           <EnhancedTable setAllowDelete={setAllowDelete} setId={setId} />
-          {/* {allowDelete && (
-            <AlertDialog
+          {allowDelete && (
+            <BriefcaseDialogs
               allowDelete={allowDelete}
               setAllowDelete={setAllowDelete}
             />
-          )} */}
-          {/* {status && <TalentUndo />} */}
+          )}
+          {status && <BriefcaseUndo />}
         </Grid>
       </Grid>
     </React.Fragment>

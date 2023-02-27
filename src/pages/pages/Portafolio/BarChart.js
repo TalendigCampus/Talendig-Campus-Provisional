@@ -70,7 +70,7 @@ const BarChart = ({ theme }) => {
 
   return (
     <Card mb={6}>
-      <CardHeader title="Proyectos subidos por mes" />
+      <CardHeader title="Portafolios modificados por mes" />
 
       <CardContent>
         <ChartWrapper>

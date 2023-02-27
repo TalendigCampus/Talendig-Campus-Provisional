@@ -102,7 +102,7 @@ import Instructores from "./pages/AdminInstructors/Instructores";
 import BootcampProfile from "./pages/Bootcamps/BootcampProfile";
 import Curriculum from "./pages/pages/talent/Curriculum";
 import Index from "./pages/pages/Portafolio/Index";
-import BriefcaseList from "./pages/pages/Portafolio/briefcaseList";
+import BriefcaseList from "./pages/pages/Portafolio/BriefcaseList";
 
 // Dashboard components
 const Default = async(() => import("./pages/dashboards/Default"));
