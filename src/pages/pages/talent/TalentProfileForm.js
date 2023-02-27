@@ -110,6 +110,11 @@ function BasicForm(recruiterPrivate) {
   const handleEdit = () => {
     setIsNotEditing((currentSate) => !currentSate);
   };
+
+  const handleNavigate = (pathToGo) => {
+    navigate(pathToGo);
+  };
+
   const handleSubmit = async (
     values,
     { resetForm, setErrors, setStatus, setSubmitting }
@@ -428,7 +433,9 @@ function BasicForm(recruiterPrivate) {
                       type="button"
                       variant="contained"
                       color="primary"
-                      onClick={handleEdit}
+                      onClick={() =>
+                        handleNavigate("/admin/dashboard/users/talents/roadmap")
+                      }
                       mt={3}
                       ml={3}
                     >
