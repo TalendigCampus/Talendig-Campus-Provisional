@@ -102,6 +102,8 @@ import ProtectedPage from "./pages/protected/ProtectedPage";
 import Instructores from "./pages/AdminInstructors/Instructores";
 import BootcampProfile from "./pages/Bootcamps/BootcampProfile";
 import Curriculum from "./pages/pages/talent/Curriculum";
+import Index from "./pages/pages/Portafolio/Index";
+import BriefcaseList from "./pages/pages/Portafolio/BriefcaseList";
 
 import EditInstructors from "./pages/AdminInstructors/Edit_Instructors";
 import ViewInstructors from "./pages/AdminInstructors/InstructorsList/View_Instructors";
@@ -264,6 +266,19 @@ const routes = [
                   {
                     path: "list",
                     element: <ProjectsList />,
+                  },
+                ],
+              },
+              {
+                path: "briefcase",
+                children: [
+                  {
+                    index: true,
+                    element: <Index />,
+                  },
+                  {
+                    path: "list",
+                    element: <BriefcaseList />,
                   },
                 ],
               },
