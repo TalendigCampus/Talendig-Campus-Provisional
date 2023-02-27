@@ -48,6 +48,7 @@ import {
   selectBootcamps,
   bootcampToDelete,
   setShowUndo,
+  bootcampProfile,
 } from "../../redux/slices/bootcampSlice";
 import { useSelector, useDispatch } from "react-redux";
 import UndoAction from "./UndoAction";
@@ -262,8 +263,9 @@ function EnhancedTable({ setDeleteBootcampModal }) {
 
   const navigate = useNavigate();
 
-  const handleClose = (pathToGo) => {
-    navigate(pathToGo, { replace: true });
+  const handleClose = (id) => {
+    dispatch(bootcampProfile({ id: Number(id) }));
+    navigate("/admin/dashboard/bootcamps/bootcamp-profile", { replace: true });
   };
 
   const handleDelete = (id) => {
@@ -328,12 +330,7 @@ function EnhancedTable({ setDeleteBootcampModal }) {
                           aria-label="info"
                           size="large"
                           color="info"
-                          onClick={() =>
-                            handleClose(
-                              "/admin/dashboard/bootcamps/bootcamp-profile/" +
-                                row.id
-                            )
-                          }
+                          onClick={() => handleClose(row.id)}
                         >
                           <Info />
                         </IconButton>

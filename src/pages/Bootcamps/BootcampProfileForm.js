@@ -27,6 +27,11 @@ import {
 import { spacing } from "@mui/system";
 import InputLabel from "@mui/material/InputLabel";
 import { Edit, ListAlt } from "@mui/icons-material";
+import { useDispatch } from "react-redux";
+import {
+  bootcampToEdit,
+  bootcampProfile,
+} from "../../redux/slices/bootcampSlice";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -70,6 +75,7 @@ const validationSchema = Yup.object().shape({
 function BasicForm(bootcampPrivate) {
   const [isNotEditing, setIsNotEditing] = React.useState(true);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handlePageChange = (pathToGo) => {
     navigate(pathToGo);
@@ -84,9 +90,17 @@ function BasicForm(bootcampPrivate) {
   ) => {
     setIsNotEditing((currentSate) => !currentSate);
     try {
-      console.log(values);
-      await timeOut(1500);
-      resetForm();
+      dispatch(
+        bootcampToEdit({
+          ...values,
+          teacher: values.teacher.name,
+        })
+      );
+
+      if (values.bootcampName !== bootcampPrivate.bootcampName) {
+        dispatch(bootcampProfile({ id: bootcampPrivate.id }));
+      }
+      // await timeOut(1500);
       setStatus({ sent: true });
       setSubmitting(false);
     } catch (error) {
