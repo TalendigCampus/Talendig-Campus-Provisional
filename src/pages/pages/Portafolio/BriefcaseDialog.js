@@ -18,23 +18,23 @@ import { spacing } from "@mui/system";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setShowUndo,
-  deleteTalent,
-  CurrentTalent,
-} from "../../../redux/slices/talentSlice";
+  deletebriefcase,
+  briefcaseToBeRemoved,
+} from "../../../redux/slices/brieftcaseSlice";
 
 const Card = styled(MuiCard)(spacing);
 const Paper = styled(MuiPaper)(spacing);
 
-function AlertDialog({ allowDelete, setAllowDelete }) {
+function BriefcaseDialogs({ allowDelete, setAllowDelete }) {
   const dispatch = useDispatch();
-  let currentTalent = useSelector(CurrentTalent);
+  let currentBriefcase = useSelector(briefcaseToBeRemoved);
 
   const handleClose = () => {
     setAllowDelete(false);
   };
 
   const handleDelete = () => {
-    dispatch(deleteTalent({ talentId: currentTalent.talentId }));
+    dispatch(deletebriefcase({ briefcaseId: currentBriefcase.briefcaseId }));
     dispatch(setShowUndo({ status: true }));
     setAllowDelete(false);
   };
@@ -48,11 +48,11 @@ function AlertDialog({ allowDelete, setAllowDelete }) {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Seguro de elminiar?"}
+          {" Desea eliminar este usuario?"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Estas seguro que quieres elminiar este Talento?
+            Al aceptar, se eliminará el usuario.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -60,7 +60,7 @@ function AlertDialog({ allowDelete, setAllowDelete }) {
             Cancelar
           </Button>
           <Button onClick={handleDelete} color="primary" autoFocus>
-            Aceptar
+            Eliminar
           </Button>
         </DialogActions>
       </Dialog>
@@ -68,4 +68,4 @@ function AlertDialog({ allowDelete, setAllowDelete }) {
   );
 }
 
-export default AlertDialog;
+export default BriefcaseDialogs;
