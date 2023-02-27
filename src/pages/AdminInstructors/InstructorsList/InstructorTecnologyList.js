@@ -15,6 +15,9 @@ import {
 import { DataGrid } from "@mui/x-data-grid";
 import { spacing } from "@mui/system";
 
+import { useSelector } from "react-redux";
+import { currentInstructor } from "../../../redux/slices/instructorSlice";
+
 const Card = styled(MuiCard)(spacing);
 
 const CardContent = styled(MuiCardContent)(spacing);
@@ -42,8 +45,9 @@ const columns = [
 //   { id: 3, tecnology: "React" },
 // ];
 
-function DataGridDemo(bootcampTechnology) {
-  const rows = bootcampTechnology.technology.map((technology, index) => ({
+function DataGridDemo() {
+  const instructor = useSelector(currentInstructor);
+  const rows = instructor.technology.split(",").map((technology, index) => ({
     id: ++index,
     technology,
   }));
@@ -51,7 +55,7 @@ function DataGridDemo(bootcampTechnology) {
     <Card mb={6}>
       <CardContent pb={1}>
         <Typography variant="h6" gutterBottom>
-          Tecnologías del bootcamp
+          Tecnologias de Interes
         </Typography>
       </CardContent>
       <Paper>
@@ -74,11 +78,11 @@ function DataGridDemo(bootcampTechnology) {
   );
 }
 
-function DataGridPage(bootcampTechnology) {
+function DataGridPage() {
   return (
     <React.Fragment>
-      <Helmet title="BootcampTecnologyList Grid" />
-      <DataGridDemo {...bootcampTechnology} />
+      <Helmet title="Instructors This Page" />
+      <DataGridDemo />
     </React.Fragment>
   );
 }

@@ -59,6 +59,7 @@ import RecruitersProfile from "./pages/pages/AdminRecruiters/RecruitersProfile";
 import ProjectsIndex from "./pages/pages/AdminProyects/index";
 import ProjectsList from "./pages/pages/AdminProyects/ProjectsList";
 import Settings from "./pages/pages/Settings";
+import ListaInstructores from "./pages/AdminInstructors/List_Instructors";
 import Lista_Instructores from "./pages/AdminInstructors/List_Instructors";
 import BootcampsStatistics from "./pages/Bootcamps/index";
 import BootcampsList from "./pages/Bootcamps/BootcampList";
@@ -103,6 +104,9 @@ import BootcampProfile from "./pages/Bootcamps/BootcampProfile";
 import Curriculum from "./pages/pages/talent/Curriculum";
 import Index from "./pages/pages/Portafolio/Index";
 import BriefcaseList from "./pages/pages/Portafolio/BriefcaseList";
+
+import EditInstructors from "./pages/AdminInstructors/Edit_Instructors";
+import ViewInstructors from "./pages/AdminInstructors/InstructorsList/View_Instructors";
 
 // Dashboard components
 const Default = async(() => import("./pages/dashboards/Default"));
@@ -206,7 +210,11 @@ const routes = [
                   },
                   {
                     path: "list_instructors",
-                    element: <Lista_Instructores />,
+                    element: <ListaInstructores />,
+                  },
+                  {
+                    path: "view_instructors",
+                    element: <ViewInstructors />,
                   },
                 ],
               },

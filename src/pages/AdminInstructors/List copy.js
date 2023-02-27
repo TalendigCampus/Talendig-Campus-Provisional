@@ -1,23 +1,12 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components/macro";
-import { NavLink } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
-import bootcampData from "./bootcamp.json";
-import { JSXICONS } from "../../common/constants/data";
+import { useNavigate } from "react-router-dom";
 
 import {
   Avatar as MuiAvatar,
   Box,
-  Breadcrumbs as MuiBreadcrumbs,
-  Button,
   Checkbox,
-  Chip as MuiChip,
-  Divider as MuiDivider,
-  Grid,
   IconButton,
-  Link,
-  Description,
   Paper as MuiPaper,
   Table,
   TableBody,
@@ -31,42 +20,15 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { green, orange } from "@mui/material/colors";
 import {
-  Add as AddIcon,
   Archive as ArchiveIcon,
   FilterList as FilterListIcon,
-  RemoveRedEye as RemoveRedEyeIcon,
-  Edit,
   RemoveCircle,
   Info,
-  LibraryBooks,
 } from "@mui/icons-material";
 import { spacing } from "@mui/system";
-import Actions from "./Actions";
-import {
-  selectBootcamps,
-  bootcampToDelete,
-  setShowUndo,
-} from "../../redux/slices/bootcampSlice";
-import { useSelector, useDispatch } from "react-redux";
-import UndoAction from "./UndoAction";
-import BootcampDialog from "./BootcampDialog";
-
-const Divider = styled(MuiDivider)(spacing);
-
-const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
 const Paper = styled(MuiPaper)(spacing);
-
-const Chip = styled(MuiChip)`
-  ${spacing};
-
-  background: ${(props) => props.paid && green[500]};
-  background: ${(props) => props.sent && orange[700]};
-  color: ${(props) =>
-    (props.paid || props.sent) && props.theme.palette.common.white};
-`;
 
 const Spacer = styled.div`
   flex: 1 1 100%;
@@ -84,6 +46,77 @@ const Customer = styled.div`
   display: flex;
   align-items: center;
 `;
+
+function createData(
+  instructors,
+  instructorsEmail,
+  instructorsAvatar,
+  idCard,
+  profile,
+  birth,
+  bootcamp,
+  tecnology,
+  id
+) {
+  return {
+    instructors,
+    instructorsEmail,
+    instructorsAvatar,
+    idCard,
+    profile,
+    birth,
+    bootcamp,
+    tecnology,
+    id,
+  };
+}
+
+const rows = [
+  createData(
+    "Luis Soto",
+    "soto@gmail.com",
+    "L",
+    "109-3013214-3",
+    "Instructor",
+    "1990-01-23",
+    "MERN",
+    "React, Express, Javascript",
+    "001"
+  ),
+  createData(
+    "Miguel Ramirez",
+    "miguel@gmail.com",
+    "M",
+    "111-2152993-0",
+    "Instructor",
+    "1992-08-10",
+    "MEAN",
+    "Angular, Nodejs, Javascript",
+    "002"
+  ),
+  createData(
+    "Juan Santana",
+    "juan@gmail.com",
+    "J",
+    "302-084544-0",
+    "Instructor",
+    "1985-09-04",
+    "ASP.NET",
+    "C#, Java, Python",
+    "003"
+  ),
+  createData(
+    "Ana Sanchez",
+    "ana@gmail.com",
+    "A",
+    "302-605315-8 ",
+    "Instructor",
+    "1980-10-12",
+    "MERN",
+    "Nodejs, React, Javascript",
+    "004"
+  ),
+];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -115,11 +148,12 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: "bootcampName", alignment: "left", label: "Nombre" },
-  { id: "initialDate", alignment: "left", label: "Fecha de inicio" },
-  { id: "endDate", alignment: "right", label: "Fecha de fin" },
-  { id: "teacher", alignment: "right", label: "Instructor" },
-  { id: "tecnologies", alignment: "left", label: "Tecnologías" },
+  { id: "instructors", alignment: "left", label: "Nombre" },
+  { id: "idCard", alignment: "left", label: "Cedula" },
+  { id: "profile", alignment: "left", label: "Perfil" },
+  { id: "birth", alignment: "left", label: "Fecha de Nacimiento" },
+  { id: "bootcamp", alignment: "left", label: "Bootcamp" },
+  { id: "tecnology", alignment: "left", label: "Tecnologías" },
   { id: "actions", alignment: "center", label: "Acción" },
 ];
 
@@ -132,7 +166,6 @@ const EnhancedTableHead = (props) => {
     rowCount,
     onRequestSort,
   } = props;
-
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -201,12 +234,18 @@ const EnhancedTableToolbar = (props) => {
   );
 };
 
-function EnhancedTable({ setDeleteBootcampModal }) {
-  const rows = useSelector(selectBootcamps);
-  const dispatch = useDispatch();
+function EnhancedTable() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const navigate = useNavigate();
+
+  const handleClose = (pathToGo) => {
+    setAnchorEl(null);
+    navigate(pathToGo, { replace: true });
+  };
 
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("bootcampName");
+  const [orderBy, setOrderBy] = React.useState("customer");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -260,18 +299,6 @@ function EnhancedTable({ setDeleteBootcampModal }) {
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
-  const navigate = useNavigate();
-
-  const handleClose = (pathToGo) => {
-    navigate(pathToGo, { replace: true });
-  };
-
-  const handleDelete = (id) => {
-    dispatch(bootcampToDelete({ id }));
-    dispatch(setShowUndo({ status: false }));
-    setDeleteBootcampModal(true);
-  };
-
   return (
     <div>
       <Paper>
@@ -315,33 +342,40 @@ function EnhancedTable({ setDeleteBootcampModal }) {
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row">
                         <Customer>
-                          <Avatar>{JSXICONS["bootcamp"]}</Avatar>
-                          <Box ml={3}>{row.bootcampName}</Box>
+                          <Avatar>{row.instructorsAvatar}</Avatar>
+                          <Box ml={3}>
+                            {row.id}
+                            <br />
+                            {row.instructors}
+                            <br />
+                            {row.instructorsEmail}
+                          </Box>
                         </Customer>
                       </TableCell>
-                      <TableCell>{row.initialDate}</TableCell>
-                      <TableCell align="right">{row.endDate}</TableCell>
-                      <TableCell align="right">{row.teacher}</TableCell>
-                      <TableCell>{row.tecnologies}</TableCell>
-                      <TableCell align="left">
+                      <TableCell>{row.idCard}</TableCell>
+                      <TableCell align="left">{row.profile}</TableCell>
+                      <TableCell align="left">{row.birth}</TableCell>
+                      <TableCell>{row.bootcamp}</TableCell>
+                      <TableCell align="left">{row.tecnology}</TableCell>
+                      <TableCell align="center">
+                        {/* Info button */}
                         <IconButton
                           aria-label="info"
                           size="large"
                           color="info"
                           onClick={() =>
                             handleClose(
-                              "/admin/dashboard/bootcamps/bootcamp-profile/" +
-                                row.id
+                              "/admin/dashboard/users/instructors/edit_instructors"
                             )
                           }
                         >
                           <Info />
                         </IconButton>
+                        {/* Delete button */}
                         <IconButton
                           aria-label="delete"
                           size="large"
                           color="error"
-                          onClick={() => handleDelete(row.id)}
                         >
                           <RemoveCircle />
                         </IconButton>
@@ -362,7 +396,6 @@ function EnhancedTable({ setDeleteBootcampModal }) {
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}
-          labelRowsPerPage={"Filas por página"}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
@@ -372,51 +405,4 @@ function EnhancedTable({ setDeleteBootcampModal }) {
   );
 }
 
-function BootcampsList() {
-  const [deleteBootcampModal, setDeleteBootcampModal] = React.useState(false);
-
-  return (
-    <React.Fragment>
-      <Helmet title="Bootcamps" />
-
-      <Grid justifyContent="space-between" container spacing={10}>
-        <Grid item>
-          <Typography variant="h3" gutterBottom display="inline">
-            Lista de Bootcamps
-          </Typography>
-
-          <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/admin/dashboard/bootcamps">
-              Bootcamps Dashboard
-            </Link>
-            <Typography>Lista de Bootcamps</Typography>
-          </Breadcrumbs>
-        </Grid>
-        <Grid item>
-          <Actions
-            path={"/admin/dashboard/bootcamps/"}
-            btnName={"Estadísticas"}
-          />
-        </Grid>
-      </Grid>
-
-      <Divider my={6} />
-
-      <Grid container spacing={6}>
-        <Grid item xs={12}>
-          <EnhancedTable setDeleteBootcampModal={setDeleteBootcampModal} />
-          {deleteBootcampModal && (
-            <BootcampDialog
-              deleteBootcampModal={deleteBootcampModal}
-              setDeleteBootcampModal={setDeleteBootcampModal}
-            />
-          )}
-
-          <UndoAction />
-        </Grid>
-      </Grid>
-    </React.Fragment>
-  );
-}
-
-export default BootcampsList;
+export default EnhancedTable;
