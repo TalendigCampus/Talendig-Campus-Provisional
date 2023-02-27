@@ -447,7 +447,7 @@ function Instructores() {
         <Grid item xs={12} lg={4}>
           <Revenue />
         </Grid>
-        <Grid item xs={12} lg={8} xl={11.99}>
+        <Grid item xs={12} lg={11.9} xl={11.99}>
           <LineChart_Instructors />
         </Grid>
       </Grid>
