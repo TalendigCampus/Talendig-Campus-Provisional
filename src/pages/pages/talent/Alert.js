@@ -19,7 +19,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   setShowUndo,
   deleteTalent,
-  talentToBeRemoved,
+  CurrentTalent,
 } from "../../../redux/slices/talentSlice";
 
 const Card = styled(MuiCard)(spacing);
@@ -27,7 +27,7 @@ const Paper = styled(MuiPaper)(spacing);
 
 function AlertDialog({ allowDelete, setAllowDelete }) {
   const dispatch = useDispatch();
-  let currentTalent = useSelector(talentToBeRemoved);
+  let currentTalent = useSelector(CurrentTalent);
 
   const handleClose = () => {
     setAllowDelete(false);
@@ -48,20 +48,19 @@ function AlertDialog({ allowDelete, setAllowDelete }) {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Use Google's location service?"}
+          {"Seguro de elminiar?"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending
-            anonymous location data to Google, even when no apps are running.
+            Estas seguro que quieres elminiar este Talento?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Disagree
+            Cancelar
           </Button>
           <Button onClick={handleDelete} color="primary" autoFocus>
-            Agree
+            Aceptar
           </Button>
         </DialogActions>
       </Dialog>

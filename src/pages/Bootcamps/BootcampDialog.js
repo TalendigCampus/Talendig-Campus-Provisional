@@ -41,10 +41,10 @@ import { spacing } from "@mui/system";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
-  deleteRecruiter,
-  currentRecruiter,
+  deleteBootcamp,
+  bootcampToBeRemoved,
   setShowUndo,
-} from "../../../redux/slices/recruiterSlice";
+} from "../../redux/slices/bootcampSlice";
 
 const Card = styled(MuiCard)(spacing);
 
@@ -54,33 +54,33 @@ const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
 const Paper = styled(MuiPaper)(spacing);
 
-function AlertDialog({ deleteRecruiterModal, setDeleteRecruiterModal }) {
-  const recruiterToDelete = useSelector(currentRecruiter);
+function AlertDialog({ deleteBootcampModal, setDeleteBootcampModal }) {
+  const bootcampToDelete = useSelector(bootcampToBeRemoved);
   const dispatch = useDispatch();
 
   const handleClose = () => {
-    setDeleteRecruiterModal(false);
+    setDeleteBootcampModal(false);
   };
 
   const handleDelete = () => {
-    dispatch(deleteRecruiter({ recruiterId: recruiterToDelete.id }));
+    dispatch(deleteBootcamp({ id: bootcampToDelete.id }));
     handleClose();
     dispatch(setShowUndo({ status: true }));
   };
 
   return (
     <Dialog
-      open={deleteRecruiterModal}
+      open={deleteBootcampModal}
       onClose={handleClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
       <DialogTitle id="alert-dialog-title">
-        {" Desea eliminar este usuario?"}
+        {"¿Desea eliminar este bootcamp?"}
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Al aceptar, se eliminará el usuario.
+          Al aceptar, se eliminará el bootcamp.
         </DialogContentText>
       </DialogContent>
       <DialogActions>
@@ -95,15 +95,15 @@ function AlertDialog({ deleteRecruiterModal, setDeleteRecruiterModal }) {
   );
 }
 
-function Dialogs({ deleteRecruiterModal, setDeleteRecruiterModal }) {
+function Dialogs({ deleteBootcampModal, setDeleteBootcampModal }) {
   return (
     <React.Fragment>
       <Helmet title="Dialogs" />
       <Grid container spacing={6}>
         <Grid item xs={12} md={6}>
           <AlertDialog
-            deleteRecruiterModal={deleteRecruiterModal}
-            setDeleteRecruiterModal={setDeleteRecruiterModal}
+            deleteBootcampModal={deleteBootcampModal}
+            setDeleteBootcampModal={setDeleteBootcampModal}
           />
         </Grid>
       </Grid>

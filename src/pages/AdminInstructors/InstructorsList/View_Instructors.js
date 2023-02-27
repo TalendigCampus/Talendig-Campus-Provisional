@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components/macro";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { useParams } from "react-router-dom";
+import InstructorsInfo from "./InstructorsInfo.json";
 
 import {
   Avatar,
@@ -18,11 +20,11 @@ import {
 } from "@mui/material";
 import { CloudUpload as MuiCloudUpload } from "@mui/icons-material";
 import { spacing } from "@mui/system";
-import RecruiterTecnologyList from "./RecruiterTecnologyList";
-import RecruitersProfileForm from "./RecruitersProfileForm";
+import InstructorTecnologyList from "./InstructorTecnologyList";
+import InstructorsProfileForm from "./InstructorsProfileForm";
 
 import { useSelector } from "react-redux";
-import { currentRecruiter } from "../../../redux/slices/recruiterSlice";
+import { currentInstructor } from "../../../redux/slices/instructorSlice";
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
@@ -48,15 +50,15 @@ const BigAvatar = styled(Avatar)`
   margin: 0 auto ${(props) => props.theme.spacing(2)};
 `;
 
-function Public() {
-  const recruiter = useSelector(currentRecruiter);
+function Public(instructorPublic) {
+  const instructor = useSelector(currentInstructor);
   return (
     <Card mb={6}>
       <CardContent>
         <Grid container spacing={6}>
           <Grid item md={4}>
             <CenteredContent>
-              <BigAvatar alt="Remy Sharp" src={recruiter.photoUrl} />
+              <BigAvatar alt="Remy Sharp" src={instructor.photoUrl} />
               <input
                 accept="image/*"
                 style={{ display: "none" }}
@@ -75,7 +77,7 @@ function Public() {
             <TextField
               id="username"
               label="Usuario desde"
-              defaultValue={recruiter.affiliationDate}
+              defaultValue={instructor.affiliationDate}
               variant="outlined"
               fullWidth
               my={2}
@@ -86,7 +88,7 @@ function Public() {
               <TextField
                 id="lastConnection"
                 label="Última conexión"
-                defaultValue={recruiter.lastConnectionDate}
+                defaultValue={instructor.lastConnectionDate}
                 variant="outlined"
                 fullWidth
                 my={2}
@@ -104,7 +106,7 @@ function Private() {
   return (
     <Card mb={6}>
       <CardContent>
-        <RecruitersProfileForm />
+        <InstructorsProfileForm />
       </CardContent>
     </Card>
   );
@@ -116,7 +118,7 @@ function Tecnology() {
       <CardContent>
         <Grid container spacing={6}>
           <Grid item md={12}>
-            <RecruiterTecnologyList />
+            <InstructorTecnologyList />
           </Grid>
         </Grid>
       </CardContent>
@@ -124,61 +126,74 @@ function Tecnology() {
   );
 }
 
-const formRecruiterStructure = (recruiter) => {
+const formInstructorStructure = (instructor) => {
   return {
-    recruiterPublic: {
-      photoUrl: recruiter.photoUrl,
-      affiliationDate: recruiter.affiliationDate,
-      lastConnectionDate: recruiter.lastConnectionDate,
+    instructorPublic: {
+      photoUrl: instructor.photoUrl,
+      affiliationDate: instructor.affiliationDate,
+      lastConnectionDate: instructor.lastConnectionDate,
     },
-    recruiterPrivate: {
-      firstName: recruiter.firstName,
-      lastName: recruiter.lastName,
-      birth: recruiter.birth,
-      identificationCard: recruiter.identificationCard,
-      phoneNumber: recruiter.phoneNumber,
-      company: recruiter.company,
-      email: recruiter.email,
+    instructorPrivate: {
+      firstName: instructor.firstName,
+      lastName: instructor.lastName,
+      birth: instructor.birth,
+      identificationCard: instructor.identificationCard,
+      phoneNumber: instructor.phoneNumber,
+      company: instructor.company,
+      bootcamps: instructor.bootcamps,
+      email: instructor.email,
       address: {
-        street: recruiter.address.street,
-        numHouseOrApartment: recruiter.address.numHouseOrApartment,
-        neighborhood: recruiter.address.neighborhood,
-        city: recruiter.address.city,
+        street: instructor.address.street,
+        numHouseOrApartment: instructor.address.numHouseOrApartment,
+        neighborhood: instructor.address.neighborhood,
+        city: instructor.address.city,
       },
-      password: recruiter.password,
-      confirmPassword: recruiter.confirmPassword,
+      password: instructor.password,
+      confirmPassword: instructor.confirmPassword,
     },
-    recruiterTechnology: {
-      technology: recruiter.technology.split(","),
+    instructorTechnology: {
+      technology: instructor.technology.split(","),
     },
   };
 };
 
-function Settings() {
-  const recruiter = useSelector(currentRecruiter);
+function View_Instructors() {
+  const instructor = useSelector(currentInstructor);
 
   return (
     <React.Fragment>
-      <Helmet title="Recruiter Profile" />
+      <Helmet title="Instructor Profile" />
 
       <Typography variant="h3" gutterBottom display="inline">
-        Perfil Reclutador
+        Perfil Instructor
       </Typography>
 
       <Breadcrumbs aria-label="Breadcrumb" mt={2}>
         <Link component={NavLink} to="/">
           Dashboard
         </Link>
-        <Typography>Usuario</Typography>
-        <Typography>Reclutador</Typography>
-        <Typography>Perfil</Typography>
+        <Link component={NavLink} to="/admin/dashboard/home">
+          Dashboard
+        </Link>
+        <Link component={NavLink} to="/admin/dashboard/home">
+          Usuarios
+        </Link>
+        <Link component={NavLink} to="/admin/dashboard/users/instructors">
+          Instructores
+        </Link>
+        <Link
+          component={NavLink}
+          to="/admin/dashboard/users/instructors/list_instructors"
+        >
+          Lista
+        </Link>
       </Breadcrumbs>
 
       <Divider my={6} />
 
       <Grid container spacing={6}>
         <Grid item xs={12}>
-          {recruiter ? (
+          {instructor ? (
             <>
               <Public />
               <Private />
@@ -186,7 +201,7 @@ function Settings() {
             </>
           ) : (
             <Typography variant="h3" gutterBottom display="inline">
-              Reclutador no encontrado!
+              Instructor no encontrado! {instructor}
             </Typography>
           )}
         </Grid>
@@ -195,4 +210,4 @@ function Settings() {
   );
 }
 
-export default Settings;
+export default View_Instructors;

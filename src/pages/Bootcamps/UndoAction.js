@@ -23,11 +23,11 @@ import { spacing } from "@mui/system";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
-  addRecruiter,
-  currentRecruiter,
+  addBootcamp,
+  bootcampToBeRemoved,
   setShowUndo,
   showUndo,
-} from "../../../redux/slices/recruiterSlice";
+} from "../../redux/slices/bootcampSlice";
 
 const Card = styled(MuiCard)(spacing);
 
@@ -40,11 +40,11 @@ const Paper = styled(MuiPaper)(spacing);
 const Button = styled(MuiButton)(spacing);
 
 function SimpleSnackbar() {
-  const recruiterToDeleted = useSelector(currentRecruiter);
+  const bootcampToDeleted = useSelector(bootcampToBeRemoved);
   const showUndoSnackbar = useSelector(showUndo);
   const dispatch = useDispatch();
   const handleClick = () => {
-    dispatch(addRecruiter({ recruiter: recruiterToDeleted }));
+    dispatch(addBootcamp({ bootcamp: bootcampToDeleted }));
     handleClose();
   };
 
@@ -66,11 +66,11 @@ function SimpleSnackbar() {
         open={showUndoSnackbar}
         autoHideDuration={6000}
         onClose={handleClose}
-        message="Deshacer acción"
+        message="¿Deshacer acción?"
         action={
           <React.Fragment>
             <Button color="secondary" size="small" onClick={handleClick}>
-              UNDO
+              Si
             </Button>
             <IconButton
               size="small"
@@ -90,7 +90,7 @@ function SimpleSnackbar() {
 function Snackbars() {
   return (
     <React.Fragment>
-      <Helmet title="Snackbars" />
+      <Helmet />
       <Grid container spacing={6}>
         <Grid item xs={12} md={6}>
           <SimpleSnackbar />

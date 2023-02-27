@@ -23,19 +23,14 @@ import {
 } from "@mui/material";
 import { spacing } from "@mui/system";
 
-import {
-  Edit,
-  SwapCalls,
-  InsertDriveFile,
-  ImportContacts,
-  ListAlt,
-} from "@mui/icons-material";
+import { Edit, ListAlt } from "@mui/icons-material";
 
 import { useSelector, useDispatch } from "react-redux";
+
 import {
-  CurrentTalent,
-  updateTalent,
-} from "../../../redux/slices/talentSlice.js";
+  currentInstructor,
+  updateInstructor,
+} from "../../../redux/slices/instructorSlice";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -70,13 +65,14 @@ const timeOut = (time) => new Promise((res) => setTimeout(res, time));
 // };
 
 const validationSchema = Yup.object().shape({
-  talentName: Yup.string().required("Required"),
-  talentLastName: Yup.string().required("Required"),
+  firstName: Yup.string().required("Required"),
+  lastName: Yup.string().required("Required"),
   birth: Yup.string().required("Required"),
-  idCard: Yup.string().required("Required"),
+  identificationCard: Yup.string().required("Required"),
   phoneNumber: Yup.string().required("Required"),
-  bootcamp: Yup.string().required("Required"),
-  talentEmail: Yup.string().email().required("Required"),
+  company: Yup.string().required("Required"),
+  bootcamps: Yup.string().required("Required"),
+  email: Yup.string().email().required("Required"),
   address: Yup.object().shape({
     street: Yup.string().required("Required"),
     numHouseOrApartment: Yup.string().required("Required"),
@@ -96,10 +92,11 @@ const validationSchema = Yup.object().shape({
   }),
 });
 
-function BasicForm(recruiterPrivate) {
-  const [isNotEditing, setIsNotEditing] = React.useState(true);
+function BasicForm() {
+  const instructor = useSelector(currentInstructor);
+  console.log(instructor);
 
-  const talent = useSelector(CurrentTalent);
+  const [isNotEditing, setIsNotEditing] = React.useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -115,10 +112,10 @@ function BasicForm(recruiterPrivate) {
     { resetForm, setErrors, setStatus, setSubmitting }
   ) => {
     setIsNotEditing((currentSate) => !currentSate);
+
     try {
       await timeOut(1500);
-      console.log(values);
-      dispatch(updateTalent({ currentTalent: values }));
+      dispatch(updateInstructor({ currentInstructor: values }));
       resetForm();
       setStatus({ sent: true });
       setSubmitting(false);
@@ -131,7 +128,7 @@ function BasicForm(recruiterPrivate) {
 
   return (
     <Formik
-      initialValues={talent}
+      initialValues={instructor}
       enableReinitialize={true}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
@@ -163,13 +160,13 @@ function BasicForm(recruiterPrivate) {
                 <Grid container spacing={6}>
                   <Grid item md={6}>
                     <TextField
-                      name="talentName"
+                      name="firstName"
                       label="Nombres"
-                      value={values.talentName}
+                      value={values.firstName}
                       disabled={isNotEditing}
-                      error={Boolean(touched.talentName && errors.talentName)}
+                      error={Boolean(touched.firstName && errors.firstName)}
                       fullWidth
-                      helperText={touched.talentName && errors.talentName}
+                      helperText={touched.firstName && errors.firstName}
                       onBlur={handleBlur}
                       onChange={handleChange}
                       variant="outlined"
@@ -178,17 +175,13 @@ function BasicForm(recruiterPrivate) {
                   </Grid>
                   <Grid item md={6}>
                     <TextField
-                      name="talentLastName"
+                      name="lastName"
                       label="Apellidos"
-                      value={values.talentLastName}
+                      value={values.lastName}
                       disabled={isNotEditing}
-                      error={Boolean(
-                        touched.talentLastName && errors.talentLastName
-                      )}
+                      error={Boolean(touched.lastName && errors.lastName)}
                       fullWidth
-                      helperText={
-                        touched.talentLastName && errors.talentLastName
-                      }
+                      helperText={touched.lastName && errors.lastName}
                       onBlur={handleBlur}
                       onChange={handleChange}
                       variant="outlined"
@@ -212,13 +205,17 @@ function BasicForm(recruiterPrivate) {
                   </Grid>
                   <Grid item md={6}>
                     <TextField
-                      name="idCard"
+                      name="identificationCard"
                       label="Cedula"
-                      value={values.idCard}
+                      value={values.identificationCard}
                       disabled={isNotEditing}
-                      error={Boolean(touched.idCard && errors.idCard)}
+                      error={Boolean(
+                        touched.identificationCard && errors.identificationCard
+                      )}
                       fullWidth
-                      helperText={touched.idCard && errors.idCard}
+                      helperText={
+                        touched.identificationCard && errors.identificationCard
+                      }
                       onBlur={handleBlur}
                       onChange={handleChange}
                       variant="outlined"
@@ -242,13 +239,13 @@ function BasicForm(recruiterPrivate) {
                   </Grid>
                   <Grid item md={6}>
                     <TextField
-                      name="bootcamp"
-                      label="bootcamp"
-                      value={values.bootcamp}
+                      name="company"
+                      label="Empresa"
+                      value={values.company}
                       disabled={isNotEditing}
-                      error={Boolean(touched.bootcamp && errors.bootcamp)}
+                      error={Boolean(touched.company && errors.company)}
                       fullWidth
-                      helperText={touched.bootcamp && errors.bootcamp}
+                      helperText={touched.company && errors.company}
                       onBlur={handleBlur}
                       onChange={handleChange}
                       variant="outlined"
@@ -258,16 +255,13 @@ function BasicForm(recruiterPrivate) {
                 </Grid>
 
                 <TextField
-                  name="biography"
-                  label="Resumen"
-                  placeholder="Escriba un resumen de usted:"
-                  multiline
-                  maxRows={Infinity}
-                  value={values.biography}
+                  name="bootcamps"
+                  label="Bootcamps"
+                  value={values.bootcamps}
                   disabled={isNotEditing}
-                  error={Boolean(touched.biography && errors.biography)}
+                  error={Boolean(touched.bootcamps && errors.bootcamps)}
                   fullWidth
-                  helperText={touched.biography && errors.biography}
+                  helperText={touched.bootcamps && errors.bootcamps}
                   onBlur={handleBlur}
                   onChange={handleChange}
                   variant="outlined"
@@ -275,13 +269,13 @@ function BasicForm(recruiterPrivate) {
                 />
 
                 <TextField
-                  name="talentEmail"
+                  name="email"
                   label="Correo"
-                  value={values.talentEmail}
+                  value={values.email}
                   disabled={isNotEditing}
-                  error={Boolean(touched.talentEmail && errors.talentEmail)}
+                  error={Boolean(touched.email && errors.email)}
                   fullWidth
-                  helperText={touched.talentEmail && errors.talentEmail}
+                  helperText={touched.email && errors.email}
                   onBlur={handleBlur}
                   onChange={handleChange}
                   type="email"
@@ -390,6 +384,25 @@ function BasicForm(recruiterPrivate) {
                   variant="outlined"
                   my={2}
                 />
+
+                <TextField
+                  name="bio"
+                  label="Resumen"
+                  placeholder="Escriba un resumen de usted:"
+                  multiline
+                  rowsMax={Infinity}
+                  maxRows={Infinity}
+                  value={values.bio}
+                  disabled={isNotEditing}
+                  error={Boolean(touched.bio && errors.bio)}
+                  fullWidth
+                  helperText={touched.bio && errors.bio}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  variant="outlined"
+                  my={2}
+                />
+
                 {!isNotEditing && (
                   <>
                     <Button
@@ -427,39 +440,11 @@ function BasicForm(recruiterPrivate) {
                     <Button
                       type="button"
                       variant="contained"
-                      color="primary"
-                      onClick={handleEdit}
-                      mt={3}
-                      ml={3}
-                    >
-                      <SwapCalls />
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="contained"
-                      color="info"
-                      onClick={handleEdit}
-                      mt={3}
-                      ml={3}
-                    >
-                      <InsertDriveFile />
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="contained"
-                      color="error"
-                      onClick={handleEdit}
-                      mt={3}
-                      ml={3}
-                    >
-                      <ImportContacts />
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="contained"
                       color="success"
                       onClick={() =>
-                        handlePageChange("/admin/dashboard/users/talents/list")
+                        handlePageChange(
+                          "/admin/dashboard/users/instructors/list_instructors"
+                        )
                       }
                       mt={3}
                       ml={3}
@@ -477,11 +462,11 @@ function BasicForm(recruiterPrivate) {
   );
 }
 
-function FormikPage(recruiterPrivate) {
+function FormikPage() {
   return (
     <React.Fragment>
-      <Helmet title="Recruiter Form" />
-      <BasicForm {...recruiterPrivate} />
+      <Helmet title="Instructor Form" />
+      <BasicForm />
     </React.Fragment>
   );
 }

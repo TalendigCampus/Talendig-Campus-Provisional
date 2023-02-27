@@ -25,6 +25,12 @@ import { spacing } from "@mui/system";
 
 import { Edit, ListAlt } from "@mui/icons-material";
 
+import { useSelector, useDispatch } from "react-redux";
+import {
+  currentRecruiter,
+  updateRecruiter,
+} from "../../../redux/slices/recruiterSlice";
+
 const Divider = styled(MuiDivider)(spacing);
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
@@ -84,9 +90,12 @@ const validationSchema = Yup.object().shape({
   }),
 });
 
-function BasicForm(recruiterPrivate) {
+function BasicForm() {
+  const recruiter = useSelector(currentRecruiter);
+
   const [isNotEditing, setIsNotEditing] = React.useState(true);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handlePageChange = (pathToGo) => {
     navigate(pathToGo);
@@ -100,8 +109,10 @@ function BasicForm(recruiterPrivate) {
     { resetForm, setErrors, setStatus, setSubmitting }
   ) => {
     setIsNotEditing((currentSate) => !currentSate);
+
     try {
       await timeOut(1500);
+      dispatch(updateRecruiter({ currentRecruiter: values }));
       resetForm();
       setStatus({ sent: true });
       setSubmitting(false);
@@ -114,7 +125,8 @@ function BasicForm(recruiterPrivate) {
 
   return (
     <Formik
-      initialValues={recruiterPrivate}
+      initialValues={recruiter}
+      enableReinitialize={true}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
@@ -414,11 +426,11 @@ function BasicForm(recruiterPrivate) {
   );
 }
 
-function FormikPage(recruiterPrivate) {
+function FormikPage() {
   return (
     <React.Fragment>
       <Helmet title="Recruiter Form" />
-      <BasicForm {...recruiterPrivate} />
+      <BasicForm />
     </React.Fragment>
   );
 }

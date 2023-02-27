@@ -23,6 +23,9 @@ import { spacing } from "@mui/system";
 import TalentTecnologyList from "./TalentTecnologyList";
 import TalentProfileForm from "./TalentProfileForm";
 
+import { useSelector } from "react-redux";
+import { CurrentTalent } from "../../../redux/slices/talentSlice";
+
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
 const Card = styled(MuiCard)(spacing);
@@ -47,14 +50,15 @@ const BigAvatar = styled(Avatar)`
   margin: 0 auto ${(props) => props.theme.spacing(2)};
 `;
 
-function Public(talentPublic) {
+function Public() {
+  const talent = useSelector(CurrentTalent);
   return (
     <Card mb={6}>
       <CardContent>
         <Grid container spacing={6}>
           <Grid item md={4}>
             <CenteredContent>
-              <BigAvatar alt="Remy Sharp" src={talentPublic.photoUrl} />
+              <BigAvatar alt="Remy Sharp" src={talent.photoUrl} />
               <input
                 accept="image/*"
                 style={{ display: "none" }}
@@ -73,7 +77,7 @@ function Public(talentPublic) {
             <TextField
               id="username"
               label="Usuario desde"
-              defaultValue={talentPublic.affiliationDate}
+              defaultValue={talent.affiliationDate}
               variant="outlined"
               fullWidth
               my={2}
@@ -84,7 +88,7 @@ function Public(talentPublic) {
               <TextField
                 id="lastConnection"
                 label="Última conexión"
-                defaultValue={talentPublic.lastConnectionDate}
+                defaultValue={talent.lastConnectionDate}
                 variant="outlined"
                 fullWidth
                 my={2}
@@ -98,23 +102,23 @@ function Public(talentPublic) {
   );
 }
 
-function Private(talentPrivate) {
+function Private() {
   return (
     <Card mb={6}>
       <CardContent>
-        <TalentProfileForm {...talentPrivate} />
+        <TalentProfileForm />
       </CardContent>
     </Card>
   );
 }
 
-function Tecnology(talentTechnology) {
+function Tecnology() {
   return (
     <Card mb={6}>
       <CardContent>
         <Grid container spacing={6}>
           <Grid item md={12}>
-            <TalentTecnologyList {...talentTechnology} />
+            <TalentTecnologyList />
           </Grid>
         </Grid>
       </CardContent>
@@ -154,40 +158,9 @@ const formTalentStructure = (talent) => {
 };
 
 function Settings() {
-  const { id: recruiterId } = useParams();
-  const talent = TalentInfo.find((talent) => talent.id === recruiterId);
+  const talent = useSelector(CurrentTalent);
+  console.log(talent);
 
-  if (!talent) {
-    return (
-      <React.Fragment>
-        <Helmet title="Recruiter Profile" />
-
-        <Typography variant="h3" gutterBottom display="inline">
-          Perfil Reclutador
-        </Typography>
-
-        <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-          <Link component={NavLink} to="/">
-            Dashboard
-          </Link>
-          <Typography>Usuario</Typography>
-          <Typography>Reclutador</Typography>
-          <Typography>Perfil</Typography>
-        </Breadcrumbs>
-
-        <Divider my={6} />
-
-        <Grid container spacing={6}>
-          <Grid item xs={12}>
-            <Typography variant="h3" gutterBottom display="inline">
-              Talento no encontrado!
-            </Typography>
-          </Grid>
-        </Grid>
-      </React.Fragment>
-    );
-  }
-  const talentStructure = formTalentStructure(talent);
   return (
     <React.Fragment>
       <Helmet title="Recruiter Profile" />
@@ -209,9 +182,17 @@ function Settings() {
 
       <Grid container spacing={6}>
         <Grid item xs={12}>
-          <Public {...talentStructure.talentPublic} />
-          <Private {...talentStructure.talentPrivate} />
-          <Tecnology {...talentStructure.talentTechnology} />
+          {talent ? (
+            <>
+              <Public />
+              <Private />
+              <Tecnology />
+            </>
+          ) : (
+            <Typography variant="h3" gutterBottom display="inline">
+              Talento no encontrado!
+            </Typography>
+          )}
         </Grid>
       </Grid>
     </React.Fragment>

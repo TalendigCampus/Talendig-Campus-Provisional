@@ -15,9 +15,6 @@ import {
 import { DataGrid } from "@mui/x-data-grid";
 import { spacing } from "@mui/system";
 
-import { useSelector } from "react-redux";
-import { currentRecruiter } from "../../../redux/slices/recruiterSlice";
-
 const Card = styled(MuiCard)(spacing);
 
 const CardContent = styled(MuiCardContent)(spacing);
@@ -31,8 +28,8 @@ const Paper = styled(MuiPaper)(spacing);
 const columns = [
   { field: "id", headerName: "#", width: 150, editable: false },
   {
-    field: "technology",
-    headerName: "Tecnologia",
+    field: "talent",
+    headerName: "Estudiante",
     width: 200,
     editable: false,
     flex: 1,
@@ -45,17 +42,16 @@ const columns = [
 //   { id: 3, tecnology: "React" },
 // ];
 
-function DataGridDemo() {
-  const recruiter = useSelector(currentRecruiter);
-  const rows = recruiter.technology.split(",").map((technology, index) => ({
+function DataGridDemo(bootcampStudents) {
+  const rows = bootcampStudents.talents.map((talent, index) => ({
     id: ++index,
-    technology,
+    talent,
   }));
   return (
     <Card mb={6}>
       <CardContent pb={1}>
         <Typography variant="h6" gutterBottom>
-          Tecnologias de Interes
+          Estudiantes del bootcamp
         </Typography>
       </CardContent>
       <Paper>
@@ -78,11 +74,11 @@ function DataGridDemo() {
   );
 }
 
-function DataGridPage() {
+function DataGridPage(bootcampStudents) {
   return (
     <React.Fragment>
-      <Helmet title="RecruiterTecnologyList Grid" />
-      <DataGridDemo />
+      <Helmet title="BootcampStudentList Grid" />
+      <DataGridDemo {...bootcampStudents} />
     </React.Fragment>
   );
 }

@@ -41,10 +41,10 @@ import { spacing } from "@mui/system";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
-  deleteRecruiter,
-  currentRecruiter,
   setShowUndo,
-} from "../../../redux/slices/recruiterSlice";
+  deleteInstructor,
+  currentInstructor,
+} from "../../../redux/slices/instructorSlice.js";
 
 const Card = styled(MuiCard)(spacing);
 
@@ -54,23 +54,23 @@ const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
 const Paper = styled(MuiPaper)(spacing);
 
-function AlertDialog({ deleteRecruiterModal, setDeleteRecruiterModal }) {
-  const recruiterToDelete = useSelector(currentRecruiter);
+function AlertDialog({ deleteInstructorModal, setDeleteInstructorModal }) {
+  const instructorToDelete = useSelector(currentInstructor);
   const dispatch = useDispatch();
 
   const handleClose = () => {
-    setDeleteRecruiterModal(false);
+    setDeleteInstructorModal(false);
   };
 
   const handleDelete = () => {
-    dispatch(deleteRecruiter({ recruiterId: recruiterToDelete.id }));
+    dispatch(deleteInstructor({ instructorId: instructorToDelete.id }));
     handleClose();
     dispatch(setShowUndo({ status: true }));
   };
 
   return (
     <Dialog
-      open={deleteRecruiterModal}
+      open={deleteInstructorModal}
       onClose={handleClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
@@ -95,15 +95,15 @@ function AlertDialog({ deleteRecruiterModal, setDeleteRecruiterModal }) {
   );
 }
 
-function Dialogs({ deleteRecruiterModal, setDeleteRecruiterModal }) {
+function Dialogs({ deleteInstructorModal, setDeleteInstructorModal }) {
   return (
     <React.Fragment>
       <Helmet title="Dialogs" />
       <Grid container spacing={6}>
         <Grid item xs={12} md={6}>
           <AlertDialog
-            deleteRecruiterModal={deleteRecruiterModal}
-            setDeleteRecruiterModal={setDeleteRecruiterModal}
+            deleteInstructorModal={deleteInstructorModal}
+            setDeleteInstructorModal={setDeleteInstructorModal}
           />
         </Grid>
       </Grid>

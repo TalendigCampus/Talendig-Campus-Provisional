@@ -40,7 +40,7 @@ function BootcampsStatistics() {
         </Grid>
 
         <Grid item>
-          <Actions />
+          <Actions path={"/admin/dashboard/bootcamps/list"} btnName={"Lista"} />
         </Grid>
       </Grid>
 
