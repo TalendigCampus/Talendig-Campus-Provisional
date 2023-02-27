@@ -4,12 +4,14 @@ import styled from "styled-components/macro";
 import { NavLink } from "react-router-dom";
 import { Formik } from "formik";
 import { Helmet } from "react-helmet-async";
+import { useNavigate } from "react-router-dom";
 
 import {
   Alert as MuiAlert,
   Box,
   Breadcrumbs as MuiBreadcrumbs,
   Button as MuiButton,
+  IconButton,
   Card as MuiCard,
   CardContent,
   CircularProgress,
@@ -20,6 +22,8 @@ import {
   Typography,
 } from "@mui/material";
 import { spacing } from "@mui/system";
+
+import { Edit, ListAlt } from "@mui/icons-material";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -35,23 +39,23 @@ const Button = styled(MuiButton)(spacing);
 
 const timeOut = (time) => new Promise((res) => setTimeout(res, time));
 
-const initialValues = {
-  firstName: "Alexander",
-  lastName: "Santos",
-  birth: "1980-05-22",
-  identificationCard: "012-0987987-9",
-  phoneNumber: "829-098-0987",
-  company: "Banco Popular",
-  email: "alex@gmail.com",
-  address: {
-    street: "Nueva Vista",
-    numHouseOrApartment: "#99",
-    neighborhood: "Los Jardinez",
-    city: "Santo Domingo",
-  },
-  password: "mypassword123",
-  confirmPassword: "mypassword123",
-};
+// const initialValues = {
+//   firstName: "Alexander",
+//   lastName: "Santos",
+//   birth: "1980-05-22",
+//   identificationCard: "012-0987987-9",
+//   phoneNumber: "829-098-0987",
+//   company: "Banco Popular",
+//   email: "alex@gmail.com",
+//   address: {
+//     street: "Nueva Vista",
+//     numHouseOrApartment: "#99",
+//     neighborhood: "Los Jardinez",
+//     city: "Santo Domingo",
+//   },
+//   password: "mypassword123",
+//   confirmPassword: "mypassword123",
+// };
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required("Required"),
@@ -80,11 +84,22 @@ const validationSchema = Yup.object().shape({
   }),
 });
 
-function BasicForm() {
+function BasicForm(recruiterPrivate) {
+  const [isNotEditing, setIsNotEditing] = React.useState(true);
+  const navigate = useNavigate();
+
+  const handlePageChange = (pathToGo) => {
+    navigate(pathToGo);
+  };
+
+  const handleEdit = () => {
+    setIsNotEditing((currentSate) => !currentSate);
+  };
   const handleSubmit = async (
     values,
     { resetForm, setErrors, setStatus, setSubmitting }
   ) => {
+    setIsNotEditing((currentSate) => !currentSate);
     try {
       await timeOut(1500);
       resetForm();
@@ -99,7 +114,7 @@ function BasicForm() {
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={recruiterPrivate}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
@@ -133,6 +148,7 @@ function BasicForm() {
                       name="firstName"
                       label="Nombres"
                       value={values.firstName}
+                      disabled={isNotEditing}
                       error={Boolean(touched.firstName && errors.firstName)}
                       fullWidth
                       helperText={touched.firstName && errors.firstName}
@@ -147,6 +163,7 @@ function BasicForm() {
                       name="lastName"
                       label="Apellidos"
                       value={values.lastName}
+                      disabled={isNotEditing}
                       error={Boolean(touched.lastName && errors.lastName)}
                       fullWidth
                       helperText={touched.lastName && errors.lastName}
@@ -161,6 +178,7 @@ function BasicForm() {
                       name="birth"
                       label="Fecha Nacimiento"
                       value={values.birth}
+                      disabled={isNotEditing}
                       error={Boolean(touched.birth && errors.birth)}
                       fullWidth
                       helperText={touched.birth && errors.birth}
@@ -175,6 +193,7 @@ function BasicForm() {
                       name="identificationCard"
                       label="Cedula"
                       value={values.identificationCard}
+                      disabled={isNotEditing}
                       error={Boolean(
                         touched.identificationCard && errors.identificationCard
                       )}
@@ -192,6 +211,7 @@ function BasicForm() {
                     <TextField
                       name="phoneNumber"
                       label="Telefono"
+                      disabled={isNotEditing}
                       value={values.phoneNumber}
                       error={Boolean(touched.phoneNumber && errors.phoneNumber)}
                       fullWidth
@@ -204,12 +224,13 @@ function BasicForm() {
                   </Grid>
                   <Grid item md={6}>
                     <TextField
-                      name="company"
-                      label="Empresa"
-                      value={values.company}
-                      error={Boolean(touched.company && errors.company)}
+                      name="bootcamp"
+                      label="bootcamp"
+                      value={values.bootcamp}
+                      disabled={isNotEditing}
+                      error={Boolean(touched.bootcamp && errors.bootcamp)}
                       fullWidth
-                      helperText={touched.company && errors.company}
+                      helperText={touched.bootcamp && errors.bootcamp}
                       onBlur={handleBlur}
                       onChange={handleChange}
                       variant="outlined"
@@ -219,9 +240,28 @@ function BasicForm() {
                 </Grid>
 
                 <TextField
+                  name="biography"
+                  label="Resumen"
+                  placeholder="Escriba un resumen de usted:"
+                  multiline
+                  rowsMax={Infinity}
+                  maxRows={Infinity}
+                  value={values.biography}
+                  disabled={isNotEditing}
+                  error={Boolean(touched.biography && errors.biography)}
+                  fullWidth
+                  helperText={touched.biography && errors.biography}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  variant="outlined"
+                  my={2}
+                />
+
+                <TextField
                   name="email"
                   label="Correo"
                   value={values.email}
+                  disabled={isNotEditing}
                   error={Boolean(touched.email && errors.email)}
                   fullWidth
                   helperText={touched.email && errors.email}
@@ -236,6 +276,7 @@ function BasicForm() {
                   name="address.street"
                   label="Calle"
                   value={values.address.street}
+                  disabled={isNotEditing}
                   error={Boolean(
                     touched.address?.street && errors.address?.street
                   )}
@@ -251,6 +292,7 @@ function BasicForm() {
                   name="address.numHouseOrApartment"
                   label="Num Casa/Apartamento"
                   value={values.address.numHouseOrApartment}
+                  disabled={isNotEditing}
                   error={Boolean(
                     touched.address?.numHouseOrApartment &&
                       errors.address?.numHouseOrApartment
@@ -270,6 +312,7 @@ function BasicForm() {
                   name="address.neighborhood"
                   label="Sector"
                   value={values.address.neighborhood}
+                  disabled={isNotEditing}
                   error={Boolean(
                     touched.address?.neighborhood &&
                       errors.address?.neighborhood
@@ -289,6 +332,7 @@ function BasicForm() {
                   name="address.city"
                   label="Ciudad"
                   value={values.address.city}
+                  disabled={isNotEditing}
                   error={Boolean(touched.address?.city && errors.address?.city)}
                   fullWidth
                   helperText={touched.address?.city && errors.address?.city}
@@ -302,6 +346,7 @@ function BasicForm() {
                   name="password"
                   label="Password"
                   value={values.password}
+                  disabled={isNotEditing}
                   error={Boolean(touched.password && errors.password)}
                   fullWidth
                   helperText={touched.password && errors.password}
@@ -316,6 +361,7 @@ function BasicForm() {
                   name="confirmPassword"
                   label="Confirm password"
                   value={values.confirmPassword}
+                  disabled={isNotEditing}
                   error={Boolean(
                     touched.confirmPassword && errors.confirmPassword
                   )}
@@ -327,24 +373,56 @@ function BasicForm() {
                   variant="outlined"
                   my={2}
                 />
-
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  mt={3}
-                >
-                  Guardar
-                </Button>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="error"
-                  mt={3}
-                  ml={3}
-                >
-                  Cancelar
-                </Button>
+                {!isNotEditing && (
+                  <>
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      mt={3}
+                    >
+                      Guardar
+                    </Button>
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="error"
+                      onClick={handleEdit}
+                      mt={3}
+                      ml={3}
+                    >
+                      Cancelar
+                    </Button>
+                  </>
+                )}
+                {isNotEditing && (
+                  <>
+                    <Button
+                      type="button"
+                      variant="contained"
+                      color="warning"
+                      onClick={handleEdit}
+                      mt={3}
+                      ml={3}
+                    >
+                      <Edit />
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="contained"
+                      color="success"
+                      onClick={() =>
+                        handlePageChange(
+                          "/admin/dashboard/users/recruiters/list"
+                        )
+                      }
+                      mt={3}
+                      ml={3}
+                    >
+                      <ListAlt />
+                    </Button>
+                  </>
+                )}
               </form>
             )}
           </CardContent>
@@ -354,11 +432,11 @@ function BasicForm() {
   );
 }
 
-function FormikPage() {
+function FormikPage(recruiterPrivate) {
   return (
     <React.Fragment>
       <Helmet title="Recruiter Form" />
-      <BasicForm />
+      <BasicForm {...recruiterPrivate} />
     </React.Fragment>
   );
 }

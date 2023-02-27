@@ -50,8 +50,7 @@ import Blank from "./pages/pages/Blank";
 import InvoiceDetails from "./pages/pages/InvoiceDetails";
 import InvoiceList from "./pages/pages/InvoiceList";
 import TalentList from "./pages/pages/talent/TalentList";
-import TalentEdit from "./pages/pages/talent/RecruitersProfileForm";
-import TalentDetails from "./pages/pages/talent/TalentDetails";
+import TalentDetails from "./pages/pages/talent/TalentsProfile";
 import Orders from "./pages/pages/Orders";
 import Recruiters from "./pages/pages/AdminRecruiters/Recruiters";
 import RecruitersList from "./pages/pages/AdminRecruiters/RecruitersList";
@@ -181,11 +180,7 @@ const routes = [
                     element: <TalentList />,
                   },
                   {
-                    path: "edit/:talentId",
-                    element: <TalentEdit />,
-                  },
-                  {
-                    path: "info/:talentId",
+                    path: "info",
                     element: <TalentDetails />,
                   },
                 ],

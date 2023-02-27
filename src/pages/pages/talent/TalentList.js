@@ -406,9 +406,7 @@ function EnhancedTable({ setAllowDelete }) {
                           size="large"
                           color="info"
                           onClick={() =>
-                            handdlePath(
-                              `/admin/dashboard/users/talents/info/${row.talentId}`
-                            )
+                            handdlePath(`/admin/dashboard/users/talents/info`)
                           }
                         >
                           <Info />
