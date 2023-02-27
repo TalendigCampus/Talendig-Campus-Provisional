@@ -41,12 +41,10 @@ import { spacing } from "@mui/system";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
-  selectInstructors,
-  instructorToDelete,
   setShowUndo,
-  instructorToBeRemoved,
   deleteInstructor,
-} from "../../../redux/slices/insctructorsSlice.js";
+  currentInstructor,
+} from "../../../redux/slices/instructorSlice.js";
 
 const Card = styled(MuiCard)(spacing);
 
@@ -57,7 +55,7 @@ const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 const Paper = styled(MuiPaper)(spacing);
 
 function AlertDialog({ deleteInstructorModal, setDeleteInstructorModal }) {
-  const instructorToDelete = useSelector(instructorToBeRemoved);
+  const instructorToDelete = useSelector(currentInstructor);
   const dispatch = useDispatch();
 
   const handleClose = () => {

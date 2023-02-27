@@ -23,6 +23,9 @@ import { spacing } from "@mui/system";
 import InstructorTecnologyList from "./InstructorTecnologyList";
 import InstructorsProfileForm from "./InstructorsProfileForm";
 
+import { useSelector } from "react-redux";
+import { currentInstructor } from "../../../redux/slices/instructorSlice";
+
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
 const Card = styled(MuiCard)(spacing);
@@ -48,13 +51,14 @@ const BigAvatar = styled(Avatar)`
 `;
 
 function Public(instructorPublic) {
+  const instructor = useSelector(currentInstructor);
   return (
     <Card mb={6}>
       <CardContent>
         <Grid container spacing={6}>
           <Grid item md={4}>
             <CenteredContent>
-              <BigAvatar alt="Remy Sharp" src={instructorPublic.photoUrl} />
+              <BigAvatar alt="Remy Sharp" src={instructor.photoUrl} />
               <input
                 accept="image/*"
                 style={{ display: "none" }}
@@ -73,7 +77,7 @@ function Public(instructorPublic) {
             <TextField
               id="username"
               label="Usuario desde"
-              defaultValue={instructorPublic.affiliationDate}
+              defaultValue={instructor.affiliationDate}
               variant="outlined"
               fullWidth
               my={2}
@@ -84,7 +88,7 @@ function Public(instructorPublic) {
               <TextField
                 id="lastConnection"
                 label="Última conexión"
-                defaultValue={instructorPublic.lastConnectionDate}
+                defaultValue={instructor.lastConnectionDate}
                 variant="outlined"
                 fullWidth
                 my={2}
@@ -98,23 +102,23 @@ function Public(instructorPublic) {
   );
 }
 
-function Private(instructorPrivate) {
+function Private() {
   return (
     <Card mb={6}>
       <CardContent>
-        <InstructorsProfileForm {...instructorPrivate} />
+        <InstructorsProfileForm />
       </CardContent>
     </Card>
   );
 }
 
-function Tecnology(instructorTechnology) {
+function Tecnology() {
   return (
     <Card mb={6}>
       <CardContent>
         <Grid container spacing={6}>
           <Grid item md={12}>
-            <InstructorTecnologyList {...instructorTechnology} />
+            <InstructorTecnologyList />
           </Grid>
         </Grid>
       </CardContent>
@@ -154,42 +158,8 @@ const formInstructorStructure = (instructor) => {
 };
 
 function View_Instructors() {
-  const { id: instructorId } = useParams();
-  const instructor = InstructorsInfo.find(
-    (instructor) => instructor.id === instructorId
-  );
+  const instructor = useSelector(currentInstructor);
 
-  if (!instructor) {
-    return (
-      <React.Fragment>
-        <Helmet title="Instructor Profile" />
-
-        <Typography variant="h3" gutterBottom display="inline">
-          Perfil Reclutador
-        </Typography>
-
-        <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-          <Link component={NavLink} to="/">
-            Dashboard
-          </Link>
-          <Typography>Usuario</Typography>
-          <Typography>Reclutador</Typography>
-          <Typography>Perfil</Typography>
-        </Breadcrumbs>
-
-        <Divider my={6} />
-
-        <Grid container spacing={6}>
-          <Grid item xs={12}>
-            <Typography variant="h3" gutterBottom display="inline">
-              Reclutador no encontrado!
-            </Typography>
-          </Grid>
-        </Grid>
-      </React.Fragment>
-    );
-  }
-  const instructorStructure = formInstructorStructure(instructor);
   return (
     <React.Fragment>
       <Helmet title="Instructor Profile" />
@@ -199,6 +169,9 @@ function View_Instructors() {
       </Typography>
 
       <Breadcrumbs aria-label="Breadcrumb" mt={2}>
+        <Link component={NavLink} to="/">
+          Dashboard
+        </Link>
         <Link component={NavLink} to="/admin/dashboard/home">
           Dashboard
         </Link>
@@ -220,9 +193,17 @@ function View_Instructors() {
 
       <Grid container spacing={6}>
         <Grid item xs={12}>
-          <Public {...instructorStructure.instructorPublic} />
-          <Private {...instructorStructure.instructorPrivate} />
-          <Tecnology {...instructorStructure.instructorTechnology} />
+          {instructor ? (
+            <>
+              <Public />
+              <Private />
+              <Tecnology />
+            </>
+          ) : (
+            <Typography variant="h3" gutterBottom display="inline">
+              Instructor no encontrado! {instructor}
+            </Typography>
+          )}
         </Grid>
       </Grid>
     </React.Fragment>

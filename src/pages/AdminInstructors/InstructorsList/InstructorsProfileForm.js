@@ -25,6 +25,13 @@ import { spacing } from "@mui/system";
 
 import { Edit, ListAlt } from "@mui/icons-material";
 
+import { useSelector, useDispatch } from "react-redux";
+
+import {
+  currentInstructor,
+  updateInstructor,
+} from "../../../redux/slices/instructorSlice";
+
 const Divider = styled(MuiDivider)(spacing);
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
@@ -64,6 +71,7 @@ const validationSchema = Yup.object().shape({
   identificationCard: Yup.string().required("Required"),
   phoneNumber: Yup.string().required("Required"),
   company: Yup.string().required("Required"),
+  bootcamps: Yup.string().required("Required"),
   email: Yup.string().email().required("Required"),
   address: Yup.object().shape({
     street: Yup.string().required("Required"),
@@ -84,9 +92,13 @@ const validationSchema = Yup.object().shape({
   }),
 });
 
-function BasicForm(instructorPrivate) {
+function BasicForm() {
+  const instructor = useSelector(currentInstructor);
+  console.log(instructor);
+
   const [isNotEditing, setIsNotEditing] = React.useState(true);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handlePageChange = (pathToGo) => {
     navigate(pathToGo);
@@ -100,8 +112,10 @@ function BasicForm(instructorPrivate) {
     { resetForm, setErrors, setStatus, setSubmitting }
   ) => {
     setIsNotEditing((currentSate) => !currentSate);
+
     try {
       await timeOut(1500);
+      dispatch(updateInstructor({ currentInstructor: values }));
       resetForm();
       setStatus({ sent: true });
       setSubmitting(false);
@@ -114,7 +128,8 @@ function BasicForm(instructorPrivate) {
 
   return (
     <Formik
-      initialValues={instructorPrivate}
+      initialValues={instructor}
+      enableReinitialize={true}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
@@ -271,7 +286,7 @@ function BasicForm(instructorPrivate) {
                 <TextField
                   name="address.street"
                   label="Calle"
-                  value="hola"
+                  value={values.address.street}
                   disabled={isNotEditing}
                   error={Boolean(
                     touched.address?.street && errors.address?.street
@@ -369,6 +384,25 @@ function BasicForm(instructorPrivate) {
                   variant="outlined"
                   my={2}
                 />
+
+                <TextField
+                  name="bio"
+                  label="Resumen"
+                  placeholder="Escriba un resumen de usted:"
+                  multiline
+                  rowsMax={Infinity}
+                  maxRows={Infinity}
+                  value={values.bio}
+                  disabled={isNotEditing}
+                  error={Boolean(touched.bio && errors.bio)}
+                  fullWidth
+                  helperText={touched.bio && errors.bio}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  variant="outlined"
+                  my={2}
+                />
+
                 {!isNotEditing && (
                   <>
                     <Button
@@ -428,11 +462,11 @@ function BasicForm(instructorPrivate) {
   );
 }
 
-function FormikPage(instructorPrivate) {
+function FormikPage() {
   return (
     <React.Fragment>
       <Helmet title="Instructor Form" />
-      <BasicForm {...instructorPrivate} />
+      <BasicForm />
     </React.Fragment>
   );
 }

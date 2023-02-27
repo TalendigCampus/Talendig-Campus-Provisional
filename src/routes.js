@@ -211,7 +211,7 @@ const routes = [
                     element: <ListaInstructores />,
                   },
                   {
-                    path: "view_instructors/:id",
+                    path: "view_instructors",
                     element: <ViewInstructors />,
                   },
                 ],

@@ -47,9 +47,9 @@ import UndoAction from "./InstructorsList/UndoAction";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectInstructors,
-  instructorToDelete,
+  setCurrentInstructor,
   setShowUndo,
-} from "../../redux/slices/insctructorsSlice.js";
+} from "../../redux/slices/instructorSlice.js";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -260,12 +260,13 @@ function EnhancedTable({ setDeleteInstructorModal }) {
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
-  const handleShowInfo = (pathToGo) => {
+  const handleShowInfo = (pathToGo, instructorId) => {
+    dispatch(setCurrentInstructor({ instructorId }));
     navigate(pathToGo);
   };
 
   const handleDelete = (instructorId) => {
-    dispatch(instructorToDelete({ instructorId }));
+    dispatch(setCurrentInstructor({ instructorId }));
     dispatch(setShowUndo({ status: false }));
     setDeleteInstructorModal(true);
   };
@@ -333,7 +334,8 @@ function EnhancedTable({ setDeleteInstructorModal }) {
                           color="info"
                           onClick={() =>
                             handleShowInfo(
-                              `/admin/dashboard/users/instructors/view_instructors/${row.id}`
+                              "/admin/dashboard/users/instructors/view_instructors",
+                              row.id
                             )
                           }
                         >
@@ -364,6 +366,7 @@ function EnhancedTable({ setDeleteInstructorModal }) {
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}
+          labelRowsPerPage={"Filas por página"}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
