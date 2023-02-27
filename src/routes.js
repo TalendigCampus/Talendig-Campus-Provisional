@@ -106,6 +106,7 @@ import BriefcaseList from "./pages/pages/Portafolio/BriefcaseList";
 
 import EditInstructors from "./pages/AdminInstructors/Edit_Instructors";
 import ViewInstructors from "./pages/AdminInstructors/InstructorsList/View_Instructors";
+import Roadmap from "./pages/pages/talent/Roadmap";
 
 // Dashboard components
 const Default = async(() => import("./pages/dashboards/Default"));
@@ -193,6 +194,10 @@ const routes = [
                   {
                     path: "curriculum/:talentId",
                     element: <Curriculum />,
+                  },
+                  {
+                    path: "roadmap",
+                    element: <Roadmap />,
                   },
                 ],
               },
