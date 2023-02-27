@@ -20,7 +20,7 @@ import {
   setShowUndo,
   addTalent,
   deleteTalent,
-  talentToBeRemoved,
+  CurrentTalent,
 } from "../../../redux/slices/talentSlice";
 
 const Card = styled(MuiCard)(spacing);
@@ -30,7 +30,7 @@ const Button = styled(MuiButton)(spacing);
 function SimpleSnackbar() {
   let status = useSelector(showUndo);
   const dispatch = useDispatch();
-  let currentTalent = useSelector(talentToBeRemoved);
+  let currentTalent = useSelector(CurrentTalent);
 
   const handleClose = (event, reason) => {
     dispatch(setShowUndo({ status: false }));

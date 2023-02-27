@@ -5,7 +5,7 @@ const talentSlice = createSlice({
   name: "talent",
   initialState: {
     TalentsInfo,
-    setTalentToDelete: null,
+    currentTalent: null,
     showUndo: false,
     allowDelete: false,
   },
@@ -18,10 +18,19 @@ const talentSlice = createSlice({
     addTalent: (state, action) => {
       state.TalentsInfo.unshift(action.payload.newTalent);
     },
-    talentToDelete: (state, action) => {
-      state.setTalentToDelete = state.TalentsInfo.find(
+    setCurrentTalent: (state, action) => {
+      state.currentTalent = state.TalentsInfo.find(
         (talent) => talent.talentId === action.payload.talentId
       );
+    },
+    updateTalent: (state, action) => {
+      state.currentTalent = action.payload.currentTalent;
+
+      const index = state.TalentsInfo.findIndex(
+        (Talent) => Talent.talentId === action.payload.currentTalent.talentId
+      );
+
+      if (index !== -1) state.TalentsInfo[index] = action.payload.currentTalent;
     },
     setShowUndo: (state, action) => {
       state.showUndo = action.payload.status;
@@ -35,13 +44,14 @@ const talentSlice = createSlice({
 export const {
   deleteTalent,
   addTalent,
-  talentToDelete,
+  setCurrentTalent,
   setShowUndo,
   setAllowDelete,
+  updateTalent,
 } = talentSlice.actions;
 export const selectTalents = (state) => state.talent.TalentsInfo;
 
-export const talentToBeRemoved = (state) => state.talent.setTalentToDelete;
+export const CurrentTalent = (state) => state.talent.currentTalent;
 
 export const showUndo = (state) => state.talent.showUndo;
 

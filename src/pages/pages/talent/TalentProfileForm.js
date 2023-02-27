@@ -4,12 +4,14 @@ import styled from "styled-components/macro";
 import { NavLink } from "react-router-dom";
 import { Formik } from "formik";
 import { Helmet } from "react-helmet-async";
+import { useNavigate } from "react-router-dom";
 
 import {
   Alert as MuiAlert,
   Box,
   Breadcrumbs as MuiBreadcrumbs,
   Button as MuiButton,
+  IconButton,
   Card as MuiCard,
   CardContent,
   CircularProgress,
@@ -20,6 +22,20 @@ import {
   Typography,
 } from "@mui/material";
 import { spacing } from "@mui/system";
+
+import {
+  Edit,
+  SwapCalls,
+  InsertDriveFile,
+  ImportContacts,
+  ListAlt,
+} from "@mui/icons-material";
+
+import { useSelector, useDispatch } from "react-redux";
+import {
+  CurrentTalent,
+  updateTalent,
+} from "../../../redux/slices/talentSlice.js";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -35,32 +51,32 @@ const Button = styled(MuiButton)(spacing);
 
 const timeOut = (time) => new Promise((res) => setTimeout(res, time));
 
-const initialValues = {
-  firstName: "Alexander",
-  lastName: "Santos",
-  birth: "1980-05-22",
-  identificationCard: "012-0987987-9",
-  phoneNumber: "829-098-0987",
-  company: "Banco Popular",
-  email: "alex@gmail.com",
-  address: {
-    street: "Nueva Vista",
-    numHouseOrApartment: "#99",
-    neighborhood: "Los Jardinez",
-    city: "Santo Domingo",
-  },
-  password: "mypassword123",
-  confirmPassword: "mypassword123",
-};
+// const initialValues = {
+//   firstName: "Alexander",
+//   lastName: "Santos",
+//   birth: "1980-05-22",
+//   identificationCard: "012-0987987-9",
+//   phoneNumber: "829-098-0987",
+//   company: "Banco Popular",
+//   email: "alex@gmail.com",
+//   address: {
+//     street: "Nueva Vista",
+//     numHouseOrApartment: "#99",
+//     neighborhood: "Los Jardinez",
+//     city: "Santo Domingo",
+//   },
+//   password: "mypassword123",
+//   confirmPassword: "mypassword123",
+// };
 
 const validationSchema = Yup.object().shape({
-  firstName: Yup.string().required("Required"),
-  lastName: Yup.string().required("Required"),
+  talentName: Yup.string().required("Required"),
+  talentLastName: Yup.string().required("Required"),
   birth: Yup.string().required("Required"),
-  identificationCard: Yup.string().required("Required"),
+  idCard: Yup.string().required("Required"),
   phoneNumber: Yup.string().required("Required"),
-  company: Yup.string().required("Required"),
-  email: Yup.string().email().required("Required"),
+  bootcamp: Yup.string().required("Required"),
+  talentEmail: Yup.string().email().required("Required"),
   address: Yup.object().shape({
     street: Yup.string().required("Required"),
     numHouseOrApartment: Yup.string().required("Required"),
@@ -80,13 +96,29 @@ const validationSchema = Yup.object().shape({
   }),
 });
 
-function BasicForm() {
+function BasicForm(recruiterPrivate) {
+  const [isNotEditing, setIsNotEditing] = React.useState(true);
+
+  const talent = useSelector(CurrentTalent);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handlePageChange = (pathToGo) => {
+    navigate(pathToGo);
+  };
+
+  const handleEdit = () => {
+    setIsNotEditing((currentSate) => !currentSate);
+  };
   const handleSubmit = async (
     values,
     { resetForm, setErrors, setStatus, setSubmitting }
   ) => {
+    setIsNotEditing((currentSate) => !currentSate);
     try {
       await timeOut(1500);
+      console.log(values);
+      dispatch(updateTalent({ currentTalent: values }));
       resetForm();
       setStatus({ sent: true });
       setSubmitting(false);
@@ -99,7 +131,8 @@ function BasicForm() {
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={talent}
+      enableReinitialize={true}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
@@ -130,12 +163,13 @@ function BasicForm() {
                 <Grid container spacing={6}>
                   <Grid item md={6}>
                     <TextField
-                      name="firstName"
+                      name="talentName"
                       label="Nombres"
-                      value={values.firstName}
-                      error={Boolean(touched.firstName && errors.firstName)}
+                      value={values.talentName}
+                      disabled={isNotEditing}
+                      error={Boolean(touched.talentName && errors.talentName)}
                       fullWidth
-                      helperText={touched.firstName && errors.firstName}
+                      helperText={touched.talentName && errors.talentName}
                       onBlur={handleBlur}
                       onChange={handleChange}
                       variant="outlined"
@@ -144,12 +178,17 @@ function BasicForm() {
                   </Grid>
                   <Grid item md={6}>
                     <TextField
-                      name="lastName"
+                      name="talentLastName"
                       label="Apellidos"
-                      value={values.lastName}
-                      error={Boolean(touched.lastName && errors.lastName)}
+                      value={values.talentLastName}
+                      disabled={isNotEditing}
+                      error={Boolean(
+                        touched.talentLastName && errors.talentLastName
+                      )}
                       fullWidth
-                      helperText={touched.lastName && errors.lastName}
+                      helperText={
+                        touched.talentLastName && errors.talentLastName
+                      }
                       onBlur={handleBlur}
                       onChange={handleChange}
                       variant="outlined"
@@ -161,6 +200,7 @@ function BasicForm() {
                       name="birth"
                       label="Fecha Nacimiento"
                       value={values.birth}
+                      disabled={isNotEditing}
                       error={Boolean(touched.birth && errors.birth)}
                       fullWidth
                       helperText={touched.birth && errors.birth}
@@ -172,16 +212,13 @@ function BasicForm() {
                   </Grid>
                   <Grid item md={6}>
                     <TextField
-                      name="identificationCard"
+                      name="idCard"
                       label="Cedula"
-                      value={values.identificationCard}
-                      error={Boolean(
-                        touched.identificationCard && errors.identificationCard
-                      )}
+                      value={values.idCard}
+                      disabled={isNotEditing}
+                      error={Boolean(touched.idCard && errors.idCard)}
                       fullWidth
-                      helperText={
-                        touched.identificationCard && errors.identificationCard
-                      }
+                      helperText={touched.idCard && errors.idCard}
                       onBlur={handleBlur}
                       onChange={handleChange}
                       variant="outlined"
@@ -192,6 +229,7 @@ function BasicForm() {
                     <TextField
                       name="phoneNumber"
                       label="Telefono"
+                      disabled={isNotEditing}
                       value={values.phoneNumber}
                       error={Boolean(touched.phoneNumber && errors.phoneNumber)}
                       fullWidth
@@ -204,12 +242,13 @@ function BasicForm() {
                   </Grid>
                   <Grid item md={6}>
                     <TextField
-                      name="company"
-                      label="Empresa"
-                      value={values.company}
-                      error={Boolean(touched.company && errors.company)}
+                      name="bootcamp"
+                      label="bootcamp"
+                      value={values.bootcamp}
+                      disabled={isNotEditing}
+                      error={Boolean(touched.bootcamp && errors.bootcamp)}
                       fullWidth
-                      helperText={touched.company && errors.company}
+                      helperText={touched.bootcamp && errors.bootcamp}
                       onBlur={handleBlur}
                       onChange={handleChange}
                       variant="outlined"
@@ -219,12 +258,30 @@ function BasicForm() {
                 </Grid>
 
                 <TextField
-                  name="email"
-                  label="Correo"
-                  value={values.email}
-                  error={Boolean(touched.email && errors.email)}
+                  name="biography"
+                  label="Resumen"
+                  placeholder="Escriba un resumen de usted:"
+                  multiline
+                  maxRows={Infinity}
+                  value={values.biography}
+                  disabled={isNotEditing}
+                  error={Boolean(touched.biography && errors.biography)}
                   fullWidth
-                  helperText={touched.email && errors.email}
+                  helperText={touched.biography && errors.biography}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  variant="outlined"
+                  my={2}
+                />
+
+                <TextField
+                  name="talentEmail"
+                  label="Correo"
+                  value={values.talentEmail}
+                  disabled={isNotEditing}
+                  error={Boolean(touched.talentEmail && errors.talentEmail)}
+                  fullWidth
+                  helperText={touched.talentEmail && errors.talentEmail}
                   onBlur={handleBlur}
                   onChange={handleChange}
                   type="email"
@@ -236,6 +293,7 @@ function BasicForm() {
                   name="address.street"
                   label="Calle"
                   value={values.address.street}
+                  disabled={isNotEditing}
                   error={Boolean(
                     touched.address?.street && errors.address?.street
                   )}
@@ -251,6 +309,7 @@ function BasicForm() {
                   name="address.numHouseOrApartment"
                   label="Num Casa/Apartamento"
                   value={values.address.numHouseOrApartment}
+                  disabled={isNotEditing}
                   error={Boolean(
                     touched.address?.numHouseOrApartment &&
                       errors.address?.numHouseOrApartment
@@ -270,6 +329,7 @@ function BasicForm() {
                   name="address.neighborhood"
                   label="Sector"
                   value={values.address.neighborhood}
+                  disabled={isNotEditing}
                   error={Boolean(
                     touched.address?.neighborhood &&
                       errors.address?.neighborhood
@@ -289,6 +349,7 @@ function BasicForm() {
                   name="address.city"
                   label="Ciudad"
                   value={values.address.city}
+                  disabled={isNotEditing}
                   error={Boolean(touched.address?.city && errors.address?.city)}
                   fullWidth
                   helperText={touched.address?.city && errors.address?.city}
@@ -302,6 +363,7 @@ function BasicForm() {
                   name="password"
                   label="Password"
                   value={values.password}
+                  disabled={isNotEditing}
                   error={Boolean(touched.password && errors.password)}
                   fullWidth
                   helperText={touched.password && errors.password}
@@ -316,6 +378,7 @@ function BasicForm() {
                   name="confirmPassword"
                   label="Confirm password"
                   value={values.confirmPassword}
+                  disabled={isNotEditing}
                   error={Boolean(
                     touched.confirmPassword && errors.confirmPassword
                   )}
@@ -327,24 +390,84 @@ function BasicForm() {
                   variant="outlined"
                   my={2}
                 />
-
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  mt={3}
-                >
-                  Guardar
-                </Button>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="error"
-                  mt={3}
-                  ml={3}
-                >
-                  Cancelar
-                </Button>
+                {!isNotEditing && (
+                  <>
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      mt={3}
+                    >
+                      Guardar
+                    </Button>
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="error"
+                      onClick={handleEdit}
+                      mt={3}
+                      ml={3}
+                    >
+                      Cancelar
+                    </Button>
+                  </>
+                )}
+                {isNotEditing && (
+                  <>
+                    <Button
+                      type="button"
+                      variant="contained"
+                      color="warning"
+                      onClick={handleEdit}
+                      mt={3}
+                      ml={3}
+                    >
+                      <Edit />
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="contained"
+                      color="primary"
+                      onClick={handleEdit}
+                      mt={3}
+                      ml={3}
+                    >
+                      <SwapCalls />
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="contained"
+                      color="info"
+                      onClick={handleEdit}
+                      mt={3}
+                      ml={3}
+                    >
+                      <InsertDriveFile />
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="contained"
+                      color="error"
+                      onClick={handleEdit}
+                      mt={3}
+                      ml={3}
+                    >
+                      <ImportContacts />
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="contained"
+                      color="success"
+                      onClick={() =>
+                        handlePageChange("/admin/dashboard/users/talents/list")
+                      }
+                      mt={3}
+                      ml={3}
+                    >
+                      <ListAlt />
+                    </Button>
+                  </>
+                )}
               </form>
             )}
           </CardContent>
@@ -354,11 +477,11 @@ function BasicForm() {
   );
 }
 
-function FormikPage() {
+function FormikPage(recruiterPrivate) {
   return (
     <React.Fragment>
       <Helmet title="Recruiter Form" />
-      <BasicForm />
+      <BasicForm {...recruiterPrivate} />
     </React.Fragment>
   );
 }

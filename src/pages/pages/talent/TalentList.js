@@ -49,7 +49,7 @@ import TalentUndo from "./TalentUndo";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectTalents,
-  talentToDelete,
+  setCurrentTalent,
   setShowAlert,
   deleteTalent,
   allowDelete,
@@ -284,6 +284,7 @@ function EnhancedTable({ setAllowDelete }) {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   /* const [rows, setRows] = React.useState(JsonInfo); */
   const rows = useSelector(selectTalents);
+  console.log(rows);
   const allowDeleteTalent = useSelector(allowDelete);
   const dispatch = useDispatch();
 
@@ -302,7 +303,8 @@ function EnhancedTable({ setAllowDelete }) {
     setSelected([]);
   };
 
-  const handdlePath = (pathToGo) => {
+  const handdlePath = (pathToGo, talentId) => {
+    dispatch(setCurrentTalent({ talentId }));
     navigate(pathToGo, { replace: true });
   };
 
@@ -337,7 +339,7 @@ function EnhancedTable({ setAllowDelete }) {
 
   const handleDelete = (talentId) => {
     setAllowDelete(true);
-    dispatch(talentToDelete({ talentId }));
+    dispatch(setCurrentTalent({ talentId }));
   };
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
@@ -407,7 +409,8 @@ function EnhancedTable({ setAllowDelete }) {
                           color="info"
                           onClick={() =>
                             handdlePath(
-                              `/admin/dashboard/users/talents/info/${row.talentId}`
+                              `/admin/dashboard/users/talents/info`,
+                              row.talentId
                             )
                           }
                         >
