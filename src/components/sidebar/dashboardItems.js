@@ -56,7 +56,7 @@ const pagesSection = [
     title: "Proyectos",
   },
   {
-    href: "/admin/dashboard/portfolios",
+    href: "/admin/dashboard/users/briefcase",
     icon: NORMALICONS.portfolio,
     title: "Portafolios",
   },

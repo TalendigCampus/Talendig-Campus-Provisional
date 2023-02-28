@@ -50,8 +50,7 @@ import Blank from "./pages/pages/Blank";
 import InvoiceDetails from "./pages/pages/InvoiceDetails";
 import InvoiceList from "./pages/pages/InvoiceList";
 import TalentList from "./pages/pages/talent/TalentList";
-import TalentEdit from "./pages/pages/talent/RecruitersProfileForm";
-import TalentDetails from "./pages/pages/talent/TalentDetails";
+import TalentDetails from "./pages/pages/talent/TalentsProfile";
 import Orders from "./pages/pages/Orders";
 import Recruiters from "./pages/pages/AdminRecruiters/Recruiters";
 import RecruitersList from "./pages/pages/AdminRecruiters/RecruitersList";
@@ -61,6 +60,7 @@ import ProjectsList from "./pages/pages/AdminProyects/ProjectsList";
 import ProjectsFolderList from "./pages/pages/AdminProyects/ProjectsFolderList";
 import ProjectsFileList from "./pages/pages/AdminProyects/ProjectFolderFilesList";
 import Settings from "./pages/pages/Settings";
+import ListaInstructores from "./pages/AdminInstructors/List_Instructors";
 import Lista_Instructores from "./pages/AdminInstructors/List_Instructors";
 import BootcampsStatistics from "./pages/Bootcamps/index";
 import BootcampsList from "./pages/Bootcamps/BootcampList";
@@ -103,6 +103,12 @@ import ProtectedPage from "./pages/protected/ProtectedPage";
 import Instructores from "./pages/AdminInstructors/Instructores";
 import BootcampProfile from "./pages/Bootcamps/BootcampProfile";
 import Curriculum from "./pages/pages/talent/Curriculum";
+import Index from "./pages/pages/Portafolio/Index";
+import BriefcaseList from "./pages/pages/Portafolio/BriefcaseList";
+
+import EditInstructors from "./pages/AdminInstructors/Edit_Instructors";
+import ViewInstructors from "./pages/AdminInstructors/InstructorsList/View_Instructors";
+import Roadmap from "./pages/pages/talent/Roadmap";
 
 // Dashboard components
 const Default = async(() => import("./pages/dashboards/Default"));
@@ -184,16 +190,16 @@ const routes = [
                     element: <TalentList />,
                   },
                   {
-                    path: "edit/:talentId",
-                    element: <TalentEdit />,
-                  },
-                  {
-                    path: "info/:talentId",
+                    path: "info",
                     element: <TalentDetails />,
                   },
                   {
                     path: "curriculum/:talentId",
                     element: <Curriculum />,
+                  },
+                  {
+                    path: "roadmap",
+                    element: <Roadmap />,
                   },
                 ],
               },
@@ -206,7 +212,11 @@ const routes = [
                   },
                   {
                     path: "list_instructors",
-                    element: <Lista_Instructores />,
+                    element: <ListaInstructores />,
+                  },
+                  {
+                    path: "view_instructors",
+                    element: <ViewInstructors />,
                   },
                 ],
               },
@@ -266,6 +276,19 @@ const routes = [
                   {
                     path: "list/folder/files/:index",
                     element: <ProjectsFileList />,
+                  },
+                ],
+              },
+              {
+                path: "briefcase",
+                children: [
+                  {
+                    index: true,
+                    element: <Index />,
+                  },
+                  {
+                    path: "list",
+                    element: <BriefcaseList />,
                   },
                 ],
               },

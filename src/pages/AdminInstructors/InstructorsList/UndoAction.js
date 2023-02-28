@@ -1,43 +1,59 @@
 import React from "react";
-
 import styled from "styled-components/macro";
-import {
-  Card as MuiCard,
-  CardContent,
-  Typography,
-  Paper as MuiPaper,
-  Button as MuiButton,
-  Snackbar,
-  IconButton,
-  Grid,
-} from "@mui/material";
-import { spacing } from "@mui/system";
-import { Close as CloseIcon } from "@mui/icons-material";
+import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+
+import {
+  CardContent,
+  Fade,
+  Grid,
+  IconButton,
+  Link,
+  Breadcrumbs as MuiBreadcrumbs,
+  Button as MuiButton,
+  Card as MuiCard,
+  Divider as MuiDivider,
+  Paper as MuiPaper,
+  Slide,
+  Snackbar,
+  Typography,
+} from "@mui/material";
+import { Close as CloseIcon } from "@mui/icons-material";
+import { spacing } from "@mui/system";
+
 import { useSelector, useDispatch } from "react-redux";
 import {
-  showUndo,
+  addInstructor,
+  currentInstructor,
+  instructorToBeRemoved,
   setShowUndo,
-  addTalent,
-  deleteTalent,
-  CurrentTalent,
-} from "../../../redux/slices/talentSlice";
+  showUndo,
+} from "../../../redux/slices/instructorSlice.js";
 
 const Card = styled(MuiCard)(spacing);
+
+const Divider = styled(MuiDivider)(spacing);
+
+const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
+
 const Paper = styled(MuiPaper)(spacing);
+
 const Button = styled(MuiButton)(spacing);
 
 function SimpleSnackbar() {
-  let status = useSelector(showUndo);
+  const instructorToDelete = useSelector(currentInstructor);
+  const showUndoSnackbar = useSelector(showUndo);
   const dispatch = useDispatch();
-  let currentTalent = useSelector(CurrentTalent);
-
-  const handleClose = (event, reason) => {
-    dispatch(setShowUndo({ status: false }));
+  const handleClick = () => {
+    dispatch(addInstructor({ instructor: instructorToDelete }));
+    handleClose();
   };
 
-  const handleClick = () => {
-    dispatch(addTalent({ newTalent: currentTalent }));
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
     dispatch(setShowUndo({ status: false }));
   };
 
@@ -48,10 +64,10 @@ function SimpleSnackbar() {
           vertical: "bottom",
           horizontal: "left",
         }}
-        open={status}
+        open={showUndoSnackbar}
         autoHideDuration={6000}
         onClose={handleClose}
-        message="Deshacer opción"
+        message="Deshacer acción"
         action={
           <React.Fragment>
             <Button color="secondary" size="small" onClick={handleClick}>
