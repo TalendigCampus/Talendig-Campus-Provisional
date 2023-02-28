@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components/macro";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
@@ -43,16 +43,10 @@ import {
 } from "@mui/icons-material";
 import { spacing } from "@mui/system";
 import Actions from "./Actions";
-import ProjectsDialog from "./projectsDialog";
+import projectsList from "./userProjects.json";
+import { useParams } from "react-router-dom";
+
 import { useSelector, useDispatch } from "react-redux";
-import { selectTalents } from "../../../redux/slices/talentSlice";
-import {
-  selectProjects,
-  showUpdate,
-  setShowUpdate,
-  setCurrentProject,
-  setUpdateType,
-} from "../../../redux/slices/projectsSlice";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -144,8 +138,8 @@ const headCells = [
     alignment: "center",
     label: "Ultima fecha de modificacion",
   },
-  { id: "talentName", alignment: "center", label: "Talento" },
-  { id: "tecnology", alignment: "center", label: "Tecnologias" },
+  { id: "talentName", alignment: "center", label: "Tipo de Archivo" },
+  { id: "tecnology", alignment: "center", label: "Formato" },
   { id: "actions", alignment: "center", label: "Acción" },
 ];
 
@@ -226,36 +220,17 @@ const EnhancedTableToolbar = (props) => {
   );
 };
 
-function EnhancedTable() {
-  const talents = useSelector(selectTalents);
-  const projectsList = useSelector(selectProjects);
-  const dispatch = useDispatch();
+function EnhancedTable({ setAllowDelete }) {
+  const { index } = useParams();
+  const navigate = useNavigate();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("talentName");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-  const [rows, setRows] = React.useState([]);
-
-  useEffect(() => {
-    setRows(
-      projectsList.map((project) => {
-        const talent = talents.find(
-          (talent) => talent.talentId === project.talentId
-        );
-        return {
-          projectName: project.projectName,
-          talentName: talent.talentName,
-          talentLastName: talent.talentLastName,
-          lastModification: project.lastModificationDate,
-          technology: talent.tecnology,
-          projectId: project.projectId,
-          talentId: project.talentId,
-        };
-      })
-    );
-  }, [talents, projectsList]);
+  const [rows, setRows] = React.useState(
+    projectsList[0].projectDetails[index].files
+  );
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -272,10 +247,8 @@ function EnhancedTable() {
     setSelected([]);
   };
 
-  const handleEdit = (projectId, type) => {
-    dispatch(setCurrentProject({ projectId }));
-    dispatch(setUpdateType({ type }));
-    dispatch(setShowUpdate({ status: true }));
+  const handdlePath = (pathToGo) => {
+    navigate(pathToGo, { replace: true });
   };
 
   const handleClick = (event, id) => {
@@ -308,7 +281,7 @@ function EnhancedTable() {
   };
 
   const handleDelete = (projectId) => {
-    //setDeleteProjectsModal(true);
+    setAllowDelete(true);
   };
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
@@ -338,7 +311,7 @@ function EnhancedTable() {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.projectId);
+                  const isItemSelected = isSelected(row.fileId);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
@@ -347,47 +320,35 @@ function EnhancedTable() {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={`${row.projectId}-${index}`}
+                      key={`${row.fileId}-${index}`}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
                           checked={isItemSelected}
                           inputProps={{ "aria-labelledby": labelId }}
-                          onClick={(event) => handleClick(event, row.projectId)}
+                          onClick={(event) => handleClick(event, row.fileId)}
                         />
                       </TableCell>
+                      <TableCell align="center">{row.name}</TableCell>
                       <TableCell align="center">
-                        {" "}
-                        <Link
-                          component={ReactRouterLink}
-                          to="/admin/dashboard/users/projects/list/folder/details"
-                        >
-                          {row.projectName}
-                        </Link>
-                      </TableCell>
-                      <TableCell align="center">
-                        {row.lastModification}
+                        {row.lastModificationDate}
                       </TableCell>
                       {/* <TableCell>{row.idCard}</TableCell> */}
-                      <TableCell align="center">
-                        {" "}
-                        <Link
-                          component={ReactRouterLink}
-                          to="/admin/dashboard/users/talents/list"
-                        >
-                          {`${row.talentName} ${row.talentLastName}`}
-                        </Link>
-                      </TableCell>
-                      <TableCell>{row.technology}</TableCell>
+                      <TableCell align="center">{row.fileType}</TableCell>
+                      <TableCell align="center">{row.format}</TableCell>
                       <TableCell align="center">
                         <IconButton
-                          aria-label="edit"
+                          aria-label="info"
                           size="large"
-                          color="warning"
-                          onClick={() => handleEdit(row.projectId, "proyecto")}
+                          color="info"
+                          onClick={() =>
+                            handdlePath(
+                              `/admin/dashboard/users/talents/info/${row.projectId}`
+                            )
+                          }
                         >
-                          <Edit />
+                          <Info />
                         </IconButton>
                         <IconButton
                           aria-label="delete"
@@ -425,7 +386,8 @@ function EnhancedTable() {
 }
 
 function InvoiceList() {
-  const showUpdateModal = useSelector(showUpdate);
+  const [allowDelete, setAllowDelete] = React.useState(false);
+  const [id, setId] = React.useState(null);
 
   return (
     <React.Fragment>
@@ -451,8 +413,13 @@ function InvoiceList() {
       <Divider my={6} />
       <Grid container spacing={6}>
         <Grid item xs={12}>
-          <EnhancedTable />
-          {showUpdateModal && <ProjectsDialog />}
+          <EnhancedTable setAllowDelete={setAllowDelete} setId={setId} />
+          {/* {allowDelete && (
+            <AlertDialog
+              allowDelete={allowDelete}
+              setAllowDelete={setAllowDelete}
+            />
+          )} */}
           {/* {status && <TalentUndo />} */}
         </Grid>
       </Grid>

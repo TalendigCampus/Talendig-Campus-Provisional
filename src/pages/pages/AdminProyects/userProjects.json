@@ -1,0 +1,91 @@
+[
+  {
+    "projectName": "Empleados-app",
+    "projectId": 1,
+    "talentId": 1,
+    "type": "proyecto",
+    "lastModificationDate": "2023-01-10",
+    "projectDetails": [
+      {
+        "folderId": 1,
+        "name": "controller",
+        "lastModificationDate": "2023-01-10",
+        "type": "carpeta",
+        "files": [
+          {
+            "fileId": 1,
+            "type": "archivo",
+            "name": "blog.js",
+            "fileType": "Código",
+            "format": "Javascript",
+            "lastModificationDate": "2023-01-10"
+          }
+        ]
+      },
+      {
+        "folderId": 2,
+        "name": "modules",
+        "type": "carpeta",
+        "lastModificationDate": "2023-01-10",
+        "files": [
+          {
+            "fileId": 2,
+            "type": "archivo",
+            "name": "comment.js",
+            "fileType": "Código",
+            "format": "Javascript",
+            "lastModificationDate": "2023-01-10"
+          }
+        ]
+      },
+      {
+        "folderId": 3,
+        "name": "routes",
+        "type": "carpeta",
+        "lastModificationDate": "2023-01-10",
+        "files": [
+          {
+            "fileId": 3,
+            "type": "archivo",
+            "name": "connection.js",
+            "fileType": "Código",
+            "format": "Javascript",
+            "lastModificationDate": "2023-01-10"
+          }
+        ]
+      },
+      {
+        "folderId": 2,
+        "name": "src",
+        "type": "carpeta",
+        "lastModificationDate": "2023-01-10",
+        "files": [
+          {
+            "fileId": 4,
+            "type": "archivo",
+            "name": "fw-ab-casa.mp4",
+            "fileType": "Video",
+            "format": "MP4",
+            "lastModificationDate": "2023-01-10"
+          },
+          {
+            "fileId": 5,
+            "type": "archivo",
+            "name": "talendig-image.jpg",
+            "fileType": "Imagén",
+            "format": "JPEG",
+            "lastModificationDate": "2023-01-10"
+          },
+          {
+            "fileId": 6,
+            "type": "archivo",
+            "name": "user.js",
+            "fileType": "Código",
+            "format": "Javascript",
+            "lastModificationDate": "2023-01-10"
+          }
+        ]
+      }
+    ]
+  }
+]

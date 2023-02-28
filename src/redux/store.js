@@ -3,6 +3,7 @@ import counterReducer from "./slices/counter";
 import recruiterReducer from "./slices/recruiterSlice";
 import bootcampReducer from "./slices/bootcampSlice";
 import talentReducer from "./slices/talentSlice";
+import projectsReducer from "./slices/projectsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export const store = configureStore({
     recruiter: recruiterReducer,
     bootcamp: bootcampReducer,
     talent: talentReducer,
+    projects: projectsReducer,
   },
 });

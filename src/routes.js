@@ -58,6 +58,8 @@ import RecruitersList from "./pages/pages/AdminRecruiters/RecruitersList";
 import RecruitersProfile from "./pages/pages/AdminRecruiters/RecruitersProfile";
 import ProjectsIndex from "./pages/pages/AdminProyects/index";
 import ProjectsList from "./pages/pages/AdminProyects/ProjectsList";
+import ProjectsFolderList from "./pages/pages/AdminProyects/ProjectsFolderList";
+import ProjectsFileList from "./pages/pages/AdminProyects/ProjectFolderFilesList";
 import Settings from "./pages/pages/Settings";
 import Lista_Instructores from "./pages/AdminInstructors/List_Instructors";
 import BootcampsStatistics from "./pages/Bootcamps/index";
@@ -256,6 +258,14 @@ const routes = [
                   {
                     path: "list",
                     element: <ProjectsList />,
+                  },
+                  {
+                    path: "list/folder/details",
+                    element: <ProjectsFolderList />,
+                  },
+                  {
+                    path: "list/folder/files/:index",
+                    element: <ProjectsFileList />,
                   },
                 ],
               },
