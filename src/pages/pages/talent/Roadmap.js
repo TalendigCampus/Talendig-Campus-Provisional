@@ -131,11 +131,6 @@ function RoadmapTercerNivel() {
             <Icon.School style={{ fontSize: "50px" }} />
           </Button>
         </Tooltip>
-        <Tooltip title="Ejercicio Formularios">
-          <Button>
-            <Icon.School style={{ fontSize: "50px" }} />
-          </Button>
-        </Tooltip>
         <Tooltip title="Programacion FrontEnd y BackEnd">
           <Button>
             <Icon.School style={{ fontSize: "50px" }} />
@@ -158,9 +153,15 @@ function PositionedTooltips() {
         <Grid item xs={12} lg={4}>
           <RoadmapPrimerNivel />
         </Grid>
+        <Grid item xs={12} lg={4}></Grid>
+        <Grid item xs={12} lg={4}></Grid>
+        <Grid item xs={12} lg={4}></Grid>
         <Grid item xs={12} lg={4}>
           <RoadmapSegundoNivel />
         </Grid>
+        <Grid item xs={12} lg={4}></Grid>
+        <Grid item xs={12} lg={4}></Grid>
+        <Grid item xs={12} lg={4}></Grid>
         <Grid item xs={12} lg={4}>
           <RoadmapTercerNivel />
         </Grid>
