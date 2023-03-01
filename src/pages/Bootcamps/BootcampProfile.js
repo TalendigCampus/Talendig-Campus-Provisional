@@ -214,14 +214,6 @@ const formBootcampStructure = (bootcamp) => {
       initialDate: bootcamp.initialDate,
       endDate: bootcamp.endDate,
     },
-    bootcampTechnology: {
-      id: bootcamp.id,
-      technology: bootcamp.tecnologies.split(","),
-    },
-    bootcampStudents: {
-      id: bootcamp.id,
-      talents: bootcamp.talentsName.split(","),
-    },
   };
 };
 
@@ -257,8 +249,8 @@ function BootcampProfile() {
             <>
               <Public {...bootcampStructure.bootcampPublic} />
               <Private {...bootcampStructure.bootcampPrivate} />
-              <Tecnology {...bootcampStructure.bootcampTechnology} />
-              <Student {...bootcampStructure.bootcampStudents} />
+              <Tecnology />
+              <Student />
             </>
           ) : (
             <Typography variant="h3" gutterBottom display="inline">

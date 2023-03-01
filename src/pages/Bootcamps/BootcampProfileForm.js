@@ -23,15 +23,17 @@ import {
   TextField as MuiTextField,
   Typography,
   FormControl,
+  InputLabel,
 } from "@mui/material";
 import { spacing } from "@mui/system";
-import InputLabel from "@mui/material/InputLabel";
 import { Edit, ListAlt } from "@mui/icons-material";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   bootcampToEdit,
   bootcampProfile,
 } from "../../redux/slices/bootcampSlice";
+
+import { selectInstructors } from "../../redux/slices/instructorSlice.js";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -76,11 +78,17 @@ function BasicForm(bootcampPrivate) {
   const [isNotEditing, setIsNotEditing] = React.useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const instructors = useSelector(selectInstructors);
+  const [selectedInstructor, setSelectedInstructor] = React.useState(
+    bootcampPrivate.teacher.id
+  );
 
   const handlePageChange = (pathToGo) => {
     navigate(pathToGo);
   };
-
+  const handleSelectChange = (event) => {
+    setSelectedInstructor(event.target.value);
+  };
   const handleEdit = () => {
     setIsNotEditing((currentSate) => !currentSate);
   };
@@ -90,10 +98,16 @@ function BasicForm(bootcampPrivate) {
   ) => {
     setIsNotEditing((currentSate) => !currentSate);
     try {
+      const instructorFromSelect = instructors.find(
+        (value) => Number(value.id) === selectedInstructor
+      );
+      const name = `${instructorFromSelect.firstName} ${instructorFromSelect.lastName}`;
+
       dispatch(
         bootcampToEdit({
           ...values,
-          teacher: values.teacher.name,
+          teacher: name,
+          teacherId: selectedInstructor,
         })
       );
 
@@ -199,19 +213,25 @@ function BasicForm(bootcampPrivate) {
                       <Select
                         id="teacher"
                         label="Instructor"
-                        value={values.teacher.id}
+                        value={selectedInstructor}
                         disabled={isNotEditing}
                         error={Boolean(touched.teacher && errors.teacher)}
                         fullWidth
                         helperText={touched.teacher && errors.teacher}
-                        onBlur={handleBlur}
-                        onChange={handleChange}
+                        onChange={handleSelectChange}
                         variant="outlined"
                         my={2}
                       >
-                        <MenuItem value={values.teacher.id}>
-                          {values.teacher.name}
-                        </MenuItem>
+                        {instructors.map((instructor) => {
+                          return (
+                            <MenuItem
+                              key={instructor.id}
+                              value={Number(instructor.id)}
+                            >
+                              {`${instructor.firstName} ${instructor.lastName}`}
+                            </MenuItem>
+                          );
+                        })}
                       </Select>
                     </FormControl>
                   </Grid>
