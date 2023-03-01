@@ -18,10 +18,9 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   showUndo,
   setShowUndo,
-  addTalent,
-  deleteTalent,
-  CurrentTalent,
-} from "../../../redux/slices/talentSlice";
+  addbriefcase,
+  briefcaseToBeRemoved,
+} from "../../../redux/slices/brieftcaseSlice";
 
 const Card = styled(MuiCard)(spacing);
 const Paper = styled(MuiPaper)(spacing);
@@ -30,14 +29,14 @@ const Button = styled(MuiButton)(spacing);
 function SimpleSnackbar() {
   let status = useSelector(showUndo);
   const dispatch = useDispatch();
-  let currentTalent = useSelector(CurrentTalent);
+  let currentBriefcase = useSelector(briefcaseToBeRemoved);
 
   const handleClose = (event, reason) => {
     dispatch(setShowUndo({ status: false }));
   };
 
   const handleClick = () => {
-    dispatch(addTalent({ newTalent: currentTalent }));
+    dispatch(addbriefcase({ briefcaseName: currentBriefcase }));
     dispatch(setShowUndo({ status: false }));
   };
 
@@ -72,7 +71,7 @@ function SimpleSnackbar() {
   );
 }
 
-function Snackbars() {
+function BriefcaseUndo() {
   return (
     <React.Fragment>
       <Helmet title="Snackbars" />
@@ -85,4 +84,4 @@ function Snackbars() {
   );
 }
 
-export default Snackbars;
+export default BriefcaseUndo;

@@ -50,8 +50,7 @@ import Blank from "./pages/pages/Blank";
 import InvoiceDetails from "./pages/pages/InvoiceDetails";
 import InvoiceList from "./pages/pages/InvoiceList";
 import TalentList from "./pages/pages/talent/TalentList";
-import TalentEdit from "./pages/pages/talent/RecruitersProfileForm";
-import TalentDetails from "./pages/pages/talent/TalentDetails";
+import TalentDetails from "./pages/pages/talent/TalentsProfile";
 import Orders from "./pages/pages/Orders";
 import Recruiters from "./pages/pages/AdminRecruiters/Recruiters";
 import RecruitersList from "./pages/pages/AdminRecruiters/RecruitersList";
@@ -102,9 +101,12 @@ import ProtectedPage from "./pages/protected/ProtectedPage";
 import Instructores from "./pages/AdminInstructors/Instructores";
 import BootcampProfile from "./pages/Bootcamps/BootcampProfile";
 import Curriculum from "./pages/pages/talent/Curriculum";
+import Index from "./pages/pages/Portafolio/Index";
+import BriefcaseList from "./pages/pages/Portafolio/BriefcaseList";
 
 import EditInstructors from "./pages/AdminInstructors/Edit_Instructors";
 import ViewInstructors from "./pages/AdminInstructors/InstructorsList/View_Instructors";
+import Roadmap from "./pages/pages/talent/Roadmap";
 
 // Dashboard components
 const Default = async(() => import("./pages/dashboards/Default"));
@@ -186,16 +188,16 @@ const routes = [
                     element: <TalentList />,
                   },
                   {
-                    path: "edit/:talentId",
-                    element: <TalentEdit />,
-                  },
-                  {
-                    path: "info/:talentId",
+                    path: "info",
                     element: <TalentDetails />,
                   },
                   {
                     path: "curriculum/:talentId",
                     element: <Curriculum />,
+                  },
+                  {
+                    path: "roadmap",
+                    element: <Roadmap />,
                   },
                 ],
               },
@@ -264,6 +266,19 @@ const routes = [
                   {
                     path: "list",
                     element: <ProjectsList />,
+                  },
+                ],
+              },
+              {
+                path: "briefcase",
+                children: [
+                  {
+                    index: true,
+                    element: <Index />,
+                  },
+                  {
+                    path: "list",
+                    element: <BriefcaseList />,
                   },
                 ],
               },
