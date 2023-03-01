@@ -43,7 +43,7 @@ import Actions from "./InstructorsList/Actions";
 import InstructorsInfo from "./InstructorsList/InstructorsInfo.json";
 import InstructorDialog from "./InstructorsList/InstructorDialog";
 import UndoAction from "./InstructorsList/UndoAction";
-
+import tecnologiesInfo from "../Bootcamps/tecnologies.json";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectInstructors,
@@ -202,7 +202,13 @@ const EnhancedTableToolbar = (props) => {
 function EnhancedTable({ setDeleteInstructorModal }) {
   const rows = useSelector(selectInstructors);
   const dispatch = useDispatch();
-
+  const getTecnologies = (tecnologies) => {
+    return tecnologies
+      .map((tecno) => {
+        return tecnologiesInfo.find((tec) => tec.id === tecno).name;
+      })
+      .join(", ");
+  };
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("instructor");
   const [selected, setSelected] = React.useState([]);
@@ -326,7 +332,7 @@ function EnhancedTable({ setDeleteInstructorModal }) {
                       <TableCell align="right">{row.company}</TableCell>
                       <TableCell align="right">{row.birth}</TableCell>
                       <TableCell align="right">{row.bootcamps}</TableCell>
-                      <TableCell>{row.technology}</TableCell>
+                      <TableCell>{getTecnologies(row.technology)}</TableCell>
                       <TableCell align="right">
                         <IconButton
                           aria-label="info"

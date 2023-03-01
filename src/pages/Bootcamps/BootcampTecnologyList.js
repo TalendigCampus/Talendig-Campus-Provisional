@@ -48,7 +48,7 @@ const columns = [
   { field: "id", headerName: "#", width: 150, editable: false },
   {
     field: "tecno",
-    headerName: "Tecnologia",
+    headerName: "Tecnología",
     width: 200,
     editable: false,
     flex: 1,
