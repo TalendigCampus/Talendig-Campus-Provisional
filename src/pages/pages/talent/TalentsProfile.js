@@ -166,7 +166,7 @@ function Settings() {
       <Helmet title="Recruiter Profile" />
 
       <Typography variant="h3" gutterBottom display="inline">
-        Perfil Reclutador
+        Perfil Talento
       </Typography>
 
       <Breadcrumbs aria-label="Breadcrumb" mt={2}>
@@ -174,7 +174,7 @@ function Settings() {
           Dashboard
         </Link>
         <Typography>Usuario</Typography>
-        <Typography>Reclutador</Typography>
+        <Typography>Talento</Typography>
         <Typography>Perfil</Typography>
       </Breadcrumbs>
 
