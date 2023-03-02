@@ -466,10 +466,13 @@ function InvoiceList() {
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
             <Link component={NavLink} to="/admin/dashboard/home">
-              Dashboard
+              Panel
             </Link>
             <Typography>Usuarios</Typography>
-            <Typography>Lista Talentos</Typography>
+            <Link component={NavLink} to="/admin/dashboard/users/talents">
+              Talentos
+            </Link>
+            <Typography>Lista</Typography>
           </Breadcrumbs>
         </Grid>
         <Grid item>

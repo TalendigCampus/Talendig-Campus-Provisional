@@ -108,15 +108,13 @@ function Chat() {
       <Grid justifyContent="space-between" container spacing={6}>
         <Grid item>
           <Typography variant="h3" gutterBottom display="inline">
-            Estadisticas
+            Instituciones
           </Typography>
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/">
+            <Link component={NavLink} to="/admin/dashboard/home">
               Panel
             </Link>
-            <Link component={NavLink} to="/">
-              Usuarios
-            </Link>
+            <Typography>Usuarios</Typography>
             <Typography>Instituciones</Typography>
           </Breadcrumbs>
         </Grid>
