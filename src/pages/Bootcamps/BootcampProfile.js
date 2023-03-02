@@ -81,8 +81,9 @@ import React from "react";
 import styled from "styled-components/macro";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { useParams } from "react-router-dom";
 import BootcampsInfo from "./bootcamp.json";
+import { selectBootcampProfile } from "../../redux/slices/bootcampSlice";
+import { useSelector } from "react-redux";
 
 import {
   Avatar,
@@ -171,7 +172,7 @@ function Tecnology(bootcampTechnology) {
       <Card mb={6}>
         <CardContent>
           <Grid container spacing={6}>
-            <Grid item md={12}>
+            <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
               <BootcampTecnologyList {...bootcampTechnology} />
             </Grid>
           </Grid>
@@ -187,7 +188,7 @@ function Student(bootcampStudents) {
       <Card mb={6}>
         <CardContent>
           <Grid container spacing={6}>
-            <Grid item md={12}>
+            <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
               <BootcampStudentList {...bootcampStudents} />
             </Grid>
           </Grid>
@@ -200,9 +201,11 @@ function Student(bootcampStudents) {
 const formBootcampStructure = (bootcamp) => {
   return {
     bootcampPublic: {
+      id: bootcamp.id,
       photoUrl: bootcamp.image,
     },
     bootcampPrivate: {
+      id: bootcamp.id,
       bootcampName: bootcamp.bootcampName,
       teacher: {
         name: bootcamp.teacher,
@@ -211,20 +214,11 @@ const formBootcampStructure = (bootcamp) => {
       initialDate: bootcamp.initialDate,
       endDate: bootcamp.endDate,
     },
-    bootcampTechnology: {
-      technology: bootcamp.tecnologies.split(","),
-    },
-    bootcampStudents: {
-      talents: bootcamp.talentsName.split(","),
-    },
   };
 };
 
 function BootcampProfile() {
-  const { id: bootcampId } = useParams();
-  const bootcamp = BootcampsInfo.find(
-    (bootcamp) => bootcamp.id === Number(bootcampId)
-  );
+  const bootcamp = useSelector(selectBootcampProfile);
   let bootcampStructure;
 
   bootcamp && (bootcampStructure = formBootcampStructure(bootcamp));
@@ -255,8 +249,8 @@ function BootcampProfile() {
             <>
               <Public {...bootcampStructure.bootcampPublic} />
               <Private {...bootcampStructure.bootcampPrivate} />
-              <Tecnology {...bootcampStructure.bootcampTechnology} />
-              <Student {...bootcampStructure.bootcampStudents} />
+              <Tecnology />
+              <Student />
             </>
           ) : (
             <Typography variant="h3" gutterBottom display="inline">

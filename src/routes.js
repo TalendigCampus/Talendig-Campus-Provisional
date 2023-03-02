@@ -168,7 +168,7 @@ const routes = [
                 element: <BootcampsList />,
               },
               {
-                path: "bootcamp-profile/:id",
+                path: "bootcamp-profile",
                 element: <BootcampProfile />,
               },
             ],

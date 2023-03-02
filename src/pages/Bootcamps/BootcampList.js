@@ -48,7 +48,10 @@ import {
   selectBootcamps,
   bootcampToDelete,
   setShowUndo,
+  bootcampProfile,
 } from "../../redux/slices/bootcampSlice";
+import { setCurrentInstructor } from "../../redux/slices/instructorSlice";
+import tecnologiesInfo from "./tecnologies.json";
 import { useSelector, useDispatch } from "react-redux";
 import UndoAction from "./UndoAction";
 import BootcampDialog from "./BootcampDialog";
@@ -204,6 +207,13 @@ const EnhancedTableToolbar = (props) => {
 function EnhancedTable({ setDeleteBootcampModal }) {
   const rows = useSelector(selectBootcamps);
   const dispatch = useDispatch();
+  const getTecnologies = (tecnologies) => {
+    return tecnologies
+      .map((tecno) => {
+        return tecnologiesInfo.find((tec) => tec.id === tecno).name;
+      })
+      .join(", ");
+  };
 
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("bootcampName");
@@ -262,8 +272,16 @@ function EnhancedTable({ setDeleteBootcampModal }) {
 
   const navigate = useNavigate();
 
-  const handleClose = (pathToGo) => {
-    navigate(pathToGo, { replace: true });
+  const handleClose = (id) => {
+    dispatch(bootcampProfile({ id: Number(id) }));
+    navigate("/admin/dashboard/bootcamps/bootcamp-profile", { replace: true });
+  };
+
+  const handleInstructor = (instructorId) => {
+    dispatch(setCurrentInstructor({ instructorId: instructorId.toString() }));
+    navigate("/admin/dashboard/users/instructors/view_instructors", {
+      replace: true,
+    });
   };
 
   const handleDelete = (id) => {
@@ -321,19 +339,23 @@ function EnhancedTable({ setDeleteBootcampModal }) {
                       </TableCell>
                       <TableCell>{row.initialDate}</TableCell>
                       <TableCell align="right">{row.endDate}</TableCell>
-                      <TableCell align="right">{row.teacher}</TableCell>
-                      <TableCell>{row.tecnologies}</TableCell>
+                      <TableCell
+                        align="right"
+                        style={{
+                          color: "blue",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => handleInstructor(row.teacherId)}
+                      >
+                        {row.teacher}
+                      </TableCell>
+                      <TableCell>{getTecnologies(row.tecnologies)}</TableCell>
                       <TableCell align="left">
                         <IconButton
                           aria-label="info"
                           size="large"
                           color="info"
-                          onClick={() =>
-                            handleClose(
-                              "/admin/dashboard/bootcamps/bootcamp-profile/" +
-                                row.id
-                            )
-                          }
+                          onClick={() => handleClose(row.id)}
                         >
                           <Info />
                         </IconButton>
