@@ -82,9 +82,6 @@ function DivAnalityths() {
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
-
-      <Grid container spacing={6}>
         <Grid item xs={12} lg={11.9}>
           <BarChart />
         </Grid>
@@ -108,15 +105,13 @@ function Chat() {
       <Grid justifyContent="space-between" container spacing={6}>
         <Grid item>
           <Typography variant="h3" gutterBottom display="inline">
-            Estadisticas
+            Instituciones
           </Typography>
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/">
+            <Link component={NavLink} to="/admin/dashboard/home">
               Panel
             </Link>
-            <Link component={NavLink} to="/">
-              Usuarios
-            </Link>
+            <Typography>Usuarios</Typography>
             <Typography>Instituciones</Typography>
           </Breadcrumbs>
         </Grid>

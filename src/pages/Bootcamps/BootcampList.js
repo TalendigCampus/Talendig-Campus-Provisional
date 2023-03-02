@@ -408,7 +408,7 @@ function BootcampsList() {
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
             <Link component={NavLink} to="/admin/dashboard/bootcamps">
-              Bootcamps Dashboard
+              Panel Bootcamps
             </Link>
             <Typography>Lista de Bootcamps</Typography>
           </Breadcrumbs>
