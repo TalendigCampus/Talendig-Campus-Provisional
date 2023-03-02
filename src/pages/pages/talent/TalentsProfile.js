@@ -102,7 +102,8 @@ function Public() {
   );
 }
 
-function Private() {
+function Private({ props }) {
+  console.log(props);
   return (
     <Card mb={6}>
       <CardContent>
@@ -166,15 +167,17 @@ function Settings() {
       <Helmet title="Recruiter Profile" />
 
       <Typography variant="h3" gutterBottom display="inline">
-        Perfil Reclutador
+        Perfil Talento
       </Typography>
 
       <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/">
-          Dashboard
+        <Link component={NavLink} to="/admin/dashboard/home">
+          Panel
         </Link>
-        <Typography>Usuario</Typography>
-        <Typography>Reclutador</Typography>
+        <Typography>Usuarios</Typography>
+        <Link component={NavLink} to="/admin/dashboard/users/talents">
+          Talentos
+        </Link>
         <Typography>Perfil</Typography>
       </Breadcrumbs>
 
@@ -185,7 +188,7 @@ function Settings() {
           {talent ? (
             <>
               <Public />
-              <Private />
+              <Private talent={talent} />
               <Tecnology />
             </>
           ) : (

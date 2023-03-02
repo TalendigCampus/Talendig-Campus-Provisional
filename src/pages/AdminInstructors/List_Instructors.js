@@ -43,13 +43,17 @@ import Actions from "./InstructorsList/Actions";
 import InstructorsInfo from "./InstructorsList/InstructorsInfo.json";
 import InstructorDialog from "./InstructorsList/InstructorDialog";
 import UndoAction from "./InstructorsList/UndoAction";
-
+import tecnologiesInfo from "../Bootcamps/tecnologies.json";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectInstructors,
   setCurrentInstructor,
   setShowUndo,
 } from "../../redux/slices/instructorSlice.js";
+import {
+  selectBootcamps,
+  bootcampProfile,
+} from "../../redux/slices/bootcampSlice";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -202,7 +206,21 @@ const EnhancedTableToolbar = (props) => {
 function EnhancedTable({ setDeleteInstructorModal }) {
   const rows = useSelector(selectInstructors);
   const dispatch = useDispatch();
-
+  const bootcamps = useSelector(selectBootcamps);
+  const getTecnologies = (tecnologies) => {
+    return tecnologies
+      .map((tecno) => {
+        return tecnologiesInfo.find((tec) => tec.id === tecno).name;
+      })
+      .join(", ");
+  };
+  const getBootcamp = (id) => {
+    const result = bootcamps.find((bootcamp) => bootcamp.id === id);
+    return {
+      id: result.id,
+      name: result.bootcampName,
+    };
+  };
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("instructor");
   const [selected, setSelected] = React.useState([]);
@@ -271,6 +289,13 @@ function EnhancedTable({ setDeleteInstructorModal }) {
     setDeleteInstructorModal(true);
   };
 
+  const handleBootcamp = (id) => {
+    dispatch(bootcampProfile({ id }));
+    navigate("/admin/dashboard/bootcamps/bootcamp-profile", {
+      replace: true,
+    });
+  };
+
   return (
     <div>
       <Paper>
@@ -325,8 +350,17 @@ function EnhancedTable({ setDeleteInstructorModal }) {
                       <TableCell>{row.identificationCard}</TableCell>
                       <TableCell align="right">{row.company}</TableCell>
                       <TableCell align="right">{row.birth}</TableCell>
-                      <TableCell align="right">{row.bootcamps}</TableCell>
-                      <TableCell>{row.technology}</TableCell>
+                      <TableCell
+                        align="right"
+                        style={{
+                          color: "blue",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => handleBootcamp(row.bootcamps)}
+                      >
+                        {getBootcamp(row.bootcamps).name}
+                      </TableCell>
+                      <TableCell>{getTecnologies(row.technology)}</TableCell>
                       <TableCell align="right">
                         <IconButton
                           aria-label="info"
@@ -392,11 +426,9 @@ function List_instructors() {
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
             <Link component={NavLink} to="/admin/dashboard/home">
-              Dashboard
+              Panel
             </Link>
-            <Link component={NavLink} to="/admin/dashboard/home">
-              Usuarios
-            </Link>
+            <Typography>Usuarios</Typography>
             <Link component={NavLink} to="/admin/dashboard/users/instructors">
               Instructores
             </Link>

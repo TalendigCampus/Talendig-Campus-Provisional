@@ -25,10 +25,10 @@ const BarChart = ({ theme }) => {
 
   const data = {
     labels: [
-      "Jan",
+      "Ener",
       "Feb",
       "Mar",
-      "Apr",
+      "Abr",
       "May",
       "Jun",
       "Jul",
@@ -36,7 +36,7 @@ const BarChart = ({ theme }) => {
       "Sep",
       "Oct",
       "Nov",
-      "Dec",
+      "Dic",
     ],
     datasets: [
       {

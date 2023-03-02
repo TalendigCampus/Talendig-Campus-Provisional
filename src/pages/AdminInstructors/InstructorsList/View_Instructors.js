@@ -165,19 +165,14 @@ function View_Instructors() {
       <Helmet title="Instructor Profile" />
 
       <Typography variant="h3" gutterBottom display="inline">
-        Perfil Instructor
+        Perfil de Instructor
       </Typography>
 
       <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/">
-          Dashboard
-        </Link>
         <Link component={NavLink} to="/admin/dashboard/home">
-          Dashboard
+          Panel
         </Link>
-        <Link component={NavLink} to="/admin/dashboard/home">
-          Usuarios
-        </Link>
+        <Typography>Usuarios</Typography>
         <Link component={NavLink} to="/admin/dashboard/users/instructors">
           Instructores
         </Link>
@@ -187,6 +182,7 @@ function View_Instructors() {
         >
           Lista
         </Link>
+        <Typography>Perfil de Instructor</Typography>
       </Breadcrumbs>
 
       <Divider my={6} />

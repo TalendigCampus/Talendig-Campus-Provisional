@@ -387,15 +387,15 @@ function BriefcaseList() {
       <Grid justifyContent="space-between" container spacing={10}>
         <Grid item>
           <Typography variant="h3" gutterBottom display="inline">
-            Lista de Proyectos
+            Lista de Portafolio
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
             <Link component={NavLink} to="/admin/dashboard/home">
-              Dashboard
+              Panel
             </Link>
             <Typography>Usuarios</Typography>
-            <Typography>Lista proyectos</Typography>
+            <Typography>Lista portafolio</Typography>
           </Breadcrumbs>
         </Grid>
         <Grid item>

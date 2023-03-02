@@ -412,20 +412,12 @@ function Instructores() {
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
             <Link component={NavLink} to="/admin/dashboard/home">
-              Dashboard
+              Panel
             </Link>
-            <Link component={NavLink} to="/admin/dashboard/home">
-              Usuarios
-            </Link>
+            <Typography>Usuarios</Typography>
             <Typography gutterBottom display="inline">
               Instructores
             </Typography>
-            <Link
-              component={NavLink}
-              to="/admin/dashboard/users/instructors/list_instructors"
-            >
-              Lista
-            </Link>
           </Breadcrumbs>
         </Grid>
         <Grid item>
@@ -447,7 +439,7 @@ function Instructores() {
         <Grid item xs={12} lg={4}>
           <Revenue />
         </Grid>
-        <Grid item xs={12} lg={8} xl={11.99}>
+        <Grid item xs={12} lg={11.9} xl={11.99}>
           <LineChart_Instructors />
         </Grid>
       </Grid>
