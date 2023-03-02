@@ -102,7 +102,8 @@ function Public() {
   );
 }
 
-function Private() {
+function Private({ props }) {
+  console.log(props);
   return (
     <Card mb={6}>
       <CardContent>
@@ -170,11 +171,13 @@ function Settings() {
       </Typography>
 
       <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/">
-          Dashboard
+        <Link component={NavLink} to="/admin/dashboard/home">
+          Panel
         </Link>
-        <Typography>Usuario</Typography>
-        <Typography>Talento</Typography>
+        <Typography>Usuarios</Typography>
+        <Link component={NavLink} to="/admin/dashboard/users/talents">
+          Talentos
+        </Link>
         <Typography>Perfil</Typography>
       </Breadcrumbs>
 
@@ -185,7 +188,7 @@ function Settings() {
           {talent ? (
             <>
               <Public />
-              <Private />
+              <Private talent={talent} />
               <Tecnology />
             </>
           ) : (

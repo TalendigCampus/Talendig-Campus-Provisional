@@ -426,11 +426,9 @@ function List_instructors() {
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
             <Link component={NavLink} to="/admin/dashboard/home">
-              Dashboard
+              Panel
             </Link>
-            <Link component={NavLink} to="/admin/dashboard/home">
-              Usuarios
-            </Link>
+            <Typography>Usuarios</Typography>
             <Link component={NavLink} to="/admin/dashboard/users/instructors">
               Instructores
             </Link>

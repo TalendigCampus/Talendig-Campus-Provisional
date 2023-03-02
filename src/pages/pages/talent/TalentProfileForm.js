@@ -444,7 +444,11 @@ function BasicForm(talent) {
                       type="button"
                       variant="contained"
                       color="info"
-                      onClick={handleEdit}
+                      onClick={() =>
+                        handleNavigate(
+                          `/admin/dashboard/users/talents/curriculum/${values.talentId}`
+                        )
+                      }
                       mt={3}
                       ml={3}
                     >
