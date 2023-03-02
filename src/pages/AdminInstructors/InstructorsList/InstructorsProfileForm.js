@@ -31,6 +31,7 @@ import {
   currentInstructor,
   updateInstructor,
 } from "../../../redux/slices/instructorSlice";
+import { selectBootcamps } from "../../../redux/slices/bootcampSlice";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -92,10 +93,7 @@ const validationSchema = Yup.object().shape({
   }),
 });
 
-function BasicForm() {
-  const instructor = useSelector(currentInstructor);
-  console.log(instructor);
-
+function BasicForm(instructor) {
   const [isNotEditing, setIsNotEditing] = React.useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -115,6 +113,7 @@ function BasicForm() {
 
     try {
       await timeOut(1500);
+      values.bootcamps = instructor.bootcampId;
       dispatch(updateInstructor({ currentInstructor: values }));
       resetForm();
       setStatus({ sent: true });
@@ -463,10 +462,25 @@ function BasicForm() {
 }
 
 function FormikPage() {
+  const instructorInfo = useSelector(currentInstructor);
+  const [instructor, setInstructor] = React.useState(null);
+  const bootcamps = useSelector(selectBootcamps);
+
+  React.useEffect(() => {
+    const result = bootcamps.find(
+      (bootcamp) => bootcamp.id === instructorInfo.bootcamps
+    );
+    setInstructor({
+      ...instructorInfo,
+      bootcamps: result.bootcampName,
+      bootcampId: instructorInfo.bootcamps,
+    });
+  }, []);
+
   return (
     <React.Fragment>
       <Helmet title="Instructor Form" />
-      <BasicForm />
+      {instructor ? <BasicForm {...instructor} /> : null}
     </React.Fragment>
   );
 }
