@@ -55,6 +55,11 @@ import {
   allowDelete,
   showUndo,
 } from "../../../redux/slices/talentSlice";
+import tecnologiesInfo from "../../Bootcamps/tecnologies.json";
+import {
+  selectBootcamps,
+  bootcampProfile,
+} from "../../../redux/slices/bootcampSlice";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -284,9 +289,23 @@ function EnhancedTable({ setAllowDelete }) {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   /* const [rows, setRows] = React.useState(JsonInfo); */
   const rows = useSelector(selectTalents);
-  console.log(rows);
+  const bootcamps = useSelector(selectBootcamps);
   const allowDeleteTalent = useSelector(allowDelete);
   const dispatch = useDispatch();
+  const getBootcamp = (id) => {
+    const result = bootcamps.find((bootcamp) => bootcamp.id === id);
+    return {
+      id: result.id,
+      name: result.bootcampName,
+    };
+  };
+  const getTecnologies = (tecnologies) => {
+    return tecnologies
+      .map((tecno) => {
+        return tecnologiesInfo.find((tec) => tec.id === tecno).name;
+      })
+      .join(", ");
+  };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -306,6 +325,13 @@ function EnhancedTable({ setAllowDelete }) {
   const handdlePath = (pathToGo, talentId) => {
     dispatch(setCurrentTalent({ talentId }));
     navigate(pathToGo);
+  };
+
+  const handleBootcamp = (id) => {
+    dispatch(bootcampProfile({ id }));
+    navigate("/admin/dashboard/bootcamps/bootcamp-profile", {
+      replace: true,
+    });
   };
 
   const handleClick = (event, id) => {
@@ -400,8 +426,17 @@ function EnhancedTable({ setAllowDelete }) {
                       </TableCell>
                       <TableCell>{row.idCard}</TableCell>
                       <TableCell align="center">{row.birth}</TableCell>
-                      <TableCell align="right">{row.bootcamp}</TableCell>
-                      <TableCell>{row.tecnology}</TableCell>
+                      <TableCell
+                        align="right"
+                        style={{
+                          color: "blue",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => handleBootcamp(row.bootcamp)}
+                      >
+                        {getBootcamp(row.bootcamp).name}
+                      </TableCell>
+                      <TableCell>{getTecnologies(row.technology)}</TableCell>
                       <TableCell align="right">
                         <IconButton
                           aria-label="info"
@@ -441,6 +476,7 @@ function EnhancedTable({ setAllowDelete }) {
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}
+          labelRowsPerPage={"Filas por página"}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
@@ -466,10 +502,13 @@ function InvoiceList() {
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
             <Link component={NavLink} to="/admin/dashboard/home">
-              Dashboard
+              Panel
             </Link>
             <Typography>Usuarios</Typography>
-            <Typography>Lista Talentos</Typography>
+            <Link component={NavLink} to="/admin/dashboard/users/talents">
+              Talentos
+            </Link>
+            <Typography>Lista</Typography>
           </Breadcrumbs>
         </Grid>
         <Grid item>

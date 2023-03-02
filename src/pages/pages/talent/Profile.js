@@ -681,6 +681,13 @@ function Profile() {
             </span>{" "} */}
             Bienvenido de nuevo Jose Armando te echamos de menos 👋
           </Typography>{" "}
+          <Breadcrumbs aria-label="Breadcrumb" mt={2}>
+            <Link component={NavLink} to="/admin/dashboard/home">
+              Panel
+            </Link>
+            <Typography>Usuarios</Typography>
+            <Typography>Talentos</Typography>
+          </Breadcrumbs>
         </Grid>{" "}
         <Grid item>
           <Actions />{" "}

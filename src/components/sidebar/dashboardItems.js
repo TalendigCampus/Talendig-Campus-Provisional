@@ -60,6 +60,12 @@ const pagesSection = [
     icon: NORMALICONS.portfolio,
     title: "Portafolios",
   },
+  {
+    href: "/admin/dashboard/users/changelog",
+    icon: List,
+    title: "Changelog",
+    badge: "v1.0.0",
+  },
   //   {
   //     href: "/invoices",
   //     icon: CreditCard,

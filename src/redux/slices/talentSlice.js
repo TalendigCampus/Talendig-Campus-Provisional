@@ -32,6 +32,26 @@ const talentSlice = createSlice({
 
       if (index !== -1) state.TalentsInfo[index] = action.payload.currentTalent;
     },
+    deleteTecnologies: (state, action) => {
+      state.currentTalent = state.TalentsInfo.map((talent) => {
+        if (talent.talentId === action.payload.talentId) {
+          action.payload.tecnologies.forEach((value) => {
+            talent.technology = talent.technology.filter((t) => t !== value);
+          });
+        }
+
+        return talent;
+      });
+    },
+    addTecnology: (state, action) => {
+      state.currentTalent = state.TalentsInfo.map((talent) => {
+        if (talent.talentId === action.payload.talentId) {
+          talent.technology.push(action.payload.tecnologyId);
+        }
+
+        return talent;
+      });
+    },
     setShowUndo: (state, action) => {
       state.showUndo = action.payload.status;
     },
@@ -48,6 +68,8 @@ export const {
   setShowUndo,
   setAllowDelete,
   updateTalent,
+  deleteTecnologies,
+  addTecnology,
 } = talentSlice.actions;
 export const selectTalents = (state) => state.talent.TalentsInfo;
 

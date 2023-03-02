@@ -135,6 +135,7 @@ function Details(props) {
 
 function Skills(props) {
   let skills = props.tecnology;
+  let i = 0;
   return (
     <Card mb={6}>
       <CardContent>
@@ -149,6 +150,7 @@ function Skills(props) {
             return (
               <Chip
                 size="small"
+                key={i++}
                 mr={1}
                 mb={1}
                 label={skill}
@@ -284,6 +286,7 @@ function AboutMe(props) {
 
 function Expirence(props) {
   let workExpirences = props.workExpirences;
+  let i = 0;
   return (
     <Card mb={6}>
       <CardContent>
@@ -397,13 +400,21 @@ function Curriculum() {
       </Typography>
 
       <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/">
-          Dashboard
+        <Link component={NavLink} to="/admin/dashboard/home">
+          Panel
         </Link>
-        <Link component={NavLink} to="/">
-          Usuario
+        <Typography gutterBottom display="inline">
+          Usuarios
+        </Typography>
+        <Link component={NavLink} to="/admin/dashboard/users/talents">
+          Talentos
         </Link>
-        <Typography>Curriculum</Typography>
+        <Link component={NavLink} to="/admin/dashboard/users/talents/list">
+          Lista
+        </Link>
+        <Typography gutterBottom display="inline">
+          Curriculum
+        </Typography>
       </Breadcrumbs>
 
       <Divider my={6} />

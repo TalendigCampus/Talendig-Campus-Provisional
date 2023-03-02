@@ -43,7 +43,7 @@ import Actions from "./Actions";
 import RecruitersInfo from "./RecruiterInfo.json";
 import RecruiterDialog from "./RecruiterDialog";
 import UndoAction from "./UndoAction";
-
+import tecnologiesInfo from "../../Bootcamps/tecnologies.json";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectRecruiters,
@@ -268,7 +268,13 @@ const EnhancedTableToolbar = (props) => {
 function EnhancedTable({ setDeleteRecruiterModal }) {
   const rows = useSelector(selectRecruiters);
   const dispatch = useDispatch();
-
+  const getTecnologies = (tecnologies) => {
+    return tecnologies
+      .map((tecno) => {
+        return tecnologiesInfo.find((tec) => tec.id === tecno).name;
+      })
+      .join(", ");
+  };
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("recruiter");
   const [selected, setSelected] = React.useState([]);
@@ -391,7 +397,7 @@ function EnhancedTable({ setDeleteRecruiterModal }) {
                       <TableCell>{row.identificationCard}</TableCell>
                       <TableCell align="right">{row.company}</TableCell>
                       <TableCell align="right">{row.birth}</TableCell>
-                      <TableCell>{row.technology}</TableCell>
+                      <TableCell>{getTecnologies(row.technology)}</TableCell>
                       <TableCell align="right">
                         <IconButton
                           aria-label="info"
@@ -456,10 +462,12 @@ function InvoiceList() {
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
             <Link component={NavLink} to="/admin/dashboard/home">
-              Dashboard
+              Panel
             </Link>
             <Typography>Usuarios</Typography>
-            <Typography>Reclutadores</Typography>
+            <Link component={NavLink} to="/admin/dashboard/users/recruiters">
+              Reclutadores
+            </Link>
             <Typography>Lista </Typography>
           </Breadcrumbs>
         </Grid>

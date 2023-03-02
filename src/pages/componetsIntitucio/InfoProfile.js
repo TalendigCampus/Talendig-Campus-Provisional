@@ -234,11 +234,15 @@ function InfoProfile() {
       </Typography>
 
       <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/">
-          Usuario
+        <Link component={NavLink} to="/admin/dashboard/home">
+          Panel
         </Link>
-        <Link component={NavLink} to="/">
+        <Typography>Usuarios</Typography>
+        <Link component={NavLink} to="/admin/dashboard/users/institutions">
           Instituciones
+        </Link>
+        <Link component={NavLink} to="/admin/dashboard/users/institutions/list">
+          lista
         </Link>
         <Typography>Mi Perfil</Typography>
       </Breadcrumbs>

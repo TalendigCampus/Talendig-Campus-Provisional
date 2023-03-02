@@ -171,7 +171,7 @@ const routes = [
                 element: <BootcampsList />,
               },
               {
-                path: "bootcamp-profile/:id",
+                path: "bootcamp-profile",
                 element: <BootcampProfile />,
               },
             ],
@@ -283,6 +283,10 @@ const routes = [
                     element: <ProjectFileDetails />,
                   },
                 ],
+              },
+              {
+                path: "changelog",
+                element: <Changelog />,
               },
               {
                 path: "briefcase",

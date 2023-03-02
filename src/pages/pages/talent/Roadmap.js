@@ -178,11 +178,8 @@ function Roadmap() {
         Roadmap
       </Typography>
       <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/">
-          Dashboard
-        </Link>
         <Link component={NavLink} to="/admin/dashboard/home">
-          Usuarios
+          Panel
         </Link>
         <Link component={NavLink} to="/admin/dashboard/users/talents">
           Talentos
