@@ -3,7 +3,9 @@ import styled from "styled-components/macro";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Link as ReactRouterLink } from "react-router-dom";
-
+import { PROJECT_UPDATE_TYPE } from "../../../common/constants/data";
+import { DIALOG_UPDATE_TYPE } from "../../../common/constants/data";
+import { PROJECT_DELETE_TYPE } from "../../../common/constants/data";
 import {
   Avatar as MuiAvatar,
   Box,
@@ -43,16 +45,15 @@ import {
 } from "@mui/icons-material";
 import { spacing } from "@mui/system";
 import Actions from "./Actions";
-import projectsList from "./userProjects.json";
 import ProjectsDialog from "./projectsDialog";
 import { useSelector, useDispatch } from "react-redux";
+import UndoAction from "./UndoAction";
 import {
-  selectProjects,
   showUpdate,
   setShowUpdate,
-  setCurrentProject,
+  currentProject,
   setUpdateType,
-  setFolderId,
+  setCurrentFolder,
 } from "../../../redux/slices/projectsSlice";
 
 const Divider = styled(MuiDivider)(spacing);
@@ -226,14 +227,17 @@ const EnhancedTableToolbar = (props) => {
   );
 };
 
-function EnhancedTable({ setAllowDelete }) {
+function EnhancedTable() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const currentSelectedProject = useSelector(currentProject);
+  const rows = currentSelectedProject?.projectDetails || [];
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("talentName");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [rows, setRows] = React.useState(projectsList);
+  //const [rows, setRows] = React.useState(projectsList);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -251,9 +255,14 @@ function EnhancedTable({ setAllowDelete }) {
   };
 
   const handleEdit = (folderId, type) => {
-    dispatch(setFolderId({ folderId }));
+    dispatch(setCurrentFolder({ folderId }));
     dispatch(setUpdateType({ type }));
-    dispatch(setShowUpdate({ status: true }));
+    dispatch(setShowUpdate({ status: true, type: DIALOG_UPDATE_TYPE.update }));
+  };
+
+  const handlePageChange = (pathToGo, folderId) => {
+    dispatch(setCurrentFolder({ folderId }));
+    navigate(pathToGo);
   };
 
   const handleClick = (event, id) => {
@@ -285,8 +294,10 @@ function EnhancedTable({ setAllowDelete }) {
     setPage(0);
   };
 
-  const handleDelete = (projectId) => {
-    setAllowDelete(true);
+  const handleDelete = (folderId, type) => {
+    dispatch(setCurrentFolder({ folderId }));
+    dispatch(setUpdateType({ type }));
+    dispatch(setShowUpdate({ status: true, type: DIALOG_UPDATE_TYPE.delete }));
   };
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
@@ -316,48 +327,50 @@ function EnhancedTable({ setAllowDelete }) {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.projectId);
+                  const isItemSelected = isSelected(row.folderId);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
-                  return row.projectDetails.map((projectDetail, index) => (
+                  return (
                     <TableRow
                       hover
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={`${projectDetail.folderId}-${index}`}
+                      key={`${row.folderId}-${index}`}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
                           checked={isItemSelected}
                           inputProps={{ "aria-labelledby": labelId }}
-                          onClick={(event) =>
-                            handleClick(event, projectDetail.folderId)
-                          }
+                          onClick={(event) => handleClick(event, row.folderId)}
                         />
                       </TableCell>
                       <TableCell align="center">
                         {" "}
                         <Link
-                          component={ReactRouterLink}
-                          to={`/admin/dashboard/users/projects/list/folder/files/${index}`}
+                          onClick={() =>
+                            handlePageChange(
+                              "/admin/dashboard/users/projects/list/folder/files",
+                              row.folderId
+                            )
+                          }
                         >
-                          {projectDetail.name}
+                          {row.name}
                         </Link>
                       </TableCell>
                       <TableCell align="center">
-                        {projectDetail.lastModificationDate}
+                        {row.lastModificationDate}
                       </TableCell>
                       {/* <TableCell>{row.idCard}</TableCell> */}
-                      <TableCell align="center">{projectDetail.type}</TableCell>
+                      <TableCell align="center">{row.type}</TableCell>
                       <TableCell align="center">
                         <IconButton
                           aria-label="info"
                           size="large"
                           color="warning"
                           onClick={() =>
-                            handleEdit(projectDetail.folderId, "carpeta")
+                            handleEdit(row.folderId, PROJECT_UPDATE_TYPE.folder)
                           }
                         >
                           <Edit />
@@ -367,13 +380,18 @@ function EnhancedTable({ setAllowDelete }) {
                           align="center"
                           size="large"
                           color="error"
-                          onClick={() => handleDelete(row.projectId)}
+                          onClick={() =>
+                            handleDelete(
+                              row.folderId,
+                              PROJECT_DELETE_TYPE.folder
+                            )
+                          }
                         >
                           <RemoveCircle />
                         </IconButton>
                       </TableCell>
                     </TableRow>
-                  ));
+                  );
                 })}
               {emptyRows > 0 && (
                 <TableRow style={{ height: 53 * emptyRows }}>
@@ -406,7 +424,7 @@ function InvoiceList() {
       <Grid justifyContent="space-between" container spacing={10}>
         <Grid item>
           <Typography variant="h3" gutterBottom display="inline">
-            Lista de Proyectos
+            Lista de Carpetas
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
@@ -425,8 +443,8 @@ function InvoiceList() {
       <Grid container spacing={6}>
         <Grid item xs={12}>
           <EnhancedTable />
-          {showUpdateModal && <ProjectsDialog />}
-          {/* {status && <TalentUndo />} */}
+          {showUpdateModal.value && <ProjectsDialog />}
+          <UndoAction />
         </Grid>
       </Grid>
     </React.Fragment>

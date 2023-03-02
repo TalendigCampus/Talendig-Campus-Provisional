@@ -3,7 +3,9 @@ import styled from "styled-components/macro";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Link as ReactRouterLink } from "react-router-dom";
-
+import { PROJECT_UPDATE_TYPE } from "../../../common/constants/data";
+import { DIALOG_UPDATE_TYPE } from "../../../common/constants/data";
+import { PROJECT_DELETE_TYPE } from "../../../common/constants/data";
 import {
   Avatar as MuiAvatar,
   Box,
@@ -45,7 +47,10 @@ import { spacing } from "@mui/system";
 import Actions from "./Actions";
 import ProjectsDialog from "./projectsDialog";
 import { useSelector, useDispatch } from "react-redux";
-import { selectTalents } from "../../../redux/slices/talentSlice";
+import {
+  selectTalents,
+  setCurrentTalent,
+} from "../../../redux/slices/talentSlice";
 import {
   selectProjects,
   showUpdate,
@@ -53,6 +58,7 @@ import {
   setCurrentProject,
   setUpdateType,
 } from "../../../redux/slices/projectsSlice";
+import UndoAction from "./UndoAction";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -229,6 +235,7 @@ const EnhancedTableToolbar = (props) => {
 function EnhancedTable() {
   const talents = useSelector(selectTalents);
   const projectsList = useSelector(selectProjects);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("talentName");
@@ -275,7 +282,17 @@ function EnhancedTable() {
   const handleEdit = (projectId, type) => {
     dispatch(setCurrentProject({ projectId }));
     dispatch(setUpdateType({ type }));
-    dispatch(setShowUpdate({ status: true }));
+    dispatch(setShowUpdate({ status: true, type: DIALOG_UPDATE_TYPE.update }));
+  };
+
+  const handlePageChange = (pathToGo, projectId) => {
+    dispatch(setCurrentProject({ projectId }));
+    navigate(pathToGo);
+  };
+
+  const handleUserPageChange = (pathToGo, talentId) => {
+    dispatch(setCurrentTalent({ talentId }));
+    navigate(pathToGo);
   };
 
   const handleClick = (event, id) => {
@@ -307,8 +324,10 @@ function EnhancedTable() {
     setPage(0);
   };
 
-  const handleDelete = (projectId) => {
-    //setDeleteProjectsModal(true);
+  const handleDelete = (projectId, type) => {
+    dispatch(setCurrentProject({ projectId }));
+    dispatch(setUpdateType({ type }));
+    dispatch(setShowUpdate({ status: true, type: DIALOG_UPDATE_TYPE.delete }));
   };
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
@@ -360,8 +379,12 @@ function EnhancedTable() {
                       <TableCell align="center">
                         {" "}
                         <Link
-                          component={ReactRouterLink}
-                          to="/admin/dashboard/users/projects/list/folder/details"
+                          onClick={() =>
+                            handlePageChange(
+                              "/admin/dashboard/users/projects/list/folder/details",
+                              row.projectId
+                            )
+                          }
                         >
                           {row.projectName}
                         </Link>
@@ -373,8 +396,12 @@ function EnhancedTable() {
                       <TableCell align="center">
                         {" "}
                         <Link
-                          component={ReactRouterLink}
-                          to="/admin/dashboard/users/talents/list"
+                          onClick={() =>
+                            handleUserPageChange(
+                              "/admin/dashboard/users/talents/info",
+                              row.talentId
+                            )
+                          }
                         >
                           {`${row.talentName} ${row.talentLastName}`}
                         </Link>
@@ -385,7 +412,12 @@ function EnhancedTable() {
                           aria-label="edit"
                           size="large"
                           color="warning"
-                          onClick={() => handleEdit(row.projectId, "proyecto")}
+                          onClick={() =>
+                            handleEdit(
+                              row.projectId,
+                              PROJECT_UPDATE_TYPE.project
+                            )
+                          }
                         >
                           <Edit />
                         </IconButton>
@@ -394,7 +426,12 @@ function EnhancedTable() {
                           align="center"
                           size="large"
                           color="error"
-                          onClick={() => handleDelete(row.projectId)}
+                          onClick={() =>
+                            handleDelete(
+                              row.projectId,
+                              PROJECT_DELETE_TYPE.project
+                            )
+                          }
                         >
                           <RemoveCircle />
                         </IconButton>
@@ -452,8 +489,8 @@ function InvoiceList() {
       <Grid container spacing={6}>
         <Grid item xs={12}>
           <EnhancedTable />
-          {showUpdateModal && <ProjectsDialog />}
-          {/* {status && <TalentUndo />} */}
+          {showUpdateModal.value && <ProjectsDialog />}
+          <UndoAction />
         </Grid>
       </Grid>
     </React.Fragment>

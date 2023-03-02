@@ -59,6 +59,7 @@ import ProjectsIndex from "./pages/pages/AdminProyects/index";
 import ProjectsList from "./pages/pages/AdminProyects/ProjectsList";
 import ProjectsFolderList from "./pages/pages/AdminProyects/ProjectsFolderList";
 import ProjectsFileList from "./pages/pages/AdminProyects/ProjectFolderFilesList";
+import ProjectFileDetails from "./pages/pages/AdminProyects/ProjectFileDetails";
 import Settings from "./pages/pages/Settings";
 import ListaInstructores from "./pages/AdminInstructors/List_Instructors";
 import Lista_Instructores from "./pages/AdminInstructors/List_Instructors";
@@ -274,8 +275,12 @@ const routes = [
                     element: <ProjectsFolderList />,
                   },
                   {
-                    path: "list/folder/files/:index",
+                    path: "list/folder/files",
                     element: <ProjectsFileList />,
+                  },
+                  {
+                    path: "list/folder/files/details",
+                    element: <ProjectFileDetails />,
                   },
                 ],
               },

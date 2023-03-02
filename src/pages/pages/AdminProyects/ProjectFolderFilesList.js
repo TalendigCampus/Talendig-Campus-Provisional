@@ -43,10 +43,18 @@ import {
 } from "@mui/icons-material";
 import { spacing } from "@mui/system";
 import Actions from "./Actions";
-import projectsList from "./userProjects.json";
-import { useParams } from "react-router-dom";
-
+import { DIALOG_UPDATE_TYPE } from "../../../common/constants/data";
+import { PROJECT_DELETE_TYPE } from "../../../common/constants/data";
 import { useSelector, useDispatch } from "react-redux";
+import UndoAction from "./UndoAction";
+import ProjectsDialog from "./projectsDialog";
+import {
+  currentFolder,
+  setCurrentFile,
+  setShowUpdate,
+  setUpdateType,
+  showUpdate,
+} from "../../../redux/slices/projectsSlice";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -220,17 +228,16 @@ const EnhancedTableToolbar = (props) => {
   );
 };
 
-function EnhancedTable({ setAllowDelete }) {
-  const { index } = useParams();
+function EnhancedTable() {
+  const currentSelectedFolder = useSelector(currentFolder);
+  const rows = currentSelectedFolder?.files || [];
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("talentName");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [rows, setRows] = React.useState(
-    projectsList[0].projectDetails[index].files
-  );
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -247,8 +254,9 @@ function EnhancedTable({ setAllowDelete }) {
     setSelected([]);
   };
 
-  const handdlePath = (pathToGo) => {
-    navigate(pathToGo, { replace: true });
+  const handlePageChange = (pathToGo, fileId) => {
+    dispatch(setCurrentFile({ fileId }));
+    navigate(pathToGo);
   };
 
   const handleClick = (event, id) => {
@@ -280,8 +288,10 @@ function EnhancedTable({ setAllowDelete }) {
     setPage(0);
   };
 
-  const handleDelete = (projectId) => {
-    setAllowDelete(true);
+  const handleDelete = (fileId, type) => {
+    dispatch(setCurrentFile({ fileId }));
+    dispatch(setUpdateType({ type }));
+    dispatch(setShowUpdate({ status: true, type: DIALOG_UPDATE_TYPE.delete }));
   };
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
@@ -343,8 +353,9 @@ function EnhancedTable({ setAllowDelete }) {
                           size="large"
                           color="info"
                           onClick={() =>
-                            handdlePath(
-                              `/admin/dashboard/users/talents/info/${row.projectId}`
+                            handlePageChange(
+                              `/admin/dashboard/users/projects/list/folder/files/details`,
+                              row.fileId
                             )
                           }
                         >
@@ -355,7 +366,9 @@ function EnhancedTable({ setAllowDelete }) {
                           align="center"
                           size="large"
                           color="error"
-                          onClick={() => handleDelete(row.projectId)}
+                          onClick={() =>
+                            handleDelete(row.fileId, PROJECT_DELETE_TYPE.file)
+                          }
                         >
                           <RemoveCircle />
                         </IconButton>
@@ -386,8 +399,7 @@ function EnhancedTable({ setAllowDelete }) {
 }
 
 function InvoiceList() {
-  const [allowDelete, setAllowDelete] = React.useState(false);
-  const [id, setId] = React.useState(null);
+  const showUpdateModal = useSelector(showUpdate);
 
   return (
     <React.Fragment>
@@ -395,7 +407,7 @@ function InvoiceList() {
       <Grid justifyContent="space-between" container spacing={10}>
         <Grid item>
           <Typography variant="h3" gutterBottom display="inline">
-            Lista de Proyectos
+            Lista de Archivos
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
@@ -413,14 +425,9 @@ function InvoiceList() {
       <Divider my={6} />
       <Grid container spacing={6}>
         <Grid item xs={12}>
-          <EnhancedTable setAllowDelete={setAllowDelete} setId={setId} />
-          {/* {allowDelete && (
-            <AlertDialog
-              allowDelete={allowDelete}
-              setAllowDelete={setAllowDelete}
-            />
-          )} */}
-          {/* {status && <TalentUndo />} */}
+          <EnhancedTable />
+          {showUpdateModal.value && <ProjectsDialog />}
+          <UndoAction />
         </Grid>
       </Grid>
     </React.Fragment>

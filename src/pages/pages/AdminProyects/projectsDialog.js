@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components/macro";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-
+import { PROJECT_UPDATE_TYPE } from "../../../common/constants/data";
+import { PROJECT_DELETE_TYPE } from "../../../common/constants/data";
+import { DIALOG_UPDATE_TYPE } from "../../../common/constants/data";
 import {
   Avatar,
   Button,
@@ -47,7 +49,11 @@ import {
   currentProject,
   updateProject,
   updateType,
-  currentFolderId,
+  currentFolder,
+  currentFile,
+  deleteProject,
+  setShowUndo,
+  setUpdateType,
 } from "../../../redux/slices/projectsSlice";
 
 const Card = styled(MuiCard)(spacing);
@@ -64,17 +70,16 @@ function AlertDialog() {
   const showUpdateModal = useSelector(showUpdate);
   const type = useSelector(updateType);
   const selectedProject = useSelector(currentProject);
-  const folderId = useSelector(currentFolderId);
+  const selectedFolder = useSelector(currentFolder);
+  const selectedFile = useSelector(currentFile);
   const dispatch = useDispatch();
 
   const handleClose = () => {
     dispatch(setShowUpdate({ status: false }));
-    //setEditProjectsModal(false);
   };
 
   const handleAction = () => {
-    // dispatch(deleteRecruiter({ recruiterId: recruiterToDelete.id }));
-    if (type === "proyecto") {
+    if (type === PROJECT_UPDATE_TYPE.project) {
       dispatch(
         updateProject({
           projectId: selectedProject.projectId,
@@ -82,46 +87,91 @@ function AlertDialog() {
           type,
         })
       );
-    } else if (type === "carpeta") {
+    } else if (type === PROJECT_UPDATE_TYPE.folder) {
       dispatch(
         updateProject({
           folderName: userInput,
-          folderId,
+          folderId: selectedFolder.folderId,
           type,
         })
       );
+    } else if (type === PROJECT_DELETE_TYPE.project) {
+      dispatch(
+        deleteProject({
+          projectId: selectedProject.projectId,
+          type: PROJECT_DELETE_TYPE.project,
+        })
+      );
+      dispatch(setUpdateType({ type: PROJECT_UPDATE_TYPE.project }));
+      showUndoAction();
+    } else if (type === PROJECT_DELETE_TYPE.folder) {
+      dispatch(
+        deleteProject({
+          folderId: selectedFolder.folderId,
+          type: PROJECT_DELETE_TYPE.folder,
+        })
+      );
+      dispatch(setUpdateType({ type: PROJECT_UPDATE_TYPE.folder }));
+      showUndoAction();
+    } else if (type === PROJECT_DELETE_TYPE.file) {
+      dispatch(
+        deleteProject({
+          fileId: selectedFile.fileId,
+          type: PROJECT_DELETE_TYPE.file,
+        })
+      );
+      dispatch(setUpdateType({ type: PROJECT_UPDATE_TYPE.file }));
+      showUndoAction();
     }
+
     handleClose();
-    //dispatch(setShowUndo({ status: true }));
+  };
+
+  const showUndoAction = () => {
+    dispatch(setShowUndo({ status: true }));
   };
 
   return (
     <Dialog
-      open={showUpdateModal}
+      open={showUpdateModal.value}
       onClose={handleClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
       <DialogTitle id="alert-dialog-title">
-        {` Desea Actualizar el nombre ${
-          selectedProject?.type === "proyecto"
-            ? "del Proyecto"
-            : "de la Carpeta"
-        }?`}
+        {` Desea ${
+          showUpdateModal.type === DIALOG_UPDATE_TYPE.update
+            ? `${
+                type === PROJECT_UPDATE_TYPE.project
+                  ? "Actualizar el Nombre del Proyecto"
+                  : "Actualizar el Nombre de la Carpeta"
+              }`
+            : `${
+                type === PROJECT_DELETE_TYPE.project
+                  ? "Eliminar el Proyecto"
+                  : type === PROJECT_DELETE_TYPE.folder
+                  ? "Eliminar la Carpeta"
+                  : "Eliminar el Archivo"
+              }`
+        } ?`}
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          <TextField
-            id="standard-basic"
-            label={`Nombre ${
-              selectedProject?.type === "proyecto"
-                ? "del Proyecto"
-                : "de la Carpeta"
-            }`}
-            variant="standard"
-            value={userInput}
-            onChange={(event) => setUserInput(event.target.value)}
-          />
+          {showUpdateModal.type === DIALOG_UPDATE_TYPE.update ? (
+            <TextField
+              id="standard-basic"
+              label={`Nombre ${
+                type === PROJECT_UPDATE_TYPE.project
+                  ? "del Proyecto"
+                  : "de la Carpeta"
+              }`}
+              variant="standard"
+              value={userInput}
+              onChange={(event) => setUserInput(event.target.value)}
+            />
+          ) : (
+            "Al aceptar, se eliminará."
+          )}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
@@ -129,7 +179,7 @@ function AlertDialog() {
           Cancelar
         </Button>
         <Button onClick={handleAction} color="primary" autoFocus>
-          Actualizar
+          {showUpdateModal.type === "actualizar" ? "Actualizar" : "Eliminar"}
         </Button>
       </DialogActions>
     </Dialog>

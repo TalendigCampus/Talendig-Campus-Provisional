@@ -305,7 +305,7 @@ function EnhancedTable({ setAllowDelete }) {
 
   const handdlePath = (pathToGo, talentId) => {
     dispatch(setCurrentTalent({ talentId }));
-    navigate(pathToGo, { replace: true });
+    navigate(pathToGo);
   };
 
   const handleClick = (event, id) => {

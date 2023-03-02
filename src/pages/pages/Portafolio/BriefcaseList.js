@@ -55,6 +55,7 @@ import {
   showUndo,
 } from "../../../redux/slices/brieftcaseSlice";
 import BriefcaseDialogs from "./BriefcaseDialog";
+import { setCurrentProject } from "../../../redux/slices/projectsSlice";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -235,7 +236,7 @@ function EnhancedTable({ setAllowDelete }) {
   const handdlePath = (pathToGo, id) => {
     ListBriefcaseSelected.id = id;
     ListBriefcaseSelected.correct = true;
-    navigate(pathToGo, { replace: true });
+    navigate(pathToGo);
   };
 
   const handleClick = (event, id) => {
@@ -271,6 +272,11 @@ function EnhancedTable({ setAllowDelete }) {
     setAllowDelete(true);
     dispatch(briefcaseToDelete({ briefcaseId }));
     console.log(briefcaseId);
+  };
+
+  const handleUserPageChange = (pathToGo, projectId) => {
+    dispatch(setCurrentProject({ projectId }));
+    navigate(pathToGo);
   };
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
@@ -321,7 +327,18 @@ function EnhancedTable({ setAllowDelete }) {
                           }
                         />
                       </TableCell>
-                      <TableCell align="center">{`${row.briefcaseName} ${row.briefcaseLastName}`}</TableCell>
+                      <TableCell align="center">
+                        <Link
+                          onClick={() =>
+                            handleUserPageChange(
+                              "/admin/dashboard/users/projects/list/folder/details",
+                              row.projectId
+                            )
+                          }
+                        >
+                          {`${row.briefcaseName} ${row.briefcaseLastName}`}
+                        </Link>
+                      </TableCell>
                       <TableCell align="center">
                         {row.lastModification}
                       </TableCell>
