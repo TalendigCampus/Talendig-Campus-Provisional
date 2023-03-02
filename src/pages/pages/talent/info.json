@@ -17,7 +17,7 @@
       "neighborhood": "Los Jardinez",
       "city": "Santo Domingo"
     },
-    "bootcamp": "ASP.Net",
+    "bootcamp": 3,
     "technology": [2, 4, 6, 5],
     "affiliationDate": "05-12-2022",
     "lastConnectionDate": "05-12-2022 3:00 PM",
@@ -46,7 +46,7 @@
       "neighborhood": "Los Jardinez",
       "city": "Santo Domingo"
     },
-    "bootcamp": "MERN",
+    "bootcamp": 1,
     "career": "Software Developer",
     "technology": [2, 4, 1, 3],
     "affiliationDate": "05-12-2022",
@@ -76,7 +76,7 @@
       "neighborhood": "Los Jardinez",
       "city": "Santo Domingo"
     },
-    "bootcamp": "ASP.Net",
+    "bootcamp": 3,
     "career": "Software Developer",
     "technology": [5, 3, 1, 2],
     "affiliationDate": "05-12-2022",
@@ -106,7 +106,7 @@
       "neighborhood": "Los Jardinez",
       "city": "Santo Domingo"
     },
-    "bootcamp": "MERN",
+    "bootcamp": 1,
     "career": "Software Developer",
     "technology": [3, 2, 1],
     "affiliationDate": "05-12-2022",
@@ -136,7 +136,7 @@
       "neighborhood": "Los Jardinez",
       "city": "Santo Domingo"
     },
-    "bootcamp": "MERN",
+    "bootcamp": 1,
     "technology": [2, 4],
     "affiliationDate": "05-12-2022",
     "lastConnectionDate": "05-12-2022 3:00 PM",
@@ -163,7 +163,7 @@
     "city": "Santo Domingo de Guzman",
     "neighborhood": "Villa Francisca",
     "Street": "Albaro Garabito",
-    "bootcamp": "MERN",
+    "bootcamp": 4,
     "career": "Software Developer",
     "technology": [2, 4, 1, 3],
     "education": " Universidad Autonoma de Santo Domingo, Bootcamp en MERN",
@@ -188,7 +188,7 @@
     "city": "Santo Domingo de Guzman",
     "neighborhood": "Villa Francisca",
     "Street": "Albaro Garabito",
-    "bootcamp": "MERN",
+    "bootcamp": 2,
     "career": "Software Developer",
     "technology": [3, 6, 5],
     "education": " Universidad Autonoma de Santo Domingo, Bootcamp en MERN",
