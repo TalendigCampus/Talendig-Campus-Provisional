@@ -55,6 +55,7 @@ import {
   allowDelete,
   showUndo,
 } from "../../../redux/slices/talentSlice";
+import tecnologiesInfo from "../../Bootcamps/tecnologies.json";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -287,6 +288,13 @@ function EnhancedTable({ setAllowDelete }) {
   console.log(rows);
   const allowDeleteTalent = useSelector(allowDelete);
   const dispatch = useDispatch();
+  const getTecnologies = (tecnologies) => {
+    return tecnologies
+      .map((tecno) => {
+        return tecnologiesInfo.find((tec) => tec.id === tecno).name;
+      })
+      .join(", ");
+  };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -401,7 +409,7 @@ function EnhancedTable({ setAllowDelete }) {
                       <TableCell>{row.idCard}</TableCell>
                       <TableCell align="center">{row.birth}</TableCell>
                       <TableCell align="right">{row.bootcamp}</TableCell>
-                      <TableCell>{row.tecnology}</TableCell>
+                      <TableCell>{getTecnologies(row.technology)}</TableCell>
                       <TableCell align="right">
                         <IconButton
                           aria-label="info"
@@ -441,6 +449,7 @@ function EnhancedTable({ setAllowDelete }) {
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}
+          labelRowsPerPage={"Filas por página"}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
