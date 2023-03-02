@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components/macro";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import bootcampData from "./bootcamp.json";
 import { JSXICONS } from "../../common/constants/data";
 
 import {
