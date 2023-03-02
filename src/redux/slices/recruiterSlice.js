@@ -32,6 +32,28 @@ const recruiterSlice = createSlice({
       if (index !== -1)
         state.RecruitersInfo[index] = action.payload.currentRecruiter;
     },
+    deleteTecnologies: (state, action) => {
+      state.currentRecruiter = state.RecruitersInfo.map((recruiter) => {
+        if (recruiter.id === action.payload.id) {
+          action.payload.tecnologies.forEach((value) => {
+            recruiter.technology = recruiter.technology.filter(
+              (t) => t !== value
+            );
+          });
+        }
+
+        return recruiter;
+      });
+    },
+    addTecnology: (state, action) => {
+      state.currentRecruiter = state.RecruitersInfo.map((recruiter) => {
+        if (recruiter.id === action.payload.id) {
+          recruiter.technology.push(action.payload.tecnologyId);
+        }
+
+        return recruiter;
+      });
+    },
     setShowUndo: (state, action) => {
       state.showUndo = action.payload.status;
     },
@@ -44,6 +66,8 @@ export const {
   addRecruiter,
   setShowUndo,
   updateRecruiter,
+  deleteTecnologies,
+  addTecnology,
 } = recruiterSlice.actions;
 export const selectRecruiters = (state) => state.recruiter.RecruitersInfo;
 export const currentRecruiter = (state) => state.recruiter.currentRecruiter;
