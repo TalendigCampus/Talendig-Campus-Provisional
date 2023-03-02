@@ -11,12 +11,23 @@ import {
   Divider as MuiDivider,
   Paper as MuiPaper,
   Typography,
+  IconButton,
+  Select,
+  FormControl,
+  InputLabel,
+  MenuItem,
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { spacing } from "@mui/system";
-
-import { useSelector } from "react-redux";
+import {
+  AddCircle,
+  VisibilityOff,
+  Save,
+  DeleteForever,
+} from "@mui/icons-material";
+import { useSelector, useDispatch } from "react-redux";
 import { currentRecruiter } from "../../../redux/slices/recruiterSlice";
+import tecnologiesInfo from "../../Bootcamps/tecnologies.json";
 
 const Card = styled(MuiCard)(spacing);
 
