@@ -270,6 +270,10 @@ const routes = [
                 ],
               },
               {
+                path: "changelog",
+                element: <Changelog />,
+              },
+              {
                 path: "briefcase",
                 children: [
                   {
