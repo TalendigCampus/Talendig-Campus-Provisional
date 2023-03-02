@@ -224,7 +224,7 @@ function Edit_Instructors() {
         >
           Lista
         </Link>
-        <Typography>Perfil de Instructor</Typography>
+        <Typography>Perfil de ok</Typography>
       </Breadcrumbs>
 
       <Divider my={6} />
