@@ -82,9 +82,6 @@ function DivAnalityths() {
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
-
-      <Grid container spacing={6}>
         <Grid item xs={12} lg={11.9}>
           <BarChart />
         </Grid>
