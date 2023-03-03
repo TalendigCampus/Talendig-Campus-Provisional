@@ -5,7 +5,7 @@ import Stats from "./Stats";
 import FilterIntitution from "./FilterIntitution";
 import { Helmet } from "react-helmet-async";
 import { NavLink } from "react-router-dom";
-
+import { useTranslation } from "react-i18next";
 import {
   TextField as MuiTextField,
   Grid,
@@ -99,21 +99,21 @@ function Content() {
 }
 
 function Chat() {
+  const { t } = useTranslation();
   return (
     <React.Fragment>
       <Helmet title="Chat" />
       <Grid justifyContent="space-between" container spacing={6}>
         <Grid item>
-          <Typography variant="h3" gutterBottom display="inline">
+          <Typography variant="h3" gutterBottom>
             Instituciones
           </Typography>
-          <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/admin/dashboard/home">
-              Panel
-            </Link>
-            <Typography>Usuarios</Typography>
-            <Typography>Instituciones</Typography>
-          </Breadcrumbs>
+          <Typography variant="subtitle1">
+            {t("Welcome back")}, José Armando! {t("We've missed you")}.{" "}
+            <span role="img" aria-label="Waving Hand Sign">
+              👋
+            </span>
+          </Typography>
         </Grid>
         <Grid item>
           <FilterIntitution />

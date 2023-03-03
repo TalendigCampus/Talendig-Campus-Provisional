@@ -184,7 +184,7 @@ const EnhancedTableToolbar = (props) => {
         )}
       </ToolbarTitle>
       <Spacer />
-      <div>
+      {/* <div>
         {numSelected > 0 ? (
           <Tooltip title="Delete">
             <IconButton aria-label="Delete" size="large">
@@ -198,7 +198,7 @@ const EnhancedTableToolbar = (props) => {
             </IconButton>
           </Tooltip>
         )}
-      </div>
+      </div> */}
     </Toolbar>
   );
 };
@@ -222,7 +222,7 @@ function EnhancedTable({ setDeleteInstructorModal }) {
     };
   };
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("instructor");
+  const [orderBy, setOrderBy] = React.useState("firstName");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -291,9 +291,7 @@ function EnhancedTable({ setDeleteInstructorModal }) {
 
   const handleBootcamp = (id) => {
     dispatch(bootcampProfile({ id }));
-    navigate("/admin/dashboard/bootcamps/bootcamp-profile", {
-      replace: true,
-    });
+    navigate("/admin/dashboard/bootcamps/bootcamp-profile");
   };
 
   return (
@@ -425,13 +423,10 @@ function List_instructors() {
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/admin/dashboard/home">
-              Panel
-            </Link>
-            <Typography>Usuarios</Typography>
             <Link component={NavLink} to="/admin/dashboard/users/instructors">
-              Instructores
+              Panel Instructores
             </Link>
+            <Typography>Instructores</Typography>
             <Typography>Lista </Typography>
           </Breadcrumbs>
         </Grid>

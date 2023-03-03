@@ -28,7 +28,7 @@ function LineChart({ theme }) {
     gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
 
     return {
-      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+      labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio"],
       datasets: [
         {
           label: "Talentos",

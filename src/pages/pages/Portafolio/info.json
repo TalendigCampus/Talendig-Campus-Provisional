@@ -4,34 +4,39 @@
     "briefcaseLastName": "Peralta",
     "lastModification": "1999-10-08",
     "profile": "Portafolio",
-    "briefcaseId": 1
+    "briefcaseId": 1,
+    "projectId": 1
   },
   {
     "briefcaseName": "Kiancis",
     "briefcaseLastName": "Dominguez",
     "lastModification": "2020-10-15",
     "profile": "Portafolio",
-    "briefcaseId": 2
+    "briefcaseId": 2,
+    "projectId": 2
   },
   {
     "briefcaseName": "Madelson",
     "briefcaseLastName": "Acosta",
     "lastModification": "2023-12-21",
     "profile": "Portafolio",
-    "briefcaseId": 3
+    "briefcaseId": 3,
+    "projectId": 3
   },
   {
     "briefcaseName": "Felix",
     "briefcaseLastName": "Ortega",
     "lastModification": "2010-08-14",
     "profile": "Portafolio",
-    "briefcaseId": 4
+    "briefcaseId": 4,
+    "projectId": 4
   },
   {
     "briefcaseName": "Gabriel",
     "briefcaseLastName": "Encarnacion",
     "lastModification": "2022-10-15",
     "profile": "Portafolio",
-    "briefcaseId": 5
+    "briefcaseId": 5,
+    "projectId": 5
   }
 ]

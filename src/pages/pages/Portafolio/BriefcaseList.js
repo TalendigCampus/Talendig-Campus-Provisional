@@ -55,6 +55,7 @@ import {
   showUndo,
 } from "../../../redux/slices/brieftcaseSlice";
 import BriefcaseDialogs from "./BriefcaseDialog";
+import { setCurrentProject } from "../../../redux/slices/projectsSlice";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -186,7 +187,7 @@ const EnhancedTableToolbar = (props) => {
         )}
       </ToolbarTitle>
       <Spacer />
-      <div>
+      {/* <div>
         {numSelected > 0 ? (
           <Tooltip title="Delete">
             <IconButton aria-label="Delete" size="large">
@@ -200,7 +201,7 @@ const EnhancedTableToolbar = (props) => {
             </IconButton>
           </Tooltip>
         )}
-      </div>
+      </div> */}
     </Toolbar>
   );
 };
@@ -225,7 +226,7 @@ function EnhancedTable({ setAllowDelete }) {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.id);
+      const newSelecteds = rows.map((n) => n.briefcaseId);
       setSelected(newSelecteds);
       return;
     }
@@ -235,7 +236,7 @@ function EnhancedTable({ setAllowDelete }) {
   const handdlePath = (pathToGo, id) => {
     ListBriefcaseSelected.id = id;
     ListBriefcaseSelected.correct = true;
-    navigate(pathToGo, { replace: true });
+    navigate(pathToGo);
   };
 
   const handleClick = (event, id) => {
@@ -271,6 +272,11 @@ function EnhancedTable({ setAllowDelete }) {
     setAllowDelete(true);
     dispatch(briefcaseToDelete({ briefcaseId }));
     console.log(briefcaseId);
+  };
+
+  const handleUserPageChange = (pathToGo, projectId) => {
+    dispatch(setCurrentProject({ projectId }));
+    navigate(pathToGo);
   };
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
@@ -321,7 +327,18 @@ function EnhancedTable({ setAllowDelete }) {
                           }
                         />
                       </TableCell>
-                      <TableCell align="center">{`${row.briefcaseName} ${row.briefcaseLastName}`}</TableCell>
+                      <TableCell align="center">
+                        <Link
+                          onClick={() =>
+                            handleUserPageChange(
+                              "/admin/dashboard/users/projects/list/folder/details",
+                              row.projectId
+                            )
+                          }
+                        >
+                          {`${row.briefcaseName} ${row.briefcaseLastName}`}
+                        </Link>
+                      </TableCell>
                       <TableCell align="center">
                         {row.lastModification}
                       </TableCell>
@@ -367,6 +384,7 @@ function EnhancedTable({ setAllowDelete }) {
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}
+          labelRowsPerPage={"Filas por página"}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
@@ -391,10 +409,9 @@ function BriefcaseList() {
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/admin/dashboard/home">
-              Panel
+            <Link component={NavLink} to="/admin/dashboard/users/briefcase">
+              Panel Portafolio
             </Link>
-            <Typography>Usuarios</Typography>
             <Typography>Lista portafolio</Typography>
           </Breadcrumbs>
         </Grid>

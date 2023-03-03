@@ -33,7 +33,7 @@ function Actions() {
 
   const handleClose = (pathToGo) => {
     setAnchorEl(null);
-    navigate(pathToGo, { replace: true });
+    navigate(pathToGo);
   };
 
   return (

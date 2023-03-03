@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import JsonInfo from "../../pages/pages/Portafolio/info.json";
 
-console.log(JsonInfo);
 const briefcaseSlice = createSlice({
   name: "briefcase",
   initialState: {

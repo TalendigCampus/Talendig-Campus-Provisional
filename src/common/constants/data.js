@@ -66,3 +66,20 @@ export const DATEKEYS = {
   mid: "mid",
   large: "large",
 };
+
+export const PROJECT_UPDATE_TYPE = {
+  project: "proyecto",
+  folder: "carpeta",
+  file: "archivo",
+};
+
+export const DIALOG_UPDATE_TYPE = {
+  update: "actualizar",
+  delete: "eliminar",
+};
+
+export const PROJECT_DELETE_TYPE = {
+  project: "eliminarProyecto",
+  folder: "eliminarCarpeta",
+  file: "eliminarArchivo",
+};

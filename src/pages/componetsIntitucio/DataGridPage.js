@@ -264,7 +264,7 @@ const EnhancedTableToolbar = (props) => {
         )}
       </ToolbarTitle>
       <Spacer />
-      <div>
+      {/* <div>
         {numSelected > 0 ? (
           <Tooltip title="Delete">
             <IconButton aria-label="Delete" size="large">
@@ -278,7 +278,7 @@ const EnhancedTableToolbar = (props) => {
             </IconButton>
           </Tooltip>
         )}
-      </div>
+      </div> */}
     </Toolbar>
   );
 };
@@ -428,7 +428,7 @@ function EnhancedTable() {
       );
     }
     setSelected(newSelected);
-    navigate(pathToGo, { replace: true });
+    navigate(pathToGo);
   };
 
   const handleRequestSort = (event, property) => {
@@ -638,13 +638,10 @@ function DataGridPage() {
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/admin/dashboard/home">
-              Panel
-            </Link>
-            <Typography>Usuarios</Typography>
             <Link component={NavLink} to="/admin/dashboard/users/institutions">
-              Instituciones
+              Panel Instituciones
             </Link>
+            <Typography>Instituciones</Typography>
             <Typography>Lista</Typography>
           </Breadcrumbs>
         </Grid>

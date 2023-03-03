@@ -4,6 +4,7 @@ import recruiterReducer from "./slices/recruiterSlice";
 import instructorReducer from "./slices/instructorSlice";
 import bootcampReducer from "./slices/bootcampSlice";
 import talentReducer from "./slices/talentSlice";
+import projectsReducer from "./slices/projectsSlice";
 import briefcaseReducer from "./slices/brieftcaseSlice";
 
 export const store = configureStore({
@@ -13,6 +14,7 @@ export const store = configureStore({
     instructor: instructorReducer,
     bootcamp: bootcampReducer,
     talent: talentReducer,
+    projects: projectsReducer,
     briefcase: briefcaseReducer,
   },
 });

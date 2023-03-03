@@ -40,13 +40,6 @@ function Recruiters() {
               👋
             </span>
           </Typography>
-          <MuiBreadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/admin/dashboard/home">
-              Panel
-            </Link>
-            <Typography>Usuarios</Typography>
-            <Typography>Reclutadores</Typography>
-          </MuiBreadcrumbs>
         </Grid>
 
         <Grid item>

@@ -61,7 +61,7 @@ function Public(props) {
     setNum(event.target.value.slice(0, limit));
   };
   const handdlePath = (pathToGo) => {
-    navigate(pathToGo, { replace: true });
+    navigate(pathToGo);
   };
   return (
     <Card mb={6}>

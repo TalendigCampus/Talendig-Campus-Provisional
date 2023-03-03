@@ -35,8 +35,14 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   CurrentTalent,
   updateTalent,
+  setCurrentTalent,
 } from "../../../redux/slices/talentSlice.js";
 import { selectBootcamps } from "../../../redux/slices/bootcampSlice";
+
+import {
+  setCurrentProject,
+  selectProjects,
+} from "../../../redux/slices/projectsSlice";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -101,6 +107,7 @@ function BasicForm(talent) {
   const [isNotEditing, setIsNotEditing] = React.useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userProjects = useSelector(selectProjects);
 
   const handlePageChange = (pathToGo) => {
     navigate(pathToGo);
@@ -110,7 +117,12 @@ function BasicForm(talent) {
     setIsNotEditing((currentSate) => !currentSate);
   };
 
-  const handleNavigate = (pathToGo) => {
+  const handleNavigate = (pathToGo, talentId) => {
+    dispatch(setCurrentTalent({ talentId }));
+    const project = userProjects.find(
+      (project) => project.talentId === talentId
+    );
+    dispatch(setCurrentProject({ projectId: project.projectId }));
     navigate(pathToGo);
   };
 
@@ -433,7 +445,10 @@ function BasicForm(talent) {
                       variant="contained"
                       color="primary"
                       onClick={() =>
-                        handleNavigate("/admin/dashboard/users/talents/roadmap")
+                        handleNavigate(
+                          "/admin/dashboard/users/talents/roadmap",
+                          values.talentId
+                        )
                       }
                       mt={3}
                       ml={3}
@@ -446,7 +461,8 @@ function BasicForm(talent) {
                       color="info"
                       onClick={() =>
                         handleNavigate(
-                          `/admin/dashboard/users/talents/curriculum/${values.talentId}`
+                          `/admin/dashboard/users/talents/curriculum`,
+                          values.talentId
                         )
                       }
                       mt={3}
@@ -458,7 +474,12 @@ function BasicForm(talent) {
                       type="button"
                       variant="contained"
                       color="error"
-                      onClick={handleEdit}
+                      onClick={() =>
+                        handleNavigate(
+                          `/admin/dashboard/users/projects/list/folder/details`,
+                          values.talentId
+                        )
+                      }
                       mt={3}
                       ml={3}
                     >

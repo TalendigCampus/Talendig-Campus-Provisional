@@ -5,7 +5,8 @@
     "talentLastName": "Peralta",
     "lastModification": "1999-10-08",
     "tecnology": "PHP, Angular, Javascript, ASP.net",
-    "projectId": 1
+    "projectId": 1,
+    "talentId": 1
   },
   {
     "projectName": "Clientes-app",
@@ -13,7 +14,8 @@
     "talentLastName": "Dominguez",
     "lastModification": "2020-10-15",
     "tecnology": "Angular, Javascript, ASP.net",
-    "projectId": 2
+    "projectId": 2,
+    "talentId": 4
   },
   {
     "projectName": "Usuario-login-frontend",
@@ -21,7 +23,8 @@
     "talentLastName": "Acosta",
     "lastModification": "2023-12-21",
     "tecnology": "Angular, Javascript, NodeJs",
-    "projectId": 3
+    "projectId": 3,
+    "talentId": 2
   },
   {
     "projectName": "Usuario-login-backend",
@@ -29,7 +32,8 @@
     "talentLastName": "Ortega",
     "lastModification": "2010-08-14",
     "tecnology": "NodeJs, React, Express, MongoDb",
-    "projectId": 4
+    "projectId": 4,
+    "talentId": 3
   },
   {
     "projectName": "SummerWork Page",
@@ -37,6 +41,7 @@
     "talentLastName": "Encarnacion",
     "lastModification": "2022-10-15",
     "tecnology": "PHP, Angular, Javascript, ASP.net",
-    "projectId": 5
+    "projectId": 5,
+    "talentId": 5
   }
 ]

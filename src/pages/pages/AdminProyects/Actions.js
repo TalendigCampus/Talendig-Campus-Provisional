@@ -35,7 +35,7 @@ function Actions() {
   };
 
   const handleChange = (pathToGo) => {
-    navigate(pathToGo, { replace: true });
+    navigate(pathToGo);
   };
 
   return (
