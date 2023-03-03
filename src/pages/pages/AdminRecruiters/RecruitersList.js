@@ -386,7 +386,7 @@ function EnhancedTable({ setDeleteRecruiterModal }) {
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row">
                         <Customer>
-                          <Avatar>{row.avatar}</Avatar>
+                          <Avatar alt="Remy Sharp" src={row.photoUrl} />
                           <Box ml={3}>
                             {`${row.firstName} ${row.lastName}`}
                             <br />

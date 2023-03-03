@@ -110,65 +110,6 @@ const Customer = styled.div`
   align-items: center;
 `;
 
-function createData(
-  institution,
-  institutionEmail,
-  institutionAvatar,
-  registrationDate,
-  address,
-  phoneNumber,
-  id
-) {
-  return {
-    institution,
-    institutionEmail,
-    institutionAvatar,
-    registrationDate,
-    address,
-    phoneNumber,
-    id,
-  };
-}
-
-const newRow = [
-  createData(
-    "Claro Dominicana",
-    "claro@gmail.com",
-    "C",
-    "2023-1-5",
-    "Av. Luperon ezquina 27 de Febrero #1023",
-    "8290983454",
-    "1"
-  ),
-  createData(
-    "GBH",
-    "gbh@gmail.com",
-    "G",
-    "2022-12-5",
-    "Av. Lincoln ezquina Sarasota #200",
-    "8292342343",
-    "2"
-  ),
-  createData(
-    "Instituto Politécnico Loyola",
-    "loyola@gmail.com",
-    "I",
-    "2020-3-9",
-    "P. Ángel Arias, San Cristóbal",
-    "8293244645",
-    "3"
-  ),
-  createData(
-    "Instituto Tecnologico de Las Americas",
-    "itla@gmail.com",
-    "I",
-    "2021-7-9",
-    "Las Américas, Km. 27, La Caleta, Calle 27, 11606",
-    "8292342343",
-    "4"
-  ),
-];
-
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -369,7 +310,7 @@ function EnhancedTable() {
   const [eliminateData, SetEliminateData] = React.useState({});
   const [eliminateDone, setEliminateDone] = React.useState(false);
   const [indexDataeliminate, setIndexDataeliminate] = React.useState(0);
-  const [rows, setNewRow] = React.useState(newRow);
+  const [rows, setNewRow] = React.useState(Rows);
 
   const handleClose = () => {
     setOpen(false);
@@ -379,8 +320,8 @@ function EnhancedTable() {
   const confirmEliminateData = () => {
     let newIndexDataeliminate = rows.indexOf(eliminateData);
     setIndexDataeliminate(newIndexDataeliminate);
-    newRow.splice(newIndexDataeliminate, 1);
-    setNewRow(newRow);
+    Rows.splice(newIndexDataeliminate, 1);
+    setNewRow(Rows);
     setEliminateDone(true);
     setOpen(false);
   };
@@ -504,6 +445,7 @@ function EnhancedTable() {
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
+                  console.log(row);
                   return (
                     <TableRow
                       hover
@@ -522,7 +464,10 @@ function EnhancedTable() {
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row">
                         <Customer>
-                          <Avatar>{row.institutionAvatar}</Avatar>
+                          <Avatar
+                            alt="Remy Sharp"
+                            src={row.institutionAvatar}
+                          />
                           <Box ml={3}>
                             {row.institution}
                             <br />
