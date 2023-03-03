@@ -30,17 +30,17 @@ function Actions() {
 
   const handleClose = (pathToGo) => {
     setAnchorEl(null);
-    navigate(pathToGo, { replace: true });
+    navigate(pathToGo);
   };
 
   return (
     <React.Fragment>
-      <SmallButton size="small" mr={2}>
+      {/* <SmallButton size="small" mr={2}>
         <LoopIcon />
       </SmallButton>
       <SmallButton size="small" mr={2}>
         <FilterListIcon />
-      </SmallButton>
+      </SmallButton> */}
       <Button
         variant="contained"
         color="secondary"

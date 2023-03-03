@@ -21,7 +21,7 @@
     },
     "password": "mypassword123",
     "confirmPassword": "mypassword123",
-    "photoUrl": "/static/img/recruiters/recruiter-1.jpg",
+    "photoUrl": "/static/img/instructors/persona1.jpg",
     "id": "1"
   },
   {
@@ -46,7 +46,7 @@
     },
     "password": "mypassword123",
     "confirmPassword": "mypassword123",
-    "photoUrl": "/static/img/recruiters/recruiter-1.jpg",
+    "photoUrl": "/static/img/instructors/persona2.jpg",
     "id": "2"
   },
   {
@@ -71,7 +71,7 @@
     },
     "password": "mypassword123",
     "confirmPassword": "mypassword123",
-    "photoUrl": "/static/img/recruiters/recruiter-1.jpg",
+    "photoUrl": "/static/img/instructors/persona3.jpg",
     "id": "3"
   },
   {
@@ -96,7 +96,7 @@
     },
     "password": "mypassword123",
     "confirmPassword": "mypassword123",
-    "photoUrl": "/static/img/recruiters/recruiter-1.jpg",
+    "photoUrl": "/static/img/instructors/persona4.jpg",
     "id": "4"
   }
 ]

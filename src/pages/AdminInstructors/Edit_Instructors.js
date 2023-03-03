@@ -105,7 +105,7 @@ function Private({ dataRows }) {
       );
     }
     setSelected(newSelected);
-    navigate(pathToGo, { replace: true });
+    navigate(pathToGo);
   };
 
   return (

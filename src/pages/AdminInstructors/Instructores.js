@@ -3,7 +3,8 @@ import styled, { withTheme } from "styled-components/macro";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Chart from "react-chartjs-2";
-
+import { useTranslation } from "react-i18next";
+import * as Icon from "react-feather";
 import {
   Avatar,
   Breadcrumbs as MuiBreadcrumbs,
@@ -68,6 +69,18 @@ const BigAvatar = styled(Avatar)`
   width: 120px;
   height: 120px;
   margin: 0 auto ${(props) => props.theme.spacing(2)};
+`;
+
+const StatsIcon = styled.div`
+  position: absolute;
+  right: 16px;
+  top: 32px;
+
+  svg {
+    width: 32px;
+    height: 32px;
+    color: ${(props) => props.theme.palette.secondary.main};
+  }
 `;
 
 const BarChart = withTheme(({ theme }) => {
@@ -330,21 +343,17 @@ function Private() {
 function Earnings() {
   return (
     <Box position="relative">
-      <Card mb={6} pt={2}>
+      <Card mb={3} pt={2}>
         <CardContent>
           <Typography variant="h2" gutterBottom>
-            <Box fontWeight="fontWeightRegular">225</Box>
+            <Box fontWeight="fontWeightRegular">200</Box>
           </Typography>
-          <Typography variant="body2" gutterBottom mt={3} mb={0}>
-            Instructores Registrados
+          <Typography variant="body2" gutterBottom mt={2} mb={0}>
+            Instructores registrados
           </Typography>
-
-          <LinearProgress
-            variant="determinate"
-            value={75}
-            color="secondary"
-            mt={4}
-          />
+          <StatsIcon>
+            <Icon.Users />
+          </StatsIcon>
         </CardContent>
       </Card>
     </Box>
@@ -354,21 +363,18 @@ function Earnings() {
 function Orders() {
   return (
     <Box position="relative">
-      <Card mb={6} pt={2}>
+      <Card mb={3} pt={2}>
         <CardContent>
           <Typography variant="h2" gutterBottom>
             <Box fontWeight="fontWeightRegular">50</Box>
           </Typography>
-          <Typography variant="body2" gutterBottom mt={3} mb={0}>
-            Instructores Conectados
+          <Typography variant="body2" gutterBottom mt={2} mb={0}>
+            Instructores conectados
           </Typography>
 
-          <LinearProgress
-            variant="determinate"
-            value={30}
-            color="secondary"
-            mt={4}
-          />
+          <StatsIcon>
+            <Icon.Activity />
+          </StatsIcon>
         </CardContent>
       </Card>
     </Box>
@@ -378,21 +384,18 @@ function Orders() {
 function Revenue() {
   return (
     <Box position="relative">
-      <Card mb={6} pt={2}>
+      <Card mb={3} pt={2}>
         <CardContent>
           <Typography variant="h2" gutterBottom>
-            <Box fontWeight="fontWeightRegular">18</Box>
+            <Box fontWeight="fontWeightRegular">22</Box>
           </Typography>
-          <Typography variant="body2" gutterBottom mt={3} mb={0}>
-            Instructores con Alta Valoración
+          <Typography variant="body2" gutterBottom mt={2} mb={0}>
+            Instructores valoración +7
           </Typography>
 
-          <LinearProgress
-            variant="determinate"
-            value={50}
-            color="secondary"
-            mt={4}
-          />
+          <StatsIcon>
+            <Icon.Briefcase />
+          </StatsIcon>
         </CardContent>
       </Card>
     </Box>
@@ -400,25 +403,22 @@ function Revenue() {
 }
 
 function Instructores() {
+  const { t } = useTranslation();
   return (
     <React.Fragment>
       <Helmet title="Instructores" />
 
       <Grid justifyContent="space-between" container spacing={10}>
         <Grid item>
-          <Typography variant="h3" gutterBottom display="inline">
+          <Typography variant="h3" gutterBottom>
             Instructores
           </Typography>
-
-          <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/admin/dashboard/home">
-              Panel
-            </Link>
-            <Typography>Usuarios</Typography>
-            <Typography gutterBottom display="inline">
-              Instructores
-            </Typography>
-          </Breadcrumbs>
+          <Typography variant="subtitle1">
+            {t("Welcome back")}, José Armando! {t("We've missed you")}.{" "}
+            <span role="img" aria-label="Waving Hand Sign">
+              👋
+            </span>
+          </Typography>
         </Grid>
         <Grid item>
           <Actions />

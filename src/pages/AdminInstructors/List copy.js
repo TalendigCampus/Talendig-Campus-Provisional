@@ -241,7 +241,7 @@ function EnhancedTable() {
 
   const handleClose = (pathToGo) => {
     setAnchorEl(null);
-    navigate(pathToGo, { replace: true });
+    navigate(pathToGo);
   };
 
   const [order, setOrder] = React.useState("asc");

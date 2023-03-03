@@ -208,7 +208,7 @@ const EnhancedTableToolbar = (props) => {
         )}
       </ToolbarTitle>
       <Spacer />
-      <div>
+      {/* <div>
         {numSelected > 0 ? (
           <Tooltip title="Delete">
             <IconButton aria-label="Delete" size="large">
@@ -222,7 +222,7 @@ const EnhancedTableToolbar = (props) => {
             </IconButton>
           </Tooltip>
         )}
-      </div>
+      </div> */}
     </Toolbar>
   );
 };
@@ -247,7 +247,7 @@ function EnhancedTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.id);
+      const newSelecteds = rows.map((n) => n.folderId);
       setSelected(newSelecteds);
       return;
     }
@@ -406,6 +406,7 @@ function EnhancedTable() {
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}
+          labelRowsPerPage={"Filas por página"}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
@@ -428,11 +429,11 @@ function InvoiceList() {
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/admin/dashboard/home">
-              Dashboard
+            <Link component={NavLink} to="/admin/dashboard/users/projects/list">
+              Lista de Proyectos
             </Link>
-            <Typography>Usuarios</Typography>
-            <Typography>proyecto</Typography>
+            <Typography>Carpetas</Typography>
+            <Typography>Lista</Typography>
           </Breadcrumbs>
         </Grid>
         <Grid item>

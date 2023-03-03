@@ -213,7 +213,7 @@ const EnhancedTableToolbar = (props) => {
         )}
       </ToolbarTitle>
       <Spacer />
-      <div>
+      {/* <div>
         {numSelected > 0 ? (
           <Tooltip title="Delete">
             <IconButton aria-label="Delete" size="large">
@@ -227,7 +227,7 @@ const EnhancedTableToolbar = (props) => {
             </IconButton>
           </Tooltip>
         )}
-      </div>
+      </div> */}
     </Toolbar>
   );
 };
@@ -238,7 +238,7 @@ function EnhancedTable() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("talentName");
+  const [orderBy, setOrderBy] = React.useState("projectName");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -272,7 +272,7 @@ function EnhancedTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.id);
+      const newSelecteds = rows.map((n) => n.projectId);
       setSelected(newSelecteds);
       return;
     }
@@ -452,6 +452,7 @@ function EnhancedTable() {
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}
+          labelRowsPerPage={"Filas por página"}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
@@ -474,10 +475,10 @@ function InvoiceList() {
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/admin/dashboard/home">
-              Panel
+            <Link component={NavLink} to="/admin/dashboard/users/projects">
+              Panel proyectos
             </Link>
-            <Typography>Usuarios</Typography>
+            <Typography>proyectos</Typography>
             <Typography>Lista proyectos</Typography>
           </Breadcrumbs>
         </Grid>

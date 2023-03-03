@@ -126,37 +126,6 @@ function Tecnology() {
   );
 }
 
-const formInstructorStructure = (instructor) => {
-  return {
-    instructorPublic: {
-      photoUrl: instructor.photoUrl,
-      affiliationDate: instructor.affiliationDate,
-      lastConnectionDate: instructor.lastConnectionDate,
-    },
-    instructorPrivate: {
-      firstName: instructor.firstName,
-      lastName: instructor.lastName,
-      birth: instructor.birth,
-      identificationCard: instructor.identificationCard,
-      phoneNumber: instructor.phoneNumber,
-      company: instructor.company,
-      bootcamps: instructor.bootcamps,
-      email: instructor.email,
-      address: {
-        street: instructor.address.street,
-        numHouseOrApartment: instructor.address.numHouseOrApartment,
-        neighborhood: instructor.address.neighborhood,
-        city: instructor.address.city,
-      },
-      password: instructor.password,
-      confirmPassword: instructor.confirmPassword,
-    },
-    instructorTechnology: {
-      technology: instructor.technology.split(","),
-    },
-  };
-};
-
 function View_Instructors() {
   const instructor = useSelector(currentInstructor);
 

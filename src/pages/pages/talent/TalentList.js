@@ -198,8 +198,8 @@ const headCells = [
   { id: "talentName", alignment: "left", label: "Nombre" },
   { id: "idCard", alignment: "left", label: "Cedula" },
   { id: "birth", alignment: "right", label: "Fecha de Nacimiento" },
-  { id: "Bootcamp", alignment: "right", label: "Bootcamp" },
-  { id: "tecnology", alignment: "left", label: "Tecnologias" },
+  { id: "bootcamp", alignment: "right", label: "Bootcamp" },
+  { id: "technology", alignment: "left", label: "Tecnologias" },
   { id: "actions", alignment: "right", label: "Acción" },
 ];
 
@@ -261,7 +261,7 @@ const EnhancedTableToolbar = (props) => {
         )}
       </ToolbarTitle>
       <Spacer />
-      <div>
+      {/* <div>
         {numSelected > 0 ? (
           <Tooltip title="Delete">
             <IconButton aria-label="Delete" size="large">
@@ -275,7 +275,7 @@ const EnhancedTableToolbar = (props) => {
             </IconButton>
           </Tooltip>
         )}
-      </div>
+      </div> */}
     </Toolbar>
   );
 };
@@ -315,7 +315,7 @@ function EnhancedTable({ setAllowDelete }) {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.id);
+      const newSelecteds = rows.map((n) => n.talentId);
       setSelected(newSelecteds);
       return;
     }
@@ -329,9 +329,7 @@ function EnhancedTable({ setAllowDelete }) {
 
   const handleBootcamp = (id) => {
     dispatch(bootcampProfile({ id }));
-    navigate("/admin/dashboard/bootcamps/bootcamp-profile", {
-      replace: true,
-    });
+    navigate("/admin/dashboard/bootcamps/bootcamp-profile");
   };
 
   const handleClick = (event, id) => {
@@ -501,13 +499,11 @@ function InvoiceList() {
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/admin/dashboard/home">
-              Panel
-            </Link>
-            <Typography>Usuarios</Typography>
             <Link component={NavLink} to="/admin/dashboard/users/talents">
-              Talentos
+              Panel Talentos
             </Link>
+
+            <Typography>Talentos</Typography>
             <Typography>Lista</Typography>
           </Breadcrumbs>
         </Grid>

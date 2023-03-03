@@ -64,12 +64,14 @@ function Settings() {
       </Typography>
 
       <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/">
-          Dashboard
+        <Link
+          component={NavLink}
+          to="/admin/dashboard/users/projects/list/folder/files"
+        >
+          Lista de Archivos
         </Link>
-        <Typography>Usuario</Typography>
-        <Typography>Reclutador</Typography>
-        <Typography>Perfil</Typography>
+        <Typography>Archivo</Typography>
+        <Typography>detalles</Typography>
       </Breadcrumbs>
 
       <Divider my={6} />
