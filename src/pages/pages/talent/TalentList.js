@@ -414,7 +414,7 @@ function EnhancedTable({ setAllowDelete }) {
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row">
                         <Customer>
-                          <Avatar>{row.recruiterAvatar}</Avatar>
+                          <Avatar alt="Remy Sharp" src={row.photoUrl} />
                           <Box ml={3}>
                             {`${row.talentName} ${row.talentLastName}`}
                             <br />

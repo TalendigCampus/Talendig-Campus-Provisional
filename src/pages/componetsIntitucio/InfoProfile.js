@@ -44,8 +44,8 @@ const CenteredContent = styled.div`
 `;
 
 const BigAvatar = styled(Avatar)`
-  width: 300px;
-  height: 300px;
+  width: 150px;
+  height: 150px;
   margin: 0 auto ${(props) => props.theme.spacing(2)};
 `;
 
@@ -253,13 +253,11 @@ function InfoProfile() {
 
       <Divider my={6} />
 
-      <Grid container spacing={6}>
-        <Grid item xs={4}>
-          <Public dataRows={dataRows} />
-        </Grid>
-        <Grid item xs={8}>
-          <Private dataRows={dataRows} />
-        </Grid>
+      <Grid item xs={11.9}>
+        <Public dataRows={dataRows} />
+      </Grid>
+      <Grid item xs={11.9}>
+        <Private dataRows={dataRows} />
       </Grid>
     </React.Fragment>
   );

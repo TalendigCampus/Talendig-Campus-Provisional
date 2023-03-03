@@ -330,7 +330,7 @@ function EnhancedTable({ setDeleteBootcampModal }) {
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row">
                         <Customer>
-                          <Avatar>{JSXICONS["bootcamp"]}</Avatar>
+                          <Avatar alt="Remy Sharp" src={row.image} />
                           <Box ml={3}>{row.bootcampName}</Box>
                         </Customer>
                       </TableCell>
