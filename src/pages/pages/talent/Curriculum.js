@@ -37,7 +37,10 @@ import {
 } from "@mui/material";
 import { spacing } from "@mui/system";
 import JsonInfo from "./info.json";
+import tecnologiesInfo from "../../Bootcamps/tecnologies.json";
 import { Email, Person, Phone, School, Star, Work } from "@mui/icons-material";
+import { useSelector } from "react-redux";
+import { CurrentTalent } from "../../../redux/slices/talentSlice";
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
@@ -134,7 +137,13 @@ function Details(props) {
 }
 
 function Skills(props) {
-  let skills = props.tecnology;
+  let values = [];
+  tecnologiesInfo.forEach(
+    (technology) =>
+      props.technology.includes(technology.id) && values.push(technology.name)
+  );
+  let skills = values;
+  console.log("yooouuu!!", skills);
   let i = 0;
   return (
     <Card mb={6}>
@@ -146,7 +155,7 @@ function Skills(props) {
         <Spacer mb={4} />
 
         <Centered>
-          {skills.split(",").map((skill) => {
+          {skills.map((skill) => {
             return (
               <Chip
                 size="small"
@@ -385,11 +394,13 @@ function Lenguages(props) {
 }
 
 function Curriculum() {
-  let { talentId } = useParams();
-  console.log(talentId);
-  console.log(rows);
-  const result = rows.find((row) => row.talentId === Number(talentId));
-  console.log(result);
+  // let { talentId } = useParams();
+  // console.log(talentId);
+  // console.log(rows);
+  // const result = rows.find((row) => row.talentId === Number(talentId));
+  // console.log(result);
+
+  const result = useSelector(CurrentTalent);
 
   return (
     <React.Fragment>

@@ -195,7 +195,7 @@ const routes = [
                     element: <TalentDetails />,
                   },
                   {
-                    path: "curriculum/:talentId",
+                    path: "curriculum",
                     element: <Curriculum />,
                   },
                   {
