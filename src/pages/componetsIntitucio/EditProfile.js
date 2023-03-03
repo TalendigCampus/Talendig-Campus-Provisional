@@ -179,7 +179,8 @@ function Private({ dataRows }) {
 
         <Button
           variant="contained"
-          color="primary"
+          color="success"
+          marginRight="10px"
           mt={3}
           onClick={(event) =>
             handleChange(
@@ -189,6 +190,19 @@ function Private({ dataRows }) {
           }
         >
           Guardar cambios
+        </Button>
+        <Button
+          variant="contained"
+          color="error"
+          mt={3}
+          onClick={(event) =>
+            handleChange(
+              "/admin/dashboard/users/institutions/info",
+              dataRows.id
+            )
+          }
+        >
+          Cancelar
         </Button>
       </CardContent>
     </Card>

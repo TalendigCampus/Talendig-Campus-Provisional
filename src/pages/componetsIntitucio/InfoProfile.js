@@ -18,7 +18,11 @@ import {
   TextField as MuiTextField,
   Typography,
 } from "@mui/material";
-import { CloudUpload as MuiCloudUpload } from "@mui/icons-material";
+import {
+  CloudUpload as MuiCloudUpload,
+  ArrowLeft,
+  Edit,
+} from "@mui/icons-material";
 import { spacing } from "@mui/system";
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
@@ -201,11 +205,11 @@ function Private({ dataRows }) {
             )
           }
         >
-          Volver
+          <ArrowLeft />
         </Button>
         <Button
           variant="contained"
-          color="primary"
+          color="success"
           mt={3}
           onClick={(event) =>
             handleChange(
@@ -214,7 +218,7 @@ function Private({ dataRows }) {
             )
           }
         >
-          Editar
+          <Edit />
         </Button>
       </CardContent>
     </Card>
