@@ -120,7 +120,7 @@ const Formik = async(() => import("./pages/forms/Formik"));
 
 // Icon components
 const FeatherIcons = async(() => import("./pages/icons/FeatherIcons"));
-const Profile = async(() => import("./pages/pages/talent/Profile"));
+const Profile = async(() => import("./pages/pages/talent/Talent"));
 const Tasks = async(() => import("./pages/pages/Tasks"));
 const Calendar = async(() => import("./pages/pages/Calendar"));
 
