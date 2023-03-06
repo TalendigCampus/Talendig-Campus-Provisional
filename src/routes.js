@@ -111,6 +111,10 @@ import EditInstructors from "./pages/AdminInstructors/Edit_Instructors";
 import ViewInstructors from "./pages/AdminInstructors/InstructorsList/View_Instructors";
 import Roadmap from "./pages/pages/talent/Roadmap";
 
+// Talents routes
+
+import TalentLayout from "./talent/layout/structureLayout";
+
 // Dashboard components
 const Default = async(() => import("./pages/dashboards/Default"));
 const Analytics = async(() => import("./pages/dashboards/Analytics"));
@@ -203,11 +207,36 @@ const routes = [
   },
   {
     path: "talent",
-    element: <DashboardLayout />,
+    element: <TalentLayout />,
     children: [
       {
         element: <Default />,
         index: true,
+      },
+      {
+        path: "perfil",
+        element: <Default />,
+      },
+      {
+        path: "bootcamps",
+        children: [
+          {
+            path: "my-bootcamps",
+            element: <Default />,
+          },
+          {
+            path: "other-bootcamps",
+            element: <Default />,
+          },
+        ],
+      },
+      {
+        path: "briefcase",
+        element: <Default />,
+      },
+      {
+        path: "changelog",
+        element: <Changelog />,
       },
     ],
   },
