@@ -137,6 +137,59 @@ const Chartjs = async(() => import("./pages/charts/Chartjs"));
 const GoogleMaps = async(() => import("./pages/maps/GoogleMaps"));
 const VectorMaps = async(() => import("./pages/maps/VectorMaps"));
 
+// const talentRoutes = [
+//   {
+//     path: "talent",
+//     children: [
+//       {
+//         path: "home",
+//         element: "",
+//       },
+//       {
+//         path: "perfil",
+//         element: "",
+//       },
+//       {
+//         path: "bootcamps",
+//         element: "",
+//         children: [
+//           {
+//             path: "list",
+//             element: "",
+//             children: [
+//               {
+//                 path: "profile",
+//                 element: "",
+//               },
+//               {
+//                 path: "task",
+//                 element: "",
+//               },
+//               {
+//                 path: "grades",
+//               },
+//             ],
+//           },
+//         ],
+//       },
+//       {
+//         path: "portfolio",
+//         element: "",
+//         children: [
+//           {
+//             path: "proyects",
+//             element: "",
+//           },
+//           {
+//             path: "proyect",
+//             element: "",
+//           },
+//         ],
+//       },
+//     ],
+//   },
+// ];
+
 const routes = [
   {
     path: "/",
@@ -145,6 +198,16 @@ const routes = [
       {
         path: "",
         element: <Landing />,
+      },
+    ],
+  },
+  {
+    path: "talent",
+    element: <DashboardLayout />,
+    children: [
+      {
+        element: <Default />,
+        index: true,
       },
     ],
   },
