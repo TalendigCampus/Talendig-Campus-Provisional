@@ -66,6 +66,9 @@ import Lista_Instructores from "./pages/AdminInstructors/List_Instructors";
 import BootcampsStatistics from "./pages/Bootcamps/index";
 import BootcampsList from "./pages/Bootcamps/BootcampList";
 
+//Talent pages
+import TalentHome from "./talent/home/index";
+
 import Projects from "./pages/pages/Projects";
 import Chat from "./pages/componetsIntitucio/Chat";
 import DataGridPage from "./pages/componetsIntitucio/DataGridPage";
@@ -210,7 +213,7 @@ const routes = [
     element: <TalentLayout />,
     children: [
       {
-        element: <Default />,
+        element: <TalentHome />,
         index: true,
       },
       {
