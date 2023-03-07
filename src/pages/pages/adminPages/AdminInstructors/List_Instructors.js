@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components/macro";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { useNavigate } from "react-router-dom";
 
 import {
   Avatar as MuiAvatar,
@@ -14,7 +15,6 @@ import {
   Grid,
   IconButton,
   Link,
-  Description,
   Paper as MuiPaper,
   Table,
   TableBody,
@@ -27,7 +27,6 @@ import {
   Toolbar,
   Tooltip,
   Typography,
-  Dialog,
 } from "@mui/material";
 import { green, orange } from "@mui/material/colors";
 import {
@@ -38,22 +37,22 @@ import {
   Edit,
   RemoveCircle,
   Info,
-  LibraryBooks,
 } from "@mui/icons-material";
 import { spacing } from "@mui/system";
-import Actions from "./Actions";
-
+import Actions from "./InstructorsList/Actions";
+import InstructorDialog from "./InstructorsList/InstructorDialog";
+import UndoAction from "./InstructorsList/UndoAction";
+import tecnologiesInfo from "../../Bootcamps/tecnologies.json";
 import { useSelector, useDispatch } from "react-redux";
-import { ListBriefcaseSelected } from "./ListBriefcaseSelected";
-import BriefcaseUndo from "./BriefcaseUndo";
 import {
-  allowDelete,
-  briefcaseToDelete,
-  selectbriefcases,
-  showUndo,
-} from "../../../redux/slices/brieftcaseSlice";
-import BriefcaseDialogs from "./BriefcaseDialog";
-import { setCurrentProject } from "../../../redux/slices/projectsSlice";
+  selectInstructors,
+  setCurrentInstructor,
+  setShowUndo,
+} from "../../../../redux/slices/instructorSlice.js";
+import {
+  selectBootcamps,
+  bootcampProfile,
+} from "../../../../redux/slices/bootcampSlice";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -117,14 +116,13 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: "briefcaseName", alignment: "center", label: "Nombre" },
-  {
-    id: "lastModification",
-    alignment: "center",
-    label: "Ultima fecha de modificacion",
-  },
-  { id: "profile", alignment: "center", label: "Perfil" },
-  { id: "actions", alignment: "center", label: "Acción" },
+  { id: "firstName", alignment: "left", label: "Instructor" },
+  { id: "identificationCard", alignment: "left", label: "Cedula" },
+  { id: "company", alignment: "right", label: "Perfil" },
+  { id: "birth", alignment: "right", label: "Fecha de Nacimiento" },
+  { id: "bootcamps", alignment: "right", label: "Bootcamps" },
+  { id: "technology", alignment: "left", label: "Tecnologias" },
+  { id: "actions", alignment: "right", label: "Acción" },
 ];
 
 const EnhancedTableHead = (props) => {
@@ -204,17 +202,31 @@ const EnhancedTableToolbar = (props) => {
   );
 };
 
-function EnhancedTable({ setAllowDelete }) {
-  const navigate = useNavigate();
+function EnhancedTable({ setDeleteInstructorModal }) {
+  const rows = useSelector(selectInstructors);
+  const dispatch = useDispatch();
+  const bootcamps = useSelector(selectBootcamps);
+  const getTecnologies = (tecnologies) => {
+    return tecnologies
+      .map((tecno) => {
+        return tecnologiesInfo.find((tec) => tec.id === tecno).name;
+      })
+      .join(", ");
+  };
+  const getBootcamp = (id) => {
+    const result = bootcamps.find((bootcamp) => bootcamp.id === id);
+    return {
+      id: result.id,
+      name: result.bootcampName,
+    };
+  };
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("briefcaseName");
+  const [orderBy, setOrderBy] = React.useState("firstName");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const rows = useSelector(selectbriefcases);
-  console.log(rows);
-  const allowDeletebriefcase = useSelector(allowDelete);
-  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -224,17 +236,11 @@ function EnhancedTable({ setAllowDelete }) {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.briefcaseId);
+      const newSelecteds = rows.map((n) => n.id);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
-  };
-
-  const handdlePath = (pathToGo, id) => {
-    ListBriefcaseSelected.id = id;
-    ListBriefcaseSelected.correct = true;
-    navigate(pathToGo);
   };
 
   const handleClick = (event, id) => {
@@ -266,21 +272,26 @@ function EnhancedTable({ setAllowDelete }) {
     setPage(0);
   };
 
-  const handleDelete = (briefcaseId) => {
-    setAllowDelete(true);
-    dispatch(briefcaseToDelete({ briefcaseId }));
-    console.log(briefcaseId);
-  };
-
-  const handleUserPageChange = (pathToGo, projectId) => {
-    dispatch(setCurrentProject({ projectId }));
-    navigate(pathToGo);
-  };
-
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+
+  const handleShowInfo = (pathToGo, instructorId) => {
+    dispatch(setCurrentInstructor({ instructorId }));
+    navigate(pathToGo);
+  };
+
+  const handleDelete = (instructorId) => {
+    dispatch(setCurrentInstructor({ instructorId }));
+    dispatch(setShowUndo({ status: false }));
+    setDeleteInstructorModal(true);
+  };
+
+  const handleBootcamp = (id) => {
+    dispatch(bootcampProfile({ id }));
+    navigate("/admin/dashboard/bootcamps/bootcamp-profile");
+  };
 
   return (
     <div>
@@ -304,7 +315,7 @@ function EnhancedTable({ setAllowDelete }) {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.briefcaseId);
+                  const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
@@ -313,44 +324,49 @@ function EnhancedTable({ setAllowDelete }) {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={`${row.briefcaseId}-${index}`}
+                      key={`${row.id}-${index}`}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
                           checked={isItemSelected}
                           inputProps={{ "aria-labelledby": labelId }}
-                          onClick={(event) =>
-                            handleClick(event, row.briefcaseId)
-                          }
+                          onClick={(event) => handleClick(event, row.id)}
                         />
                       </TableCell>
-                      <TableCell align="center">
-                        <Link
-                          onClick={() =>
-                            handleUserPageChange(
-                              "/admin/dashboard/users/projects/list/folder/details",
-                              row.projectId
-                            )
-                          }
-                        >
-                          {`${row.briefcaseName} ${row.briefcaseLastName}`}
-                        </Link>
+                      <TableCell component="th" id={labelId} scope="row">
+                        <Customer>
+                          <Avatar alt="Remy Sharp" src={row.photoUrl} />
+                          <Box ml={3}>
+                            {`${row.firstName} ${row.lastName}`}
+                            <br />
+                            {row.email}
+                          </Box>
+                        </Customer>
                       </TableCell>
-                      <TableCell align="center">
-                        {row.lastModification}
+                      <TableCell>{row.identificationCard}</TableCell>
+                      <TableCell align="right">{row.company}</TableCell>
+                      <TableCell align="right">{row.birth}</TableCell>
+                      <TableCell
+                        align="right"
+                        style={{
+                          color: "blue",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => handleBootcamp(row.bootcamps)}
+                      >
+                        {getBootcamp(row.bootcamps).name}
                       </TableCell>
-                      {/* <TableCell>{row.idCard}</TableCell> */}
-                      <TableCell align="center">{row.profile}</TableCell>
-                      <TableCell align="center">
+                      <TableCell>{getTecnologies(row.technology)}</TableCell>
+                      <TableCell align="right">
                         <IconButton
                           aria-label="info"
                           size="large"
                           color="info"
                           onClick={() =>
-                            handdlePath(
-                              `/admin/dashboard/users/projects/list`,
-                              row.briefcaseId
+                            handleShowInfo(
+                              "/admin/dashboard/users/instructors/view_instructors",
+                              row.id
                             )
                           }
                         >
@@ -358,10 +374,9 @@ function EnhancedTable({ setAllowDelete }) {
                         </IconButton>
                         <IconButton
                           aria-label="delete"
-                          align="center"
                           size="large"
                           color="error"
-                          onClick={() => handleDelete(row.briefcaseId)}
+                          onClick={() => handleDelete(row.id)}
                         >
                           <RemoveCircle />
                         </IconButton>
@@ -392,46 +407,50 @@ function EnhancedTable({ setAllowDelete }) {
   );
 }
 
-function BriefcaseList() {
-  const [allowDelete, setAllowDelete] = React.useState(false);
-  let status = useSelector(showUndo);
-  const [id, setId] = React.useState(null);
+function List_instructors() {
+  const [deleteInstructorModal, setDeleteInstructorModal] =
+    React.useState(false);
 
   return (
     <React.Fragment>
-      <Helmet title="Invoices" />
+      <Helmet title="List" />
+
       <Grid justifyContent="space-between" container spacing={10}>
         <Grid item>
           <Typography variant="h3" gutterBottom display="inline">
-            Lista de Portafolio
+            Lista de Instructores
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/admin/dashboard/users/briefcase">
-              Panel Portafolio
+            <Link component={NavLink} to="/admin/dashboard/users/instructors">
+              Panel Instructores
             </Link>
-            <Typography>Lista portafolio</Typography>
+            <Typography>Instructores</Typography>
+            <Typography>Lista </Typography>
           </Breadcrumbs>
         </Grid>
         <Grid item>
           <Actions />
         </Grid>
       </Grid>
+
       <Divider my={6} />
+
       <Grid container spacing={6}>
         <Grid item xs={12}>
-          <EnhancedTable setAllowDelete={setAllowDelete} setId={setId} />
-          {allowDelete && (
-            <BriefcaseDialogs
-              allowDelete={allowDelete}
-              setAllowDelete={setAllowDelete}
+          <EnhancedTable setDeleteInstructorModal={setDeleteInstructorModal} />
+          {deleteInstructorModal && (
+            <InstructorDialog
+              deleteInstructorModal={deleteInstructorModal}
+              setDeleteInstructorModal={setDeleteInstructorModal}
             />
           )}
-          {status && <BriefcaseUndo />}
+
+          <UndoAction />
         </Grid>
       </Grid>
     </React.Fragment>
   );
 }
 
-export default BriefcaseList;
+export default List_instructors;

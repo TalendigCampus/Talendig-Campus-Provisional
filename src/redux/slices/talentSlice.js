@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import TalentsInfo from "../../pages/pages/talent/info.json";
+import TalentsInfo from "../../pages/pages/adminPages/AdminTalent/info.json";
 
 const talentSlice = createSlice({
   name: "talent",

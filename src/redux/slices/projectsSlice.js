@@ -1,5 +1,5 @@
 import { createSlice, current } from "@reduxjs/toolkit";
-import projectsInfo from "../../pages/pages/AdminProyects/userProjects.json";
+import projectsInfo from "../../pages/pages/adminPages/AdminProyects/userProjects.json";
 import { PROJECT_UPDATE_TYPE } from "../../common/constants/data";
 import { PROJECT_DELETE_TYPE } from "../../common/constants/data";
 

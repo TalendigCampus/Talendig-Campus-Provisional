@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components/macro";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { Link as ReactRouterLink } from "react-router-dom";
 
 import {
   Avatar as MuiAvatar,
@@ -42,18 +43,18 @@ import {
 } from "@mui/icons-material";
 import { spacing } from "@mui/system";
 import Actions from "./Actions";
-
+import { DIALOG_UPDATE_TYPE } from "../../../../common/constants/data";
+import { PROJECT_DELETE_TYPE } from "../../../../common/constants/data";
 import { useSelector, useDispatch } from "react-redux";
-import { ListBriefcaseSelected } from "./ListBriefcaseSelected";
-import BriefcaseUndo from "./BriefcaseUndo";
+import UndoAction from "./UndoAction";
+import ProjectsDialog from "./projectsDialog";
 import {
-  allowDelete,
-  briefcaseToDelete,
-  selectbriefcases,
-  showUndo,
-} from "../../../redux/slices/brieftcaseSlice";
-import BriefcaseDialogs from "./BriefcaseDialog";
-import { setCurrentProject } from "../../../redux/slices/projectsSlice";
+  currentFolder,
+  setCurrentFile,
+  setShowUpdate,
+  setUpdateType,
+  showUpdate,
+} from "../../../../redux/slices/projectsSlice";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -87,6 +88,28 @@ const Customer = styled.div`
   align-items: center;
 `;
 
+/* function createData(
+  talentName,
+  talentEmail,
+  recruiterAvatar,
+  idCard,
+  birth,
+  bootcamp,
+  tecnology,
+  id
+) {
+  return {
+    talentName,
+    talentEmail,
+    idCard,
+    recruiterAvatar,
+    birth,
+    bootcamp,
+    tecnology,
+    id,
+  };
+} */
+
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -117,13 +140,14 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: "briefcaseName", alignment: "center", label: "Nombre" },
+  { id: "projectName", alignment: "center", label: "Nombre" },
   {
     id: "lastModification",
     alignment: "center",
     label: "Ultima fecha de modificacion",
   },
-  { id: "profile", alignment: "center", label: "Perfil" },
+  { id: "talentName", alignment: "center", label: "Tipo de Archivo" },
+  { id: "tecnology", alignment: "center", label: "Formato" },
   { id: "actions", alignment: "center", label: "Acción" },
 ];
 
@@ -204,17 +228,16 @@ const EnhancedTableToolbar = (props) => {
   );
 };
 
-function EnhancedTable({ setAllowDelete }) {
+function EnhancedTable() {
+  const currentSelectedFolder = useSelector(currentFolder);
+  const rows = currentSelectedFolder?.files || [];
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("briefcaseName");
+  const [orderBy, setOrderBy] = React.useState("talentName");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const rows = useSelector(selectbriefcases);
-  console.log(rows);
-  const allowDeletebriefcase = useSelector(allowDelete);
-  const dispatch = useDispatch();
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -224,16 +247,15 @@ function EnhancedTable({ setAllowDelete }) {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.briefcaseId);
+      const newSelecteds = rows.map((n) => n.fileId);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handdlePath = (pathToGo, id) => {
-    ListBriefcaseSelected.id = id;
-    ListBriefcaseSelected.correct = true;
+  const handlePageChange = (pathToGo, fileId) => {
+    dispatch(setCurrentFile({ fileId }));
     navigate(pathToGo);
   };
 
@@ -266,15 +288,10 @@ function EnhancedTable({ setAllowDelete }) {
     setPage(0);
   };
 
-  const handleDelete = (briefcaseId) => {
-    setAllowDelete(true);
-    dispatch(briefcaseToDelete({ briefcaseId }));
-    console.log(briefcaseId);
-  };
-
-  const handleUserPageChange = (pathToGo, projectId) => {
-    dispatch(setCurrentProject({ projectId }));
-    navigate(pathToGo);
+  const handleDelete = (fileId, type) => {
+    dispatch(setCurrentFile({ fileId }));
+    dispatch(setUpdateType({ type }));
+    dispatch(setShowUpdate({ status: true, type: DIALOG_UPDATE_TYPE.delete }));
   };
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
@@ -304,7 +321,7 @@ function EnhancedTable({ setAllowDelete }) {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.briefcaseId);
+                  const isItemSelected = isSelected(row.fileId);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
@@ -313,44 +330,32 @@ function EnhancedTable({ setAllowDelete }) {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={`${row.briefcaseId}-${index}`}
+                      key={`${row.fileId}-${index}`}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
                           checked={isItemSelected}
                           inputProps={{ "aria-labelledby": labelId }}
-                          onClick={(event) =>
-                            handleClick(event, row.briefcaseId)
-                          }
+                          onClick={(event) => handleClick(event, row.fileId)}
                         />
                       </TableCell>
+                      <TableCell align="center">{row.name}</TableCell>
                       <TableCell align="center">
-                        <Link
-                          onClick={() =>
-                            handleUserPageChange(
-                              "/admin/dashboard/users/projects/list/folder/details",
-                              row.projectId
-                            )
-                          }
-                        >
-                          {`${row.briefcaseName} ${row.briefcaseLastName}`}
-                        </Link>
-                      </TableCell>
-                      <TableCell align="center">
-                        {row.lastModification}
+                        {row.lastModificationDate}
                       </TableCell>
                       {/* <TableCell>{row.idCard}</TableCell> */}
-                      <TableCell align="center">{row.profile}</TableCell>
+                      <TableCell align="center">{row.fileType}</TableCell>
+                      <TableCell align="center">{row.format}</TableCell>
                       <TableCell align="center">
                         <IconButton
                           aria-label="info"
                           size="large"
                           color="info"
                           onClick={() =>
-                            handdlePath(
-                              `/admin/dashboard/users/projects/list`,
-                              row.briefcaseId
+                            handlePageChange(
+                              `/admin/dashboard/users/projects/list/folder/files/details`,
+                              row.fileId
                             )
                           }
                         >
@@ -361,7 +366,9 @@ function EnhancedTable({ setAllowDelete }) {
                           align="center"
                           size="large"
                           color="error"
-                          onClick={() => handleDelete(row.briefcaseId)}
+                          onClick={() =>
+                            handleDelete(row.fileId, PROJECT_DELETE_TYPE.file)
+                          }
                         >
                           <RemoveCircle />
                         </IconButton>
@@ -392,10 +399,8 @@ function EnhancedTable({ setAllowDelete }) {
   );
 }
 
-function BriefcaseList() {
-  const [allowDelete, setAllowDelete] = React.useState(false);
-  let status = useSelector(showUndo);
-  const [id, setId] = React.useState(null);
+function InvoiceList() {
+  const showUpdateModal = useSelector(showUpdate);
 
   return (
     <React.Fragment>
@@ -403,14 +408,18 @@ function BriefcaseList() {
       <Grid justifyContent="space-between" container spacing={10}>
         <Grid item>
           <Typography variant="h3" gutterBottom display="inline">
-            Lista de Portafolio
+            Lista de Archivos
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/admin/dashboard/users/briefcase">
-              Panel Portafolio
+            <Link
+              component={NavLink}
+              to="/admin/dashboard/users/projects/list/folder/details"
+            >
+              Lista de Carpetas
             </Link>
-            <Typography>Lista portafolio</Typography>
+            <Typography>Archivo</Typography>
+            <Typography>Lista</Typography>
           </Breadcrumbs>
         </Grid>
         <Grid item>
@@ -420,18 +429,13 @@ function BriefcaseList() {
       <Divider my={6} />
       <Grid container spacing={6}>
         <Grid item xs={12}>
-          <EnhancedTable setAllowDelete={setAllowDelete} setId={setId} />
-          {allowDelete && (
-            <BriefcaseDialogs
-              allowDelete={allowDelete}
-              setAllowDelete={setAllowDelete}
-            />
-          )}
-          {status && <BriefcaseUndo />}
+          <EnhancedTable />
+          {showUpdateModal.value && <ProjectsDialog />}
+          <UndoAction />
         </Grid>
       </Grid>
     </React.Fragment>
   );
 }
 
-export default BriefcaseList;
+export default InvoiceList;

@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components/macro";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { JSXICONS } from "../../../common/constants/data";
 
 import {
   Avatar as MuiAvatar,
@@ -27,7 +29,6 @@ import {
   Toolbar,
   Tooltip,
   Typography,
-  Dialog,
 } from "@mui/material";
 import { green, orange } from "@mui/material/colors";
 import {
@@ -42,18 +43,17 @@ import {
 } from "@mui/icons-material";
 import { spacing } from "@mui/system";
 import Actions from "./Actions";
-
-import { useSelector, useDispatch } from "react-redux";
-import { ListBriefcaseSelected } from "./ListBriefcaseSelected";
-import BriefcaseUndo from "./BriefcaseUndo";
 import {
-  allowDelete,
-  briefcaseToDelete,
-  selectbriefcases,
-  showUndo,
-} from "../../../redux/slices/brieftcaseSlice";
-import BriefcaseDialogs from "./BriefcaseDialog";
-import { setCurrentProject } from "../../../redux/slices/projectsSlice";
+  selectBootcamps,
+  bootcampToDelete,
+  setShowUndo,
+  bootcampProfile,
+} from "../../../redux/slices/bootcampSlice";
+import { setCurrentInstructor } from "../../../redux/slices/instructorSlice";
+import tecnologiesInfo from "./tecnologies.json";
+import { useSelector, useDispatch } from "react-redux";
+import UndoAction from "./UndoAction";
+import BootcampDialog from "./BootcampDialog";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -117,13 +117,11 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: "briefcaseName", alignment: "center", label: "Nombre" },
-  {
-    id: "lastModification",
-    alignment: "center",
-    label: "Ultima fecha de modificacion",
-  },
-  { id: "profile", alignment: "center", label: "Perfil" },
+  { id: "bootcampName", alignment: "left", label: "Nombre" },
+  { id: "initialDate", alignment: "left", label: "Fecha de inicio" },
+  { id: "endDate", alignment: "right", label: "Fecha de fin" },
+  { id: "teacher", alignment: "right", label: "Instructor" },
+  { id: "tecnologies", alignment: "left", label: "Tecnologías" },
   { id: "actions", alignment: "center", label: "Acción" },
 ];
 
@@ -136,6 +134,7 @@ const EnhancedTableHead = (props) => {
     rowCount,
     onRequestSort,
   } = props;
+
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -204,17 +203,22 @@ const EnhancedTableToolbar = (props) => {
   );
 };
 
-function EnhancedTable({ setAllowDelete }) {
-  const navigate = useNavigate();
+function EnhancedTable({ setDeleteBootcampModal }) {
+  const rows = useSelector(selectBootcamps);
+  const dispatch = useDispatch();
+  const getTecnologies = (tecnologies) => {
+    return tecnologies
+      .map((tecno) => {
+        return tecnologiesInfo.find((tec) => tec.id === tecno).name;
+      })
+      .join(", ");
+  };
+
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("briefcaseName");
+  const [orderBy, setOrderBy] = React.useState("bootcampName");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const rows = useSelector(selectbriefcases);
-  console.log(rows);
-  const allowDeletebriefcase = useSelector(allowDelete);
-  const dispatch = useDispatch();
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -224,17 +228,11 @@ function EnhancedTable({ setAllowDelete }) {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.briefcaseId);
+      const newSelecteds = rows.map((n) => n.id);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
-  };
-
-  const handdlePath = (pathToGo, id) => {
-    ListBriefcaseSelected.id = id;
-    ListBriefcaseSelected.correct = true;
-    navigate(pathToGo);
   };
 
   const handleClick = (event, id) => {
@@ -266,21 +264,28 @@ function EnhancedTable({ setAllowDelete }) {
     setPage(0);
   };
 
-  const handleDelete = (briefcaseId) => {
-    setAllowDelete(true);
-    dispatch(briefcaseToDelete({ briefcaseId }));
-    console.log(briefcaseId);
-  };
-
-  const handleUserPageChange = (pathToGo, projectId) => {
-    dispatch(setCurrentProject({ projectId }));
-    navigate(pathToGo);
-  };
-
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+
+  const navigate = useNavigate();
+
+  const handleClose = (id) => {
+    dispatch(bootcampProfile({ id: Number(id) }));
+    navigate("/admin/dashboard/bootcamps/bootcamp-profile");
+  };
+
+  const handleInstructor = (instructorId) => {
+    dispatch(setCurrentInstructor({ instructorId: instructorId.toString() }));
+    navigate("/admin/dashboard/users/instructors/view_instructors");
+  };
+
+  const handleDelete = (id) => {
+    dispatch(bootcampToDelete({ id }));
+    dispatch(setShowUndo({ status: false }));
+    setDeleteBootcampModal(true);
+  };
 
   return (
     <div>
@@ -304,7 +309,7 @@ function EnhancedTable({ setAllowDelete }) {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.briefcaseId);
+                  const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
@@ -313,55 +318,49 @@ function EnhancedTable({ setAllowDelete }) {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={`${row.briefcaseId}-${index}`}
+                      key={`${row.id}-${index}`}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
                           checked={isItemSelected}
                           inputProps={{ "aria-labelledby": labelId }}
-                          onClick={(event) =>
-                            handleClick(event, row.briefcaseId)
-                          }
+                          onClick={(event) => handleClick(event, row.id)}
                         />
                       </TableCell>
-                      <TableCell align="center">
-                        <Link
-                          onClick={() =>
-                            handleUserPageChange(
-                              "/admin/dashboard/users/projects/list/folder/details",
-                              row.projectId
-                            )
-                          }
-                        >
-                          {`${row.briefcaseName} ${row.briefcaseLastName}`}
-                        </Link>
+                      <TableCell component="th" id={labelId} scope="row">
+                        <Customer>
+                          <Avatar alt="Remy Sharp" src={row.image} />
+                          <Box ml={3}>{row.bootcampName}</Box>
+                        </Customer>
                       </TableCell>
-                      <TableCell align="center">
-                        {row.lastModification}
+                      <TableCell>{row.initialDate}</TableCell>
+                      <TableCell align="right">{row.endDate}</TableCell>
+                      <TableCell
+                        align="right"
+                        style={{
+                          color: "blue",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => handleInstructor(row.teacherId)}
+                      >
+                        {row.teacher}
                       </TableCell>
-                      {/* <TableCell>{row.idCard}</TableCell> */}
-                      <TableCell align="center">{row.profile}</TableCell>
-                      <TableCell align="center">
+                      <TableCell>{getTecnologies(row.tecnologies)}</TableCell>
+                      <TableCell align="left">
                         <IconButton
                           aria-label="info"
                           size="large"
                           color="info"
-                          onClick={() =>
-                            handdlePath(
-                              `/admin/dashboard/users/projects/list`,
-                              row.briefcaseId
-                            )
-                          }
+                          onClick={() => handleClose(row.id)}
                         >
                           <Info />
                         </IconButton>
                         <IconButton
                           aria-label="delete"
-                          align="center"
                           size="large"
                           color="error"
-                          onClick={() => handleDelete(row.briefcaseId)}
+                          onClick={() => handleDelete(row.id)}
                         >
                           <RemoveCircle />
                         </IconButton>
@@ -392,46 +391,51 @@ function EnhancedTable({ setAllowDelete }) {
   );
 }
 
-function BriefcaseList() {
-  const [allowDelete, setAllowDelete] = React.useState(false);
-  let status = useSelector(showUndo);
-  const [id, setId] = React.useState(null);
+function BootcampsList() {
+  const [deleteBootcampModal, setDeleteBootcampModal] = React.useState(false);
 
   return (
     <React.Fragment>
-      <Helmet title="Invoices" />
+      <Helmet title="Bootcamps" />
+
       <Grid justifyContent="space-between" container spacing={10}>
         <Grid item>
           <Typography variant="h3" gutterBottom display="inline">
-            Lista de Portafolio
+            Lista de Bootcamps
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/admin/dashboard/users/briefcase">
-              Panel Portafolio
+            <Link component={NavLink} to="/admin/dashboard/bootcamps">
+              Panel Bootcamps
             </Link>
-            <Typography>Lista portafolio</Typography>
+            <Typography>Lista de Bootcamps</Typography>
           </Breadcrumbs>
         </Grid>
         <Grid item>
-          <Actions />
+          <Actions
+            path={"/admin/dashboard/bootcamps/"}
+            btnName={"Estadísticas"}
+          />
         </Grid>
       </Grid>
+
       <Divider my={6} />
+
       <Grid container spacing={6}>
         <Grid item xs={12}>
-          <EnhancedTable setAllowDelete={setAllowDelete} setId={setId} />
-          {allowDelete && (
-            <BriefcaseDialogs
-              allowDelete={allowDelete}
-              setAllowDelete={setAllowDelete}
+          <EnhancedTable setDeleteBootcampModal={setDeleteBootcampModal} />
+          {deleteBootcampModal && (
+            <BootcampDialog
+              deleteBootcampModal={deleteBootcampModal}
+              setDeleteBootcampModal={setDeleteBootcampModal}
             />
           )}
-          {status && <BriefcaseUndo />}
+
+          <UndoAction />
         </Grid>
       </Grid>
     </React.Fragment>
   );
 }
 
-export default BriefcaseList;
+export default BootcampsList;
