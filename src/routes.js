@@ -100,6 +100,7 @@ import Landing from "./pages/presentation/Landing";
 import ProtectedPage from "./pages/protected/ProtectedPage";
 import Instructores from "./pages/AdminInstructors/Instructores";
 import BootcampProfile from "./pages/Bootcamps/BootcampProfile";
+import BootcampInstructors from "./pages/Instructors/Bootcamps";
 import Curriculum from "./pages/pages/talent/Curriculum";
 import Index from "./pages/pages/Portafolio/Index";
 import BriefcaseList from "./pages/pages/Portafolio/BriefcaseList";
@@ -272,6 +273,10 @@ const routes = [
               {
                 path: "changelog",
                 element: <Changelog />,
+              },
+              {
+                path: "instructorBootcamps",
+                element: <BootcampInstructors />,
               },
               {
                 path: "briefcase",
