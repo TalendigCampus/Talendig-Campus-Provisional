@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import bootcampsInfo from "../../pages/Bootcamps/bootcamp.json";
+import bootcampsInfo from "../../pages/pages/Bootcamps/bootcamp.json";
 
 const bootcampSlice = createSlice({
   name: "bootcamp",

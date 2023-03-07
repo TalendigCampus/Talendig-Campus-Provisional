@@ -46,31 +46,28 @@ import TextFields from "./pages/forms/TextFields";
 import MaterialIcons from "./pages/icons/MaterialIcons";
 
 // Page components
-import Blank from "./pages/pages/Blank";
-import InvoiceDetails from "./pages/pages/InvoiceDetails";
-import InvoiceList from "./pages/pages/InvoiceList";
-import TalentList from "./pages/pages/talent/TalentList";
-import TalentDetails from "./pages/pages/talent/TalentsProfile";
-import Orders from "./pages/pages/Orders";
-import Recruiters from "./pages/pages/AdminRecruiters/Recruiters";
-import RecruitersList from "./pages/pages/AdminRecruiters/RecruitersList";
-import RecruitersProfile from "./pages/pages/AdminRecruiters/RecruitersProfile";
-import ProjectsIndex from "./pages/pages/AdminProyects/index";
-import ProjectsList from "./pages/pages/AdminProyects/ProjectsList";
-import ProjectsFolderList from "./pages/pages/AdminProyects/ProjectsFolderList";
-import ProjectsFileList from "./pages/pages/AdminProyects/ProjectFolderFilesList";
-import ProjectFileDetails from "./pages/pages/AdminProyects/ProjectFileDetails";
-import Settings from "./pages/pages/Settings";
-import ListaInstructores from "./pages/AdminInstructors/List_Instructors";
-import Lista_Instructores from "./pages/AdminInstructors/List_Instructors";
-import BootcampsStatistics from "./pages/Bootcamps/index";
-import BootcampsList from "./pages/Bootcamps/BootcampList";
+import InvoiceDetails from "./pages/pages/TemplatePages/InvoiceDetails";
+import InvoiceList from "./pages/pages/TemplatePages/InvoiceList";
+import TalentList from "./pages/pages/adminPages/AdminTalent/TalentList";
+import TalentDetails from "./pages/pages/adminPages/AdminTalent/TalentsProfile";
+import Orders from "./pages/pages/TemplatePages/Orders";
+import Recruiters from "./pages/pages/adminPages/AdminRecruiters/Recruiters";
+import RecruitersList from "./pages/pages/adminPages/AdminRecruiters/RecruitersList";
+import RecruitersProfile from "./pages/pages/adminPages/AdminRecruiters/RecruitersProfile";
+import ProjectsIndex from "./pages/pages/adminPages/AdminProyects/index";
+import ProjectsList from "./pages/pages/adminPages/AdminProyects/ProjectsList";
+import ProjectsFolderList from "./pages/pages/adminPages/AdminProyects/ProjectsFolderList";
+import ProjectsFileList from "./pages/pages/adminPages/AdminProyects/ProjectFolderFilesList";
+import ProjectFileDetails from "./pages/pages//adminPages/AdminProyects/ProjectFileDetails";
+import ListaInstructores from "./pages/pages/adminPages/AdminInstructors/List_Instructors";
+import BootcampsStatistics from "./pages/pages/Bootcamps/index";
+import BootcampsList from "./pages/pages/Bootcamps/BootcampList";
 
-import Projects from "./pages/pages/Projects";
-import Chat from "./pages/componetsIntitucio/Chat";
-import DataGridPage from "./pages/componetsIntitucio/DataGridPage";
-import EditProfile from "./pages/componetsIntitucio/EditProfile";
-import InfoProfile from "./pages/componetsIntitucio/InfoProfile";
+import Projects from "./pages/pages/TemplatePages/Projects";
+import Chat from "./pages/pages/adminPages/AdminInstitutions/Chat";
+import DataGridPage from "./pages/pages/adminPages/AdminInstitutions/DataGridPage";
+import EditProfile from "./pages/pages/adminPages/AdminInstitutions/EditProfile";
+import InfoProfile from "./pages/pages/adminPages/AdminInstitutions/InfoProfile";
 
 // Table components
 import SimpleTable from "./pages/tables/SimpleTable";
@@ -101,20 +98,17 @@ import Landing from "./pages/presentation/Landing";
 
 // Protected routes
 import ProtectedPage from "./pages/protected/ProtectedPage";
-import Instructores from "./pages/AdminInstructors/Instructores";
-import BootcampProfile from "./pages/Bootcamps/BootcampProfile";
-import Curriculum from "./pages/pages/talent/Curriculum";
+import Instructores from "./pages/pages/adminPages/AdminInstructors/Instructores";
+import BootcampProfile from "./pages/pages/Bootcamps/BootcampProfile";
+import Curriculum from "./pages/pages/adminPages/AdminTalent/Curriculum";
 import Index from "./pages/pages/Portafolio/Index";
 import BriefcaseList from "./pages/pages/Portafolio/BriefcaseList";
 
-import EditInstructors from "./pages/AdminInstructors/Edit_Instructors";
-import ViewInstructors from "./pages/AdminInstructors/InstructorsList/View_Instructors";
-import Roadmap from "./pages/pages/talent/Roadmap";
+import ViewInstructors from "./pages/pages/adminPages/AdminInstructors/InstructorsList/View_Instructors";
+import Roadmap from "./pages/pages/adminPages/AdminTalent/Roadmap";
 
 // Dashboard components
 const Default = async(() => import("./pages/dashboards/Default"));
-const Analytics = async(() => import("./pages/dashboards/Analytics"));
-const SaaS = async(() => import("./pages/dashboards/SaaS"));
 
 // Form components
 const Pickers = async(() => import("./pages/forms/Pickers"));
@@ -123,9 +117,11 @@ const Formik = async(() => import("./pages/forms/Formik"));
 
 // Icon components
 const FeatherIcons = async(() => import("./pages/icons/FeatherIcons"));
-const Profile = async(() => import("./pages/pages/talent/Talent"));
-const Tasks = async(() => import("./pages/pages/Tasks"));
-const Calendar = async(() => import("./pages/pages/Calendar"));
+const Profile = async(() =>
+  import("./pages/pages/adminPages/AdminTalent/Talent")
+);
+const Tasks = async(() => import("./pages/pages/TemplatePages/Tasks"));
+const Calendar = async(() => import("./pages/pages/TemplatePages/Calendar"));
 
 // Table components
 const DataGrid = async(() => import("./pages/tables/DataGrid"));
