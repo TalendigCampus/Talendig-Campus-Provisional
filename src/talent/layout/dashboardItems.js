@@ -8,7 +8,7 @@ import {
 
 const pagesSection = [
   {
-    href: "/",
+    href: "/talent",
     icon: Home,
     title: "Inicio",
   },
