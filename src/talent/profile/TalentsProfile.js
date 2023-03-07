@@ -3,7 +3,7 @@ import styled from "styled-components/macro";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
-import TalentInfo from "./info.json";
+import TalentInfo from "../../pages/pages/talent/info.json";
 
 import {
   Avatar,
@@ -24,7 +24,7 @@ import TalentTecnologyList from "./TalentTecnologyList";
 import TalentProfileForm from "./TalentProfileForm";
 
 import { useSelector } from "react-redux";
-import { CurrentTalent } from "../../../redux/slices/talentSlice";
+import { CurrentTalent } from "../../redux/slices/talentSlice";
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 

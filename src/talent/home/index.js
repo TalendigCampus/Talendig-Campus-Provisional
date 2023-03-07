@@ -12,6 +12,8 @@ import { spacing } from "@mui/system";
 
 /* import Actions from "./Actions"; */
 import { BootcapmsDispo, MyBootcamps } from "./CardContent";
+import { useDispatch } from "react-redux";
+import { setCurrentTalent } from "../../redux/slices/talentSlice";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -21,6 +23,9 @@ const Spacer = styled.div(spacing);
 
 function TalentHome() {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+
+  dispatch(setCurrentTalent({ talentId: 1 }));
 
   return (
     <React.Fragment>

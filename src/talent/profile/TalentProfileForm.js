@@ -36,13 +36,13 @@ import {
   CurrentTalent,
   updateTalent,
   setCurrentTalent,
-} from "../../../redux/slices/talentSlice.js";
-import { selectBootcamps } from "../../../redux/slices/bootcampSlice";
+} from "../../redux/slices/talentSlice.js";
+import { selectBootcamps } from "../../redux/slices/bootcampSlice";
 
 import {
   setCurrentProject,
   selectProjects,
-} from "../../../redux/slices/projectsSlice";
+} from "../../redux/slices/projectsSlice";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -460,10 +460,7 @@ function BasicForm(talent) {
                       variant="contained"
                       color="info"
                       onClick={() =>
-                        handleNavigate(
-                          `/admin/dashboard/users/talents/curriculum`,
-                          values.talentId
-                        )
+                        handleNavigate("/talent/curriculum", values.talentId)
                       }
                       mt={3}
                       ml={3}
@@ -476,7 +473,7 @@ function BasicForm(talent) {
                       color="error"
                       onClick={() =>
                         handleNavigate(
-                          `/admin/dashboard/users/projects/list/folder/details`,
+                          "/talent/projects/list/folder/details",
                           values.talentId
                         )
                       }
@@ -484,18 +481,6 @@ function BasicForm(talent) {
                       ml={3}
                     >
                       <ImportContacts />
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="contained"
-                      color="success"
-                      onClick={() =>
-                        handlePageChange("/admin/dashboard/users/talents/list")
-                      }
-                      mt={3}
-                      ml={3}
-                    >
-                      <ListAlt />
                     </Button>
                   </>
                 )}

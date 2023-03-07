@@ -117,6 +117,9 @@ import Roadmap from "./pages/pages/talent/Roadmap";
 // Talents routes
 
 import TalentLayout from "./talent/layout/structureLayout";
+import TalentProfile from "./talent/profile/TalentsProfile";
+import TalentCurriculum from "./talent/profile/Curriculum";
+import TalentRoadmap from "./talent/profile/Roadmap";
 
 // Dashboard components
 const Default = async(() => import("./pages/dashboards/Default"));
@@ -215,10 +218,24 @@ const routes = [
       {
         element: <TalentHome />,
         index: true,
+        path: "home",
       },
       {
         path: "perfil",
-        element: <Default />,
+        children: [
+          {
+            index: true,
+            element: <TalentProfile />,
+          },
+        ],
+      },
+      {
+        path: "curriculum",
+        element: <TalentCurriculum />,
+      },
+      {
+        path: "roadmap",
+        element: <TalentRoadmap />,
       },
       {
         path: "bootcamps",

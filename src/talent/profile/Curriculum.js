@@ -36,11 +36,11 @@ import {
   Typography as MuiTypography,
 } from "@mui/material";
 import { spacing } from "@mui/system";
-import JsonInfo from "./info.json";
-import tecnologiesInfo from "../../Bootcamps/tecnologies.json";
+import JsonInfo from "../../pages/pages/talent/info.json";
+import tecnologiesInfo from "../../pages/Bootcamps/tecnologies.json";
 import { Email, Person, Phone, School, Star, Work } from "@mui/icons-material";
 import { useSelector } from "react-redux";
-import { CurrentTalent } from "../../../redux/slices/talentSlice";
+import { CurrentTalent } from "../../redux/slices/talentSlice";
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 

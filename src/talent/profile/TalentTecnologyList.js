@@ -26,13 +26,13 @@ import {
   DeleteForever,
 } from "@mui/icons-material";
 import { useSelector, useDispatch } from "react-redux";
-import tecnologiesInfo from "../../Bootcamps/tecnologies.json";
+import tecnologiesInfo from "../../pages/Bootcamps/tecnologies.json";
 import {
   setCurrentTalent,
   CurrentTalent,
   deleteTecnologies,
   addTecnology,
-} from "../../../redux/slices/talentSlice";
+} from "../../redux/slices/talentSlice";
 
 const Card = styled(MuiCard)(spacing);
 
