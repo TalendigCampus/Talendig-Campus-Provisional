@@ -18,7 +18,11 @@ import {
   TextField as MuiTextField,
   Typography,
 } from "@mui/material";
-import { CloudUpload as MuiCloudUpload } from "@mui/icons-material";
+import {
+  CloudUpload as MuiCloudUpload,
+  ArrowLeft,
+  Edit,
+} from "@mui/icons-material";
 import { spacing } from "@mui/system";
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
@@ -40,8 +44,8 @@ const CenteredContent = styled.div`
 `;
 
 const BigAvatar = styled(Avatar)`
-  width: 300px;
-  height: 300px;
+  width: 150px;
+  height: 150px;
   margin: 0 auto ${(props) => props.theme.spacing(2)};
 `;
 
@@ -107,7 +111,7 @@ function Private({ dataRows }) {
       );
     }
     setSelected(newSelected);
-    navigate(pathToGo, { replace: true });
+    navigate(pathToGo);
   };
 
   return (
@@ -201,11 +205,11 @@ function Private({ dataRows }) {
             )
           }
         >
-          Volver
+          <ArrowLeft />
         </Button>
         <Button
           variant="contained"
-          color="primary"
+          color="success"
           mt={3}
           onClick={(event) =>
             handleChange(
@@ -214,7 +218,7 @@ function Private({ dataRows }) {
             )
           }
         >
-          Editar
+          <Edit />
         </Button>
       </CardContent>
     </Card>
@@ -234,24 +238,26 @@ function InfoProfile() {
       </Typography>
 
       <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/">
-          Usuario
+        <Link component={NavLink} to="/admin/dashboard/home">
+          Panel
         </Link>
-        <Link component={NavLink} to="/">
+        <Typography>Usuarios</Typography>
+        <Link component={NavLink} to="/admin/dashboard/users/institutions">
           Instituciones
+        </Link>
+        <Link component={NavLink} to="/admin/dashboard/users/institutions/list">
+          lista
         </Link>
         <Typography>Mi Perfil</Typography>
       </Breadcrumbs>
 
       <Divider my={6} />
 
-      <Grid container spacing={6}>
-        <Grid item xs={4}>
-          <Public dataRows={dataRows} />
-        </Grid>
-        <Grid item xs={8}>
-          <Private dataRows={dataRows} />
-        </Grid>
+      <Grid item xs={11.9}>
+        <Public dataRows={dataRows} />
+      </Grid>
+      <Grid item xs={11.9}>
+        <Private dataRows={dataRows} />
       </Grid>
     </React.Fragment>
   );

@@ -126,37 +126,6 @@ function Tecnology() {
   );
 }
 
-const formInstructorStructure = (instructor) => {
-  return {
-    instructorPublic: {
-      photoUrl: instructor.photoUrl,
-      affiliationDate: instructor.affiliationDate,
-      lastConnectionDate: instructor.lastConnectionDate,
-    },
-    instructorPrivate: {
-      firstName: instructor.firstName,
-      lastName: instructor.lastName,
-      birth: instructor.birth,
-      identificationCard: instructor.identificationCard,
-      phoneNumber: instructor.phoneNumber,
-      company: instructor.company,
-      bootcamps: instructor.bootcamps,
-      email: instructor.email,
-      address: {
-        street: instructor.address.street,
-        numHouseOrApartment: instructor.address.numHouseOrApartment,
-        neighborhood: instructor.address.neighborhood,
-        city: instructor.address.city,
-      },
-      password: instructor.password,
-      confirmPassword: instructor.confirmPassword,
-    },
-    instructorTechnology: {
-      technology: instructor.technology.split(","),
-    },
-  };
-};
-
 function View_Instructors() {
   const instructor = useSelector(currentInstructor);
 
@@ -165,19 +134,14 @@ function View_Instructors() {
       <Helmet title="Instructor Profile" />
 
       <Typography variant="h3" gutterBottom display="inline">
-        Perfil Instructor
+        Perfil de Instructor
       </Typography>
 
       <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/">
-          Dashboard
-        </Link>
         <Link component={NavLink} to="/admin/dashboard/home">
-          Dashboard
+          Panel
         </Link>
-        <Link component={NavLink} to="/admin/dashboard/home">
-          Usuarios
-        </Link>
+        <Typography>Usuarios</Typography>
         <Link component={NavLink} to="/admin/dashboard/users/instructors">
           Instructores
         </Link>
@@ -187,6 +151,7 @@ function View_Instructors() {
         >
           Lista
         </Link>
+        <Typography>Perfil de Instructor</Typography>
       </Breadcrumbs>
 
       <Divider my={6} />

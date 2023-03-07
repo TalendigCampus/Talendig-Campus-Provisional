@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components/macro";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-
+import { Link as ReactRouterLink } from "react-router-dom";
+import { PROJECT_UPDATE_TYPE } from "../../../common/constants/data";
+import { DIALOG_UPDATE_TYPE } from "../../../common/constants/data";
+import { PROJECT_DELETE_TYPE } from "../../../common/constants/data";
 import {
   Avatar as MuiAvatar,
   Box,
@@ -42,9 +45,20 @@ import {
 } from "@mui/icons-material";
 import { spacing } from "@mui/system";
 import Actions from "./Actions";
-import JsonInfo from "./info.json";
-
+import ProjectsDialog from "./projectsDialog";
 import { useSelector, useDispatch } from "react-redux";
+import {
+  selectTalents,
+  setCurrentTalent,
+} from "../../../redux/slices/talentSlice";
+import {
+  selectProjects,
+  showUpdate,
+  setShowUpdate,
+  setCurrentProject,
+  setUpdateType,
+} from "../../../redux/slices/projectsSlice";
+import UndoAction from "./UndoAction";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -199,7 +213,7 @@ const EnhancedTableToolbar = (props) => {
         )}
       </ToolbarTitle>
       <Spacer />
-      <div>
+      {/* <div>
         {numSelected > 0 ? (
           <Tooltip title="Delete">
             <IconButton aria-label="Delete" size="large">
@@ -213,19 +227,42 @@ const EnhancedTableToolbar = (props) => {
             </IconButton>
           </Tooltip>
         )}
-      </div>
+      </div> */}
     </Toolbar>
   );
 };
 
-function EnhancedTable({ setAllowDelete }) {
+function EnhancedTable() {
+  const talents = useSelector(selectTalents);
+  const projectsList = useSelector(selectProjects);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("talentName");
+  const [orderBy, setOrderBy] = React.useState("projectName");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [rows, setRows] = React.useState(JsonInfo);
+
+  const [rows, setRows] = React.useState([]);
+
+  useEffect(() => {
+    setRows(
+      projectsList.map((project) => {
+        const talent = talents.find(
+          (talent) => talent.talentId === project.talentId
+        );
+        return {
+          projectName: project.projectName,
+          talentName: talent.talentName,
+          talentLastName: talent.talentLastName,
+          lastModification: project.lastModificationDate,
+          technology: talent.tecnology,
+          projectId: project.projectId,
+          talentId: project.talentId,
+        };
+      })
+    );
+  }, [talents, projectsList]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -235,15 +272,27 @@ function EnhancedTable({ setAllowDelete }) {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.id);
+      const newSelecteds = rows.map((n) => n.projectId);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handdlePath = (pathToGo) => {
-    navigate(pathToGo, { replace: true });
+  const handleEdit = (projectId, type) => {
+    dispatch(setCurrentProject({ projectId }));
+    dispatch(setUpdateType({ type }));
+    dispatch(setShowUpdate({ status: true, type: DIALOG_UPDATE_TYPE.update }));
+  };
+
+  const handlePageChange = (pathToGo, projectId) => {
+    dispatch(setCurrentProject({ projectId }));
+    navigate(pathToGo);
+  };
+
+  const handleUserPageChange = (pathToGo, talentId) => {
+    dispatch(setCurrentTalent({ talentId }));
+    navigate(pathToGo);
   };
 
   const handleClick = (event, id) => {
@@ -275,8 +324,10 @@ function EnhancedTable({ setAllowDelete }) {
     setPage(0);
   };
 
-  const handleDelete = (projectId) => {
-    setAllowDelete(true);
+  const handleDelete = (projectId, type) => {
+    dispatch(setCurrentProject({ projectId }));
+    dispatch(setUpdateType({ type }));
+    dispatch(setShowUpdate({ status: true, type: DIALOG_UPDATE_TYPE.delete }));
   };
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
@@ -325,32 +376,62 @@ function EnhancedTable({ setAllowDelete }) {
                           onClick={(event) => handleClick(event, row.projectId)}
                         />
                       </TableCell>
-                      <TableCell align="center">{row.projectName}</TableCell>
+                      <TableCell align="center">
+                        {" "}
+                        <Link
+                          onClick={() =>
+                            handlePageChange(
+                              "/admin/dashboard/users/projects/list/folder/details",
+                              row.projectId
+                            )
+                          }
+                        >
+                          {row.projectName}
+                        </Link>
+                      </TableCell>
                       <TableCell align="center">
                         {row.lastModification}
                       </TableCell>
                       {/* <TableCell>{row.idCard}</TableCell> */}
-                      <TableCell align="center">{`${row.talentName} ${row.talentLastName}`}</TableCell>
-                      <TableCell>{row.tecnology}</TableCell>
                       <TableCell align="center">
-                        {/* <IconButton
-                          aria-label="info"
-                          size="large"
-                          color="info"
+                        {" "}
+                        <Link
                           onClick={() =>
-                            handdlePath(
-                              `/admin/dashboard/users/talents/info/${row.projectId}`
+                            handleUserPageChange(
+                              "/admin/dashboard/users/talents/info",
+                              row.talentId
                             )
                           }
                         >
-                          <Info />
-                        </IconButton> */}
+                          {`${row.talentName} ${row.talentLastName}`}
+                        </Link>
+                      </TableCell>
+                      <TableCell>{row.technology}</TableCell>
+                      <TableCell align="center">
+                        <IconButton
+                          aria-label="edit"
+                          size="large"
+                          color="warning"
+                          onClick={() =>
+                            handleEdit(
+                              row.projectId,
+                              PROJECT_UPDATE_TYPE.project
+                            )
+                          }
+                        >
+                          <Edit />
+                        </IconButton>
                         <IconButton
                           aria-label="delete"
                           align="center"
                           size="large"
                           color="error"
-                          onClick={() => handleDelete(row.projectId)}
+                          onClick={() =>
+                            handleDelete(
+                              row.projectId,
+                              PROJECT_DELETE_TYPE.project
+                            )
+                          }
                         >
                           <RemoveCircle />
                         </IconButton>
@@ -371,6 +452,7 @@ function EnhancedTable({ setAllowDelete }) {
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}
+          labelRowsPerPage={"Filas por página"}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
@@ -381,8 +463,7 @@ function EnhancedTable({ setAllowDelete }) {
 }
 
 function InvoiceList() {
-  const [allowDelete, setAllowDelete] = React.useState(false);
-  const [id, setId] = React.useState(null);
+  const showUpdateModal = useSelector(showUpdate);
 
   return (
     <React.Fragment>
@@ -394,10 +475,10 @@ function InvoiceList() {
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/admin/dashboard/home">
-              Dashboard
+            <Link component={NavLink} to="/admin/dashboard/users/projects">
+              Panel proyectos
             </Link>
-            <Typography>Usuarios</Typography>
+            <Typography>proyectos</Typography>
             <Typography>Lista proyectos</Typography>
           </Breadcrumbs>
         </Grid>
@@ -408,14 +489,9 @@ function InvoiceList() {
       <Divider my={6} />
       <Grid container spacing={6}>
         <Grid item xs={12}>
-          <EnhancedTable setAllowDelete={setAllowDelete} setId={setId} />
-          {/* {allowDelete && (
-            <AlertDialog
-              allowDelete={allowDelete}
-              setAllowDelete={setAllowDelete}
-            />
-          )} */}
-          {/* {status && <TalentUndo />} */}
+          <EnhancedTable />
+          {showUpdateModal.value && <ProjectsDialog />}
+          <UndoAction />
         </Grid>
       </Grid>
     </React.Fragment>

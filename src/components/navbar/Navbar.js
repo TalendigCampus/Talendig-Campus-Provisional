@@ -13,7 +13,13 @@ import {
   Toolbar,
 } from "@mui/material";
 
-import { Menu as MenuIcon } from "@mui/icons-material";
+import {
+  Menu as MenuIcon,
+  Fullscreen,
+  FullscreenExit,
+} from "@mui/icons-material";
+
+import { spacing } from "@mui/system";
 
 import NavbarNotificationsDropdown from "./NavbarNotificationsDropdown";
 import NavbarMessagesDropdown from "./NavbarMessagesDropdown";
@@ -79,6 +85,31 @@ const Input = styled(InputBase)`
 
 const Navbar = ({ onDrawerToggle }) => {
   const { t } = useTranslation();
+  const [enableFullScreen, setEnableFullScreen] = React.useState(false);
+
+  const launchFullScreen = (element) => {
+    if (element.requestFullScreen) {
+      element.requestFullScreen();
+    } else if (element.mozRequestFullScreen) {
+      element.mozRequestFullScreen();
+    } else if (element.webkitRequestFullScreen) {
+      element.webkitRequestFullScreen();
+    }
+  };
+
+  const cancelFullScreen = () => {
+    if (document.cancelFullScreen) {
+      document.cancelFullScreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.webkitCancelFullScreen) {
+      document.webkitCancelFullScreen();
+    }
+  };
+  enableFullScreen
+    ? launchFullScreen(document.documentElement)
+    : cancelFullScreen();
+
   return (
     <React.Fragment>
       <AppBar position="sticky" elevation={0}>
@@ -96,18 +127,28 @@ const Navbar = ({ onDrawerToggle }) => {
                 </IconButton>
               </Grid>
             </Hidden>
-            <Grid item>
+            {/* <Grid item>
               <Search>
                 <SearchIconWrapper>
                   <SearchIcon />
                 </SearchIconWrapper>
                 <Input placeholder={t("Search")} />
               </Search>
-            </Grid>
+            </Grid> */}
             <Grid item xs />
             <Grid item>
               {/* <NavbarMessagesDropdown />
               <NavbarNotificationsDropdown /> */}
+              <IconButton
+                aria-haspopup="true"
+                onClick={() =>
+                  setEnableFullScreen((currentState) => !currentState)
+                }
+                color="inherit"
+                size="large"
+              >
+                {enableFullScreen ? <FullscreenExit /> : <Fullscreen />}
+              </IconButton>
               <NavbarLanguagesDropdown />
               <NavbarUserDropdown />
             </Grid>

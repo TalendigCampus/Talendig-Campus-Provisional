@@ -9,7 +9,7 @@
     "company": "Talendig",
     "birth": "1980-05-22",
     "technology": [2, 1, 3],
-    "bootcamps": "MERN",
+    "bootcamps": 1,
     "bio": "Ingeniero en sistemas, graduado Magna Cum laude en la Universidad Tecnologica de Santo Domingo.",
     "affiliationDate": "05-12-2022",
     "lastConnectionDate": "05-12-2022 3:00 PM",
@@ -21,7 +21,7 @@
     },
     "password": "mypassword123",
     "confirmPassword": "mypassword123",
-    "photoUrl": "/static/img/recruiters/recruiter-1.jpg",
+    "photoUrl": "/static/img/instructors/persona1.jpg",
     "id": "1"
   },
   {
@@ -34,7 +34,7 @@
     "company": "Talendig",
     "birth": "1980-05-22",
     "technology": [1, 3, 4],
-    "bootcamps": "MEAN",
+    "bootcamps": 2,
     "bio": "Ingeniero en sistemas, graduado Magna Cum laude en la Universidad Tecnologica de Santo Domingo.",
     "affiliationDate": "05-12-2022",
     "lastConnectionDate": "05-12-2022 3:00 PM",
@@ -46,7 +46,7 @@
     },
     "password": "mypassword123",
     "confirmPassword": "mypassword123",
-    "photoUrl": "/static/img/recruiters/recruiter-1.jpg",
+    "photoUrl": "/static/img/instructors/persona2.jpg",
     "id": "2"
   },
   {
@@ -59,7 +59,7 @@
     "company": "Talendig",
     "birth": "1980-05-22",
     "technology": [1, 4, 2],
-    "bootcamps": "ASP.Net",
+    "bootcamps": 3,
     "bio": "Ingeniero en sistemas, graduado Magna Cum laude en la Universidad Tecnologica de Santo Domingo.",
     "affiliationDate": "05-12-2022",
     "lastConnectionDate": "05-12-2022 3:00 PM",
@@ -71,7 +71,7 @@
     },
     "password": "mypassword123",
     "confirmPassword": "mypassword123",
-    "photoUrl": "/static/img/recruiters/recruiter-1.jpg",
+    "photoUrl": "/static/img/instructors/persona3.jpg",
     "id": "3"
   },
   {
@@ -84,7 +84,7 @@
     "company": "Talendig",
     "birth": "1980-05-22",
     "technology": [5, 3, 4],
-    "bootcamps": "Cloud Computing",
+    "bootcamps": 4,
     "bio": "Ingeniero en sistemas, graduado Magna Cum laude en la Universidad Tecnologica de Santo Domingo.",
     "affiliationDate": "05-12-2022",
     "lastConnectionDate": "05-12-2022 3:00 PM",
@@ -96,7 +96,7 @@
     },
     "password": "mypassword123",
     "confirmPassword": "mypassword123",
-    "photoUrl": "/static/img/recruiters/recruiter-1.jpg",
+    "photoUrl": "/static/img/instructors/persona4.jpg",
     "id": "4"
   }
 ]

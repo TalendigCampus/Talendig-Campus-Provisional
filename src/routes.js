@@ -57,6 +57,9 @@ import RecruitersList from "./pages/pages/AdminRecruiters/RecruitersList";
 import RecruitersProfile from "./pages/pages/AdminRecruiters/RecruitersProfile";
 import ProjectsIndex from "./pages/pages/AdminProyects/index";
 import ProjectsList from "./pages/pages/AdminProyects/ProjectsList";
+import ProjectsFolderList from "./pages/pages/AdminProyects/ProjectsFolderList";
+import ProjectsFileList from "./pages/pages/AdminProyects/ProjectFolderFilesList";
+import ProjectFileDetails from "./pages/pages/AdminProyects/ProjectFileDetails";
 import Settings from "./pages/pages/Settings";
 import ListaInstructores from "./pages/AdminInstructors/List_Instructors";
 import Lista_Instructores from "./pages/AdminInstructors/List_Instructors";
@@ -121,7 +124,7 @@ const Formik = async(() => import("./pages/forms/Formik"));
 
 // Icon components
 const FeatherIcons = async(() => import("./pages/icons/FeatherIcons"));
-const Profile = async(() => import("./pages/pages/talent/Profile"));
+const Profile = async(() => import("./pages/pages/talent/Talent"));
 const Tasks = async(() => import("./pages/pages/Tasks"));
 const Calendar = async(() => import("./pages/pages/Calendar"));
 
@@ -193,7 +196,7 @@ const routes = [
                     element: <TalentDetails />,
                   },
                   {
-                    path: "curriculum/:talentId",
+                    path: "curriculum",
                     element: <Curriculum />,
                   },
                   {
@@ -267,6 +270,18 @@ const routes = [
                   {
                     path: "list",
                     element: <ProjectsList />,
+                  },
+                  {
+                    path: "list/folder/details",
+                    element: <ProjectsFolderList />,
+                  },
+                  {
+                    path: "list/folder/files",
+                    element: <ProjectsFileList />,
+                  },
+                  {
+                    path: "list/folder/files/details",
+                    element: <ProjectFileDetails />,
                   },
                 ],
               },

@@ -5,7 +5,7 @@ import Stats from "./Stats";
 import FilterIntitution from "./FilterIntitution";
 import { Helmet } from "react-helmet-async";
 import { NavLink } from "react-router-dom";
-
+import { useTranslation } from "react-i18next";
 import {
   TextField as MuiTextField,
   Grid,
@@ -82,9 +82,6 @@ function DivAnalityths() {
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
-
-      <Grid container spacing={6}>
         <Grid item xs={12} lg={11.9}>
           <BarChart />
         </Grid>
@@ -102,23 +99,21 @@ function Content() {
 }
 
 function Chat() {
+  const { t } = useTranslation();
   return (
     <React.Fragment>
       <Helmet title="Chat" />
       <Grid justifyContent="space-between" container spacing={6}>
         <Grid item>
-          <Typography variant="h3" gutterBottom display="inline">
-            Estadisticas
+          <Typography variant="h3" gutterBottom>
+            Instituciones
           </Typography>
-          <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/">
-              Panel
-            </Link>
-            <Link component={NavLink} to="/">
-              Usuarios
-            </Link>
-            <Typography>Instituciones</Typography>
-          </Breadcrumbs>
+          <Typography variant="subtitle1">
+            {t("Welcome back")}, José Armando! {t("We've missed you")}.{" "}
+            <span role="img" aria-label="Waving Hand Sign">
+              👋
+            </span>
+          </Typography>
         </Grid>
         <Grid item>
           <FilterIntitution />

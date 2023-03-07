@@ -313,7 +313,7 @@ function EnhancedTable() {
       );
     }
     setSelected(newSelected);
-    navigate(pathToGo, { replace: true });
+    navigate(pathToGo);
   };
 
   const handleRequestSort = (event, property) => {

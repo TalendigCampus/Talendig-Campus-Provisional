@@ -233,7 +233,7 @@ function BootcampProfile() {
 
       <Breadcrumbs aria-label="Breadcrumb" mt={2}>
         <Link component={NavLink} to="/admin/dashboard/bootcamps">
-          Bootcamps Dashboard
+          Panel Bootcamps
         </Link>
         <Link component={NavLink} to="/admin/dashboard/bootcamps/list">
           Lista de Bootcamps

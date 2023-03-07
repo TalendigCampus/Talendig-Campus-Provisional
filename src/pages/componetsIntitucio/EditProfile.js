@@ -40,8 +40,8 @@ const CenteredContent = styled.div`
 `;
 
 const BigAvatar = styled(Avatar)`
-  width: 300px;
-  height: 300px;
+  width: 150px;
+  height: 150px;
   margin: 0 auto ${(props) => props.theme.spacing(2)};
 `;
 
@@ -101,8 +101,32 @@ function Private({ dataRows }) {
         selected.slice(selectedIndex + 1)
       );
     }
+    handleSaveChanges(IdDataTable.id);
     setSelected(newSelected);
-    navigate(pathToGo, { replace: true });
+    navigate(pathToGo);
+  };
+  const handleChangeCancel = (pathToGo) => {
+    navigate(pathToGo);
+  };
+
+  const handleSaveChanges = (index) => {
+    const institution = document.getElementById("institution").value;
+    const date = document.getElementById("date").value;
+    const address = document.getElementById("address").value;
+    const phoneNumber = document.getElementById("phoneNumber").value;
+    const institutionEmail = document.getElementById("institutionEmail").value;
+    const newPassword = document.getElementById("newPassword").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    return (
+      (dataRows.institution = institution),
+      (dataRows.date = date),
+      (dataRows.address = address),
+      (dataRows.phoneNumber = phoneNumber),
+      (dataRows.institutionEmail = institutionEmail),
+      (dataRows.newPassword = newPassword),
+      (dataRows.confirmPassword = confirmPassword)
+    );
   };
 
   return (
@@ -112,7 +136,7 @@ function Private({ dataRows }) {
           Private info
         </Typography>
         <TextField
-          id="name"
+          id="institution"
           label="Name"
           defaultValue={dataRows.institution}
           variant="outlined"
@@ -179,16 +203,27 @@ function Private({ dataRows }) {
 
         <Button
           variant="contained"
-          color="primary"
+          color="success"
+          marginRight="10px"
           mt={3}
           onClick={(event) =>
             handleChange(
-              "/admin/dashboard/users/institutions/list",
+              "/admin/dashboard/users/institutions/info",
               dataRows.id
             )
           }
         >
           Guardar cambios
+        </Button>
+        <Button
+          variant="contained"
+          color="error"
+          mt={3}
+          onClick={(event) =>
+            handleChangeCancel("/admin/dashboard/users/institutions/info")
+          }
+        >
+          Cancelar
         </Button>
       </CardContent>
     </Card>
@@ -219,13 +254,11 @@ function EditProfile() {
 
       <Divider my={6} />
 
-      <Grid container spacing={6}>
-        <Grid item xs={4}>
-          <Public dataRows={dataRows} />
-        </Grid>
-        <Grid item xs={8}>
-          <Private dataRows={dataRows} />
-        </Grid>
+      <Grid item xs={11.9}>
+        <Public dataRows={dataRows} />
+      </Grid>
+      <Grid item xs={11.9}>
+        <Private dataRows={dataRows} />
       </Grid>
     </React.Fragment>
   );

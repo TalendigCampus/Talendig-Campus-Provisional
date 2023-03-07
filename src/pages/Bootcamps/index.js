@@ -47,19 +47,19 @@ function BootcampsStatistics() {
       <Divider my={6} />
 
       <Grid container spacing={6}>
-        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+        <Grid item xs={12} sm={12} md={12} lg={11.9} xl={11.9}>
           <StatsList />
         </Grid>
       </Grid>
 
       <Grid container spacing={6}>
-        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+        <Grid item xs={12} sm={12} md={12} lg={11.9} xl={11.9}>
           <LineChart />
         </Grid>
       </Grid>
 
       <Grid container spacing={6}>
-        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+        <Grid item xs={12} sm={12} md={12} lg={11.9} xl={11.9}>
           <BarChart />
         </Grid>
       </Grid>

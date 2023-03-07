@@ -35,7 +35,14 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   CurrentTalent,
   updateTalent,
+  setCurrentTalent,
 } from "../../../redux/slices/talentSlice.js";
+import { selectBootcamps } from "../../../redux/slices/bootcampSlice";
+
+import {
+  setCurrentProject,
+  selectProjects,
+} from "../../../redux/slices/projectsSlice";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -96,12 +103,11 @@ const validationSchema = Yup.object().shape({
   }),
 });
 
-function BasicForm(recruiterPrivate) {
+function BasicForm(talent) {
   const [isNotEditing, setIsNotEditing] = React.useState(true);
-
-  const talent = useSelector(CurrentTalent);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userProjects = useSelector(selectProjects);
 
   const handlePageChange = (pathToGo) => {
     navigate(pathToGo);
@@ -111,7 +117,12 @@ function BasicForm(recruiterPrivate) {
     setIsNotEditing((currentSate) => !currentSate);
   };
 
-  const handleNavigate = (pathToGo) => {
+  const handleNavigate = (pathToGo, talentId) => {
+    dispatch(setCurrentTalent({ talentId }));
+    const project = userProjects.find(
+      (project) => project.talentId === talentId
+    );
+    dispatch(setCurrentProject({ projectId: project.projectId }));
     navigate(pathToGo);
   };
 
@@ -122,7 +133,7 @@ function BasicForm(recruiterPrivate) {
     setIsNotEditing((currentSate) => !currentSate);
     try {
       await timeOut(1500);
-      console.log(values);
+      values = { ...values, bootcamp: talent.bootcampId };
       dispatch(updateTalent({ currentTalent: values }));
       resetForm();
       setStatus({ sent: true });
@@ -434,7 +445,10 @@ function BasicForm(recruiterPrivate) {
                       variant="contained"
                       color="primary"
                       onClick={() =>
-                        handleNavigate("/admin/dashboard/users/talents/roadmap")
+                        handleNavigate(
+                          "/admin/dashboard/users/talents/roadmap",
+                          values.talentId
+                        )
                       }
                       mt={3}
                       ml={3}
@@ -445,7 +459,12 @@ function BasicForm(recruiterPrivate) {
                       type="button"
                       variant="contained"
                       color="info"
-                      onClick={handleEdit}
+                      onClick={() =>
+                        handleNavigate(
+                          `/admin/dashboard/users/talents/curriculum`,
+                          values.talentId
+                        )
+                      }
                       mt={3}
                       ml={3}
                     >
@@ -455,7 +474,12 @@ function BasicForm(recruiterPrivate) {
                       type="button"
                       variant="contained"
                       color="error"
-                      onClick={handleEdit}
+                      onClick={() =>
+                        handleNavigate(
+                          `/admin/dashboard/users/projects/list/folder/details`,
+                          values.talentId
+                        )
+                      }
                       mt={3}
                       ml={3}
                     >
@@ -484,11 +508,26 @@ function BasicForm(recruiterPrivate) {
   );
 }
 
-function FormikPage(recruiterPrivate) {
+function FormikPage() {
+  const talentInfo = useSelector(CurrentTalent);
+  const [talent, setTalent] = React.useState(null);
+  const bootcamps = useSelector(selectBootcamps);
+
+  React.useEffect(() => {
+    const result = bootcamps.find(
+      (bootcamp) => bootcamp.id === talentInfo.bootcamp
+    );
+    setTalent({
+      ...talentInfo,
+      bootcamp: result.bootcampName,
+      bootcampId: talentInfo.bootcamp,
+    });
+  }, []);
+
   return (
     <React.Fragment>
       <Helmet title="Recruiter Form" />
-      <BasicForm {...recruiterPrivate} />
+      {talent ? <BasicForm {...talent} /> : null}
     </React.Fragment>
   );
 }

@@ -50,6 +50,10 @@ import {
   setCurrentInstructor,
   setShowUndo,
 } from "../../redux/slices/instructorSlice.js";
+import {
+  selectBootcamps,
+  bootcampProfile,
+} from "../../redux/slices/bootcampSlice";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -180,7 +184,7 @@ const EnhancedTableToolbar = (props) => {
         )}
       </ToolbarTitle>
       <Spacer />
-      <div>
+      {/* <div>
         {numSelected > 0 ? (
           <Tooltip title="Delete">
             <IconButton aria-label="Delete" size="large">
@@ -194,7 +198,7 @@ const EnhancedTableToolbar = (props) => {
             </IconButton>
           </Tooltip>
         )}
-      </div>
+      </div> */}
     </Toolbar>
   );
 };
@@ -202,6 +206,7 @@ const EnhancedTableToolbar = (props) => {
 function EnhancedTable({ setDeleteInstructorModal }) {
   const rows = useSelector(selectInstructors);
   const dispatch = useDispatch();
+  const bootcamps = useSelector(selectBootcamps);
   const getTecnologies = (tecnologies) => {
     return tecnologies
       .map((tecno) => {
@@ -209,8 +214,15 @@ function EnhancedTable({ setDeleteInstructorModal }) {
       })
       .join(", ");
   };
+  const getBootcamp = (id) => {
+    const result = bootcamps.find((bootcamp) => bootcamp.id === id);
+    return {
+      id: result.id,
+      name: result.bootcampName,
+    };
+  };
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("instructor");
+  const [orderBy, setOrderBy] = React.useState("firstName");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -277,6 +289,11 @@ function EnhancedTable({ setDeleteInstructorModal }) {
     setDeleteInstructorModal(true);
   };
 
+  const handleBootcamp = (id) => {
+    dispatch(bootcampProfile({ id }));
+    navigate("/admin/dashboard/bootcamps/bootcamp-profile");
+  };
+
   return (
     <div>
       <Paper>
@@ -320,7 +337,7 @@ function EnhancedTable({ setDeleteInstructorModal }) {
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row">
                         <Customer>
-                          <Avatar>{row.avatar}</Avatar>
+                          <Avatar alt="Remy Sharp" src={row.photoUrl} />
                           <Box ml={3}>
                             {`${row.firstName} ${row.lastName}`}
                             <br />
@@ -331,7 +348,16 @@ function EnhancedTable({ setDeleteInstructorModal }) {
                       <TableCell>{row.identificationCard}</TableCell>
                       <TableCell align="right">{row.company}</TableCell>
                       <TableCell align="right">{row.birth}</TableCell>
-                      <TableCell align="right">{row.bootcamps}</TableCell>
+                      <TableCell
+                        align="right"
+                        style={{
+                          color: "blue",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => handleBootcamp(row.bootcamps)}
+                      >
+                        {getBootcamp(row.bootcamps).name}
+                      </TableCell>
                       <TableCell>{getTecnologies(row.technology)}</TableCell>
                       <TableCell align="right">
                         <IconButton
@@ -397,15 +423,10 @@ function List_instructors() {
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/admin/dashboard/home">
-              Dashboard
-            </Link>
-            <Link component={NavLink} to="/admin/dashboard/home">
-              Usuarios
-            </Link>
             <Link component={NavLink} to="/admin/dashboard/users/instructors">
-              Instructores
+              Panel Instructores
             </Link>
+            <Typography>Instructores</Typography>
             <Typography>Lista </Typography>
           </Breadcrumbs>
         </Grid>

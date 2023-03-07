@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components/macro";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import bootcampData from "./bootcamp.json";
 import { JSXICONS } from "../../common/constants/data";
 
 import {
@@ -185,7 +184,7 @@ const EnhancedTableToolbar = (props) => {
         )}
       </ToolbarTitle>
       <Spacer />
-      <div>
+      {/* <div>
         {numSelected > 0 ? (
           <Tooltip title="Delete">
             <IconButton aria-label="Delete" size="large">
@@ -199,7 +198,7 @@ const EnhancedTableToolbar = (props) => {
             </IconButton>
           </Tooltip>
         )}
-      </div>
+      </div> */}
     </Toolbar>
   );
 };
@@ -274,14 +273,12 @@ function EnhancedTable({ setDeleteBootcampModal }) {
 
   const handleClose = (id) => {
     dispatch(bootcampProfile({ id: Number(id) }));
-    navigate("/admin/dashboard/bootcamps/bootcamp-profile", { replace: true });
+    navigate("/admin/dashboard/bootcamps/bootcamp-profile");
   };
 
   const handleInstructor = (instructorId) => {
     dispatch(setCurrentInstructor({ instructorId: instructorId.toString() }));
-    navigate("/admin/dashboard/users/instructors/view_instructors", {
-      replace: true,
-    });
+    navigate("/admin/dashboard/users/instructors/view_instructors");
   };
 
   const handleDelete = (id) => {
@@ -333,7 +330,7 @@ function EnhancedTable({ setDeleteBootcampModal }) {
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row">
                         <Customer>
-                          <Avatar>{JSXICONS["bootcamp"]}</Avatar>
+                          <Avatar alt="Remy Sharp" src={row.image} />
                           <Box ml={3}>{row.bootcampName}</Box>
                         </Customer>
                       </TableCell>
@@ -409,7 +406,7 @@ function BootcampsList() {
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
             <Link component={NavLink} to="/admin/dashboard/bootcamps">
-              Bootcamps Dashboard
+              Panel Bootcamps
             </Link>
             <Typography>Lista de Bootcamps</Typography>
           </Breadcrumbs>

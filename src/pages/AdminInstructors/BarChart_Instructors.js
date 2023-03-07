@@ -18,18 +18,18 @@ const ChartWrapper = styled.div`
 const BarChart_Instructors = withTheme(({ theme }) => {
   const data = {
     labels: [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
+      "Enero",
+      "Febrero",
+      "Marzo",
+      "Abril",
+      "Mayo",
+      "Junio",
+      "Julio",
+      "Agosto",
+      "Septiembre",
+      "Octubre",
+      "Noviembre ",
+      "Diciembre",
     ],
     datasets: [
       {

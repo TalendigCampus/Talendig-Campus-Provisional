@@ -258,7 +258,7 @@ function Emergency(props) {
   };
 
   const handdlePath = (pathToGo) => {
-    navigate(pathToGo, { replace: true });
+    navigate(pathToGo);
   };
   return (
     <Card mb={6}>
