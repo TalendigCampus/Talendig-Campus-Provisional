@@ -65,7 +65,6 @@ const Centered = styled.div`
 `;
 
 const ContentImgProfile = styled.div`
-  height: 35vh;
   text-align: center;
 `;
 
@@ -123,7 +122,7 @@ function Details(props) {
     <Card mb={6}>
       <CardContent>
         <ContentImgProfile>
-          <Avatar alt="Lucy Lavender" src={props.imgTalent} />
+          <Avatar alt="Lucy Lavender" src={props.photoUrl} />
           <Typography variant="body2" component="div" gutterBottom>
             <Box fontWeight="fontWeightMedium">
               {props.talentName} {props.talentLastName}
@@ -143,7 +142,6 @@ function Skills(props) {
       props.technology.includes(technology.id) && values.push(technology.name)
   );
   let skills = values;
-  console.log("yooouuu!!", skills);
   let i = 0;
   return (
     <Card mb={6}>
@@ -400,48 +398,29 @@ function Curriculum() {
   // const result = rows.find((row) => row.talentId === Number(talentId));
   // console.log(result);
 
-  const result = useSelector(CurrentTalent);
-
+  const talent = useSelector(CurrentTalent);
   return (
     <React.Fragment>
       <Helmet title="Profile" />
 
       <Typography variant="h3" gutterBottom display="inline">
-        Curriculum
+        Perfil de {`${talent.talentName} ${talent.talentLastName}`}
       </Typography>
-
-      <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/admin/dashboard/home">
-          Panel
-        </Link>
-        <Typography gutterBottom display="inline">
-          Usuarios
-        </Typography>
-        <Link component={NavLink} to="/admin/dashboard/users/talents">
-          Talentos
-        </Link>
-        <Link component={NavLink} to="/admin/dashboard/users/talents/list">
-          Lista
-        </Link>
-        <Typography gutterBottom display="inline">
-          Curriculum
-        </Typography>
-      </Breadcrumbs>
 
       <Divider my={6} />
 
       <Grid container spacing={6}>
         <Grid item xs={12} lg={4} xl={3}>
-          <Details {...result} />
-          <Skills {...result} />
-          <About {...result} />
-          <Referens {...result} />
+          <Details {...talent} />
+          <Skills {...talent} />
+          <About {...talent} />
+          <Referens {...talent} />
         </Grid>
         <Grid item xs={12} lg={8} xl={9}>
-          <AboutMe {...result} />
-          <Expirence {...result} />
-          <Education {...result} />
-          <Lenguages {...result} />
+          <AboutMe {...talent} />
+          <Expirence {...talent} />
+          <Education {...talent} />
+          <Lenguages {...talent} />
         </Grid>
       </Grid>
     </React.Fragment>

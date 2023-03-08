@@ -35,7 +35,7 @@ const pagesSection = [
     ],
   },
   {
-    href: "/talent/briefcase",
+    href: "/talent/projects",
     icon: BusinessCenter,
     title: "Portafolio",
   },
