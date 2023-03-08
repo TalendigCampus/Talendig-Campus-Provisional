@@ -66,6 +66,9 @@ import Lista_Instructores from "./pages/AdminInstructors/List_Instructors";
 import BootcampsStatistics from "./pages/Bootcamps/index";
 import BootcampsList from "./pages/Bootcamps/BootcampList";
 
+//Talent pages
+import TalentHome from "./talent/home/index";
+
 import Projects from "./pages/pages/Projects";
 import Chat from "./pages/componetsIntitucio/Chat";
 import DataGridPage from "./pages/componetsIntitucio/DataGridPage";
@@ -112,6 +115,13 @@ import EditInstructors from "./pages/AdminInstructors/Edit_Instructors";
 import ViewInstructors from "./pages/AdminInstructors/InstructorsList/View_Instructors";
 import Roadmap from "./pages/pages/talent/Roadmap";
 
+// Talents routes
+
+import TalentLayout from "./talent/layout/structureLayout";
+import TalentProfile from "./talent/profile/TalentsProfile";
+import TalentCurriculum from "./talent/profile/Curriculum";
+import TalentRoadmap from "./talent/profile/Roadmap";
+
 // Dashboard components
 const Default = async(() => import("./pages/dashboards/Default"));
 const Analytics = async(() => import("./pages/dashboards/Analytics"));
@@ -138,6 +148,59 @@ const Chartjs = async(() => import("./pages/charts/Chartjs"));
 const GoogleMaps = async(() => import("./pages/maps/GoogleMaps"));
 const VectorMaps = async(() => import("./pages/maps/VectorMaps"));
 
+// const talentRoutes = [
+//   {
+//     path: "talent",
+//     children: [
+//       {
+//         path: "home",
+//         element: "",
+//       },
+//       {
+//         path: "perfil",
+//         element: "",
+//       },
+//       {
+//         path: "bootcamps",
+//         element: "",
+//         children: [
+//           {
+//             path: "list",
+//             element: "",
+//             children: [
+//               {
+//                 path: "profile",
+//                 element: "",
+//               },
+//               {
+//                 path: "task",
+//                 element: "",
+//               },
+//               {
+//                 path: "grades",
+//               },
+//             ],
+//           },
+//         ],
+//       },
+//       {
+//         path: "portfolio",
+//         element: "",
+//         children: [
+//           {
+//             path: "proyects",
+//             element: "",
+//           },
+//           {
+//             path: "proyect",
+//             element: "",
+//           },
+//         ],
+//       },
+//     ],
+//   },
+// ];
+
 const routes = [
   {
     path: "/",
@@ -146,6 +209,55 @@ const routes = [
       {
         path: "",
         element: <Landing />,
+      },
+    ],
+  },
+  {
+    path: "talent",
+    element: <TalentLayout />,
+    children: [
+      {
+        element: <TalentHome />,
+        index: true,
+        path: "home",
+      },
+      {
+        path: "perfil",
+        children: [
+          {
+            index: true,
+            element: <TalentProfile />,
+          },
+        ],
+      },
+      {
+        path: "curriculum",
+        element: <TalentCurriculum />,
+      },
+      {
+        path: "roadmap",
+        element: <TalentRoadmap />,
+      },
+      {
+        path: "bootcamps",
+        children: [
+          {
+            path: "my-bootcamps",
+            element: <Default />,
+          },
+          {
+            path: "other-bootcamps",
+            element: <Default />,
+          },
+        ],
+      },
+      {
+        path: "briefcase",
+        element: <Default />,
+      },
+      {
+        path: "changelog",
+        element: <Changelog />,
       },
     ],
   },
