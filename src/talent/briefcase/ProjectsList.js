@@ -52,7 +52,6 @@ import {
   setCurrentTalent,
 } from "../../redux/slices/talentSlice";
 import {
-  selectProjects,
   showUpdate,
   setShowUpdate,
   setCurrentProject,
@@ -60,6 +59,7 @@ import {
   currentTalentProjects,
 } from "../../redux/slices/projectsSlice";
 import UndoAction from "./UndoAction";
+import tecnologiesInfo from "../../pages/Bootcamps/tecnologies.json";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -246,6 +246,14 @@ function EnhancedTable() {
 
   const [rows, setRows] = React.useState([]);
 
+  const getTecnologies = (tecnologies) => {
+    return tecnologies
+      .map((tecno) => {
+        return tecnologiesInfo.find((tec) => tec.id === tecno).name;
+      })
+      .join(", ");
+  };
+
   useEffect(() => {
     setRows(
       projectsList.map((project) => {
@@ -257,7 +265,7 @@ function EnhancedTable() {
           talentName: talent.talentName,
           talentLastName: talent.talentLastName,
           lastModification: project.lastModificationDate,
-          technology: talent.tecnology,
+          technology: talent.technology,
           projectId: project.projectId,
           talentId: project.talentId,
         };
@@ -403,7 +411,7 @@ function EnhancedTable() {
                           {`${row.talentName} ${row.talentLastName}`}
                         </Link>
                       </TableCell>
-                      <TableCell>{row.technology}</TableCell>
+                      <TableCell>{getTecnologies(row.technology)}</TableCell>
                       <TableCell align="center">
                         <IconButton
                           aria-label="edit"
