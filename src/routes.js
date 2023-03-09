@@ -116,8 +116,14 @@ import ViewInstructors from "./pages/AdminInstructors/InstructorsList/View_Instr
 import Roadmap from "./pages/pages/talent/Roadmap";
 
 // Talents routes
-
 import TalentLayout from "./talent/layout/structureLayout";
+import TalentProfile from "./talent/profile/TalentsProfile";
+import TalentCurriculum from "./talent/profile/Curriculum";
+import TalentRoadmap from "./talent/profile/Roadmap";
+import TalentProjectsList from "./talent/briefcase/ProjectsList";
+import TalentProjectsFolderList from "./talent/briefcase/ProjectsFolderList";
+import TalentProjectsFileList from "./talent/briefcase/ProjectFolderFilesList";
+import TalentProjectFileDetails from "./talent/briefcase/ProjectFileDetails";
 
 // Dashboard components
 const Default = async(() => import("./pages/dashboards/Default"));
@@ -216,6 +222,7 @@ const routes = [
       {
         element: <TalentHome />,
         index: true,
+        path: "home",
       },
       {
         path: "bootcamp-info",
@@ -223,7 +230,20 @@ const routes = [
       },
       {
         path: "perfil",
-        element: <Default />,
+        children: [
+          {
+            index: true,
+            element: <TalentProfile />,
+          },
+        ],
+      },
+      {
+        path: "curriculum",
+        element: <TalentCurriculum />,
+      },
+      {
+        path: "roadmap",
+        element: <TalentRoadmap />,
       },
       {
         path: "bootcamps",
@@ -239,8 +259,25 @@ const routes = [
         ],
       },
       {
-        path: "briefcase",
-        element: <Default />,
+        path: "projects",
+        children: [
+          {
+            index: true,
+            element: <TalentProjectsList />,
+          },
+          {
+            path: "list/folder/details",
+            element: <TalentProjectsFolderList />,
+          },
+          {
+            path: "list/folder/files",
+            element: <TalentProjectsFileList />,
+          },
+          {
+            path: "list/folder/files/details",
+            element: <TalentProjectFileDetails />,
+          },
+        ],
       },
       {
         path: "changelog",

@@ -47,6 +47,7 @@ export function BootcapmsDispo() {
         {dataToShow.map((stat) => (
           <Grid item xs={12} sm={12} md={12} lg={2.9} xl={2.9}>
             <MediaCard
+              key={stat.id}
               bootcampImage={stat.bootcampImage}
               bootcampName={stat.bootcampName}
               bootcampDescription={stat.bootcampDescription}
@@ -95,6 +96,7 @@ export function MyBootcamps() {
         {dataToShow.map((stat) => (
           <Grid item xs={12} sm={12} md={12} lg={2.9} xl={2.9}>
             <MediaCard
+              key={stat.id}
               bootcampImage={stat.bootcampImage}
               bootcampName={stat.bootcampName}
               bootcampDescription={stat.bootcampDescription}

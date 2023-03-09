@@ -4,11 +4,13 @@ import {
   AutoStories,
   BusinessCenter,
   List,
+  Description,
+  SwapCalls,
 } from "@mui/icons-material";
 
 const pagesSection = [
   {
-    href: "/talent",
+    href: "/talent/home",
     icon: Home,
     title: "Inicio",
   },
@@ -33,9 +35,19 @@ const pagesSection = [
     ],
   },
   {
-    href: "/talent/briefcase",
+    href: "/talent/projects",
     icon: BusinessCenter,
-    title: "Portafolios",
+    title: "Portafolio",
+  },
+  {
+    href: "/talent/curriculum",
+    icon: Description,
+    title: "Curriculum",
+  },
+  {
+    href: "/talent/roadmap",
+    icon: SwapCalls,
+    title: "Roadmap",
   },
   {
     href: "/talent/changelog",
