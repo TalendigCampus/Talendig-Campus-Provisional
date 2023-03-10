@@ -6,6 +6,7 @@ import {
   List,
   Description,
   SwapCalls,
+  PersonSearch,
 } from "@mui/icons-material";
 
 const pagesSection = [
@@ -48,6 +49,11 @@ const pagesSection = [
     href: "/talent/roadmap",
     icon: SwapCalls,
     title: "Roadmap",
+  },
+  {
+    href: "/talent/recruiters",
+    icon: PersonSearch,
+    title: "Reclutadores",
   },
   {
     href: "/talent/changelog",

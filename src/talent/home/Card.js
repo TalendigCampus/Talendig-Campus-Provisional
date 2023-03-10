@@ -20,16 +20,16 @@ const CardMedia = styled(MuiCardMedia)`
   height: 220px;
 `;
 
-function MediaCard(props) {
+function MediaCard({ bootcamp }) {
   return (
     <Card mb={6}>
       <CardActionArea>
-        <CardMedia image={props.bootcampImage} title={props.bootcampName} />
+        <CardMedia image={bootcamp.image} title={bootcamp.bootcampName} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {props.bootcampName}
+            {bootcamp.bootcampName}
           </Typography>
-          <Typography component="p">{props.bootcampDescription}</Typography>
+          <Typography component="p">{bootcamp.description}</Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>

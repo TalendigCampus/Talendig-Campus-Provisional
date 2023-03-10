@@ -123,6 +123,9 @@ import TalentProjectsList from "./talent/briefcase/ProjectsList";
 import TalentProjectsFolderList from "./talent/briefcase/ProjectsFolderList";
 import TalentProjectsFileList from "./talent/briefcase/ProjectFolderFilesList";
 import TalentProjectFileDetails from "./talent/briefcase/ProjectFileDetails";
+import TalentRecruiters from "./talent/recruiters/RecruitersList";
+import TalentRecruiterProfile from "./talent/recruiters/Profile";
+import TalentBootcamps from "./talent/bootcamps/Bootcamps";
 
 // Dashboard components
 const Default = async(() => import("./pages/dashboards/Default"));
@@ -245,11 +248,29 @@ const routes = [
         children: [
           {
             path: "my-bootcamps",
-            element: <Default />,
+            element: (
+              <TalentBootcamps
+                name={"Mis Bootcamps"}
+                getBootcamp={(bootcamps, talentId) => {
+                  return bootcamps.filter((bootcamp) =>
+                    bootcamp.talents.includes(talentId)
+                  );
+                }}
+              />
+            ),
           },
           {
             path: "other-bootcamps",
-            element: <Default />,
+            element: (
+              <TalentBootcamps
+                name={"Bootcamps disponibles"}
+                getBootcamp={(bootcamps, talentId) => {
+                  return bootcamps.filter(
+                    (bootcamp) => !bootcamp.talents.includes(talentId)
+                  );
+                }}
+              />
+            ),
           },
         ],
       },
@@ -271,6 +292,19 @@ const routes = [
           {
             path: "list/folder/files/details",
             element: <TalentProjectFileDetails />,
+          },
+        ],
+      },
+      {
+        path: "recruiters",
+        children: [
+          {
+            index: true,
+            element: <TalentRecruiters />,
+          },
+          {
+            path: "profile",
+            element: <TalentRecruiterProfile />,
           },
         ],
       },
