@@ -68,7 +68,7 @@ import BootcampsList from "./pages/Bootcamps/BootcampList";
 
 //Talent pages
 import TalentHome from "./talent/home/index";
-import TalentBootcampInfo from "./talent/BootcampInfo/Profile";
+import TalentBootcampInfo from "./talent/BootcampInfo/BootcampsDetails";
 
 import Projects from "./pages/pages/Projects";
 import Chat from "./pages/componetsIntitucio/Chat";

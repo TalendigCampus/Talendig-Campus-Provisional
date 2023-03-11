@@ -15,6 +15,9 @@ import { BootcapmsDispo, MyBootcamps } from "./CardContent";
 import { useDispatch } from "react-redux";
 import { setCurrentTalent } from "../../redux/slices/talentSlice";
 import { setProjectsByTalent } from "../../redux/slices/projectsSlice";
+import HomeWorks from "../HomeWorks/Projects";
+
+import { bootcampProfile } from "../../redux/slices/bootcampSlice";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -30,6 +33,9 @@ function TalentHome() {
 
   dispatch(setCurrentTalent({ talentId }));
   dispatch(setProjectsByTalent({ talentId }));
+  const handdleGetBootcamp = (bootcampId) => {
+    dispatch(bootcampProfile(bootcampId));
+  };
 
   return (
     <React.Fragment>
@@ -57,18 +63,7 @@ function TalentHome() {
         </Grid>
       </Grid> */}
       <MyBootcamps />
-
-      {/* <Grid container spacing={6}>
-        <Grid item xs={12} sm={12} md={12} lg={11.9} xl={11.9}>
-          <BarChart />
-        </Grid>
-      </Grid> */}
-
-      {/*  <Grid container spacing={6}>
-        <Grid item xs={12} sm={12} md={12} lg={11.9} xl={11.9}>
-          <LineChart />
-        </Grid>
-      </Grid> */}
+      <HomeWorks />
     </React.Fragment>
   );
 }

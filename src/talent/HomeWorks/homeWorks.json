@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "homeWorkName": "Estructura de datos",
+    "description": "Investigar sobre estructuras de datos, como se implementan y como se usan",
+    "date": "2023-10-10",
+    "status": "Pendiente",
+    "bootcampId": 1
+  },
+  {
+    "id": 2,
+    "homeWorkName": "HTML",
+    "description": "Investigar sobre HTML, como se implementan y como se usan",
+    "date": "2023-06-10",
+    "status": "Pendiente",
+    "bootcampId": 1
+  },
+  {
+    "id": 3,
+    "homeWorkName": "CSS",
+    "description": "Investigar sobre CSS, como se implementan y como se usan",
+    "date": "2023-06-10",
+    "status": "Pendiente",
+    "bootcampId": 1
+  },
+  {
+    "id": 4,
+    "homeWorkName": "JavaScript",
+    "description": "Investigar sobre JavaScript, como se implementan y como se usan",
+    "date": "2023-06-10",
+    "status": "Pendiente",
+    "bootcampId": 2
+  },
+  {
+    "id": 5,
+    "homeWorkName": "Java",
+    "description": "Investigar sobre Java, como se implementan y como se usan",
+    "date": "2023-06-10",
+    "status": "Pendiente",
+    "bootcampId": 2
+  },
+  {
+    "id": 6,
+    "homeWorkName": "Python",
+    "description": "Investigar sobre Python, como se implementan y como se usan",
+    "date": "2023-06-10",
+    "status": "Pendiente",
+    "bootcampId": 2
+  },
+  {
+    "id": 7,
+    "homeWorkName": "C#",
+    "description": "Investigar sobre C#, como se implementan y como se usan",
+    "date": "2023-06-10",
+    "status": "Pendiente",
+    "bootcampId": 3
+  },
+  {
+    "id": 8,
+    "homeWorkName": "C++",
+    "description": "Investigar sobre C++, como se implementan y como se usan",
+    "date": "2023-06-10",
+    "status": "Pendiente",
+    "bootcampId": 3
+  },
+  {
+    "id": 9,
+    "homeWorkName": "C",
+    "description": "Investigar sobre C, como se implementan y como se usan",
+    "date": "2023-06-10",
+    "status": "Pendiente",
+    "bootcampId": 3
+  },
+  {
+    "id": 10,
+    "homeWorkName": "PHP",
+    "description": "Investigar sobre PHP, como se implementan y como se usan",
+    "date": "2023-06-10",
+    "status": "Pendiente",
+    "bootcampId": 4
+  },
+  {
+    "id": 11,
+    "homeWorkName": "Ruby",
+    "description": "Investigar sobre Ruby, como se implementan y como se usan",
+    "date": "2023-06-10",
+    "status": "Pendiente",
+    "bootcampId": 4
+  },
+  {
+    "id": 12,
+    "homeWorkName": "Swift",
+    "description": "Investigar sobre Swift, como se implementan y como se usan",
+    "date": "2023-06-10",
+    "status": "Pendiente",
+    "bootcampId": 4
+  }
+]
