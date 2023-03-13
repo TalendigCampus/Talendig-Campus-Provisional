@@ -20,6 +20,7 @@
     "password": "mypassword123",
     "confirmPassword": "mypassword123",
     "photoUrl": "/static/img/recruiters/recruiter-1.jpg",
+        "biography": "Ingeniero en sistema de la Universidad Tecnologica de Santo Domingo, especialidazo en desarrollo paginas web.",
     "id": "1"
   },
   {
@@ -43,6 +44,7 @@
     "password": "mypassword123",
     "confirmPassword": "mypassword123",
     "photoUrl": "/static/img/recruiters/recruiter-2.jpg",
+    "biography": "Tecnologo en desarrollo de software con conicimientos en desarrollo de paginas web, movil y de escritorio.",
     "id": "2"
   },
   {
@@ -66,6 +68,7 @@
     "password": "mypassword123",
     "confirmPassword": "mypassword123",
     "photoUrl": "/static/img/recruiters/recruiter-3.jpg",
+    "biography": "Graduado de Licenciatura en informatica de la UASD, con experiencia en varios frameworks webs como Angular, Vue y React.",
     "id": "3"
   },
   {
@@ -89,6 +92,7 @@
     "password": "mypassword123",
     "confirmPassword": "mypassword123",
     "photoUrl": "/static/img/recruiters/recruiter-4.jpg",
+    "biography": "Egresado de la universidad APEC, con vastos cursos y diplomados en desarrollo de aplicaciones.",
     "id": "4"
   }
 ] 

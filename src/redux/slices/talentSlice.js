@@ -8,6 +8,7 @@ const talentSlice = createSlice({
     currentTalent: null,
     showUndo: false,
     allowDelete: false,
+    talentPreview: null,
   },
   reducers: {
     deleteTalent: (state, action) => {
@@ -52,6 +53,11 @@ const talentSlice = createSlice({
         return talent;
       });
     },
+    setTalentPreview: (state, action) => {
+      state.talentPreview = state.TalentsInfo.find(
+        (talent) => talent.talentId === action.payload.talentId
+      );
+    },
     setShowUndo: (state, action) => {
       state.showUndo = action.payload.status;
     },
@@ -70,10 +76,13 @@ export const {
   updateTalent,
   deleteTecnologies,
   addTecnology,
+  setTalentPreview,
 } = talentSlice.actions;
 export const selectTalents = (state) => state.talent.TalentsInfo;
 
 export const CurrentTalent = (state) => state.talent.currentTalent;
+
+export const talentPreview = (state) => state.talent.talentPreview;
 
 export const showUndo = (state) => state.talent.showUndo;
 

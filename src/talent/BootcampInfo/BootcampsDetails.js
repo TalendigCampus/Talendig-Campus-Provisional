@@ -24,10 +24,18 @@ import {
 import { spacing } from "@mui/system";
 import { selectBootcampProfile } from "../../redux/slices/bootcampSlice";
 import tecnologiesInfo from "../../pages/Bootcamps/tecnologies.json";
-import { useSelector } from "react-redux";
-import { selectInstructors } from "../../redux/slices/instructorSlice";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectInstructors,
+  setCurrentInstructor,
+} from "../../redux/slices/instructorSlice";
 /* import Project from "../Componets/Projects"; */
-import { CalendarToday, PhoneAndroid, WatchLater } from "@mui/icons-material";
+import {
+  CalendarToday,
+  PhoneAndroid,
+  WatchLater,
+  Groups,
+} from "@mui/icons-material";
 import HomeWorks from "../HomeWorks/HomeWorks";
 import Projects from "../projects/Projects";
 
@@ -150,7 +158,6 @@ function Skills() {
 
     filterTecnologies();
   }, [bootcamp]);
-  console.log(tecnologiesToSelect);
 
   return (
     <Card mb={6}>
@@ -232,36 +239,53 @@ function About({ bootcamp }) {
 }
 
 function Elsewhere({ instructors, bootcamp }) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const getInstructor = () => {
+    return instructors.find(
+      (instructor) => instructor.id == bootcamp.teacherId
+    );
+  };
+  const instructor = getInstructor();
+
+  const handleInstructor = (pathToGo) => {
+    dispatch(setCurrentInstructor({ instructorId: instructor.id }));
+    navigate(pathToGo);
+  };
+
   return (
     <Card mb={6}>
       <CardContent>
         <Grid container spacing={6}>
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-            <Typography variant="h2" gutterBottom display="inline">
+            <Typography variant="h6" gutterBottom display="inline">
               Instructor
             </Typography>
-            {instructors.map((instructor) => {
-              if (instructor.id == bootcamp.id) {
-                return (
-                  <>
-                    <CenteredContent>
-                      <BigAvatar alt="Remy Sharp" src={instructor.photoUrl} />
-                      <Typography
-                        variant="h5"
-                        gutterBottom
-                        display="inline"
-                        borderBottom={1}
-                      >
-                        {instructor.firstName} {instructor.lastName}
-                      </Typography>
-                    </CenteredContent>
-                    <Typography variant="p" gutterBottom marginTop={10}>
-                      {instructor.bio}
-                    </Typography>
-                  </>
-                );
-              }
-            })}
+            <CenteredContent>
+              <BigAvatar
+                alt="Remy Sharp"
+                src={instructor.photoUrl}
+                style={{ margin: "10px auto", cursor: "pointer" }}
+                onClick={() =>
+                  handleInstructor("/talent/bootcamps/my-bootcamps/instructor")
+                }
+              />
+              <Typography
+                variant="h5"
+                gutterBottom
+                display="inline"
+                style={{ margin: "10px auto", cursor: "pointer" }}
+                onClick={() =>
+                  handleInstructor("/talent/bootcamps/my-bootcamps/instructor")
+                }
+              >
+                {instructor.firstName} {instructor.lastName}
+              </Typography>
+            </CenteredContent>
+            <Typography variant="p" gutterBottom marginTop={20}>
+              {instructor.bio}
+            </Typography>
           </Grid>
         </Grid>
       </CardContent>
@@ -391,6 +415,20 @@ function BootcampsDetails() {
           >
             Volver
           </Button>
+          {bootcamp && bootcamp.inscription ? (
+            <Button
+              type="button"
+              variant="contained"
+              color="info"
+              onClick={() =>
+                handlePageChange("/talent/bootcamps/my-bootcamps/talents")
+              }
+              mt={3}
+              ml={3}
+            >
+              <Groups /> Talentos
+            </Button>
+          ) : null}
         </Grid>
       </Grid>
 
@@ -398,6 +436,13 @@ function BootcampsDetails() {
       {bootcamp ? (
         <Grid container spacing={6}>
           {bootcamp.inscription ? (
+            <>
+              <Grid item xs={12} lg={12} xl={12}>
+                <HomeWorks id={bootcamp.id} />
+                <Projects id={bootcamp.id} />
+              </Grid>
+            </>
+          ) : (
             <>
               <Grid item xs={12} lg={5} xl={3}>
                 <MediaCard bootcamp={bootcamp} />
@@ -417,13 +462,6 @@ function BootcampsDetails() {
                     <Earnings bootcamp={bootcamp} />
                   </Grid>
                 </Grid>
-              </Grid>
-            </>
-          ) : (
-            <>
-              <Grid item xs={12} lg={12} xl={12}>
-                <HomeWorks id={bootcamp.id} />
-                <Projects id={bootcamp.id} />
               </Grid>
             </>
           )}

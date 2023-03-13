@@ -128,6 +128,9 @@ import TalentProjectFileDetails from "./talent/briefcase/ProjectFileDetails";
 import TalentRecruiters from "./talent/recruiters/RecruitersList";
 import TalentRecruiterProfile from "./talent/recruiters/Profile";
 import TalentBootcamps from "./talent/bootcamps/Bootcamps";
+import TalentBootcampsTalents from "./talent/BootcampInfo/TalentList";
+import TalentBootcampTalentProfile from "./talent/BootcampInfo/Profile";
+import TalentBootcampInstructorProfile from "./talent/instructor/Profile";
 
 // Dashboard components
 const Default = async(() => import("./pages/dashboards/Default"));
@@ -258,29 +261,60 @@ const routes = [
         children: [
           {
             path: "my-bootcamps",
-            element: (
-              <TalentBootcamps
-                name={"Mis Bootcamps"}
-                getBootcamp={(bootcamps, talentId) => {
-                  return bootcamps.filter((bootcamp) =>
-                    bootcamp.talents.includes(talentId)
-                  );
-                }}
-              />
-            ),
+            children: [
+              {
+                index: true,
+                element: (
+                  <TalentBootcamps
+                    name={"Mis Bootcamps"}
+                    getBootcamp={(bootcamps, talentId) => {
+                      return bootcamps.filter((bootcamp) =>
+                        bootcamp.talents.includes(talentId)
+                      );
+                    }}
+                  />
+                ),
+              },
+              {
+                path: "talents",
+                children: [
+                  {
+                    index: true,
+                    element: <TalentBootcampsTalents />,
+                  },
+                  {
+                    path: "profile",
+                    element: <TalentBootcampTalentProfile />,
+                  },
+                ],
+              },
+              {
+                path: "instructor",
+                element: <TalentBootcampInstructorProfile />,
+              },
+            ],
           },
           {
             path: "other-bootcamps",
-            element: (
-              <TalentBootcamps
-                name={"Bootcamps disponibles"}
-                getBootcamp={(bootcamps, talentId) => {
-                  return bootcamps.filter(
-                    (bootcamp) => !bootcamp.talents.includes(talentId)
-                  );
-                }}
-              />
-            ),
+            children: [
+              {
+                index: true,
+                element: (
+                  <TalentBootcamps
+                    name={"Bootcamps disponibles"}
+                    getBootcamp={(bootcamps, talentId) => {
+                      return bootcamps.filter(
+                        (bootcamp) => !bootcamp.talents.includes(talentId)
+                      );
+                    }}
+                  />
+                ),
+              },
+              {
+                path: "instructor",
+                element: <TalentBootcampInstructorProfile />,
+              },
+            ],
           },
         ],
       },

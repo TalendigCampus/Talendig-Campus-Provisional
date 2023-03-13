@@ -47,7 +47,7 @@ import {
   Work,
 } from "@mui/icons-material";
 import { useSelector } from "react-redux";
-import { currentRecruiter } from "../../redux/slices/recruiterSlice";
+import { currentInstructor } from "../../redux/slices/instructorSlice";
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
@@ -236,19 +236,6 @@ function About(props) {
               <Link href="https://material-app.bootlab.io/">{props.email}</Link>
             </Grid>
           </Grid>
-          <Grid container direction="row" alignItems="center">
-            <Grid item>
-              <AboutIcon>
-                <Business />
-              </AboutIcon>
-            </Grid>
-            <Grid item>
-              Empresa o institución:{" "}
-              <Link href="https://material-app.bootlab.io/">
-                {props.company}
-              </Link>
-            </Grid>
-          </Grid>
         </Grid>
       </CardContent>
     </Card>
@@ -266,7 +253,7 @@ function AboutMe(props) {
         <Spacer mb={4} />
 
         <Centered>
-          <Typography textAlign={"justify"}>{props.biography}</Typography>
+          <Typography textAlign={"justify"}>{props.bio}</Typography>
         </Centered>
       </CardContent>
     </Card>
@@ -280,19 +267,19 @@ function Curriculum() {
   // const result = rows.find((row) => row.talentId === Number(talentId));
   // console.log(result);
 
-  const result = useSelector(currentRecruiter);
+  const result = useSelector(currentInstructor);
 
   return (
     <React.Fragment>
       <Helmet title="Profile" />
 
       <Typography variant="h3" gutterBottom display="inline">
-        Curriculum
+        {`${result.firstName} ${result.lastName}`}
       </Typography>
 
       <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/talent/recruiters">
-          Lista de reclutadores
+        <Link component={NavLink} to="/talent/bootcamp-info">
+          Bootcamp
         </Link>
         <Typography gutterBottom display="inline">
           {`${result.firstName} ${result.lastName}`}
