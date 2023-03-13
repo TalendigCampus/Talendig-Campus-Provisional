@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components/macro";
-import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
 import {
   Button,
   Card as MuiCard,
   CardActions,
+  CardActionArea,
   CardContent as MuiCardContent,
   CardMedia as MuiCardMedia,
   Chip as MuiChip,
@@ -16,7 +16,7 @@ import {
   Typography as MuiTypography,
 } from "@mui/material";
 import { spacing } from "@mui/system";
-import HomeWorks from "./homeWorks.json";
+import projectsInfo from "../../pages/pages/AdminProyects/info.json";
 
 import { STATSQUANTITYBYPAGINATION } from "../../common/constants/data";
 
@@ -26,12 +26,6 @@ const Pagination = styled(MuiPagination)(spacing);
 const CardContent = styled(MuiCardContent)`
   border-bottom: 1px solid ${(props) => props.theme.palette.grey[300]};
 `;
-
-const CardMedia = styled(MuiCardMedia)`
-  height: 220px;
-`;
-
-const Divider = styled(MuiDivider)(spacing);
 
 const Typography = styled(MuiTypography)(spacing);
 
@@ -48,37 +42,41 @@ const Chip = styled(MuiChip)`
 const Project = (props) => {
   return (
     <Card>
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="h2">
-          {props.homeWorkName}
-        </Typography>
+      <CardActionArea>
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="h2">
+            {props.projectName}
+          </Typography>
 
-        {props.status === "Pendiente" ? (
-          <Chip label="Pendiente" color="warning" />
-        ) : (
-          <Chip label="Completado" color="success" />
-        )}
+          {props.status === "Pendiente" ? (
+            <Chip label="Pendiente" color="warning" />
+          ) : (
+            <Chip label="Completado" color="success" />
+          )}
 
-        <Typography mb={4} color="textSecondary" component="p">
-          {props.description}
-        </Typography>
-      </CardContent>
+          <Typography mb={4} color="textSecondary" component="p">
+            {props.description}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+
       <CardActions>
         <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
+          Más Información
         </Button>
       </CardActions>
     </Card>
   );
 };
 
-function Projects() {
+function Projects({ id }) {
+  const projects = projectsInfo.filter(
+    (homeWork) => homeWork.bootcampId === id
+  );
+
   const [page, setPage] = useState(1);
-  const pageQuantity = Math.ceil(HomeWorks.length / STATSQUANTITYBYPAGINATION);
-  const dataToShow = HomeWorks.slice(
+  const pageQuantity = Math.ceil(projects.length / STATSQUANTITYBYPAGINATION);
+  const dataToShow = projects.slice(
     (page - 1) * STATSQUANTITYBYPAGINATION,
     page * STATSQUANTITYBYPAGINATION
   );
@@ -89,16 +87,14 @@ function Projects() {
     <React.Fragment>
       <Helmet title="Projects" />
 
-      <Typography variant="h3" gutterBottom display="inline">
-        Asignaciones
+      <Typography variant="h4" gutterBottom display="inline" mt={6}>
+        Proyectos
       </Typography>
 
-      <Divider my={6} />
-
-      <Grid container spacing={6}>
-        {dataToShow.map((homeWork) => (
-          <Grid item xs={12} sm={6} lg={4} key={homeWork.id}>
-            <Project {...homeWork} />
+      <Grid container spacing={6} mt={4}>
+        {dataToShow.map((project) => (
+          <Grid item xs={12} sm={6} lg={3} key={project.projectId}>
+            <Project {...project} />
           </Grid>
         ))}
       </Grid>

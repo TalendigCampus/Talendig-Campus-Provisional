@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components/macro";
+import { useNavigate } from "react-router-dom";
 import {
   CardActionArea,
   CardActions,
@@ -12,6 +13,9 @@ import {
 
 import { spacing } from "@mui/system";
 
+import { useDispatch } from "react-redux";
+import { bootcampProfile } from "../../redux/slices/bootcampSlice";
+
 const Card = styled(MuiCard)(spacing);
 
 const Button = styled(MuiButton)(spacing);
@@ -20,24 +24,38 @@ const CardMedia = styled(MuiCardMedia)`
   height: 220px;
 `;
 
-function MediaCard(props) {
+function MediaCard({ bootcamp }) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handdleNavigate = (id, pathToGo) => {
+    dispatch(bootcampProfile({ id: id }));
+    navigate(pathToGo);
+  };
   return (
     <Card mb={6}>
-      <CardActionArea>
-        <CardMedia image={props.bootcampImage} title={props.bootcampName} />
+      <CardActionArea
+        onClick={() => {
+          handdleNavigate(bootcamp.id, "/talent/bootcamp-info");
+        }}
+      >
+        <CardMedia image={bootcamp.image} title={bootcamp.bootcampName} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {props.bootcampName}
+            {bootcamp.bootcampName}
           </Typography>
-          <Typography component="p">{props.bootcampDescription}</Typography>
+          <Typography component="p">{bootcamp.description}</Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => {
+            handdleNavigate(bootcamp.id, "/talent/bootcamp-info");
+          }}
+        >
+          Mas Información
         </Button>
       </CardActions>
     </Card>

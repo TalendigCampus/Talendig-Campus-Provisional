@@ -1,20 +1,9 @@
 import React from "react";
-import styled, { withTheme } from "styled-components/macro";
+import styled from "styled-components/macro";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import Chart from "react-chartjs-2";
 
-import {
-  Briefcase,
-  DollarSign,
-  ExternalLink,
-  Facebook,
-  Home,
-  Instagram,
-  MapPin,
-  ShoppingBag,
-  Twitter,
-} from "react-feather";
+import { DollarSign } from "react-feather";
 
 import {
   Avatar as MuiAvatar,
@@ -24,45 +13,23 @@ import {
   Card as MuiCard,
   CardActions,
   CardContent,
+  CardMedia as MuiCardMedia,
   Chip as MuiChip,
   Divider as MuiDivider,
   Grid as MuiGrid,
   Icon,
-  LinearProgress as MuiLinearProgress,
   Link,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
   Typography as MuiTypography,
 } from "@mui/material";
 import { spacing } from "@mui/system";
-import {
-  bootcampProfile,
-  deleteTecnologies,
-  selectBootcampProfile,
-  addTecnology,
-} from "../../redux/slices/bootcampSlice";
+import { selectBootcampProfile } from "../../redux/slices/bootcampSlice";
 import tecnologiesInfo from "../../pages/Bootcamps/tecnologies.json";
 import { useSelector } from "react-redux";
-/* import Project from "../Componets/Projects"; */
-import {
-  CalendarToday,
-  Computer,
-  ComputerOutlined,
-  ListAlt,
-  Phone,
-  PhoneAndroid,
-  Subscript,
-  Timeline,
-  TimeToLeave,
-  Vignette,
-  Watch,
-  WatchLater,
-} from "@mui/icons-material";
-import { CloudUpload as MuiCloudUpload } from "@mui/icons-material";
 import { selectInstructors } from "../../redux/slices/instructorSlice";
+/* import Project from "../Componets/Projects"; */
+import { CalendarToday, PhoneAndroid, WatchLater } from "@mui/icons-material";
+import HomeWorks from "../HomeWorks/HomeWorks";
+import Projects from "../projects/Projects";
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
@@ -76,13 +43,13 @@ const Divider = styled(MuiDivider)(spacing);
 
 const Grid = styled(MuiGrid)(spacing);
 
-const LinearProgress = styled(MuiLinearProgress)(spacing);
-
 const Spacer = styled.div(spacing);
 
 const Typography = styled(MuiTypography)(spacing);
 
-const CloudUpload = styled(MuiCloudUpload)(spacing);
+const CardMedia = styled(MuiCardMedia)`
+  height: 220px;
+`;
 
 const CenteredContent = styled.div`
   text-align: center;
@@ -140,23 +107,18 @@ const ProductsChip = styled(Chip)`
   color: ${(props) => props.theme.palette.common.white};
 `;
 
-const TableWrapper = styled.div`
-  overflow-y: auto;
-  max-width: calc(100vw - ${(props) => props.theme.spacing(12)});
-`;
-
-function Details() {
+/* function Details() {
   const bootcamp = useSelector(selectBootcampProfile);
   return (
     <Card mb={6}>
       <CardContent>
         <Centered>
-          {/* <Project title={bootcamp.bootcampName} image={bootcamp.image} /> */}
+          {<Project title={bootcamp.bootcampName} image={bootcamp.image} />}
         </Centered>
       </CardContent>
     </Card>
   );
-}
+} */
 
 function Skills() {
   const [tecnologiesToSelect, setTecnologiesToSelect] = React.useState([]);
@@ -360,6 +322,14 @@ function Earnings({ bootcamp }) {
   );
 }
 
+function MediaCard({ bootcamp }) {
+  return (
+    <Card mb={6}>
+      <CardMedia image={bootcamp.image} title={bootcamp.bootcampName} />
+    </Card>
+  );
+}
+
 function Content({ bootcamp }) {
   let content = bootcamp.content;
   return (
@@ -383,7 +353,7 @@ function Content({ bootcamp }) {
 }
 
 function BootcampsDetails() {
-  const bootcamp = useSelector(selectBootcampProfile({ id: 1 }));
+  const bootcamp = useSelector(selectBootcampProfile);
   const instructors = useSelector(selectInstructors);
   const navigate = useNavigate();
   const handlePageChange = (pathToGo) => {
@@ -397,7 +367,7 @@ function BootcampsDetails() {
       <Grid justifyContent="space-between" container spacing={10}>
         <Grid item>
           <Typography variant="h3" gutterBottom display="inline">
-            Profile
+            {bootcamp ? bootcamp.bootcampName : "Bootcamp"}
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
@@ -407,7 +377,7 @@ function BootcampsDetails() {
             <Link component={NavLink} to="/">
               Pages
             </Link>
-            <Typography>Profile</Typography>
+            <Typography>Bootcamp</Typography>
           </Breadcrumbs>
         </Grid>
         <Grid item>
@@ -415,7 +385,7 @@ function BootcampsDetails() {
             type="button"
             variant="contained"
             color="success"
-            onClick={() => handlePageChange("/institution/bootcamps")}
+            onClick={() => handlePageChange("/talent/home")}
             mt={3}
             ml={3}
           >
@@ -427,25 +397,36 @@ function BootcampsDetails() {
       <Divider my={6} />
       {bootcamp ? (
         <Grid container spacing={6}>
-          <Grid item xs={12} lg={5} xl={3}>
-            <Details />
-            <About bootcamp={bootcamp} />
-            <Elsewhere instructors={instructors} bootcamp={bootcamp} />
-          </Grid>
-          <Grid item xs={12} lg={7} xl={9}>
-            <Grid item xs={12} lg={12}>
-              <Description bootcamp={bootcamp} />
-            </Grid>
-            <Grid item xs={12} lg={12}>
-              <Skills />
-            </Grid>
-            <Content bootcamp={bootcamp} />
-            <Grid container spacing={6}>
-              <Grid item xs={12} lg={12}>
-                <Earnings bootcamp={bootcamp} />
+          {bootcamp.inscription ? (
+            <>
+              <Grid item xs={12} lg={5} xl={3}>
+                <MediaCard bootcamp={bootcamp} />
+                <Skills />
+                <Elsewhere instructors={instructors} bootcamp={bootcamp} />
               </Grid>
-            </Grid>
-          </Grid>
+              <Grid item xs={12} lg={7} xl={9}>
+                <Grid item xs={12} lg={12}>
+                  <Description bootcamp={bootcamp} />
+                </Grid>
+                <Grid item xs={12} lg={12}>
+                  <About bootcamp={bootcamp} />
+                </Grid>
+                <Content bootcamp={bootcamp} />
+                <Grid container spacing={6}>
+                  <Grid item xs={12} lg={12}>
+                    <Earnings bootcamp={bootcamp} />
+                  </Grid>
+                </Grid>
+              </Grid>
+            </>
+          ) : (
+            <>
+              <Grid item xs={12} lg={12} xl={12}>
+                <HomeWorks id={bootcamp.id} />
+                <Projects id={bootcamp.id} />
+              </Grid>
+            </>
+          )}
         </Grid>
       ) : (
         <Typography variant="h3" gutterBottom display="inline">

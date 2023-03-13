@@ -69,6 +69,7 @@ import BootcampsList from "./pages/Bootcamps/BootcampList";
 //Talent pages
 import TalentHome from "./talent/home/index";
 import TalentBootcampInfo from "./talent/BootcampInfo/BootcampsDetails";
+import TalentHomeWorkDetails from "./talent/HomeWorks/HomeWorkDetails";
 
 import Projects from "./pages/pages/Projects";
 import Chat from "./pages/componetsIntitucio/Chat";
@@ -124,6 +125,9 @@ import TalentProjectsList from "./talent/briefcase/ProjectsList";
 import TalentProjectsFolderList from "./talent/briefcase/ProjectsFolderList";
 import TalentProjectsFileList from "./talent/briefcase/ProjectFolderFilesList";
 import TalentProjectFileDetails from "./talent/briefcase/ProjectFileDetails";
+import TalentRecruiters from "./talent/recruiters/RecruitersList";
+import TalentRecruiterProfile from "./talent/recruiters/Profile";
+import TalentBootcamps from "./talent/bootcamps/Bootcamps";
 
 // Dashboard components
 const Default = async(() => import("./pages/dashboards/Default"));
@@ -229,6 +233,10 @@ const routes = [
         element: <TalentBootcampInfo />,
       },
       {
+        path: "HomeWorkDetails",
+        element: <TalentHomeWorkDetails />,
+      },
+      {
         path: "perfil",
         children: [
           {
@@ -250,11 +258,29 @@ const routes = [
         children: [
           {
             path: "my-bootcamps",
-            element: <Default />,
+            element: (
+              <TalentBootcamps
+                name={"Mis Bootcamps"}
+                getBootcamp={(bootcamps, talentId) => {
+                  return bootcamps.filter((bootcamp) =>
+                    bootcamp.talents.includes(talentId)
+                  );
+                }}
+              />
+            ),
           },
           {
             path: "other-bootcamps",
-            element: <Default />,
+            element: (
+              <TalentBootcamps
+                name={"Bootcamps disponibles"}
+                getBootcamp={(bootcamps, talentId) => {
+                  return bootcamps.filter(
+                    (bootcamp) => !bootcamp.talents.includes(talentId)
+                  );
+                }}
+              />
+            ),
           },
         ],
       },
@@ -276,6 +302,19 @@ const routes = [
           {
             path: "list/folder/files/details",
             element: <TalentProjectFileDetails />,
+          },
+        ],
+      },
+      {
+        path: "recruiters",
+        children: [
+          {
+            index: true,
+            element: <TalentRecruiters />,
+          },
+          {
+            path: "profile",
+            element: <TalentRecruiterProfile />,
           },
         ],
       },
