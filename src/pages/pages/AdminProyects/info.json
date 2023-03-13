@@ -1,47 +1,98 @@
 [
   {
     "projectName": "Empleados-app",
+    "description": "Aplicacion para la gestion de empleados utilizando las mejores practicas",
     "talentName": "Anthony",
     "talentLastName": "Peralta",
     "lastModification": "1999-10-08",
     "tecnology": "PHP, Angular, Javascript, ASP.net",
     "projectId": 1,
+    "bootcampId": 1,
+    "status": "Pendiente",
     "talentId": 1
   },
   {
     "projectName": "Clientes-app",
+    "description": "Aplicacion para la gestion de clientes utilizando las mejores practicas",
     "talentName": "Kiancis",
     "talentLastName": "Dominguez",
     "lastModification": "2020-10-15",
     "tecnology": "Angular, Javascript, ASP.net",
     "projectId": 2,
+    "bootcampId": 1,
+    "status": "Pendiente",
     "talentId": 4
   },
   {
     "projectName": "Usuario-login-frontend",
+    "description": "Aplicacion para la gestion de usuarios en el frontend",
     "talentName": "Madelson",
     "talentLastName": "Acosta",
     "lastModification": "2023-12-21",
     "tecnology": "Angular, Javascript, NodeJs",
     "projectId": 3,
+    "bootcampId": 2,
+    "status": "Completado",
     "talentId": 2
   },
   {
     "projectName": "Usuario-login-backend",
+    "description": "Aplicacion para la gestion de usuarios en el backend",
     "talentName": "Felix",
     "talentLastName": "Ortega",
     "lastModification": "2010-08-14",
     "tecnology": "NodeJs, React, Express, MongoDb",
     "projectId": 4,
+    "bootcampId": 2,
+    "status": "Completado",
     "talentId": 3
   },
   {
     "projectName": "SummerWork Page",
+    "description": "Pagina para la gestion de proyectos de verano de los bootcamps",
     "talentName": "Gabriel",
     "talentLastName": "Encarnacion",
     "lastModification": "2022-10-15",
     "tecnology": "PHP, Angular, Javascript, ASP.net",
     "projectId": 5,
+    "bootcampId": 3,
+    "status": "Pendiente",
     "talentId": 5
+  },
+  {
+    "projectName": "AppToSales",
+    "description": "Aplicacion para la gestion de ventas de los bootcamps",
+    "talentName": "Anthony",
+    "talentLastName": "Peralta",
+    "lastModification": "1999-10-08",
+    "tecnology": "PHP, Angular, Javascript, ASP.net",
+    "projectId": 6,
+    "bootcampId": 3,
+    "status": "Pendiente",
+    "talentId": 1
+  },
+  {
+    "projectName": "AppToSales",
+    "description": "Aplicacion para la gestion de ventas de los bootcamps",
+    "talentName": "Kiancis",
+    "talentLastName": "Dominguez",
+    "lastModification": "2020-10-15",
+    "tecnology": "Angular, Javascript, ASP.net",
+    "projectId": 7,
+    "bootcampId": 4,
+    "status": "Pendiente",
+    "talentId": 4
+  },
+  {
+    "projectName": "AgendaDeContactos",
+    "description": "Aplicacion para la gestion de contactos de los bootcamps",
+    "talentName": "Madelson",
+    "talentLastName": "Acosta",
+    "lastModification": "2023-12-21",
+    "tecnology": "Angular, Javascript, NodeJs",
+    "projectId": 8,
+    "bootcampId": 4,
+    "status": "Completado",
+    "talentId": 2
   }
 ]
