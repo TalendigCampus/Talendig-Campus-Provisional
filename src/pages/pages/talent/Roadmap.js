@@ -15,10 +15,7 @@ import TimelineConnector from "@mui/lab/TimelineConnector";
 import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
 import TimelineDot from "@mui/lab/TimelineDot";
-import FastfoodIcon from "@mui/icons-material/Fastfood";
-import LaptopMacIcon from "@mui/icons-material/LaptopMac";
-import HotelIcon from "@mui/icons-material/Hotel";
-import RepeatIcon from "@mui/icons-material/Repeat";
+import { ExpandMore as ExpandMoreIcon } from "@mui/icons-material";
 
 import {
   Avatar,
@@ -31,6 +28,9 @@ import {
   Link,
   TextField as MuiTextField,
   Typography,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
 } from "@mui/material";
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
@@ -58,14 +58,14 @@ const BigAvatar = styled(Avatar)`
 function PositionedTooltips() {
   return (
     <React.Fragment>
-      <Grid container spacing={4}>
-        <Grid item xs={12} lg={4}>
+      <Grid container spacing={12}>
+        <Grid item xs={12} lg={12}>
           <RoadmapPrimerNivel />
         </Grid>
-        <Grid item xs={12} lg={4}>
+        <Grid item xs={12} lg={12}>
           <RoadmapSegundoNivel />
         </Grid>
-        <Grid item xs={12} lg={4}>
+        <Grid item xs={12} lg={12}>
           <RoadmapTercerNivel />
         </Grid>
       </Grid>
@@ -75,9 +75,11 @@ function PositionedTooltips() {
 
 function RoadmapPrimerNivel() {
   return (
-    <Card>
-      <CardContent>
-        <Typography variant="h4">Modulo 1: Introduccion</Typography>
+    <Accordion>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <Typography variant="h4">Modulo 1</Typography>
+      </AccordionSummary>
+      <AccordionDetails>
         <Timeline position="alternate">
           <TimelineItem>
             <TimelineOppositeContent color="text.secondary">
@@ -117,16 +119,18 @@ function RoadmapPrimerNivel() {
             <TimelineContent>Examen: Las Variables</TimelineContent>
           </TimelineItem>
         </Timeline>
-      </CardContent>
-    </Card>
+      </AccordionDetails>
+    </Accordion>
   );
 }
 
 function RoadmapSegundoNivel() {
   return (
-    <Card>
-      <CardContent>
-        <Typography variant="h4">Modulo 2: </Typography>
+    <Accordion>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <Typography variant="h4">Modulo 2</Typography>
+      </AccordionSummary>
+      <AccordionDetails>
         <Timeline position="alternate">
           <TimelineItem>
             <TimelineSeparator>
@@ -168,16 +172,18 @@ function RoadmapSegundoNivel() {
             </TimelineContent>
           </TimelineItem>
         </Timeline>
-      </CardContent>
-    </Card>
+      </AccordionDetails>
+    </Accordion>
   );
 }
 
 function RoadmapTercerNivel() {
   return (
-    <Card>
-      <CardContent>
-        <Typography variant="h4">Modulo 3:</Typography>
+    <Accordion>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <Typography variant="h4">Modulo 3</Typography>
+      </AccordionSummary>
+      <AccordionDetails>
         <Timeline position="alternate">
           <TimelineItem>
             <TimelineSeparator>
@@ -229,8 +235,8 @@ function RoadmapTercerNivel() {
             <TimelineContent sx={{ py: "50px" }}>Examen Final</TimelineContent>
           </TimelineItem>
         </Timeline>
-      </CardContent>
-    </Card>
+      </AccordionDetails>
+    </Accordion>
   );
 }
 
