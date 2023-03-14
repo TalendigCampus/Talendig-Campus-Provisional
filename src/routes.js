@@ -110,7 +110,7 @@ import ViewInstructors from "./pages/pages/adminPages/AdminInstructors/Instructo
 import Roadmap from "./pages/pages/adminPages/AdminTalent/Roadmap";
 
 // User sign
-const UserLogin = async(() => import("./pages/pages/Login/SignIn"));
+import UserLogin from "./pages/pages/Login/SignIn";
 
 // Dashboard components
 const Default = async(() => import("./pages/dashboards/Default"));
@@ -187,8 +187,30 @@ const routes = [
     ],
   },
   {
-    path: "login",
-    element: <UserLogin />,
+    path: "auth",
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "login",
+        element: <UserLogin />,
+      },
+      // {
+      //   path: "sign-up",
+      //   element: <SignUp />,
+      // },
+      // {
+      //   path: "reset-password",
+      //   element: <ResetPassword />,
+      // },
+      // {
+      //   path: "404",
+      //   element: <Page404 />,
+      // },
+      // {
+      //   path: "500",
+      //   element: <Page500 />,
+      // },
+    ],
   },
   {
     path: "recruiters",
@@ -461,32 +483,32 @@ const routes = [
       },
     ],
   },
-  {
-    path: "auth",
-    element: <AuthLayout />,
-    children: [
-      {
-        path: "sign-in",
-        element: <SignIn />,
-      },
-      {
-        path: "sign-up",
-        element: <SignUp />,
-      },
-      {
-        path: "reset-password",
-        element: <ResetPassword />,
-      },
-      {
-        path: "404",
-        element: <Page404 />,
-      },
-      {
-        path: "500",
-        element: <Page500 />,
-      },
-    ],
-  },
+  // {
+  //   path: "auth",
+  //   element: <AuthLayout />,
+  //   children: [
+  //     {
+  //       path: "sign-in",
+  //       element: <SignIn />,
+  //     },
+  //     {
+  //       path: "sign-up",
+  //       element: <SignUp />,
+  //     },
+  //     {
+  //       path: "reset-password",
+  //       element: <ResetPassword />,
+  //     },
+  //     {
+  //       path: "404",
+  //       element: <Page404 />,
+  //     },
+  //     {
+  //       path: "500",
+  //       element: <Page500 />,
+  //     },
+  //   ],
+  // },
   {
     path: "components",
     element: <DashboardLayout />,

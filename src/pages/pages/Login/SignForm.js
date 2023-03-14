@@ -27,16 +27,17 @@ function SignIn() {
   return (
     <Formik
       initialValues={{
-        email: "demo@bootlab.io",
-        password: "unsafepassword",
+        email: "",
+        password: "",
         submit: false,
       }}
+      enableReinitialize={true}
       validationSchema={Yup.object().shape({
         email: Yup.string()
-          .email("Must be a valid email")
+          .email("Debes colocar un correo valido")
           .max(255)
-          .required("Email is required"),
-        password: Yup.string().max(255).required("Password is required"),
+          .required("El correo es requerido"),
+        password: Yup.string().max(255).required("La contraseña es requerida"),
       })}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
         try {
@@ -44,7 +45,7 @@ function SignIn() {
 
           navigate("/private");
         } catch (error) {
-          const message = error.message || "Something went wrong";
+          const message = error.message || "Algo ha salido mal";
 
           setStatus({ success: false });
           setErrors({ submit: message });
@@ -62,10 +63,10 @@ function SignIn() {
         values,
       }) => (
         <form noValidate onSubmit={handleSubmit}>
-          <Alert mt={3} mb={3} severity="info">
+          {/* <Alert mt={3} mb={3} severity="info">
             Use <strong>demo@bootlab.io</strong> and{" "}
             <strong>unsafepassword</strong> to sign in
-          </Alert>
+          </Alert> */}
           {errors.submit && (
             <Alert mt={2} mb={3} severity="warning">
               {errors.submit}
@@ -106,16 +107,16 @@ function SignIn() {
             color="primary"
             disabled={isSubmitting}
           >
-            Sign in
+            Iniciar sesión
           </Button>
-          <Button
+          {/* <Button
             component={Link}
             to="/auth/reset-password"
             fullWidth
             color="primary"
           >
             Forgot password
-          </Button>
+          </Button> */}
         </form>
       )}
     </Formik>
