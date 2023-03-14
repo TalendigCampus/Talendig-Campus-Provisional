@@ -12,7 +12,6 @@ import {
 } from "@mui/material";
 
 import { spacing } from "@mui/system";
-import BootcampsInfo from "./bootcampsDispo.json";
 import { id } from "date-fns/locale";
 
 const Card = styled(MuiCard)(spacing);
@@ -23,15 +22,14 @@ const CardMedia = styled(MuiCardMedia)`
   height: 220px;
 `;
 
-function BootcampInstructors(props) {
+function MediaCard(props) {
   const [selected, setSelected] = React.useState([]);
+  const navigate = useNavigate();
 
   let IdDataTable = {
     id: 0,
     tableEliminate: {},
   };
-
-  const navigate = useNavigate();
 
   const handleChange = (pathToGo, id) => {
     const selectedIndex = selected.indexOf(id);
@@ -70,18 +68,20 @@ function BootcampInstructors(props) {
           Share
         </Button>
         <Button
-          aria-label="info"
-          size="large"
-          color="info"
-          onClick={
-            ((event) =>
-              handleChange("/admin/dashboard/users/instructors/bootcampInfo"),
-            BootcampsInfo.id)
+          size="small"
+          color="primary"
+          onClick={(event) =>
+            handleChange(
+              "/admin/dashboard/users/instructors/bootcampInfo",
+              props.id
+            )
           }
-        ></Button>
+        >
+          Mas información
+        </Button>
       </CardActions>
     </Card>
   );
 }
 
-export default BootcampInstructors;
+export default MediaCard;

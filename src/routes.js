@@ -61,8 +61,6 @@ import ProjectsFolderList from "./pages/pages/AdminProyects/ProjectsFolderList";
 import ProjectsFileList from "./pages/pages/AdminProyects/ProjectFolderFilesList";
 import ProjectFileDetails from "./pages/pages/AdminProyects/ProjectFileDetails";
 import Settings from "./pages/pages/Settings";
-import ListaInstructores from "./pages/AdminInstructors/List_Instructors";
-import Lista_Instructores from "./pages/AdminInstructors/List_Instructors";
 import BootcampsStatistics from "./pages/Bootcamps/index";
 import BootcampsList from "./pages/Bootcamps/BootcampList";
 
@@ -104,15 +102,11 @@ import Landing from "./pages/presentation/Landing";
 
 // Protected routes
 import ProtectedPage from "./pages/protected/ProtectedPage";
-import Instructores from "./pages/AdminInstructors/Instructores";
 import BootcampProfile from "./pages/Bootcamps/BootcampProfile";
-import BootcampInstructors from "./pages/Instructors/Bootcamps";
 import Curriculum from "./pages/pages/talent/Curriculum";
 import Index from "./pages/pages/Portafolio/Index";
 import BriefcaseList from "./pages/pages/Portafolio/BriefcaseList";
 
-import EditInstructors from "./pages/AdminInstructors/Edit_Instructors";
-import ViewInstructors from "./pages/AdminInstructors/InstructorsList/View_Instructors";
 import Roadmap from "./pages/pages/talent/Roadmap";
 
 // Talents routes
@@ -121,6 +115,14 @@ import TalentLayout from "./talent/layout/structureLayout";
 import TalentProfile from "./talent/profile/TalentsProfile";
 import TalentCurriculum from "./talent/profile/Curriculum";
 import TalentRoadmap from "./talent/profile/Roadmap";
+
+// Instructor routes
+
+import Instructores from "./pages/AdminInstructors/Instructores";
+import ListaInstructores from "./pages/AdminInstructors/List_Instructors";
+import ViewInstructors from "./pages/AdminInstructors/InstructorsList/View_Instructors";
+import BootcampInstructors from "./pages/Instructors/index";
+import BootcampInstructorsInfo from "./pages/Instructors/BootcampInfo";
 
 // Dashboard components
 const Default = async(() => import("./pages/dashboards/Default"));
@@ -332,6 +334,14 @@ const routes = [
                     path: "view_instructors",
                     element: <ViewInstructors />,
                   },
+                  {
+                    path: "instructorBootcamps",
+                    element: <BootcampInstructors />,
+                  },
+                  {
+                    path: "bootcampInfo",
+                    element: <BootcampInstructorsInfo />,
+                  },
                 ],
               },
               {
@@ -400,10 +410,6 @@ const routes = [
               {
                 path: "changelog",
                 element: <Changelog />,
-              },
-              {
-                path: "instructorBootcamps",
-                element: <BootcampInstructors />,
               },
               {
                 path: "briefcase",
