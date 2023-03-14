@@ -83,3 +83,10 @@ export const PROJECT_DELETE_TYPE = {
   folder: "eliminarCarpeta",
   file: "eliminarArchivo",
 };
+
+export const RECRUITER_ACTION_TYPE = {
+  removeFromProcess: "removeFromProcess",
+  redoRemoveFromProcess: "redoRemoveFromProcess",
+  removeFromFavorite: "removeFromFavorite",
+  redoRemoveFromFavorite: "redoRemoveFromFavorite",
+};

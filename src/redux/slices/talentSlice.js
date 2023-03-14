@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import TalentsInfo from "../../pages/pages/adminPages/AdminTalent/info.json";
 
 const talentSlice = createSlice({
@@ -58,6 +58,51 @@ const talentSlice = createSlice({
     setAllowDelete: (state, action) => {
       state.allowDelete = action.payload.status;
     },
+    setProcessStep: (state, action) => {
+      const currentTalent = state.TalentsInfo.find(
+        (talent) => talent.talentId === state.currentTalent.talentId
+      );
+      currentTalent.recruiterProcess.activeStep = action.payload.activeStep;
+      state.currentTalent = currentTalent;
+    },
+    setProcessCompleted: (state, action) => {
+      const currentTalent = state.TalentsInfo.find(
+        (talent) => talent.talentId === state.currentTalent.talentId
+      );
+      currentTalent.recruiterProcess.completedSteps =
+        action.payload.completedSteps;
+      state.currentTalent = currentTalent;
+    },
+    setTalentFavorite: (state, action) => {
+      const currentTalent = state.TalentsInfo.find(
+        (talent) => talent.talentId === state.currentTalent.talentId
+      );
+
+      currentTalent.recruiterProcess.category.favorite =
+        !state.currentTalent.recruiterProcess.category.favorite;
+
+      state.currentTalent = currentTalent;
+    },
+    setRecruitmentProcess: (state, action) => {
+      const currentTalent = state.TalentsInfo.find(
+        (talent) => talent.talentId === state.currentTalent.talentId
+      );
+      currentTalent.recruiterProcess.activeProcess =
+        action.payload.activeProcess;
+      state.currentTalent = currentTalent;
+    },
+    setRecruiterDecision: (state, action) => {
+      const currentTalent = state.TalentsInfo.find(
+        (talent) => talent.talentId === state.currentTalent.talentId
+      );
+      currentTalent.recruiterProcess.decision.selection =
+        action.payload.selection;
+
+      currentTalent.recruiterProcess.decision.comments =
+        action.payload.comments;
+
+      state.currentTalent = currentTalent;
+    },
   },
 });
 
@@ -70,6 +115,11 @@ export const {
   updateTalent,
   deleteTecnologies,
   addTecnology,
+  setProcessStep,
+  setProcessCompleted,
+  setRecruiterDecision,
+  setTalentFavorite,
+  setRecruitmentProcess,
 } = talentSlice.actions;
 export const selectTalents = (state) => state.talent.TalentsInfo;
 

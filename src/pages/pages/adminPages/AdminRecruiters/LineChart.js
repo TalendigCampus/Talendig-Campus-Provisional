@@ -87,12 +87,7 @@ function LineChart({ theme }) {
   return (
     <Card mb={1}>
       <CardContent>
-        <Typography
-          variant="h6"
-          gutterBottom
-          align="center"
-          sx={{ fontWeight: "bold" }}
-        >
+        <Typography variant="h6" gutterBottom sx={{ fontWeight: "bold" }}>
           Los cazatalentos más activos
         </Typography>
 

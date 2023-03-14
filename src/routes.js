@@ -51,9 +51,9 @@ import InvoiceList from "./pages/pages/TemplatePages/InvoiceList";
 import TalentList from "./pages/pages/adminPages/AdminTalent/TalentList";
 import TalentDetails from "./pages/pages/adminPages/AdminTalent/TalentsProfile";
 import Orders from "./pages/pages/TemplatePages/Orders";
-import Recruiters from "./pages/pages/adminPages/AdminRecruiters/Recruiters";
-import RecruitersList from "./pages/pages/adminPages/AdminRecruiters/RecruitersList";
-import RecruitersProfile from "./pages/pages/adminPages/AdminRecruiters/RecruitersProfile";
+import AdminRecruiters from "./pages/pages/adminPages/AdminRecruiters/Recruiters";
+import AdminRecruitersList from "./pages/pages/adminPages/AdminRecruiters/RecruitersList";
+import AdminRecruitersProfile from "./pages/pages/adminPages/AdminRecruiters/RecruitersProfile";
 import ProjectsIndex from "./pages/pages/adminPages/AdminProyects/index";
 import ProjectsList from "./pages/pages/adminPages/AdminProyects/ProjectsList";
 import ProjectsFolderList from "./pages/pages/adminPages/AdminProyects/ProjectsFolderList";
@@ -68,6 +68,8 @@ import Chat from "./pages/pages/adminPages/AdminInstitutions/Chat";
 import DataGridPage from "./pages/pages/adminPages/AdminInstitutions/DataGridPage";
 import EditProfile from "./pages/pages/adminPages/AdminInstitutions/EditProfile";
 import InfoProfile from "./pages/pages/adminPages/AdminInstitutions/InfoProfile";
+
+import RecruiterLayout from "./pages/pages/Users/Recruiters/layout/structureLayout";
 
 // Table components
 import SimpleTable from "./pages/tables/SimpleTable";
@@ -110,6 +112,43 @@ import Roadmap from "./pages/pages/adminPages/AdminTalent/Roadmap";
 // Dashboard components
 const Default = async(() => import("./pages/dashboards/Default"));
 
+// Recruiter Users pages
+const UserRecruiter = async(() =>
+  import("./pages/pages/Users/Recruiters/Recruiters")
+);
+
+const UserRecruiterProfile = async(() =>
+  import("./pages/pages/Users/Recruiters/RecruitersProfile")
+);
+
+const RecruiterTalentsList = async(() =>
+  import("./pages/pages/Users/Recruiters/TalentLists/RecruiterTalentsList")
+);
+
+const TalentProcessList = async(() =>
+  import("./pages/pages/Users/Recruiters/TalentProcess/TalentProcessList")
+);
+
+const TalentProfileDetails = async(() =>
+  import("./pages/pages/Users/Recruiters/TalentDetails/TalentsProfile")
+);
+
+const RecruiterTalentFavorite = async(() =>
+  import("./pages/pages/Users/Recruiters/RecruiterFavorite")
+);
+
+const RecruiterHistory = async(() =>
+  import("./pages/pages/Users/Recruiters/RecruiterHistory/RecruiterHistory")
+);
+
+const RecruiterHistoryList = async(() =>
+  import("./pages/pages/Users/Recruiters/RecruiterHistory/RecruiterHistoryList")
+);
+
+const RecruiterTalentBootcamp = async(() =>
+  import("./pages/pages/Users/Recruiters/TalentBoocamp/BootcampProfile")
+);
+
 // Form components
 const Pickers = async(() => import("./pages/forms/Pickers"));
 const Editors = async(() => import("./pages/forms/Editors"));
@@ -141,6 +180,63 @@ const routes = [
       {
         path: "",
         element: <Landing />,
+      },
+    ],
+  },
+  {
+    path: "recruiters",
+    element: <RecruiterLayout />,
+    children: [
+      {
+        path: "home",
+        element: <UserRecruiter />,
+        index: true,
+      },
+      {
+        path: "perfil",
+        element: <UserRecruiterProfile />,
+      },
+      {
+        path: "talentInfo",
+        element: <TalentProfileDetails />,
+      },
+      {
+        path: "talentBootcamp",
+        element: <RecruiterTalentBootcamp />,
+      },
+      {
+        path: "talentsList",
+        children: [
+          {
+            path: ":typeOfRating",
+            element: <RecruiterTalentsList />,
+          },
+        ],
+      },
+      {
+        path: "process",
+        element: <TalentProcessList />,
+      },
+      {
+        path: "favorites",
+        element: <RecruiterTalentFavorite />,
+      },
+      {
+        path: "history",
+        children: [
+          {
+            index: true,
+            element: <RecruiterHistory />,
+          },
+          {
+            path: ":typeOfList",
+            element: <RecruiterHistoryList />,
+          },
+        ],
+      },
+      {
+        path: "changelog",
+        element: <Changelog />,
       },
     ],
   },
@@ -222,15 +318,15 @@ const routes = [
                 children: [
                   {
                     index: true,
-                    element: <Recruiters />,
+                    element: <AdminRecruiters />,
                   },
                   {
                     path: "list",
-                    element: <RecruitersList />,
+                    element: <AdminRecruitersList />,
                   },
                   {
                     path: "recruiters-profile",
-                    element: <RecruitersProfile />,
+                    element: <AdminRecruitersProfile />,
                   },
                 ],
               },

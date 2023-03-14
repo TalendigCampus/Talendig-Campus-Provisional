@@ -26,7 +26,22 @@
     "workExpirences": "Escuela Catolica Santiago, Excelencia Estudiantil",
     "lenguages": "Ingles, Español",
     "biography": "Soy un joven Licenciado en Informática con conocimientos en el desarrollo web, móvil y de escritorio. Capaz de crear aplicaciones intuitivas y trabajar en soluciones tecnológicas automatizadas, integrables, distribuidas y continuas. Mi preocupación constante  por potenciar la asertividad y comunicación permite que me incorpore de manera colaborativa y efectiva en el desarrollo de proyectos ágiles.",
-    "talentId": 1
+    "talentId": 1,
+    "recruiterProcess": {
+      "activeStep": 1,
+      "activeProcess": true,
+      "completedSteps": {
+        "0": true
+      },
+      "category": {
+        "rating": "bestScore",
+        "favorite": true
+      },
+      "decision": {
+        "selection": "",
+        "comments": ""
+      }
+    }
   },
   {
     "talentName": "Madelson",
@@ -56,7 +71,22 @@
     "workExpirences": "Escuela Catolica Santiago, Excelencia Estudiantil",
     "lenguages": "Ingles, Español",
     "biography": "Soy una persona muy integra y apasionada. Me gusta intentar cosas nuevas y desafiarme cada día, ser la mejor version de mi. Me fascina la programación, sin duda una de las cosas que más disfruto en mi tiempo libre. Resolver cuestionantes que a su vez tienen una utilidad para los demás me hace muy feliz.",
-    "talentId": 2
+    "talentId": 2,
+    "recruiterProcess": {
+      "activeStep": 0,
+      "activeProcess": false,
+      "completedSteps": {
+        "0": false
+      },
+      "category": {
+        "rating": "recommended",
+        "favorite": false
+      },
+      "decision": {
+        "selection": "",
+        "comments": ""
+      }
+    }
   },
   {
     "talentName": "Felix",
@@ -86,7 +116,22 @@
     "workExpirences": "Escuela Catolica Santiago, Excelencia Estudiantil",
     "lenguages": "Ingles, Español",
     "biography": "Soy licenciado en publicidad egresado de UNAPEC. Con más de 5 años de experiencia en la comunicación visual, me apasiona el diseño de experiencias de usuario. Me he desempeñado en labores como creación de key visual para campañas publicitarias, creación de identidad corporativa, líneas gráficas para implementación digital, prototipado, UX research, wireframes, entre otras.",
-    "talentId": 3
+    "talentId": 3,
+    "recruiterProcess": {
+      "activeStep": 0,
+      "activeProcess": false,
+      "completedSteps": {
+        "0": false
+      },
+      "category": {
+        "rating": "highProjectsCount",
+        "favorite": false
+      },
+      "decision": {
+        "selection": "",
+        "comments": ""
+      }
+    }
   },
   {
     "talentName": "Kiancis",
@@ -116,7 +161,22 @@
     "workExpirences": "Escuela Catolica Santiago, Excelencia Estudiantil",
     "lenguages": "Ingles, Español",
     "biography": "Estudiante dedicado, con muchos conocimientos en el área de la tecnología, con deseos de superarse, el cual le apasiona aprender más cada día, especializado en el área de la programación y el Soporte Técnico(usuarios y maquinaria), poseo una gran variedad de valores, en los cuales destaco la humildad, la responsabilidad y respeto.",
-    "talentId": 4
+    "talentId": 4,
+    "recruiterProcess": {
+      "activeStep": 0,
+      "activeProcess": false,
+      "completedSteps": {
+        "0": false
+      },
+      "category": {
+        "rating": "recommended",
+        "favorite": false
+      },
+      "decision": {
+        "selection": "",
+        "comments": ""
+      }
+    }
   },
   {
     "talentName": "Gabriel",
@@ -146,7 +206,22 @@
     "lenguages": "Ingles, Español",
     "biography": "Mi objetivo es formar parte de una institución, en la cual pueda poner en práctica todos mis conocimientos. Con Capacidad para comprender y resolver problemas de forma rápida y práctica para el desarrollo funcional de la intitucion.",
     "work": "Talendig",
-    "talentId": 5
+    "talentId": 5,
+    "recruiterProcess": {
+      "activeStep": 0,
+      "activeProcess": false,
+      "completedSteps": {
+        "0": false
+      },
+      "category": {
+        "rating": "bestScore",
+        "favorite": false
+      },
+      "decision": {
+        "selection": "",
+        "comments": ""
+      }
+    }
   },
   {
     "talentName": "Miguel",

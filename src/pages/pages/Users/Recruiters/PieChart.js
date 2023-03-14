@@ -44,7 +44,7 @@ function PieChart({ theme }) {
     <Card mb={1}>
       <CardContent>
         <Typography variant="h6" gutterBottom sx={{ fontWeight: "bold" }}>
-          Tecnologias más buscadas por cazatalentos
+          Cantidad de Talentos por tecnologias
         </Typography>
 
         <Spacer mb={6} />

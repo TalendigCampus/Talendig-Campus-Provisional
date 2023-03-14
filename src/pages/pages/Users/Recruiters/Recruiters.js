@@ -14,9 +14,8 @@ import {
 import { spacing } from "@mui/system";
 import { green, red } from "@mui/material/colors";
 
-import Actions from "./Actions";
 import PieChart from "./PieChart";
-import LineChart from "./LineChart";
+import BarChart from "./BarChart";
 import Stats from "./Stats";
 
 const Divider = styled(MuiDivider)(spacing);
@@ -31,19 +30,12 @@ function Recruiters() {
       <Helmet title="Recruiters Dashboard" />
       <Grid justifyContent="space-between" container spacing={6}>
         <Grid item>
-          <Typography variant="h3" gutterBottom>
-            Reclutadores
-          </Typography>
-          <Typography variant="subtitle1">
-            {t("Welcome back")}, José Armando! {t("We've missed you")}.{" "}
+          <Typography variant="h5">
+            {t("Welcome back")}, Alexander {t("We've missed you")}.{" "}
             <span role="img" aria-label="Waving Hand Sign">
               👋
             </span>
           </Typography>
-        </Grid>
-
-        <Grid item>
-          <Actions />
         </Grid>
       </Grid>
 
@@ -63,8 +55,8 @@ function Recruiters() {
       >
         <Grid item xs={12} sm={12} md={6} lg={6} xl>
           <Stats
-            title="Cazatalentos Registrados"
-            amount="200"
+            title="Talentos en Proceso"
+            amount="75"
             percentagetext="+14%"
             percentagecolor={green[500]}
             icon="Person"
@@ -72,7 +64,7 @@ function Recruiters() {
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={6} xl>
           <Stats
-            title="Cazatalentos Conectados"
+            title="Talentos Contratados"
             amount="50"
             percentagetext="+12%"
             percentagecolor={green[500]}
@@ -81,7 +73,7 @@ function Recruiters() {
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={6} xl>
           <Stats
-            title="Cazatalentos +10 Talentos"
+            title="Talentos en Favorito"
             amount="18"
             percentagetext="+18%"
             percentagecolor={green[500]}
@@ -92,7 +84,7 @@ function Recruiters() {
 
       <Grid container spacing={6}>
         <Grid item xs={12} lg={11.9}>
-          <LineChart />
+          <BarChart />
         </Grid>
       </Grid>
     </React.Fragment>

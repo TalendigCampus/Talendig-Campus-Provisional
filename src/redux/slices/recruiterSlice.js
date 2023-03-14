@@ -7,6 +7,7 @@ const recruiterSlice = createSlice({
     RecruitersInfo,
     currentRecruiter: null,
     showUndo: false,
+    showEmerge: false,
   },
   reducers: {
     deleteRecruiter: (state, action) => {
@@ -57,6 +58,9 @@ const recruiterSlice = createSlice({
     setShowUndo: (state, action) => {
       state.showUndo = action.payload.status;
     },
+    setShowEmerge: (state, action) => {
+      state.showEmerge = action.payload.status;
+    },
   },
 });
 
@@ -68,9 +72,11 @@ export const {
   updateRecruiter,
   deleteTecnologies,
   addTecnology,
+  setShowEmerge,
 } = recruiterSlice.actions;
 export const selectRecruiters = (state) => state.recruiter.RecruitersInfo;
 export const currentRecruiter = (state) => state.recruiter.currentRecruiter;
 export const showUndo = (state) => state.recruiter.showUndo;
+export const showEmerge = (state) => state.recruiter.showEmerge;
 
 export default recruiterSlice.reducer;
