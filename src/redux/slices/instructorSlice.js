@@ -18,6 +18,7 @@ const instructorSlice = createSlice({
       state.InstructorsInfo.unshift(action.payload.instructor);
     },
     setCurrentInstructor: (state, action) => {
+      console.log(action.payload.instructorId);
       state.currentInstructor = state.InstructorsInfo.find(
         (instructor) => instructor.id === action.payload.instructorId
       );

@@ -177,21 +177,9 @@ function Roadmap() {
       <Typography variant="h3" gutterBottom display="inline">
         Roadmap
       </Typography>
-      <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/admin/dashboard/home">
-          Panel
-        </Link>
-        <Link component={NavLink} to="/admin/dashboard/users/talents">
-          Talentos
-        </Link>
-        <Link component={NavLink} to="/admin/dashboard/users/talents/list">
-          Lista
-        </Link>
-        <Typography gutterBottom display="inline">
-          Roadmap
-        </Typography>
-      </Breadcrumbs>
+
       <Divider my={6} />
+
       <PositionedTooltips />
     </React.Fragment>
   );

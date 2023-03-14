@@ -66,6 +66,8 @@ import BootcampsList from "./pages/Bootcamps/BootcampList";
 
 //Talent pages
 import TalentHome from "./talent/home/index";
+import TalentBootcampInfo from "./talent/BootcampInfo/BootcampsDetails";
+import TalentHomeWorkDetails from "./talent/HomeWorks/HomeWorkDetails";
 
 import Projects from "./pages/pages/Projects";
 import Chat from "./pages/componetsIntitucio/Chat";
@@ -110,11 +112,20 @@ import BriefcaseList from "./pages/pages/Portafolio/BriefcaseList";
 import Roadmap from "./pages/pages/talent/Roadmap";
 
 // Talents routes
-
 import TalentLayout from "./talent/layout/structureLayout";
 import TalentProfile from "./talent/profile/TalentsProfile";
 import TalentCurriculum from "./talent/profile/Curriculum";
 import TalentRoadmap from "./talent/profile/Roadmap";
+import TalentProjectsList from "./talent/briefcase/ProjectsList";
+import TalentProjectsFolderList from "./talent/briefcase/ProjectsFolderList";
+import TalentProjectsFileList from "./talent/briefcase/ProjectFolderFilesList";
+import TalentProjectFileDetails from "./talent/briefcase/ProjectFileDetails";
+import TalentRecruiters from "./talent/recruiters/RecruitersList";
+import TalentRecruiterProfile from "./talent/recruiters/Profile";
+import TalentBootcamps from "./talent/bootcamps/Bootcamps";
+import TalentBootcampsTalents from "./talent/BootcampInfo/TalentList";
+import TalentBootcampTalentProfile from "./talent/BootcampInfo/Profile";
+import TalentBootcampInstructorProfile from "./talent/instructor/Profile";
 
 // Instructor routes
 
@@ -224,6 +235,14 @@ const routes = [
         path: "home",
       },
       {
+        path: "bootcamp-info",
+        element: <TalentBootcampInfo />,
+      },
+      {
+        path: "HomeWorkDetails",
+        element: <TalentHomeWorkDetails />,
+      },
+      {
         path: "perfil",
         children: [
           {
@@ -245,17 +264,96 @@ const routes = [
         children: [
           {
             path: "my-bootcamps",
-            element: <Default />,
+            children: [
+              {
+                index: true,
+                element: (
+                  <TalentBootcamps
+                    name={"Mis Bootcamps"}
+                    getBootcamp={(bootcamps, talentId) => {
+                      return bootcamps.filter((bootcamp) =>
+                        bootcamp.talents.includes(talentId)
+                      );
+                    }}
+                  />
+                ),
+              },
+              {
+                path: "talents",
+                children: [
+                  {
+                    index: true,
+                    element: <TalentBootcampsTalents />,
+                  },
+                  {
+                    path: "profile",
+                    element: <TalentBootcampTalentProfile />,
+                  },
+                ],
+              },
+              {
+                path: "instructor",
+                element: <TalentBootcampInstructorProfile />,
+              },
+            ],
           },
           {
             path: "other-bootcamps",
-            element: <Default />,
+            children: [
+              {
+                index: true,
+                element: (
+                  <TalentBootcamps
+                    name={"Bootcamps disponibles"}
+                    getBootcamp={(bootcamps, talentId) => {
+                      return bootcamps.filter(
+                        (bootcamp) => !bootcamp.talents.includes(talentId)
+                      );
+                    }}
+                  />
+                ),
+              },
+              {
+                path: "instructor",
+                element: <TalentBootcampInstructorProfile />,
+              },
+            ],
           },
         ],
       },
       {
-        path: "briefcase",
-        element: <Default />,
+        path: "projects",
+        children: [
+          {
+            index: true,
+            element: <TalentProjectsList />,
+          },
+          {
+            path: "list/folder/details",
+            element: <TalentProjectsFolderList />,
+          },
+          {
+            path: "list/folder/files",
+            element: <TalentProjectsFileList />,
+          },
+          {
+            path: "list/folder/files/details",
+            element: <TalentProjectFileDetails />,
+          },
+        ],
+      },
+      {
+        path: "recruiters",
+        children: [
+          {
+            index: true,
+            element: <TalentRecruiters />,
+          },
+          {
+            path: "profile",
+            element: <TalentRecruiterProfile />,
+          },
+        ],
       },
       {
         path: "changelog",

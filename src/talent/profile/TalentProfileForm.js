@@ -445,10 +445,7 @@ function BasicForm(talent) {
                       variant="contained"
                       color="primary"
                       onClick={() =>
-                        handleNavigate(
-                          "/admin/dashboard/users/talents/roadmap",
-                          values.talentId
-                        )
+                        handleNavigate("/talent/roadmap", values.talentId)
                       }
                       mt={3}
                       ml={3}
@@ -472,10 +469,7 @@ function BasicForm(talent) {
                       variant="contained"
                       color="error"
                       onClick={() =>
-                        handleNavigate(
-                          "/talent/projects/list/folder/details",
-                          values.talentId
-                        )
+                        handleNavigate("/talent/projects", values.talentId)
                       }
                       mt={3}
                       ml={3}

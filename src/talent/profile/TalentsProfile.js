@@ -102,8 +102,7 @@ function Public() {
   );
 }
 
-function Private({ props }) {
-  console.log(props);
+function Private() {
   return (
     <Card mb={6}>
       <CardContent>
@@ -160,26 +159,14 @@ const formTalentStructure = (talent) => {
 
 function Settings() {
   const talent = useSelector(CurrentTalent);
-  console.log(talent);
 
   return (
     <React.Fragment>
       <Helmet title="Recruiter Profile" />
 
       <Typography variant="h3" gutterBottom display="inline">
-        Perfil Talento
+        Perfil de {`${talent.talentName} ${talent.talentLastName}`}
       </Typography>
-
-      <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/admin/dashboard/home">
-          Panel
-        </Link>
-        <Typography>Usuarios</Typography>
-        <Link component={NavLink} to="/admin/dashboard/users/talents">
-          Talentos
-        </Link>
-        <Typography>Perfil</Typography>
-      </Breadcrumbs>
 
       <Divider my={6} />
 
@@ -188,7 +175,7 @@ function Settings() {
           {talent ? (
             <>
               <Public />
-              <Private talent={talent} />
+              <Private />
               <Tecnology />
             </>
           ) : (

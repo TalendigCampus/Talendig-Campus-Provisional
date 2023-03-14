@@ -36,11 +36,18 @@ import {
   Typography as MuiTypography,
 } from "@mui/material";
 import { spacing } from "@mui/system";
-import JsonInfo from "../../pages/pages/talent/info.json";
 import tecnologiesInfo from "../../pages/Bootcamps/tecnologies.json";
-import { Email, Person, Phone, School, Star, Work } from "@mui/icons-material";
+import {
+  Business,
+  Email,
+  Person,
+  Phone,
+  School,
+  Star,
+  Work,
+} from "@mui/icons-material";
 import { useSelector } from "react-redux";
-import { CurrentTalent } from "../../redux/slices/talentSlice";
+import { currentInstructor } from "../../redux/slices/instructorSlice";
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
@@ -115,8 +122,6 @@ const TableWrapper = styled.div`
   max-width: calc(100vw - ${(props) => props.theme.spacing(12)});
 `;
 
-const rows = JsonInfo;
-
 function Details(props) {
   return (
     <Card mb={6}>
@@ -125,7 +130,7 @@ function Details(props) {
           <Avatar alt="Lucy Lavender" src={props.photoUrl} />
           <Typography variant="h4" component="div" gutterBottom>
             <Box fontWeight="fontWeightMedium">
-              {props.talentName} {props.talentLastName}
+              {props.firstName} {props.lastName}
             </Box>
             <Box fontWeight="fontWeightRegular">{props.career}</Box>
           </Typography>
@@ -142,6 +147,7 @@ function Skills(props) {
       props.technology.includes(technology.id) && values.push(technology.name)
   );
   let skills = values;
+  console.log("yooouuu!!", skills);
   let i = 0;
   return (
     <Card mb={6}>
@@ -213,7 +219,7 @@ function About(props) {
               </AboutIcon>
             </Grid>
             <Grid item>
-              Numero de telefono{" "}
+              Numero de telefono:{" "}
               <Link href="https://material-app.bootlab.io/">
                 {props.phoneNumber}
               </Link>
@@ -226,49 +232,10 @@ function About(props) {
               </AboutIcon>
             </Grid>
             <Grid item>
-              Email{" "}
-              <Link href="https://material-app.bootlab.io/">
-                {props.talentEmail}
-              </Link>
+              Email:{" "}
+              <Link href="https://material-app.bootlab.io/">{props.email}</Link>
             </Grid>
           </Grid>
-        </Grid>
-      </CardContent>
-    </Card>
-  );
-}
-
-function Referens(props) {
-  return (
-    <Card mb={6}>
-      <CardContent>
-        <Typography variant="h6" gutterBottom>
-          Referencias
-        </Typography>
-
-        <Spacer mb={4} />
-
-        <Grid container direction="row" alignItems="center" mb={2}>
-          <Grid item>
-            <AboutIcon>
-              <Person />
-            </AboutIcon>
-          </Grid>
-          <Grid item>
-            <Link href="https://material-app.bootlab.io/">
-              {props.contactEmergencyName}
-            </Link>
-          </Grid>
-        </Grid>
-        <Grid container direction="row" alignItems="center" mb={2}>
-          <Grid item>
-            <AboutIcon>
-              <Phone />
-            </AboutIcon>
-          </Grid>
-          <Link href="https://material-app.bootlab.io/">
-            {props.contactNumEmergencyName}
-          </Link>
         </Grid>
       </CardContent>
     </Card>
@@ -286,108 +253,8 @@ function AboutMe(props) {
         <Spacer mb={4} />
 
         <Centered>
-          <Typography textAlign={"justify"}>{props.biography}</Typography>
+          <Typography textAlign={"justify"}>{props.bio}</Typography>
         </Centered>
-      </CardContent>
-    </Card>
-  );
-}
-
-function Expirence(props) {
-  let workExpirences = props.workExpirences;
-  let i = 0;
-  return (
-    <Card mb={6}>
-      <CardContent>
-        <Typography variant="h6" gutterBottom>
-          Experiencia
-        </Typography>
-
-        <Spacer mb={4} />
-
-        {workExpirences.split(",").map((workExpirence) => {
-          return (
-            <Grid container direction="row" alignItems="center" mb={2}>
-              <Grid item>
-                <AboutIcon>
-                  <Work />
-                </AboutIcon>
-              </Grid>
-              <Grid item>
-                <Link href="https://material-app.bootlab.io/">
-                  {workExpirence}
-                </Link>
-              </Grid>
-            </Grid>
-          );
-        })}
-      </CardContent>
-    </Card>
-  );
-}
-
-function Education(props) {
-  let educations = props.education;
-  return (
-    <Card mb={6}>
-      <CardContent>
-        <Typography variant="h6" gutterBottom>
-          Educacion
-        </Typography>
-
-        <Spacer mb={4} />
-
-        {educations.split(",").map((education) => {
-          return (
-            <Grid container direction="row" alignItems="center" mb={2}>
-              <Grid item>
-                <AboutIcon>
-                  <School />
-                </AboutIcon>
-              </Grid>
-              <Grid item>
-                <Link href="https://material-app.bootlab.io/">{education}</Link>
-              </Grid>
-            </Grid>
-          );
-        })}
-      </CardContent>
-    </Card>
-  );
-}
-
-function Lenguages(props) {
-  let lenguages = props.lenguages;
-  return (
-    <Card mb={6}>
-      <CardContent>
-        <Typography variant="h6" gutterBottom>
-          Idiomas
-        </Typography>
-
-        <Spacer mb={4} />
-
-        {lenguages.split(",").map((lenguage) => {
-          return (
-            <Grid container direction="row" alignItems="center" mb={2}>
-              <Grid item>
-                <AboutIcon>
-                  <School />
-                </AboutIcon>
-              </Grid>
-              <Grid item>
-                <Link href="https://material-app.bootlab.io/">{lenguage}</Link>
-                <AboutIcon>
-                  <Star />
-                  <Star />
-                  <Star />
-                  <Star />
-                  <Star />
-                </AboutIcon>
-              </Grid>
-            </Grid>
-          );
-        })}
       </CardContent>
     </Card>
   );
@@ -400,29 +267,35 @@ function Curriculum() {
   // const result = rows.find((row) => row.talentId === Number(talentId));
   // console.log(result);
 
-  const talent = useSelector(CurrentTalent);
+  const result = useSelector(currentInstructor);
+
   return (
     <React.Fragment>
       <Helmet title="Profile" />
 
       <Typography variant="h3" gutterBottom display="inline">
-        Perfil de {`${talent.talentName} ${talent.talentLastName}`}
+        {`${result.firstName} ${result.lastName}`}
       </Typography>
+
+      <Breadcrumbs aria-label="Breadcrumb" mt={2}>
+        <Link component={NavLink} to="/talent/bootcamp-info">
+          Bootcamp
+        </Link>
+        <Typography gutterBottom display="inline">
+          {`${result.firstName} ${result.lastName}`}
+        </Typography>
+      </Breadcrumbs>
 
       <Divider my={6} />
 
       <Grid container spacing={6}>
         <Grid item xs={12} lg={4} xl={3}>
-          <Details {...talent} />
-          <Skills {...talent} />
-          <About {...talent} />
-          <Referens {...talent} />
+          <Details {...result} />
+          <Skills {...result} />
+          <About {...result} />
         </Grid>
         <Grid item xs={12} lg={8} xl={9}>
-          <AboutMe {...talent} />
-          <Expirence {...talent} />
-          <Education {...talent} />
-          <Lenguages {...talent} />
+          <AboutMe {...result} />
         </Grid>
       </Grid>
     </React.Fragment>

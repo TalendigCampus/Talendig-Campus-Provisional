@@ -16,6 +16,7 @@ const projectsSlice = createSlice({
       value: false,
       type: "",
     },
+    currentTalentProjects: null,
   },
   reducers: {
     deleteProject: (state, action) => {
@@ -149,6 +150,11 @@ const projectsSlice = createSlice({
     setUpdateType: (state, action) => {
       state.updateType = action.payload.type;
     },
+    setProjectsByTalent: (state, action) => {
+      state.currentTalentProjects = state.projectsInfo.filter(
+        (project) => project.talentId === action.payload.talentId
+      );
+    },
   },
 });
 
@@ -162,6 +168,7 @@ export const {
   updateProject,
   setCurrentFolder,
   setCurrentFile,
+  setProjectsByTalent,
 } = projectsSlice.actions;
 export const selectProjects = (state) => state.projects.projectsInfo;
 export const currentProject = (state) => state.projects.currentProject;
@@ -170,5 +177,7 @@ export const currentFolder = (state) => state.projects.currentFolder;
 export const currentFile = (state) => state.projects.currentFile;
 export const showUpdate = (state) => state.projects.showUpdate;
 export const showUndo = (state) => state.projects.showUndo;
+export const currentTalentProjects = (state) =>
+  state.projects.currentTalentProjects;
 
 export default projectsSlice.reducer;

@@ -10,8 +10,6 @@ import {
   Typography as MuiTypography,
 } from "@mui/material";
 
-import JsonBootcamp from "./bootcampsDispo.json";
-
 import {
   JSXICONS,
   STATSQUANTITYBYPAGINATION,
@@ -21,14 +19,17 @@ const Spacer = styled.div(spacing);
 const Pagination = styled(MuiPagination)(spacing);
 const Typography = styled(MuiTypography)(spacing);
 
-export function BootcapmsDispo() {
+export default function BootcapmsDispo({
+  name,
+  bootcamps,
+  quantityPerView,
+  showName = true,
+}) {
   const [page, setPage] = useState(1);
-  const pageQuantity = Math.ceil(
-    JsonBootcamp.length / STATSQUANTITYBYPAGINATION
-  );
-  const dataToShow = JsonBootcamp.slice(
-    (page - 1) * STATSQUANTITYBYPAGINATION,
-    page * STATSQUANTITYBYPAGINATION
+  const pageQuantity = Math.ceil(bootcamps.length / quantityPerView);
+  const dataToShow = bootcamps.slice(
+    (page - 1) * quantityPerView,
+    page * quantityPerView
   );
   const handleChange = (event, value) => {
     setPage(value);
@@ -37,84 +38,44 @@ export function BootcapmsDispo() {
     <React.Fragment>
       <Grid justifyContent="space-between" container spacing={6}>
         <Grid item>
-          <Typography variant="h3" gutterBottom>
-            Bootcamps disponibles
-          </Typography>
+          {showName ? (
+            <Typography variant="h3" gutterBottom>
+              {name}
+            </Typography>
+          ) : null}
         </Grid>
       </Grid>
 
-      <Grid container spacing={6}>
-        {dataToShow.map((stat) => (
-          <Grid item xs={12} sm={12} md={12} lg={2.9} xl={2.9}>
-            <MediaCard
-              key={stat.id}
-              bootcampImage={stat.bootcampImage}
-              bootcampName={stat.bootcampName}
-              bootcampDescription={stat.bootcampDescription}
-            />
+      {bootcamps.length ? (
+        <>
+          <Grid container spacing={6}>
+            {dataToShow.map((bootcamp) => (
+              <Grid key={bootcamp.id} item xs={6} sm={4} md={4} lg={3} xl={3}>
+                <MediaCard key={bootcamp.id} bootcamp={bootcamp} />
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
 
-      <Pagination
-        mb={2}
-        count={pageQuantity}
-        color="primary"
-        sx={{ display: "flex", justifyContent: "center" }}
-        page={page}
-        onChange={handleChange}
-      />
+          <Pagination
+            mb={2}
+            count={pageQuantity}
+            color="primary"
+            sx={{ display: "flex", justifyContent: "center" }}
+            page={page}
+            onChange={handleChange}
+          />
+        </>
+      ) : (
+        <Typography
+          variant="h5"
+          style={{ textAlign: "center", marginTop: "10px" }}
+          gutterBottom
+        >
+          No hay bootcamps para mostrar
+        </Typography>
+      )}
 
       <Spacer mb={15} />
-    </React.Fragment>
-  );
-}
-
-export function MyBootcamps() {
-  const [page, setPage] = useState(1);
-  const pageQuantity = Math.ceil(
-    JsonBootcamp.length / STATSQUANTITYBYPAGINATION
-  );
-  const dataToShow = JsonBootcamp.slice(
-    (page - 1) * STATSQUANTITYBYPAGINATION,
-    page * STATSQUANTITYBYPAGINATION
-  );
-  const handleChange = (event, value) => {
-    setPage(value);
-  };
-  return (
-    <React.Fragment>
-      <Grid justifyContent="space-between" container spacing={6}>
-        <Grid item>
-          <Typography variant="h3" gutterBottom>
-            Mis Bootcamps
-          </Typography>
-        </Grid>
-      </Grid>
-
-      <Grid container spacing={6}>
-        {dataToShow.map((stat) => (
-          <Grid item xs={12} sm={12} md={12} lg={2.9} xl={2.9}>
-            <MediaCard
-              key={stat.id}
-              bootcampImage={stat.bootcampImage}
-              bootcampName={stat.bootcampName}
-              bootcampDescription={stat.bootcampDescription}
-            />
-          </Grid>
-        ))}
-      </Grid>
-
-      <Pagination
-        mb={2}
-        count={pageQuantity}
-        color="primary"
-        sx={{ display: "flex", justifyContent: "center" }}
-        page={page}
-        onChange={handleChange}
-      />
-
-      <Spacer mb={30} />
     </React.Fragment>
   );
 }

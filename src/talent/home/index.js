@@ -11,9 +11,12 @@ import {
 import { spacing } from "@mui/system";
 
 /* import Actions from "./Actions"; */
-import { BootcapmsDispo, MyBootcamps } from "./CardContent";
+import BootcapmsDispo from "./CardContent";
 import { useDispatch } from "react-redux";
 import { setCurrentTalent } from "../../redux/slices/talentSlice";
+import { setProjectsByTalent } from "../../redux/slices/projectsSlice";
+import { selectBootcamps } from "../../redux/slices/bootcampSlice";
+import { useSelector } from "react-redux";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -25,8 +28,17 @@ function TalentHome() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  dispatch(setCurrentTalent({ talentId: 1 }));
+  const talentId = 2;
 
+  dispatch(setCurrentTalent({ talentId }));
+  dispatch(setProjectsByTalent({ talentId }));
+  const bootcamps = useSelector(selectBootcamps);
+  const bootcampAvailables = bootcamps.filter(
+    (bootcamp) => !bootcamp.talents.includes(talentId)
+  );
+  const bootcampTalent = bootcamps.filter((bootcamp) =>
+    bootcamp.talents.includes(talentId)
+  );
   return (
     <React.Fragment>
       <Helmet title="Default Dashboard" />
@@ -45,15 +57,23 @@ function TalentHome() {
 
       <Divider my={6} />
 
-      <BootcapmsDispo />
+      <BootcapmsDispo
+        name={"Mis bootcamps"}
+        bootcamps={bootcampTalent}
+        quantityPerView={4}
+      />
 
       {/* <Grid container spacing={6}>
         <Grid item xs={12} sm={12} md={12} lg={11.9} xl={11.9}>
         <StatsList />
         </Grid>
       </Grid> */}
-      <MyBootcamps />
 
+      <BootcapmsDispo
+        name={"Bootcamps disponibles"}
+        bootcamps={bootcampAvailables}
+        quantityPerView={4}
+      />
       {/* <Grid container spacing={6}>
         <Grid item xs={12} sm={12} md={12} lg={11.9} xl={11.9}>
           <BarChart />
