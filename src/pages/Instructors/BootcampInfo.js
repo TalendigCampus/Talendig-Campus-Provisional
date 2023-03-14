@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components/macro";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { useSelector } from "react-redux";
 
 import {
   Alert as MuiAlert,
@@ -21,17 +22,21 @@ import {
   AccordionDetails,
   AccordionSummary,
   Typography,
+  IconButton,
 } from "@mui/material";
 import { spacing } from "@mui/system";
 import { Pagination as MuiPagination } from "@mui/material";
-import bootcampSlice from "../../redux/slices/bootcampSlice";
+import { selectBootcampProfile } from "../../redux/slices/bootcampSlice";
 import bootcampsDispo from "./bootcampsDispo.json";
 import calendarStyle from "./Calendar.style";
 import demoEvents from "./demo-events.json";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { ExpandMore as ExpandMoreIcon } from "@mui/icons-material";
+import {
+  ExpandMore as ExpandMoreIcon,
+  Add as AddIcon,
+} from "@mui/icons-material";
 import { CloudUpload as MuiCloudUpload } from "@mui/icons-material";
 
 const Card = styled(MuiCard)(spacing);
@@ -76,8 +81,13 @@ function SimpleCard() {
         </Alert>
       </CardContent>
       <CardActions>
-        <Button size="small">Ver Lista de Talentos</Button>
-        <Button size="small">Ver otros bootcamps</Button>
+        <Button
+          size="small"
+          component={NavLink}
+          to="/admin/dashboard/users/talents/list"
+        >
+          Ver Lista de Talentos
+        </Button>
       </CardActions>
     </Card>
   );
@@ -104,12 +114,10 @@ function BasicPagination() {
 }
 
 function MediaCard({ bootcamps }) {
+  const bootcamp = useSelector(selectBootcampProfile);
   return (
     <Card mb={6}>
-      <CardMedia
-        image={bootcampsDispo[0].bootcampImage}
-        title="Imagen del Bootcamp"
-      />
+      <CardMedia image={bootcamp.image} title="Imagen del Bootcamp" />
       <CardContent>
         <Typography variant="h1" component="h2">
           Introduccion
@@ -120,8 +128,9 @@ function MediaCard({ bootcamps }) {
         <Typography variant="h5" component="h3">
           {" "}
           <br />
-          En este bootcamp aprenderas todo acerca del stack MERN! Que es la
-          abreviacion de las tecnologias MongoDB, Express, React y Node!
+          En este bootcamp aprenderas todo acerca del stack{" "}
+          {bootcamp.bootcampName}! Que es la abreviacion de las tecnologias
+          MongoDB, Express, React y Node!
         </Typography>
       </CardContent>
       <br />
@@ -178,8 +187,13 @@ function Modulos({ semanas }) {
           type="file"
         />
         <label htmlFor="raised-button-file">
-          <Button variant="contained" color="primary" component="span">
-            <CloudUpload mr={2} /> Subir Actividad
+          <Button
+            variant="contained"
+            color="primary"
+            component={NavLink}
+            to="/admin/dashboard/users/instructors/tareas"
+          >
+            <AddIcon mr={2} /> Subir Actividad
           </Button>
 
           <Typography variant="caption" display="block" gutterBottom>
@@ -217,6 +231,7 @@ function SimpleAccordion(semanas) {
 }
 
 function MediaCard2({ bootcamps }) {
+  const bootcamp = useSelector(selectBootcampProfile);
   return (
     <Card mb={6}>
       <CardContent>
@@ -234,15 +249,7 @@ function MediaCard2({ bootcamps }) {
             rows={0}
             maxRows={0}
             variant="outlined"
-            defaultValue="Construye 16 proyectos de desarrollo web para tu portfolio, listos
-          para optar a trabajos de desarrollador junior. Aprende las últimas
-          tecnologías, incluyendo Javascript, React y Node. Después del curso
-          serás capaz de construir CUALQUIER sitio web que desees. Construir
-          sitios web de pleno derecho y aplicaciones web para su puesta en
-          marcha o negocio. Trabajar como desarrollador web freelance. Dominar
-          el desarrollo frontend con React Dominar el desarrollo backend con
-          Node Aprende las mejores prácticas de los desarrolladores
-          profesionales."
+            defaultValue={bootcamp.description}
           />
         </FormControl>
         <Button variant="contained" color="primary">
@@ -251,7 +258,7 @@ function MediaCard2({ bootcamps }) {
         <Spacer mb={6} />
         <Divider mb={6} />
         <Button variant="contained" color="primary" component="span">
-          <CloudUpload mr={2} /> Subir Recurso
+          <CloudUpload mr={2} /> Subir Recursos
         </Button>
       </CardContent>
       <CardContent></CardContent>
@@ -303,18 +310,16 @@ function Calendar() {
 }
 
 function BootcampInstructorsInfo({ semanas }) {
+  const bootcamp = useSelector(selectBootcampProfile);
   return (
     <React.Fragment>
       <Helmet title="Cards" />
-      <Typography variant="h3" gutterBottom display="inline">
-        MERN Stack Bootcamp
+      <Typography variant="h3" color="warning" gutterBottom display="inline">
+        {bootcamp.bootcampName}
       </Typography>
 
       <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link
-          component={NavLink}
-          to="/admin/dashboard/users/instructors/instructorBootcamps"
-        >
+        <Link component={NavLink} to="/admin/dashboard/users/instructors/home">
           Bootcamps
         </Link>
         <Typography>Info</Typography>

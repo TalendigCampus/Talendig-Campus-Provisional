@@ -86,7 +86,7 @@ const instructorSection = [
     ],
   },
   {
-    href: "/admin/dashboard/users/instructors/instructorBootcamps",
+    href: "/admin/dashboard/users/instructors/home",
     icon: NORMALICONS.bootcamp,
     title: "Mis Bootcamps",
   },

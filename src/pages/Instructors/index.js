@@ -12,8 +12,12 @@ import { spacing } from "@mui/system";
 
 /* import Actions from "./Actions"; */
 import { BootcapmsDispo, MyBootcamps } from "./CardContent";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCurrentTalent } from "../../redux/slices/talentSlice";
+import {
+  setCurrentInstructor,
+  currentInstructor,
+} from "../../redux/slices/instructorSlice";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -21,11 +25,13 @@ const Typography = styled(MuiTypography)(spacing);
 
 const Spacer = styled.div(spacing);
 
-function TalentHome() {
+function InstructorHome() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  dispatch(setCurrentTalent({ talentId: 1 }));
+  dispatch(setCurrentInstructor({ instructorId: "1" }));
+
+  const instructor = useSelector(currentInstructor);
 
   return (
     <React.Fragment>
@@ -33,7 +39,8 @@ function TalentHome() {
       <Grid justifyContent="space-between" container spacing={6}>
         <Grid item>
           <Typography variant="h3" gutterBottom>
-            Bienvenido Luis Soto! este es tu panel de control como Instructor.
+            Bienvenido {instructor.firstName + " " + instructor.lastName} este
+            es tu panel de control como Instructor.
           </Typography>
         </Grid>
 
@@ -49,7 +56,7 @@ function TalentHome() {
         <StatsList />
         </Grid>
       </Grid> */}
-      <MyBootcamps />
+      <MyBootcamps instructorId={instructor.id} />
 
       {/* <Grid container spacing={6}>
         <Grid item xs={12} sm={12} md={12} lg={11.9} xl={11.9}>
@@ -66,4 +73,4 @@ function TalentHome() {
   );
 }
 
-export default TalentHome;
+export default InstructorHome;

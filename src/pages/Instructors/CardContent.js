@@ -16,7 +16,8 @@ import {
   JSXICONS,
   STATSQUANTITYBYPAGINATION,
 } from "../../common/constants/data";
-
+import { useDispatch, useSelector } from "react-redux";
+import { selectBootcamps } from "../../redux/slices/bootcampSlice";
 const Spacer = styled.div(spacing);
 const Pagination = styled(MuiPagination)(spacing);
 const Typography = styled(MuiTypography)(spacing);
@@ -70,12 +71,16 @@ export function BootcapmsDispo() {
   );
 }
 
-export function MyBootcamps() {
+export function MyBootcamps({ instructorId }) {
   const [page, setPage] = useState(1);
-  const pageQuantity = Math.ceil(
-    JsonBootcamp.length / STATSQUANTITYBYPAGINATION
-  );
-  const dataToShow = JsonBootcamp.slice(
+  let bootcamps = useSelector(selectBootcamps);
+
+  const instructorBootcamp = () => {
+    return bootcamps.filter((bootcamp) => bootcamp.teacherId == instructorId);
+  };
+  bootcamps = instructorBootcamp();
+  const pageQuantity = Math.ceil(bootcamps.length / STATSQUANTITYBYPAGINATION);
+  const dataToShow = bootcamps.slice(
     (page - 1) * STATSQUANTITYBYPAGINATION,
     page * STATSQUANTITYBYPAGINATION
   );
@@ -94,12 +99,13 @@ export function MyBootcamps() {
 
       <Grid container spacing={6}>
         {dataToShow.map((stat) => (
-          <Grid item xs={12} sm={12} md={12} lg={2.9} xl={2.9}>
+          <Grid key={stat.id} item xs={12} sm={12} md={12} lg={2.9} xl={2.9}>
             <MediaCard
               key={stat.id}
-              bootcampImage={stat.bootcampImage}
+              bootcampImage={stat.image}
               bootcampName={stat.bootcampName}
-              bootcampDescription={stat.bootcampDescription}
+              bootcampDescription={stat.description}
+              bootcampId={stat.id}
             />
           </Grid>
         ))}
