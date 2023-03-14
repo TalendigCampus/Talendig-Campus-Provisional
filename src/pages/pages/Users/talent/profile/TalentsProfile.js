@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components/macro";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { useParams } from "react-router-dom";
+import TalentInfo from "../../../adminPages/AdminTalent/info.json";
 
 import {
   Avatar,
@@ -18,11 +20,11 @@ import {
 } from "@mui/material";
 import { CloudUpload as MuiCloudUpload } from "@mui/icons-material";
 import { spacing } from "@mui/system";
-import RecruiterTecnologyList from "./RecruiterTecnologyList";
-import RecruitersProfileForm from "./RecruitersProfileForm";
+import TalentTecnologyList from "./TalentTecnologyList";
+import TalentProfileForm from "./TalentProfileForm";
 
 import { useSelector } from "react-redux";
-import { currentRecruiter } from "../../../../redux/slices/recruiterSlice";
+import { CurrentTalent } from "../../../../../redux/slices/talentSlice";
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
@@ -49,39 +51,14 @@ const BigAvatar = styled(Avatar)`
 `;
 
 function Public() {
-  let recruiter = useSelector(currentRecruiter);
-  if (!recruiter) {
-    recruiter = {
-      firstName: "Alexander",
-      lastName: "Santos",
-      avatar: "A",
-      email: "alex@gmail.com",
-      phoneNumber: "829-098-0987",
-      identificationCard: "012-0987987-9",
-      company: "Banco Popular",
-      birth: "1980-05-22",
-      technology: [2, 1, 3],
-      affiliationDate: "05-12-2022",
-      lastConnectionDate: "05-12-2022 3:00 PM",
-      address: {
-        street: "Nueva Vista",
-        numHouseOrApartment: "#99",
-        neighborhood: "Los Jardinez",
-        city: "Santo Domingo",
-      },
-      password: "mypassword123",
-      confirmPassword: "mypassword123",
-      photoUrl: "/static/img/recruiters/recruiter-1.jpg",
-      id: "1",
-    };
-  }
+  const talent = useSelector(CurrentTalent);
   return (
     <Card mb={6}>
       <CardContent>
         <Grid container spacing={6}>
           <Grid item md={4}>
             <CenteredContent>
-              <BigAvatar alt="Remy Sharp" src={recruiter.photoUrl} />
+              <BigAvatar alt="Remy Sharp" src={talent.photoUrl} />
               <input
                 accept="image/*"
                 style={{ display: "none" }}
@@ -100,7 +77,7 @@ function Public() {
             <TextField
               id="username"
               label="Usuario desde"
-              defaultValue={recruiter.affiliationDate}
+              defaultValue={talent.affiliationDate}
               variant="outlined"
               fullWidth
               my={2}
@@ -111,7 +88,7 @@ function Public() {
               <TextField
                 id="lastConnection"
                 label="Última conexión"
-                defaultValue={recruiter.lastConnectionDate}
+                defaultValue={talent.lastConnectionDate}
                 variant="outlined"
                 fullWidth
                 my={2}
@@ -129,7 +106,7 @@ function Private() {
   return (
     <Card mb={6}>
       <CardContent>
-        <RecruitersProfileForm />
+        <TalentProfileForm />
       </CardContent>
     </Card>
   );
@@ -141,7 +118,7 @@ function Tecnology() {
       <CardContent>
         <Grid container spacing={6}>
           <Grid item md={12}>
-            <RecruiterTecnologyList />
+            <TalentTecnologyList />
           </Grid>
         </Grid>
       </CardContent>
@@ -149,67 +126,53 @@ function Tecnology() {
   );
 }
 
-function Settings() {
-  let recruiter = useSelector(currentRecruiter);
-
-  if (!recruiter) {
-    recruiter = {
-      firstName: "Alexander",
-      lastName: "Santos",
-      avatar: "A",
-      email: "alex@gmail.com",
-      phoneNumber: "829-098-0987",
-      identificationCard: "012-0987987-9",
-      company: "Banco Popular",
-      birth: "1980-05-22",
-      technology: [2, 1, 3],
-      affiliationDate: "05-12-2022",
-      lastConnectionDate: "05-12-2022 3:00 PM",
+const formTalentStructure = (talent) => {
+  return {
+    talentPublic: {
+      photoUrl: talent.photoUrl,
+      affiliationDate: talent.affiliationDate,
+      lastConnectionDate: talent.lastConnectionDate,
+    },
+    talentPrivate: {
+      firstName: talent.talentName,
+      lastName: talent.talentLastName,
+      birth: talent.birth,
+      identificationCard: talent.idCard,
+      phoneNumber: talent.phoneNumber,
+      bootcamp: talent.bootcamp,
+      email: talent.talentEmail,
       address: {
-        street: "Nueva Vista",
-        numHouseOrApartment: "#99",
-        neighborhood: "Los Jardinez",
-        city: "Santo Domingo",
+        street: talent.address.street,
+        numHouseOrApartment: talent.address.numHouseOrApartment,
+        neighborhood: talent.address.neighborhood,
+        city: talent.address.city,
       },
-      password: "mypassword123",
-      confirmPassword: "mypassword123",
-      photoUrl: "/static/img/recruiters/recruiter-1.jpg",
-      biography:
-        "Ingeniero en sistema de la Universidad Tecnologica de Santo Domingo, especialidazo en desarrollo paginas web.",
-      id: "1",
-    };
-  }
+      biography: talent.biography,
+      password: talent.password,
+      confirmPassword: talent.confirmPassword,
+    },
+    talentTechnology: {
+      technology: talent.technology,
+    },
+  };
+};
+
+function Settings() {
+  const talent = useSelector(CurrentTalent);
 
   return (
     <React.Fragment>
       <Helmet title="Recruiter Profile" />
 
       <Typography variant="h3" gutterBottom display="inline">
-        Perfil Reclutador
+        Perfil de {`${talent.talentName} ${talent.talentLastName}`}
       </Typography>
-
-      <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/admin/dashboard/home">
-          Panel
-        </Link>
-        <Typography>Usuarios</Typography>
-        <Link component={NavLink} to="/admin/dashboard/users/recruiters">
-          Reclutadores
-        </Link>
-        <Link
-          component={NavLink}
-          to="/admin/dashboard/users/instructors/list_instructors"
-        >
-          Lista
-        </Link>
-        <Typography>Perfil</Typography>
-      </Breadcrumbs>
 
       <Divider my={6} />
 
       <Grid container spacing={6}>
         <Grid item xs={12}>
-          {recruiter ? (
+          {talent ? (
             <>
               <Public />
               <Private />
@@ -217,7 +180,7 @@ function Settings() {
             </>
           ) : (
             <Typography variant="h3" gutterBottom display="inline">
-              Reclutador no encontrado!
+              Talento no encontrado!
             </Typography>
           )}
         </Grid>

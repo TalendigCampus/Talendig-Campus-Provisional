@@ -337,6 +337,24 @@ function BasicForm() {
                 />
 
                 <TextField
+                  name="biography"
+                  label="Resumen"
+                  placeholder="Escriba un resumen de usted:"
+                  multiline
+                  rowsMax={Infinity}
+                  maxRows={Infinity}
+                  value={values.biography}
+                  disabled={isNotEditing}
+                  error={Boolean(touched.biography && errors.biography)}
+                  fullWidth
+                  helperText={touched.biography && errors.biography}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  variant="outlined"
+                  my={2}
+                />
+
+                <TextField
                   name="password"
                   label="Password"
                   value={values.password}

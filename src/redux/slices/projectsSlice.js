@@ -7,6 +7,7 @@ const projectsSlice = createSlice({
   name: "projects",
   initialState: {
     projectsInfo,
+    currentTalentProjects: null,
     currentProject: null,
     currentFolder: null,
     currentFile: null,
@@ -103,6 +104,11 @@ const projectsSlice = createSlice({
       );
       state.currentFile = file;
     },
+    setProjectsByTalent: (state, action) => {
+      state.currentTalentProjects = state.projectsInfo.filter(
+        (project) => project.talentId === action.payload.talentId
+      );
+    },
     updateProject: (state, action) => {
       if (action.payload.type === PROJECT_UPDATE_TYPE.project) {
         const project = state.projectsInfo.find(
@@ -158,11 +164,14 @@ export const {
   addProject,
   setShowUndo,
   setUpdateType,
+  setProjectsByTalent,
   setShowUpdate,
   updateProject,
   setCurrentFolder,
   setCurrentFile,
 } = projectsSlice.actions;
+export const currentTalentProjects = (state) =>
+  state.projects.currentTalentProjects;
 export const selectProjects = (state) => state.projects.projectsInfo;
 export const currentProject = (state) => state.projects.currentProject;
 export const updateType = (state) => state.projects.updateType;

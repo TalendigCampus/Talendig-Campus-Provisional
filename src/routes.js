@@ -109,6 +109,26 @@ import BriefcaseList from "./pages/pages/Portafolio/BriefcaseList";
 import ViewInstructors from "./pages/pages/adminPages/AdminInstructors/InstructorsList/View_Instructors";
 import Roadmap from "./pages/pages/adminPages/AdminTalent/Roadmap";
 
+//Talent Users pages
+import TalentHome from "./pages/pages/Users/talent/home/index";
+import TalentBootcampInfo from "./pages/pages/Users/talent/BootcampInfo/BootcampsDetails";
+import TalentHomeWorkDetails from "./pages/pages/Users/talent/HomeWorks/HomeWorkDetails";
+import TalentProjectDetails from "./pages/pages/Users/talent/projects/ProjectDetails";
+import TalentLayout from "./pages/pages/Users/talent/layout/structureLayout";
+import TalentProfile from "./pages/pages/Users/talent/profile/TalentsProfile";
+import TalentCurriculum from "./pages/pages/Users/talent/profile/Curriculum";
+import TalentRoadmap from "./pages/pages/Users/talent/profile/Roadmap";
+import TalentProjectsList from "./pages/pages/Users/talent/briefcase/ProjectsList";
+import TalentProjectsFolderList from "./pages/pages/Users/talent/briefcase/ProjectsFolderList";
+import TalentProjectsFileList from "./pages/pages/Users/talent/briefcase/ProjectFolderFilesList";
+import TalentProjectFileDetails from "./pages/pages/Users/talent/briefcase/ProjectFileDetails";
+import TalentRecruiters from "./pages/pages/Users/talent/recruiters/RecruitersList";
+import TalentRecruiterProfile from "./pages/pages/Users/talent/recruiters/Profile";
+import TalentBootcamps from "./pages/pages/Users/talent/bootcamps/Bootcamps";
+import TalentBootcampsTalents from "./pages/pages/Users/talent/BootcampInfo/TalentList";
+import TalentBootcampTalentProfile from "./pages/pages/Users/talent/BootcampInfo/Profile";
+import TalentBootcampInstructorProfile from "./pages/pages/Users/talent/instructor/Profile";
+
 // Dashboard components
 const Default = async(() => import("./pages/dashboards/Default"));
 
@@ -180,6 +200,146 @@ const routes = [
       {
         path: "",
         element: <Landing />,
+      },
+    ],
+  },
+  {
+    path: "talent",
+    element: <TalentLayout />,
+    children: [
+      {
+        element: <TalentHome />,
+        index: true,
+        path: "home",
+      },
+      {
+        path: "bootcamp-info",
+        element: <TalentBootcampInfo />,
+      },
+      {
+        path: "HomeWorkDetails",
+        element: <TalentHomeWorkDetails />,
+      },
+      {
+        path: "ProjectDetails",
+        element: <TalentProjectDetails />,
+      },
+      {
+        path: "perfil",
+        children: [
+          {
+            index: true,
+            element: <TalentProfile />,
+          },
+        ],
+      },
+      {
+        path: "curriculum",
+        element: <TalentCurriculum />,
+      },
+      {
+        path: "roadmap",
+        element: <TalentRoadmap />,
+      },
+      {
+        path: "bootcamps",
+        children: [
+          {
+            path: "my-bootcamps",
+            children: [
+              {
+                index: true,
+                element: (
+                  <TalentBootcamps
+                    name={"Mis Bootcamps"}
+                    getBootcamp={(bootcamps, talentId) => {
+                      return bootcamps.filter((bootcamp) =>
+                        bootcamp.talents.includes(talentId)
+                      );
+                    }}
+                  />
+                ),
+              },
+              {
+                path: "talents",
+                children: [
+                  {
+                    index: true,
+                    element: <TalentBootcampsTalents />,
+                  },
+                  {
+                    path: "profile",
+                    element: <TalentBootcampTalentProfile />,
+                  },
+                ],
+              },
+              {
+                path: "instructor",
+                element: <TalentBootcampInstructorProfile />,
+              },
+            ],
+          },
+          {
+            path: "other-bootcamps",
+            children: [
+              {
+                index: true,
+                element: (
+                  <TalentBootcamps
+                    name={"Bootcamps disponibles"}
+                    getBootcamp={(bootcamps, talentId) => {
+                      return bootcamps.filter(
+                        (bootcamp) => !bootcamp.talents.includes(talentId)
+                      );
+                    }}
+                  />
+                ),
+              },
+              {
+                path: "instructor",
+                element: <TalentBootcampInstructorProfile />,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: "projects",
+        children: [
+          {
+            index: true,
+            element: <TalentProjectsList />,
+          },
+          {
+            path: "list/folder/details",
+            element: <TalentProjectsFolderList />,
+          },
+          {
+            path: "list/folder/files",
+            element: <TalentProjectsFileList />,
+          },
+          {
+            path: "list/folder/files/details",
+            element: <TalentProjectFileDetails />,
+          },
+        ],
+      },
+      {
+        path: "recruiters",
+        children: [
+          {
+            index: true,
+            element: <TalentRecruiters />,
+          },
+          {
+            path: "profile",
+            element: <TalentRecruiterProfile />,
+          },
+        ],
+      },
+      {
+        path: "changelog",
+        element: <Changelog />,
       },
     ],
   },

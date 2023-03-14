@@ -23,13 +23,26 @@ import {
 } from "@mui/material";
 import { spacing } from "@mui/system";
 
-import { Edit, ListAlt } from "@mui/icons-material";
+import {
+  Edit,
+  SwapCalls,
+  InsertDriveFile,
+  ImportContacts,
+  ListAlt,
+} from "@mui/icons-material";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
-  currentRecruiter,
-  updateRecruiter,
-} from "../../../../redux/slices/recruiterSlice";
+  CurrentTalent,
+  updateTalent,
+  setCurrentTalent,
+} from "../../../../../redux/slices/talentSlice";
+import { selectBootcamps } from "../../../../../redux/slices/bootcampSlice";
+
+import {
+  setCurrentProject,
+  selectProjects,
+} from "../../../../../redux/slices/projectsSlice";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -64,13 +77,13 @@ const timeOut = (time) => new Promise((res) => setTimeout(res, time));
 // };
 
 const validationSchema = Yup.object().shape({
-  firstName: Yup.string().required("Required"),
-  lastName: Yup.string().required("Required"),
+  talentName: Yup.string().required("Required"),
+  talentLastName: Yup.string().required("Required"),
   birth: Yup.string().required("Required"),
-  identificationCard: Yup.string().required("Required"),
+  idCard: Yup.string().required("Required"),
   phoneNumber: Yup.string().required("Required"),
-  company: Yup.string().required("Required"),
-  email: Yup.string().email().required("Required"),
+  bootcamp: Yup.string().required("Required"),
+  talentEmail: Yup.string().email().required("Required"),
   address: Yup.object().shape({
     street: Yup.string().required("Required"),
     numHouseOrApartment: Yup.string().required("Required"),
@@ -90,40 +103,11 @@ const validationSchema = Yup.object().shape({
   }),
 });
 
-function BasicForm() {
-  let recruiter = useSelector(currentRecruiter);
-
-  if (!recruiter) {
-    recruiter = {
-      firstName: "Alexander",
-      lastName: "Santos",
-      avatar: "A",
-      email: "alex@gmail.com",
-      phoneNumber: "829-098-0987",
-      identificationCard: "012-0987987-9",
-      company: "Banco Popular",
-      birth: "1980-05-22",
-      technology: [2, 1, 3],
-      affiliationDate: "05-12-2022",
-      lastConnectionDate: "05-12-2022 3:00 PM",
-      address: {
-        street: "Nueva Vista",
-        numHouseOrApartment: "#99",
-        neighborhood: "Los Jardinez",
-        city: "Santo Domingo",
-      },
-      password: "mypassword123",
-      confirmPassword: "mypassword123",
-      photoUrl: "/static/img/recruiters/recruiter-1.jpg",
-      biography:
-        "Ingeniero en sistema de la Universidad Tecnologica de Santo Domingo, especialidazo en desarrollo paginas web.",
-      id: "1",
-    };
-  }
-
+function BasicForm(talent) {
   const [isNotEditing, setIsNotEditing] = React.useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userProjects = useSelector(selectProjects);
 
   const handlePageChange = (pathToGo) => {
     navigate(pathToGo);
@@ -132,15 +116,25 @@ function BasicForm() {
   const handleEdit = () => {
     setIsNotEditing((currentSate) => !currentSate);
   };
+
+  const handleNavigate = (pathToGo, talentId) => {
+    dispatch(setCurrentTalent({ talentId }));
+    const project = userProjects.find(
+      (project) => project.talentId === talentId
+    );
+    dispatch(setCurrentProject({ projectId: project.projectId }));
+    navigate(pathToGo);
+  };
+
   const handleSubmit = async (
     values,
     { resetForm, setErrors, setStatus, setSubmitting }
   ) => {
     setIsNotEditing((currentSate) => !currentSate);
-
     try {
       await timeOut(1500);
-      dispatch(updateRecruiter({ currentRecruiter: values }));
+      values = { ...values, bootcamp: talent.bootcampId };
+      dispatch(updateTalent({ currentTalent: values }));
       resetForm();
       setStatus({ sent: true });
       setSubmitting(false);
@@ -153,7 +147,7 @@ function BasicForm() {
 
   return (
     <Formik
-      initialValues={recruiter}
+      initialValues={talent}
       enableReinitialize={true}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
@@ -185,13 +179,13 @@ function BasicForm() {
                 <Grid container spacing={6}>
                   <Grid item md={6}>
                     <TextField
-                      name="firstName"
+                      name="talentName"
                       label="Nombres"
-                      value={values.firstName}
+                      value={values.talentName}
                       disabled={isNotEditing}
-                      error={Boolean(touched.firstName && errors.firstName)}
+                      error={Boolean(touched.talentName && errors.talentName)}
                       fullWidth
-                      helperText={touched.firstName && errors.firstName}
+                      helperText={touched.talentName && errors.talentName}
                       onBlur={handleBlur}
                       onChange={handleChange}
                       variant="outlined"
@@ -200,13 +194,17 @@ function BasicForm() {
                   </Grid>
                   <Grid item md={6}>
                     <TextField
-                      name="lastName"
+                      name="talentLastName"
                       label="Apellidos"
-                      value={values.lastName}
+                      value={values.talentLastName}
                       disabled={isNotEditing}
-                      error={Boolean(touched.lastName && errors.lastName)}
+                      error={Boolean(
+                        touched.talentLastName && errors.talentLastName
+                      )}
                       fullWidth
-                      helperText={touched.lastName && errors.lastName}
+                      helperText={
+                        touched.talentLastName && errors.talentLastName
+                      }
                       onBlur={handleBlur}
                       onChange={handleChange}
                       variant="outlined"
@@ -230,17 +228,13 @@ function BasicForm() {
                   </Grid>
                   <Grid item md={6}>
                     <TextField
-                      name="identificationCard"
+                      name="idCard"
                       label="Cedula"
-                      value={values.identificationCard}
+                      value={values.idCard}
                       disabled={isNotEditing}
-                      error={Boolean(
-                        touched.identificationCard && errors.identificationCard
-                      )}
+                      error={Boolean(touched.idCard && errors.idCard)}
                       fullWidth
-                      helperText={
-                        touched.identificationCard && errors.identificationCard
-                      }
+                      helperText={touched.idCard && errors.idCard}
                       onBlur={handleBlur}
                       onChange={handleChange}
                       variant="outlined"
@@ -264,13 +258,13 @@ function BasicForm() {
                   </Grid>
                   <Grid item md={6}>
                     <TextField
-                      name="company"
-                      label="Empresa"
-                      value={values.company}
+                      name="bootcamp"
+                      label="bootcamp"
+                      value={values.bootcamp}
                       disabled={isNotEditing}
-                      error={Boolean(touched.company && errors.company)}
+                      error={Boolean(touched.bootcamp && errors.bootcamp)}
                       fullWidth
-                      helperText={touched.company && errors.company}
+                      helperText={touched.bootcamp && errors.bootcamp}
                       onBlur={handleBlur}
                       onChange={handleChange}
                       variant="outlined"
@@ -280,13 +274,30 @@ function BasicForm() {
                 </Grid>
 
                 <TextField
-                  name="email"
-                  label="Correo"
-                  value={values.email}
+                  name="biography"
+                  label="Resumen"
+                  placeholder="Escriba un resumen de usted:"
+                  multiline
+                  maxRows={Infinity}
+                  value={values.biography}
                   disabled={isNotEditing}
-                  error={Boolean(touched.email && errors.email)}
+                  error={Boolean(touched.biography && errors.biography)}
                   fullWidth
-                  helperText={touched.email && errors.email}
+                  helperText={touched.biography && errors.biography}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  variant="outlined"
+                  my={2}
+                />
+
+                <TextField
+                  name="talentEmail"
+                  label="Correo"
+                  value={values.talentEmail}
+                  disabled={isNotEditing}
+                  error={Boolean(touched.talentEmail && errors.talentEmail)}
+                  fullWidth
+                  helperText={touched.talentEmail && errors.talentEmail}
                   onBlur={handleBlur}
                   onChange={handleChange}
                   type="email"
@@ -363,23 +374,7 @@ function BasicForm() {
                   variant="outlined"
                   my={2}
                 />
-                <TextField
-                  name="biography"
-                  label="Resumen"
-                  placeholder="Escriba un resumen de usted:"
-                  multiline
-                  rowsMax={Infinity}
-                  maxRows={Infinity}
-                  value={values.biography}
-                  disabled={isNotEditing}
-                  error={Boolean(touched.biography && errors.biography)}
-                  fullWidth
-                  helperText={touched.biography && errors.biography}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  variant="outlined"
-                  my={2}
-                />
+
                 <TextField
                   name="password"
                   label="Password"
@@ -448,16 +443,38 @@ function BasicForm() {
                     <Button
                       type="button"
                       variant="contained"
-                      color="success"
+                      color="primary"
                       onClick={() =>
-                        handlePageChange(
-                          "/admin/dashboard/users/recruiters/list"
-                        )
+                        handleNavigate("/talent/roadmap", values.talentId)
                       }
                       mt={3}
                       ml={3}
                     >
-                      <ListAlt />
+                      <SwapCalls />
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="contained"
+                      color="info"
+                      onClick={() =>
+                        handleNavigate("/talent/curriculum", values.talentId)
+                      }
+                      mt={3}
+                      ml={3}
+                    >
+                      <InsertDriveFile />
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="contained"
+                      color="error"
+                      onClick={() =>
+                        handleNavigate("/talent/projects", values.talentId)
+                      }
+                      mt={3}
+                      ml={3}
+                    >
+                      <ImportContacts />
                     </Button>
                   </>
                 )}
@@ -471,10 +488,25 @@ function BasicForm() {
 }
 
 function FormikPage() {
+  const talentInfo = useSelector(CurrentTalent);
+  const [talent, setTalent] = React.useState(null);
+  const bootcamps = useSelector(selectBootcamps);
+
+  React.useEffect(() => {
+    const result = bootcamps.find(
+      (bootcamp) => bootcamp.id === talentInfo.bootcamp
+    );
+    setTalent({
+      ...talentInfo,
+      bootcamp: result.bootcampName,
+      bootcampId: talentInfo.bootcamp,
+    });
+  }, []);
+
   return (
     <React.Fragment>
       <Helmet title="Recruiter Form" />
-      <BasicForm />
+      {talent ? <BasicForm {...talent} /> : null}
     </React.Fragment>
   );
 }
