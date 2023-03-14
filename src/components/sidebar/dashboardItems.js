@@ -342,20 +342,20 @@ const defaultItems = [
   // },
 ];
 
-const instructorItems = [
-  {
-    title: "Secciones",
-    pages: instructorSection,
-  },
-];
+// const instructorItems = [
+//   {
+//     title: "Secciones",
+//     pages: pageSections,
+//   },
+// ];
 
-function navItems() {
-  if (userType === userType.INSTRUCTOR) {
-    const navItems = instructorItems;
-  } else {
-    const navItems = defaultItems;
-  }
-  return instructorItems;
-}
+// function navItems() {
+//   if (userType === userType.INSTRUCTOR) {
+//     const navItems = instructorItems;
+//   } else {
+//     const navItems = defaultItems;
+//   }
+//   return instructorItems;
+// }
 
-export default instructorItems;
+export default defaultItems;
