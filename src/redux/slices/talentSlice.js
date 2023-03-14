@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import TalentsInfo from "../../pages/pages/adminPages/AdminTalent/info.json";
 
 const talentSlice = createSlice({
@@ -6,6 +6,7 @@ const talentSlice = createSlice({
   initialState: {
     TalentsInfo,
     currentTalent: null,
+    talentPreview: null,
     showUndo: false,
     allowDelete: false,
   },
@@ -57,6 +58,11 @@ const talentSlice = createSlice({
     },
     setAllowDelete: (state, action) => {
       state.allowDelete = action.payload.status;
+    },
+    setTalentPreview: (state, action) => {
+      state.talentPreview = state.TalentsInfo.find(
+        (talent) => talent.talentId === action.payload.talentId
+      );
     },
     setProcessStep: (state, action) => {
       const currentTalent = state.TalentsInfo.find(
@@ -115,6 +121,7 @@ export const {
   updateTalent,
   deleteTecnologies,
   addTecnology,
+  setTalentPreview,
   setProcessStep,
   setProcessCompleted,
   setRecruiterDecision,
@@ -122,11 +129,9 @@ export const {
   setRecruitmentProcess,
 } = talentSlice.actions;
 export const selectTalents = (state) => state.talent.TalentsInfo;
-
+export const talentPreview = (state) => state.talent.talentPreview;
 export const CurrentTalent = (state) => state.talent.currentTalent;
-
 export const showUndo = (state) => state.talent.showUndo;
-
 export const allowDelete = (state) => state.talent.allowDelete;
 
 export default talentSlice.reducer;

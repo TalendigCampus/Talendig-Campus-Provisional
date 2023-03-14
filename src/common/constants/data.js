@@ -90,3 +90,34 @@ export const RECRUITER_ACTION_TYPE = {
   removeFromFavorite: "removeFromFavorite",
   redoRemoveFromFavorite: "redoRemoveFromFavorite",
 };
+
+export const ADMIN = {
+  firstName: "Jose Armando",
+  lastName: "Tavarez",
+  image: "/static/img/avatars/joseArmando.jpg",
+  email: "jose@gmail.com",
+};
+
+export const URLPROFILE = {
+  admin: "/admin/dashboard/home",
+  talent: "/talent/home",
+  instructor: "/instructor/home",
+  institution: "/institution/home",
+  recruiter: "/recruiter/home",
+};
+
+export const PROFILES = {
+  admin: "admin",
+  talent: "talent",
+  instructor: "instructor",
+  institution: "institution",
+  recruiter: "recruiter",
+};
+
+export const PERFILES = {
+  admin: "Administrador",
+  talent: "Talento",
+  instructor: "Instructor",
+  institution: "Institución",
+  recruiter: "Reclutador",
+};

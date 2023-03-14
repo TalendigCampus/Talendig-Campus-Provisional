@@ -4,6 +4,7 @@ import styled from "styled-components/macro";
 import { Badge, Grid, Avatar, Typography } from "@mui/material";
 
 import useAuth from "../../hooks/useAuth";
+import { PERFILES } from "../../common/constants/data";
 
 const Footer = styled.div`
   background-color: ${(props) =>
@@ -41,7 +42,6 @@ const SidebarFooter = ({ ...rest }) => {
   const { user } = useAuth();
   const onLine = true;
   let styleOnline = onLine ? "green" : "red";
-
   return (
     <Footer {...rest}>
       <Grid container spacing={2}>
@@ -55,7 +55,7 @@ const SidebarFooter = ({ ...rest }) => {
             }}
             variant="dot"
           >
-            {!!user && <Avatar alt={user.displayName} src={user.avatar} />}
+            {!!user && <Avatar alt={user.name} src={user.image} />}
             {/* Demo data */}
             {!user && (
               <Avatar
@@ -66,12 +66,12 @@ const SidebarFooter = ({ ...rest }) => {
           </FooterBadge>
         </Grid>
         <Grid item>
-          {!!user && (
-            <FooterText variant="body2">{user.displayName}</FooterText>
-          )}
+          {!!user && <FooterText variant="body2">{user.name}</FooterText>}
           {/* Demo data */}
-          {!user && <FooterText variant="body2">José Armando</FooterText>}
-          <FooterSubText variant="caption">Administrador</FooterSubText>
+          {!user && <FooterText variant="body2">{user.name}</FooterText>}
+          <FooterSubText variant="caption">
+            {PERFILES[user.profile]}
+          </FooterSubText>
         </Grid>
       </Grid>
     </Footer>

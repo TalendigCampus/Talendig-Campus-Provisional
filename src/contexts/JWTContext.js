@@ -2,6 +2,8 @@ import { createContext, useEffect, useReducer } from "react";
 
 import axios from "../utils/axios";
 import { isValidToken, setSession } from "../utils/jwt";
+import UserInfo from "../pages/pages/Login/users.json";
+import talentInfo from "../pages/pages/adminPages/AdminTalent/info.json";
 
 const INITIALIZE = "INITIALIZE";
 const SIGN_IN = "SIGN_IN";
@@ -95,19 +97,48 @@ function AuthProvider({ children }) {
   }, []);
 
   const signIn = async (email, password) => {
-    const response = await axios.post("/api/auth/sign-in", {
-      email,
-      password,
-    });
-    const { accessToken, user } = response.data;
+    // const response = await axios.post("/api/auth/sign-in", {
+    //   email,
+    //   password,
+    // });
+    // const { accessToken, user } = response.data;
 
-    setSession(accessToken);
-    dispatch({
-      type: SIGN_IN,
-      payload: {
-        user,
-      },
-    });
+    // setSession(accessToken);
+    const user = UserInfo.find(
+      (user) => user.email === email && user.password === password
+    );
+
+    if (user) {
+      let name = "";
+      let image = "";
+      let userData;
+      if (user.perfil === "talent") {
+        const talent = talentInfo.find(
+          (talent) => talent.talentEmail === email
+        );
+
+        name = talent.talentName + " " + talent.talentLastName;
+        image = talent.photoUrl;
+        userData = talent;
+      }
+
+      dispatch({
+        type: SIGN_IN,
+        payload: {
+          user: {
+            name,
+            image,
+            profile: user.perfil,
+          },
+        },
+      });
+      return {
+        ...userData,
+        perfil: user.perfil,
+      };
+    } else {
+      return false;
+    }
   };
 
   const signOut = async () => {

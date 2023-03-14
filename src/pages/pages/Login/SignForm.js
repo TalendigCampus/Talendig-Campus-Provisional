@@ -15,6 +15,10 @@ import {
 import { spacing } from "@mui/system";
 
 import useAuth from "../../../hooks/useAuth";
+import { ADMIN, PROFILES, URLPROFILE } from "../../../common/constants/data";
+import { setCurrentTalent } from "../../../redux/slices/talentSlice";
+import { useDispatch } from "react-redux";
+import talentInfo from "../adminPages/AdminTalent/info.json";
 
 const Alert = styled(MuiAlert)(spacing);
 
@@ -22,6 +26,7 @@ const TextField = styled(MuiTextField)(spacing);
 
 function SignIn() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { signIn } = useAuth();
 
   return (
@@ -41,9 +46,24 @@ function SignIn() {
       })}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
         try {
-          await signIn(values.email, values.password);
+          const user = await signIn(values.email, values.password);
 
-          navigate("/private");
+          if (user) {
+            switch (user.perfil) {
+              case PROFILES[user.perfil]:
+                dispatch(setCurrentTalent({ talentId: user.talentId }));
+                break;
+              default:
+                break;
+            }
+            navigate(URLPROFILE[user.perfil]);
+          } else {
+            const message = "Datos incorrectos.";
+
+            setStatus({ success: false });
+            setErrors({ submit: message });
+            setSubmitting(false);
+          }
         } catch (error) {
           const message = error.message || "Algo ha salido mal";
 
