@@ -90,7 +90,7 @@ function HomeWorkDetails() {
       <Grid justifyContent="space-between" container spacing={10}>
         <Grid item>
           <Typography variant="h3" gutterBottom display="inline">
-            Asignaciones
+            Proyecto
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>

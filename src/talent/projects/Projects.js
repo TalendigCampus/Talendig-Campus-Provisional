@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components/macro";
+import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
 import {
@@ -40,10 +41,18 @@ const Chip = styled(MuiChip)`
 `;
 
 const Project = (props) => {
+  const navigate = useNavigate();
+  const handdleAction = (pathToGo) => {
+    navigate(pathToGo);
+  };
   return (
     <Card>
       <CardActionArea>
-        <CardContent>
+        <CardContent
+          onClick={() => {
+            handdleAction("/talent/HomeWorkDetails");
+          }}
+        >
           <Typography gutterBottom variant="h5" component="h2">
             {props.projectName}
           </Typography>
@@ -61,7 +70,13 @@ const Project = (props) => {
       </CardActionArea>
 
       <CardActions>
-        <Button size="small" color="primary">
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => {
+            handdleAction("/talent/ProjectDetails");
+          }}
+        >
           Más Información
         </Button>
       </CardActions>
