@@ -109,6 +109,9 @@ import BriefcaseList from "./pages/pages/Portafolio/BriefcaseList";
 import ViewInstructors from "./pages/pages/adminPages/AdminInstructors/InstructorsList/View_Instructors";
 import Roadmap from "./pages/pages/adminPages/AdminTalent/Roadmap";
 
+// User sign
+const UserLogin = async(() => import("./pages/pages/Login/SignIn"));
+
 // Dashboard components
 const Default = async(() => import("./pages/dashboards/Default"));
 
@@ -182,6 +185,10 @@ const routes = [
         element: <Landing />,
       },
     ],
+  },
+  {
+    path: "login",
+    element: <UserLogin />,
   },
   {
     path: "recruiters",
