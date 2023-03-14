@@ -136,7 +136,7 @@ import ViewInstructors from "./pages/AdminInstructors/InstructorsList/View_Instr
 import BootcampInstructors from "./pages/Instructors/index";
 import BootcampInstructorsInfo from "./pages/Instructors/BootcampInfo";
 import InstructorHome from "./pages/Instructors/index";
-
+import InstructorTarea from "./pages/Instructors/HomeWorkDetails";
 // Dashboard components
 const Default = async(() => import("./pages/dashboards/Default"));
 const Analytics = async(() => import("./pages/dashboards/Analytics"));
@@ -449,6 +449,10 @@ const routes = [
                   {
                     path: "home",
                     element: <InstructorHome />,
+                  },
+                  {
+                    path: "tareas",
+                    element: <InstructorTarea />,
                   },
                 ],
               },
