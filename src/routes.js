@@ -115,7 +115,7 @@ import Roadmap from "./pages/pages/talent/Roadmap";
 import TalentLayout from "./talent/layout/structureLayout";
 import TalentProfile from "./talent/profile/TalentsProfile";
 import TalentCurriculum from "./talent/profile/Curriculum";
-import TalentRoadmap from "./pages/pages/talent/Roadmap";
+import TalentRoadmap from "./talent/profile/Roadmap";
 import TalentProjectsList from "./talent/briefcase/ProjectsList";
 import TalentProjectsFolderList from "./talent/briefcase/ProjectsFolderList";
 import TalentProjectsFileList from "./talent/briefcase/ProjectFolderFilesList";
@@ -413,7 +413,7 @@ const routes = [
                   },
                   {
                     path: "roadmap",
-                    element: <TalentRoadmap />,
+                    element: <Roadmap />,
                   },
                 ],
               },
