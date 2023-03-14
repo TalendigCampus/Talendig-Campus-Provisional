@@ -13,6 +13,8 @@ import {
 
 import { spacing } from "@mui/system";
 import { id } from "date-fns/locale";
+import { bootcampProfile } from "../../redux/slices/bootcampSlice";
+import { useDispatch } from "react-redux";
 
 const Card = styled(MuiCard)(spacing);
 
@@ -25,6 +27,7 @@ const CardMedia = styled(MuiCardMedia)`
 function MediaCard(props) {
   const [selected, setSelected] = React.useState([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   let IdDataTable = {
     id: 0,
@@ -50,6 +53,7 @@ function MediaCard(props) {
       );
     }
     setSelected(newSelected);
+    dispatch(bootcampProfile({ id }));
     navigate(pathToGo);
   };
   return (
@@ -73,7 +77,7 @@ function MediaCard(props) {
           onClick={(event) =>
             handleChange(
               "/admin/dashboard/users/instructors/bootcampInfo",
-              props.id
+              props.bootcampId
             )
           }
         >

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components/macro";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { useSelector } from "react-redux";
 
 import {
   Alert as MuiAlert,
@@ -24,7 +25,7 @@ import {
 } from "@mui/material";
 import { spacing } from "@mui/system";
 import { Pagination as MuiPagination } from "@mui/material";
-import bootcampSlice from "../../redux/slices/bootcampSlice";
+import { selectBootcampProfile } from "../../redux/slices/bootcampSlice";
 import bootcampsDispo from "./bootcampsDispo.json";
 import calendarStyle from "./Calendar.style";
 import demoEvents from "./demo-events.json";
@@ -76,8 +77,13 @@ function SimpleCard() {
         </Alert>
       </CardContent>
       <CardActions>
-        <Button size="small">Ver Lista de Talentos</Button>
-        <Button size="small">Ver otros bootcamps</Button>
+        <Button
+          size="small"
+          component={NavLink}
+          to="/admin/dashboard/users/talents/list"
+        >
+          Ver Lista de Talentos
+        </Button>
       </CardActions>
     </Card>
   );
@@ -104,12 +110,10 @@ function BasicPagination() {
 }
 
 function MediaCard({ bootcamps }) {
+  const bootcamp = useSelector(selectBootcampProfile);
   return (
     <Card mb={6}>
-      <CardMedia
-        image={bootcampsDispo[0].bootcampImage}
-        title="Imagen del Bootcamp"
-      />
+      <CardMedia image={bootcamp.image} title="Imagen del Bootcamp" />
       <CardContent>
         <Typography variant="h1" component="h2">
           Introduccion
@@ -120,8 +124,9 @@ function MediaCard({ bootcamps }) {
         <Typography variant="h5" component="h3">
           {" "}
           <br />
-          En este bootcamp aprenderas todo acerca del stack MERN! Que es la
-          abreviacion de las tecnologias MongoDB, Express, React y Node!
+          En este bootcamp aprenderas todo acerca del stack{" "}
+          {bootcamp.bootcampName}! Que es la abreviacion de las tecnologias
+          MongoDB, Express, React y Node!
         </Typography>
       </CardContent>
       <br />
@@ -303,18 +308,16 @@ function Calendar() {
 }
 
 function BootcampInstructorsInfo({ semanas }) {
+  const bootcamp = useSelector(selectBootcampProfile);
   return (
     <React.Fragment>
       <Helmet title="Cards" />
-      <Typography variant="h3" gutterBottom display="inline">
-        MERN Stack Bootcamp
+      <Typography variant="h3" color="warning" gutterBottom display="inline">
+        {bootcamp.bootcampName}
       </Typography>
 
       <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link
-          component={NavLink}
-          to="/admin/dashboard/users/instructors/instructorBootcamps"
-        >
+        <Link component={NavLink} to="/admin/dashboard/users/instructors/home">
           Bootcamps
         </Link>
         <Typography>Info</Typography>
