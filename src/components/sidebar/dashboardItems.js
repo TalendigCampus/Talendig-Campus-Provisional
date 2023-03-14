@@ -16,6 +16,11 @@ import {
 } from "react-feather";
 import { NORMALICONS } from "../../common/constants/data";
 
+const userType = {
+  ADMIN: "admin",
+  INSTRUCTOR: "instructor",
+};
+
 const pagesSection = [
   {
     href: "home",
@@ -66,60 +71,96 @@ const pagesSection = [
     title: "Changelog",
     badge: "v1.0.0",
   },
-  //   {
-  //     href: "/invoices",
-  //     icon: CreditCard,
-  //     title: "Invoices",
-  //     children: [
-  //       {
-  //         href: "/invoices",
-  //         title: "List",
-  //       },
-  //       {
-  //         href: "/invoices/detail",
-  //         title: "Detail",
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     href: "/tasks",
-  //     icon: CheckSquare,
-  //     title: "Tasks",
-  //     badge: "17",
-  //   },
-  //   {
-  //     href: "/calendar",
-  //     icon: Calendar,
-  //     title: "Calendar",
-  //   },
-  //   {
-  //     href: "/auth",
-  //     icon: Users,
-  //     title: "Auth",
-  //     children: [
-  //       {
-  //         href: "/auth/sign-in",
-  //         title: "Sign In",
-  //       },
-  //       {
-  //         href: "/auth/sign-up",
-  //         title: "Sign Up",
-  //       },
-  //       {
-  //         href: "/auth/reset-password",
-  //         title: "Reset Password",
-  //       },
-  //       {
-  //         href: "/auth/404",
-  //         title: "404 Page",
-  //       },
-  //       {
-  //         href: "/auth/500",
-  //         title: "500 Page",
-  //       },
-  //     ],
-  //   },
 ];
+
+const instructorSection = [
+  {
+    href: "/users",
+    icon: Layout,
+    title: "Usuarios",
+    children: [
+      {
+        href: "/admin/dashboard/users/talents",
+        title: "Talentos",
+      },
+    ],
+  },
+  {
+    href: "/admin/dashboard/users/instructors/instructorBootcamps",
+    icon: NORMALICONS.bootcamp,
+    title: "Mis Bootcamps",
+  },
+  {
+    href: "/admin/dashboard/users/projects",
+    icon: NORMALICONS.project,
+    title: "Proyectos",
+  },
+  {
+    href: "/admin/dashboard/users/briefcase",
+    icon: NORMALICONS.portfolio,
+    title: "Portafolios",
+  },
+  {
+    href: "/admin/dashboard/users/changelog",
+    icon: List,
+    title: "Changelog",
+    badge: "v1.0.0",
+  },
+];
+
+//   {
+//     href: "/invoices",
+//     icon: CreditCard,
+//     title: "Invoices",
+//     children: [
+//       {
+//         href: "/invoices",
+//         title: "List",
+//       },
+//       {
+//         href: "/invoices/detail",
+//         title: "Detail",
+//       },
+//     ],
+//   },
+//   {
+//     href: "/tasks",
+//     icon: CheckSquare,
+//     title: "Tasks",
+//     badge: "17",
+//   },
+//   {
+//     href: "/calendar",
+//     icon: Calendar,
+//     title: "Calendar",
+//   },
+//   {
+//     href: "/auth",
+//     icon: Users,
+//     title: "Auth",
+//     children: [
+//       {
+//         href: "/auth/sign-in",
+//         title: "Sign In",
+//       },
+//       {
+//         href: "/auth/sign-up",
+//         title: "Sign Up",
+//       },
+//       {
+//         href: "/auth/reset-password",
+//         title: "Reset Password",
+//       },
+//       {
+//         href: "/auth/404",
+//         title: "404 Page",
+//       },
+//       {
+//         href: "/auth/500",
+//         title: "500 Page",
+//       },
+//     ],
+//   },
 
 // const elementsSection = [
 //   {
@@ -286,7 +327,7 @@ const pagesSection = [
 //   },
 // ];
 
-const navItems = [
+const defaultItems = [
   {
     title: "Secciones",
     pages: pagesSection,
@@ -301,4 +342,20 @@ const navItems = [
   // },
 ];
 
-export default navItems;
+const instructorItems = [
+  {
+    title: "Secciones",
+    pages: instructorSection,
+  },
+];
+
+function navItems() {
+  if (userType === userType.INSTRUCTOR) {
+    const navItems = instructorItems;
+  } else {
+    const navItems = defaultItems;
+  }
+  return instructorItems;
+}
+
+export default instructorItems;
