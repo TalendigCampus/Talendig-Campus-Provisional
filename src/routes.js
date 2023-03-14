@@ -68,6 +68,7 @@ import BootcampsList from "./pages/Bootcamps/BootcampList";
 import TalentHome from "./talent/home/index";
 import TalentBootcampInfo from "./talent/BootcampInfo/BootcampsDetails";
 import TalentHomeWorkDetails from "./talent/HomeWorks/HomeWorkDetails";
+import TalentProjectDetails from "./talent/projects/ProjectDetails";
 
 import Projects from "./pages/pages/Projects";
 import Chat from "./pages/componetsIntitucio/Chat";
@@ -241,6 +242,10 @@ const routes = [
       {
         path: "HomeWorkDetails",
         element: <TalentHomeWorkDetails />,
+      },
+      {
+        path: "ProjectDetails",
+        element: <TalentProjectDetails />,
       },
       {
         path: "perfil",
