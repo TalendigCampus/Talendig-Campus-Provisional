@@ -364,7 +364,7 @@ function EnhancedTable({ setDeleteRecruiterModal }) {
                         id={labelId}
                         scope="row"
                         onClick={() =>
-                          handleShowInfo("/Talents/recruiters/profile", row.id)
+                          handleShowInfo("/talent/recruiters/profile", row.id)
                         }
                         style={{ cursor: "pointer" }}
                       >

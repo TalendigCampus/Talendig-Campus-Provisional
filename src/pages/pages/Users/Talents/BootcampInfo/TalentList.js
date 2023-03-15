@@ -385,7 +385,7 @@ function EnhancedTable({ setAllowDelete }) {
                         scope="row"
                         onClick={() =>
                           handleShowInfo(
-                            "/Talents/bootcamps/my-bootcamps/talents/profile",
+                            "/talent/bootcamps/my-bootcamps/talents/profile",
                             row.talentId
                           )
                         }
@@ -452,13 +452,13 @@ function InvoiceList() {
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/Talents/bootcamps/my-bootcamps">
+            <Link component={NavLink} to="/talent/bootcamps/my-bootcamps">
               Lista de bootcamps
             </Link>
             <Typography>Bootcamp</Typography>
             <Link
               component={NavLink}
-              to="/Talents/bootcamps/my-bootcamps/talents"
+              to="/talent/bootcamps/my-bootcamps/talents"
             >
               Lista de talentos
             </Link>
