@@ -129,6 +129,15 @@ import TalentBootcampsTalents from "./pages/pages/Users/Talents/BootcampInfo/Tal
 import TalentBootcampTalentProfile from "./pages/pages/Users/Talents/BootcampInfo/Profile";
 import TalentBootcampInstructorProfile from "./pages/pages/Users/Talents/instructor/Profile";
 
+// Instructor User pages
+import InstructorsHome from "./pages/pages/Users/Instructors/index";
+import BootcampInstructors from "./pages/pages/Users/Instructors/index";
+import BootcampInstructorsInfo from "./pages/pages/Users/Instructors/BootcampInfo";
+import InstructorTarea from "./pages/pages/Users/Instructors/HomeWorkDetails";
+import InstructorLayout from "./pages/pages/Users/Instructors/layout/structureLayout";
+import InstructorTalentProfile from "./pages/pages/Users/Instructors/Talent";
+import InstructorTalentList from "./pages/pages/Users/Instructors/TalentList";
+
 // User sign
 import UserLogin from "./pages/pages/Login/SignIn";
 
@@ -369,6 +378,51 @@ const routes = [
       {
         path: "changelog",
         element: <Changelog />,
+      },
+    ],
+  },
+  {
+    path: "instructors",
+    element: <InstructorLayout />,
+    children: [
+      {
+        index: true,
+        path: "home",
+        element: <InstructorsHome />,
+      },
+      {
+        path: "instructorBootcamps",
+        element: <BootcampInstructors />,
+      },
+      {
+        path: "bootcampInfo",
+        element: <BootcampInstructorsInfo />,
+      },
+      {
+        path: "tareas",
+        element: <InstructorTarea />,
+      },
+      {
+        path: "projects",
+        element: <Projects />,
+      },
+      {
+        path: "changelog",
+        element: <Changelog />,
+      },
+      {
+        path: "talentos",
+        element: <InstructorTalentProfile />,
+        children: [
+          {
+            path: "list",
+            element: <InstructorTalentList />,
+          },
+        ],
+      },
+      {
+        path: "list",
+        element: <InstructorTalentList />,
       },
     ],
   },
