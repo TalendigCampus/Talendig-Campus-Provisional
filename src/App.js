@@ -1,5 +1,4 @@
 import React from "react";
-import { useRoutes } from "react-router-dom";
 import { Provider } from "react-redux";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 import { create } from "jss";
@@ -14,12 +13,13 @@ import jssPreset from "@mui/styles/jssPreset";
 
 import "./i18n";
 import createTheme from "./theme";
-import routes from "./routes";
+import { global } from "./routes";
 
 import useTheme from "./hooks/useTheme";
 import { store } from "./redux/store";
 
 import { AuthProvider } from "./contexts/JWTContext";
+import { RouterProvider } from "./contexts/RouterContext";
 // import { AuthProvider } from "./contexts/FirebaseAuthContext";
 // import { AuthProvider } from "./contexts/Auth0Context";
 // import { AuthProvider } from "./contexts/CognitoContext";
@@ -30,8 +30,6 @@ const jss = create({
 });
 
 function App() {
-  const content = useRoutes(routes);
-
   const { theme } = useTheme();
 
   return (
@@ -46,7 +44,9 @@ function App() {
             <StyledEngineProvider injectFirst>
               <MuiThemeProvider theme={createTheme(theme)}>
                 <ThemeProvider theme={createTheme(theme)}>
-                  <AuthProvider>{content}</AuthProvider>
+                  <AuthProvider>
+                    <RouterProvider></RouterProvider>
+                  </AuthProvider>
                 </ThemeProvider>
               </MuiThemeProvider>
             </StyledEngineProvider>

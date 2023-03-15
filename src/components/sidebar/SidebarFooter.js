@@ -42,7 +42,7 @@ const SidebarFooter = ({ ...rest }) => {
   const { user } = useAuth();
   const onLine = navigator.onLine;
   let styleOnline = onLine ? "green" : "red";
-  console.log(user);
+
   return (
     <Footer {...rest}>
       <Grid container spacing={2}>

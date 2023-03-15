@@ -9,10 +9,14 @@ import { spacing } from "@mui/system";
 
 import GlobalStyle from "../components/GlobalStyle";
 import Navbar from "../components/navbar/Navbar";
-import dashboardItems from "../components/sidebar/dashboardItems";
+import adminDashboardItems from "../components/sidebar/adminDashboardItems";
+import recruiterDashboardItems from "../components/sidebar/recruiterDashboardItems";
+import talentDashboardItems from "../components/sidebar/talentDashboardItems";
 import Sidebar from "../components/sidebar/Sidebar";
 import Footer from "../components/Footer";
 import Settings from "../components/Settings";
+import useAuth from "../hooks/useAuth";
+import { PROFILES } from "../common/constants/data";
 
 const drawerWidth = 258;
 
@@ -52,6 +56,29 @@ const MainContent = styled(Paper)`
 
 const Dashboard = ({ children }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { user } = useAuth();
+
+  let sidebarItems;
+
+  switch (user.profile) {
+    case PROFILES.admin:
+      sidebarItems = adminDashboardItems;
+      break;
+    case PROFILES.talent:
+      sidebarItems = talentDashboardItems;
+      break;
+    case PROFILES.instructor:
+      sidebarItems = adminDashboardItems;
+      break;
+    case PROFILES.recruiter:
+      sidebarItems = recruiterDashboardItems;
+      break;
+    case PROFILES.institution:
+      sidebarItems = adminDashboardItems;
+      break;
+    default:
+      break;
+  }
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -71,13 +98,13 @@ const Dashboard = ({ children }) => {
             variant="temporary"
             open={mobileOpen}
             onClose={handleDrawerToggle}
-            items={dashboardItems}
+            items={sidebarItems}
           />
         </Hidden>
         <Hidden mdDown implementation="css">
           <Sidebar
             PaperProps={{ style: { width: drawerWidth } }}
-            items={dashboardItems}
+            items={sidebarItems}
           />
         </Hidden>
       </Drawer>
