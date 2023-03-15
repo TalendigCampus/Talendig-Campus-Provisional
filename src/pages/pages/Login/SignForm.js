@@ -17,8 +17,9 @@ import { spacing } from "@mui/system";
 import useAuth from "../../../hooks/useAuth";
 import { ADMIN, PROFILES, URLPROFILE } from "../../../common/constants/data";
 import { setCurrentTalent } from "../../../redux/slices/talentSlice";
+import { setCurrentRecruiter } from "../../../redux/slices/recruiterSlice";
+import { setCurrentInstructor } from "../../../redux/slices/instructorSlice";
 import { useDispatch } from "react-redux";
-import talentInfo from "../adminPages/AdminTalent/info.json";
 
 const Alert = styled(MuiAlert)(spacing);
 
@@ -50,9 +51,25 @@ function SignIn() {
 
           if (user) {
             switch (user.perfil) {
-              case PROFILES[user.perfil]:
+              case PROFILES.talent:
                 dispatch(setCurrentTalent({ talentId: user.talentId }));
                 break;
+              case PROFILES.recruiter:
+                dispatch(
+                  setCurrentRecruiter({ recruiterId: user.recruiterId })
+                );
+                break;
+              case PROFILES.instructor:
+                dispatch(
+                  setCurrentInstructor({ instructorId: user.instructorId })
+                );
+                break;
+              case PROFILES.institution:
+                // dispatch(
+                //   setCurrentInstitution({ recruiterId: user.recruiterId })
+                // );
+                break;
+              case PROFILES.admin:
               default:
                 break;
             }

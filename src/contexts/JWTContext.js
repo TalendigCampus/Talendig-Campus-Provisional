@@ -2,8 +2,11 @@ import { createContext, useEffect, useReducer } from "react";
 
 import axios from "../utils/axios";
 import { isValidToken, setSession } from "../utils/jwt";
+import { ADMIN, PROFILES } from "../common/constants/data";
 import UserInfo from "../pages/pages/Login/users.json";
 import talentInfo from "../pages/pages/adminPages/AdminTalent/info.json";
+import recruiterInfo from "../pages/pages/adminPages/AdminRecruiters/RecruiterInfo.json";
+import instructorInfo from "../pages/pages/adminPages/AdminInstructors/InstructorsList/InstructorsInfo.json";
 
 const INITIALIZE = "INITIALIZE";
 const SIGN_IN = "SIGN_IN";
@@ -112,14 +115,49 @@ function AuthProvider({ children }) {
       let name = "";
       let image = "";
       let userData;
-      if (user.perfil === "talent") {
-        const talent = talentInfo.find(
-          (talent) => talent.talentEmail === email
-        );
 
-        name = talent.talentName + " " + talent.talentLastName;
-        image = talent.photoUrl;
-        userData = talent;
+      switch (user.perfil) {
+        case PROFILES.talent:
+          const talent = talentInfo.find(
+            (talent) => talent.talentEmail === email
+          );
+
+          name = talent.talentName + " " + talent.talentLastName;
+          image = talent.photoUrl;
+          userData = talent;
+          break;
+        case PROFILES.recruiter:
+          const recruiter = recruiterInfo.find(
+            (recruiter) => recruiter.email === email
+          );
+
+          name = recruiter.firstName + " " + recruiter.lastName;
+          image = recruiter.photoUrl;
+          userData = recruiter;
+          break;
+        case PROFILES.instructor:
+          const instructor = instructorInfo.find(
+            (instructor) => instructor.email === email
+          );
+
+          name = instructor.firstName + " " + instructor.lastName;
+          image = instructor.photoUrl;
+          userData = instructor;
+          break;
+        case PROFILES.institution:
+          // dispatch(
+          //   setCurrentInstitution({ recruiterId: user.recruiterId })
+          // );
+          break;
+        case PROFILES.admin:
+          const admin = ADMIN;
+
+          name = admin.firstName + " " + admin.lastName;
+          image = admin.image;
+          userData = admin;
+          break;
+        default:
+          break;
       }
 
       dispatch({

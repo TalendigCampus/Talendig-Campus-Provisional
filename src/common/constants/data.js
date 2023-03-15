@@ -103,7 +103,7 @@ export const URLPROFILE = {
   talent: "/talent/home",
   instructor: "/instructor/home",
   institution: "/institution/home",
-  recruiter: "/recruiter/home",
+  recruiter: "/recruiters/home",
 };
 
 export const PROFILES = {
