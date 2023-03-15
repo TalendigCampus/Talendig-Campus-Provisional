@@ -1,0 +1,27 @@
+[
+    {
+        "email": "madelson@gmail.com",
+        "password": "madecoderd",
+        "perfil": "talent"
+    },
+    {
+        "email": "soto@gmail.com",
+        "password": "soto",
+        "perfil": "instructor"
+    },
+    {
+        "email": "alex@gmail.com",
+        "password": "alex",
+        "perfil": "recruiter"
+    },
+    {
+        "email": "",
+        "password": "",
+        "perfil": ""
+    },
+    {
+        "email": "jose@gmail.com",
+        "password": "admin",
+        "perfil": "admin"
+    }
+]
