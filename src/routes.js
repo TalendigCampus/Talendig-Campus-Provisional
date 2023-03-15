@@ -110,24 +110,24 @@ import ViewInstructors from "./pages/pages/adminPages/AdminInstructors/Instructo
 import Roadmap from "./pages/pages/adminPages/AdminTalent/Roadmap";
 
 //Talent Users pages
-import TalentHome from "./pages/pages/Users/talent/home/index";
-import TalentBootcampInfo from "./pages/pages/Users/talent/BootcampInfo/BootcampsDetails";
-import TalentHomeWorkDetails from "./pages/pages/Users/talent/HomeWorks/HomeWorkDetails";
-import TalentProjectDetails from "./pages/pages/Users/talent/projects/ProjectDetails";
-import TalentLayout from "./pages/pages/Users/talent/layout/structureLayout";
-import TalentProfile from "./pages/pages/Users/talent/profile/TalentsProfile";
-import TalentCurriculum from "./pages/pages/Users/talent/profile/Curriculum";
-import TalentRoadmap from "./pages/pages/Users/talent/profile/Roadmap";
-import TalentProjectsList from "./pages/pages/Users/talent/briefcase/ProjectsList";
-import TalentProjectsFolderList from "./pages/pages/Users/talent/briefcase/ProjectsFolderList";
-import TalentProjectsFileList from "./pages/pages/Users/talent/briefcase/ProjectFolderFilesList";
-import TalentProjectFileDetails from "./pages/pages/Users/talent/briefcase/ProjectFileDetails";
-import TalentRecruiters from "./pages/pages/Users/talent/recruiters/RecruitersList";
-import TalentRecruiterProfile from "./pages/pages/Users/talent/recruiters/Profile";
-import TalentBootcamps from "./pages/pages/Users/talent/bootcamps/Bootcamps";
-import TalentBootcampsTalents from "./pages/pages/Users/talent/BootcampInfo/TalentList";
-import TalentBootcampTalentProfile from "./pages/pages/Users/talent/BootcampInfo/Profile";
-import TalentBootcampInstructorProfile from "./pages/pages/Users/talent/instructor/Profile";
+import TalentHome from "./pages/pages/Users/Talents/home/index";
+import TalentBootcampInfo from "./pages/pages/Users/Talents/BootcampInfo/BootcampsDetails";
+import TalentHomeWorkDetails from "./pages/pages/Users/Talents/HomeWorks/HomeWorkDetails";
+import TalentProjectDetails from "./pages/pages/Users/Talents/projects/ProjectDetails";
+import TalentLayout from "./pages/pages/Users/Talents/layout/structureLayout";
+import TalentProfile from "./pages/pages/Users/Talents/profile/TalentsProfile";
+import TalentCurriculum from "./pages/pages/Users/Talents/profile/Curriculum";
+import TalentRoadmap from "./pages/pages/Users/Talents/profile/Roadmap";
+import TalentProjectsList from "./pages/pages/Users/Talents/briefcase/ProjectsList";
+import TalentProjectsFolderList from "./pages/pages/Users/Talents/briefcase/ProjectsFolderList";
+import TalentProjectsFileList from "./pages/pages/Users/Talents/briefcase/ProjectFolderFilesList";
+import TalentProjectFileDetails from "./pages/pages/Users/Talents/briefcase/ProjectFileDetails";
+import TalentRecruiters from "./pages/pages/Users/Talents/recruiters/RecruitersList";
+import TalentRecruiterProfile from "./pages/pages/Users/Talents/recruiters/Profile";
+import TalentBootcamps from "./pages/pages/Users/Talents/bootcamps/Bootcamps";
+import TalentBootcampsTalents from "./pages/pages/Users/Talents/BootcampInfo/TalentList";
+import TalentBootcampTalentProfile from "./pages/pages/Users/Talents/BootcampInfo/Profile";
+import TalentBootcampInstructorProfile from "./pages/pages/Users/Talents/instructor/Profile";
 
 // User sign
 import UserLogin from "./pages/pages/Login/SignIn";

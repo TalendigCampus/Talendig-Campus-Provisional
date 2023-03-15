@@ -64,7 +64,7 @@ function Settings() {
       </Typography>
 
       <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/talent/projects/list/folder/files">
+        <Link component={NavLink} to="/Talents/projects/list/folder/files">
           Lista de Archivos
         </Link>
         <Typography>Archivo</Typography>

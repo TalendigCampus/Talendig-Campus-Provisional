@@ -47,7 +47,7 @@ import {
   Work,
 } from "@mui/icons-material";
 import { useSelector } from "react-redux";
-import { talentPreview } from "../../../../../redux/slices/talentSlice";
+import { currentInstructor } from "../../../../../redux/slices/instructorSlice";
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
@@ -233,9 +233,7 @@ function About(props) {
             </Grid>
             <Grid item>
               Email:{" "}
-              <Link href="https://material-app.bootlab.io/">
-                {props.talentEmail}
-              </Link>
+              <Link href="https://material-app.bootlab.io/">{props.email}</Link>
             </Grid>
           </Grid>
         </Grid>
@@ -255,7 +253,7 @@ function AboutMe(props) {
         <Spacer mb={4} />
 
         <Centered>
-          <Typography textAlign={"justify"}>{props.biography}</Typography>
+          <Typography textAlign={"justify"}>{props.bio}</Typography>
         </Centered>
       </CardContent>
     </Card>
@@ -269,22 +267,22 @@ function Curriculum() {
   // const result = rows.find((row) => row.talentId === Number(talentId));
   // console.log(result);
 
-  const result = useSelector(talentPreview);
+  const result = useSelector(currentInstructor);
 
   return (
     <React.Fragment>
       <Helmet title="Profile" />
 
       <Typography variant="h3" gutterBottom display="inline">
-        {`${result.talentName} ${result.talentLastName}`}
+        {`${result.firstName} ${result.lastName}`}
       </Typography>
 
       <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/talent/recruiters">
-          Lista de talentos del bootcamp
+        <Link component={NavLink} to="/Talents/bootcamp-info">
+          Bootcamp
         </Link>
         <Typography gutterBottom display="inline">
-          {`${result.talentName} ${result.talentLastName}`}
+          {`${result.firstName} ${result.lastName}`}
         </Typography>
       </Breadcrumbs>
 

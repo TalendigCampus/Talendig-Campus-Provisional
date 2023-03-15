@@ -268,7 +268,7 @@ function Elsewhere({ instructors, bootcamp }) {
                 src={instructor.photoUrl}
                 style={{ margin: "10px auto", cursor: "pointer" }}
                 onClick={() =>
-                  handleInstructor("/talent/bootcamps/my-bootcamps/instructor")
+                  handleInstructor("/Talents/bootcamps/my-bootcamps/instructor")
                 }
               />
               <Typography
@@ -277,7 +277,7 @@ function Elsewhere({ instructors, bootcamp }) {
                 display="inline"
                 style={{ margin: "10px auto", cursor: "pointer" }}
                 onClick={() =>
-                  handleInstructor("/talent/bootcamps/my-bootcamps/instructor")
+                  handleInstructor("/Talents/bootcamps/my-bootcamps/instructor")
                 }
               >
                 {instructor.firstName} {instructor.lastName}
@@ -409,7 +409,7 @@ function BootcampsDetails() {
             type="button"
             variant="contained"
             color="success"
-            onClick={() => handlePageChange("/talent/home")}
+            onClick={() => handlePageChange("/Talents/home")}
             mt={3}
             ml={3}
           >
@@ -421,7 +421,7 @@ function BootcampsDetails() {
               variant="contained"
               color="info"
               onClick={() =>
-                handlePageChange("/talent/bootcamps/my-bootcamps/talents")
+                handlePageChange("/Talents/bootcamps/my-bootcamps/talents")
               }
               mt={3}
               ml={3}

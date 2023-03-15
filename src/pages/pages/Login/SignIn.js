@@ -34,6 +34,7 @@ function SignIn() {
       {/* <Brand /> */}
       <Wrapper>
         <Helmet title="Sign In" />
+        <BigAvatar alt="talendig" src="/static/img/talents/persona88.svg" />
         <Typography component="h1" variant="body1" align="center" mb={2}>
           Inicia sesión para continuar
         </Typography>

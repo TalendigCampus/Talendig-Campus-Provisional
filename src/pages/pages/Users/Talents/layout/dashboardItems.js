@@ -11,52 +11,52 @@ import {
 
 const pagesSection = [
   {
-    href: "/talent/home",
+    href: "/Talents/home",
     icon: Home,
     title: "Inicio",
   },
   {
-    href: "/talent/perfil",
+    href: "/Talents/perfil",
     icon: AccountBox,
     title: "Mi perfil",
   },
   {
-    href: "/talent/bootcamps",
+    href: "/Talents/bootcamps",
     icon: AutoStories,
     title: "Bootcamps",
     children: [
       {
-        href: "/talent/bootcamps/my-bootcamps",
+        href: "/Talents/bootcamps/my-bootcamps",
         title: "Mis bootcamps",
       },
       {
-        href: "/talent/bootcamps/other-bootcamps",
+        href: "/Talents/bootcamps/other-bootcamps",
         title: "Otros bootcamps",
       },
     ],
   },
   {
-    href: "/talent/projects",
+    href: "/Talents/projects",
     icon: BusinessCenter,
     title: "Portafolio",
   },
   {
-    href: "/talent/curriculum",
+    href: "/Talents/curriculum",
     icon: Description,
     title: "Curriculum",
   },
   {
-    href: "/talent/roadmap",
+    href: "/Talents/roadmap",
     icon: SwapCalls,
     title: "Roadmap",
   },
   {
-    href: "/talent/recruiters",
+    href: "/Talents/recruiters",
     icon: PersonSearch,
     title: "Reclutadores",
   },
   {
-    href: "/talent/changelog",
+    href: "/Talents/changelog",
     icon: List,
     title: "Changelog",
     badge: "v1.0.0",

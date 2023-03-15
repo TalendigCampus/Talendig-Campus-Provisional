@@ -44,8 +44,8 @@ function TalentHome() {
       <Grid justifyContent="space-between" container spacing={6}>
         <Grid item>
           <Typography variant="h3" gutterBottom>
-            Bienvenido Kiancis Dominguez! este es tu panel de control como
-            nuestro talento.
+            Bienvenido Madelson Acosta! este es tu panel de control como nuestro
+            talento.
           </Typography>
         </Grid>
 
