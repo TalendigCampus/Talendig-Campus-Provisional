@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components/macro";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { Link as ReactRouterLink } from "react-router-dom";
 
 import {
   Avatar as MuiAvatar,
@@ -42,22 +41,17 @@ import {
   LibraryBooks,
 } from "@mui/icons-material";
 import { spacing } from "@mui/system";
-import Actions from "./Actions";
-import {
-  DIALOG_UPDATE_TYPE,
-  PROJECT_DELETE_TYPE,
-} from "../../../../../common/constants/data";
-
 import { useSelector, useDispatch } from "react-redux";
-import UndoAction from "./UndoAction";
-import ProjectsDialog from "./projectsDialog";
 import {
-  currentFolder,
-  setCurrentFile,
-  setShowUpdate,
-  setUpdateType,
-  showUpdate,
-} from "../../../../../redux/slices/projectsSlice";
+  selectTalents,
+  setTalentPreview,
+  showUndo,
+} from "../../../../../redux/slices/talentSlice";
+import tecnologiesInfo from "../../../Bootcamps/tecnologies.json";
+import {
+  selectBootcamps,
+  bootcampProfile,
+} from "../../../../../redux/slices/bootcampSlice";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -91,7 +85,7 @@ const Customer = styled.div`
   align-items: center;
 `;
 
-/* function createData(
+function createData(
   talentName,
   talentEmail,
   recruiterAvatar,
@@ -111,7 +105,57 @@ const Customer = styled.div`
     tecnology,
     id,
   };
-} */
+}
+/* createData(
+    "Anthony Peralta",
+    "anthony@gmail.com",
+    "A",
+    "012-09879879-0",
+    "1999-10-08",
+    "ASP.Net",
+    "PHP, Angular, Javascript, ASP.net",
+    "1"
+  ),
+  createData(
+    "Madelson Acosta",
+    "madelson@gmail.com",
+    "M",
+    "402-2342343-0",
+    "1920-04-10",
+    "MERN",
+    "Ruby, MERN, Nodejs",
+    "2"
+  ),
+  createData(
+    "Felix Ortega",
+    "felix@gmail.com",
+    "F",
+    "002-1591642-0",
+    "1986-02-10",
+    "ASP.Net",
+    "C#, SQL Server, .Net",
+    "3"
+  ),
+  createData(
+    "Kiancis Dominguez",
+    "kiancis@gmail.com",
+    "K",
+    "012-9089798-0",
+    "1995-12-10",
+    "MERN",
+    "React, Javascript",
+    "4"
+  ),
+  createData(
+    "Gabriel Encarnacion",
+    "gabriel@gmail.com",
+    "G",
+    "012-9089798-0",
+    "1995-12-10",
+    "Mern",
+    "React, Javascript, Nodejs",
+    "5"
+  ), */
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -143,15 +187,9 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: "projectName", alignment: "center", label: "Nombre" },
-  {
-    id: "lastModification",
-    alignment: "center",
-    label: "Ultima fecha de modificacion",
-  },
-  { id: "talentName", alignment: "center", label: "Tipo de Archivo" },
-  { id: "tecnology", alignment: "center", label: "Formato" },
-  { id: "actions", alignment: "center", label: "Acción" },
+  { id: "talentName", alignment: "left", label: "Nombre" },
+  { id: "bootcamp", alignment: "right", label: "Bootcamp" },
+  { id: "technology", alignment: "left", label: "Tecnologias" },
 ];
 
 const EnhancedTableHead = (props) => {
@@ -170,14 +208,6 @@ const EnhancedTableHead = (props) => {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{ "aria-label": "select all" }}
-          />
-        </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -231,16 +261,31 @@ const EnhancedTableToolbar = (props) => {
   );
 };
 
-function EnhancedTable() {
-  const currentSelectedFolder = useSelector(currentFolder);
-  const rows = currentSelectedFolder?.files || [];
+function EnhancedTable({ setAllowDelete }) {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("talentName");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  /* const [rows, setRows] = React.useState(JsonInfo); */
+  const rows = useSelector(selectTalents);
+  const bootcamps = useSelector(selectBootcamps);
+  const dispatch = useDispatch();
+  const getBootcamp = (id) => {
+    const result = bootcamps.find((bootcamp) => bootcamp.id === id);
+    return {
+      id: result.id,
+      name: result.bootcampName,
+    };
+  };
+  const getTecnologies = (tecnologies) => {
+    return tecnologies
+      .map((tecno) => {
+        return tecnologiesInfo.find((tec) => tec.id === tecno).name;
+      })
+      .join(", ");
+  };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -250,16 +295,16 @@ function EnhancedTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.fileId);
+      const newSelecteds = rows.map((n) => n.talentId);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handlePageChange = (pathToGo, fileId) => {
-    dispatch(setCurrentFile({ fileId }));
-    navigate(pathToGo);
+  const handleBootcamp = (id) => {
+    dispatch(bootcampProfile({ id }));
+    navigate("/admin/dashboard/bootcamps/bootcamp-profile");
   };
 
   const handleClick = (event, id) => {
@@ -291,10 +336,9 @@ function EnhancedTable() {
     setPage(0);
   };
 
-  const handleDelete = (fileId, type) => {
-    dispatch(setCurrentFile({ fileId }));
-    dispatch(setUpdateType({ type }));
-    dispatch(setShowUpdate({ status: true, type: DIALOG_UPDATE_TYPE.delete }));
+  const handleShowInfo = (pathToGo, talentId) => {
+    dispatch(setTalentPreview({ talentId }));
+    navigate(pathToGo);
   };
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
@@ -323,7 +367,7 @@ function EnhancedTable() {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.fileId);
+                  const isItemSelected = isSelected(row.talentId);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
@@ -332,49 +376,41 @@ function EnhancedTable() {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={`${row.fileId}-${index}`}
+                      key={`${row.talentId}-${index}`}
                       selected={isItemSelected}
                     >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          checked={isItemSelected}
-                          inputProps={{ "aria-labelledby": labelId }}
-                          onClick={(event) => handleClick(event, row.fileId)}
-                        />
+                      <TableCell
+                        component="th"
+                        id={labelId}
+                        scope="row"
+                        onClick={() =>
+                          handleShowInfo(
+                            "/Talents/bootcamps/my-bootcamps/talents/profile",
+                            row.talentId
+                          )
+                        }
+                        style={{ cursor: "pointer" }}
+                      >
+                        <Customer>
+                          <Avatar alt="Remy Sharp" src={row.photoUrl} />
+                          <Box ml={3}>
+                            {`${row.talentName} ${row.talentLastName}`}
+                            <br />
+                            {row.talentEmail}
+                          </Box>
+                        </Customer>
                       </TableCell>
-                      <TableCell align="center">{row.name}</TableCell>
-                      <TableCell align="center">
-                        {row.lastModificationDate}
+                      <TableCell
+                        align="right"
+                        style={{
+                          color: "blue",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => handleBootcamp(row.bootcamp)}
+                      >
+                        {getBootcamp(row.bootcamp).name}
                       </TableCell>
-                      {/* <TableCell>{row.idCard}</TableCell> */}
-                      <TableCell align="center">{row.fileType}</TableCell>
-                      <TableCell align="center">{row.format}</TableCell>
-                      <TableCell align="center">
-                        <IconButton
-                          aria-label="info"
-                          size="large"
-                          color="info"
-                          onClick={() =>
-                            handlePageChange(
-                              `/talent/projects/list/folder/files/details`,
-                              row.fileId
-                            )
-                          }
-                        >
-                          <Info />
-                        </IconButton>
-                        <IconButton
-                          aria-label="delete"
-                          align="center"
-                          size="large"
-                          color="error"
-                          onClick={() =>
-                            handleDelete(row.fileId, PROJECT_DELETE_TYPE.file)
-                          }
-                        >
-                          <RemoveCircle />
-                        </IconButton>
-                      </TableCell>
+                      <TableCell>{getTecnologies(row.technology)}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -402,7 +438,9 @@ function EnhancedTable() {
 }
 
 function InvoiceList() {
-  const showUpdateModal = useSelector(showUpdate);
+  const [allowDelete, setAllowDelete] = React.useState(false);
+  let status = useSelector(showUndo);
+  const [id, setId] = React.useState(null);
 
   return (
     <React.Fragment>
@@ -410,27 +448,27 @@ function InvoiceList() {
       <Grid justifyContent="space-between" container spacing={10}>
         <Grid item>
           <Typography variant="h3" gutterBottom display="inline">
-            Lista de Archivos
+            Lista de Talentos
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/talent/projects/list/folder/details">
-              Lista de Carpetas
+            <Link component={NavLink} to="/Talents/bootcamps/my-bootcamps">
+              Lista de bootcamps
             </Link>
-            <Typography>Archivo</Typography>
-            <Typography>Lista</Typography>
+            <Typography>Bootcamp</Typography>
+            <Link
+              component={NavLink}
+              to="/Talents/bootcamps/my-bootcamps/talents"
+            >
+              Lista de talentos
+            </Link>
           </Breadcrumbs>
-        </Grid>
-        <Grid item>
-          <Actions />
         </Grid>
       </Grid>
       <Divider my={6} />
       <Grid container spacing={6}>
         <Grid item xs={12}>
-          <EnhancedTable />
-          {showUpdateModal.value && <ProjectsDialog />}
-          <UndoAction />
+          <EnhancedTable setAllowDelete={setAllowDelete} setId={setId} />
         </Grid>
       </Grid>
     </React.Fragment>

@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components/macro";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { useNavigate } from "react-router-dom";
+import { Link as ReactRouterLink } from "react-router-dom";
+import {
+  PROJECT_UPDATE_TYPE,
+  DIALOG_UPDATE_TYPE,
+  PROJECT_DELETE_TYPE,
+} from "../../../../../common/constants/data";
 
 import {
   Avatar as MuiAvatar,
@@ -15,6 +20,7 @@ import {
   Grid,
   IconButton,
   Link,
+  Description,
   Paper as MuiPaper,
   Table,
   TableBody,
@@ -27,6 +33,7 @@ import {
   Toolbar,
   Tooltip,
   Typography,
+  Dialog,
 } from "@mui/material";
 import { green, orange } from "@mui/material/colors";
 import {
@@ -37,16 +44,25 @@ import {
   Edit,
   RemoveCircle,
   Info,
+  LibraryBooks,
 } from "@mui/icons-material";
 import { spacing } from "@mui/system";
-import RecruitersInfo from "./RecruiterInfo.json";
-import tecnologiesInfo from "../../../Bootcamps/tecnologies.json";
+import Actions from "./Actions";
+import ProjectsDialog from "./projectsDialog";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  selectRecruiters,
-  setCurrentRecruiter,
-  setShowUndo,
-} from "../../../../../redux/slices/recruiterSlice";
+  selectTalents,
+  setCurrentTalent,
+} from "../../../../../redux/slices/talentSlice";
+import {
+  showUpdate,
+  setShowUpdate,
+  setCurrentProject,
+  setUpdateType,
+  currentTalentProjects,
+} from "../../../../../redux/slices/projectsSlice";
+import UndoAction from "./UndoAction";
+import tecnologiesInfo from "../../../Bootcamps/tecnologies.json";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -80,72 +96,27 @@ const Customer = styled.div`
   align-items: center;
 `;
 
-// function createData(
-//   recruiter,
-//   recruiterEmail,
-//   recruiterAvatar,
-//   idCard,
-//   company,
-//   birth,
-//   tecnology,
-//   id
-// ) {
-//   return {
-//     recruiter,
-//     recruiterEmail,
-//     idCard,
-//     recruiterAvatar,
-//     company,
-//     birth,
-//     tecnology,
-//     id,
-//   };
-// }
-
-//const rows = RecruitersInfo;
-
-// const rows = [
-//   createData(
-//     "Alexander Santos",
-//     "alex@gmail.com",
-//     "A",
-//     "012-09879879-0",
-//     "Banco Popular",
-//     "1980-05-22",
-//     "Angular, Javascript, React",
-//     "1"
-//   ),
-//   createData(
-//     "Ramon Hernandez",
-//     "ramon@gmail.com	",
-//     "R",
-//     "008-9878768-3",
-//     "Banco Reservas",
-//     "1920-04-10",
-//     "Ruby, MERN, Nodejs",
-//     "2"
-//   ),
-//   createData(
-//     "Juana Jimenez",
-//     "juana@gmail.com",
-//     "J",
-//     "002-1591642-0",
-//     "Altice",
-//     "1986-02-10",
-//     "C#, SQL Server, .Net",
-//     "3"
-//   ),
-//   createData(
-//     "Yacaira Rodriguez",
-//     "yacaira@gmail.com",
-//     "Y",
-//     "012-9089798-0",
-//     "Claro",
-//     "1995-12-10",
-//     "React, Javascript",
-//     "4"
-//   ),
-// ];
+/* function createData(
+  talentName,
+  talentEmail,
+  recruiterAvatar,
+  idCard,
+  birth,
+  bootcamp,
+  tecnology,
+  id
+) {
+  return {
+    talentName,
+    talentEmail,
+    idCard,
+    recruiterAvatar,
+    birth,
+    bootcamp,
+    tecnology,
+    id,
+  };
+} */
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -177,10 +148,15 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: "firstName", alignment: "left", label: "Reclutador" },
-  { id: "company", alignment: "right", label: "Empresa" },
-  { id: "technology", alignment: "left", label: "Tecnologias Buscadas" },
-  { id: "status", alignment: "center", label: "Estado del proceso" },
+  { id: "projectName", alignment: "center", label: "Nombre" },
+  {
+    id: "lastModification",
+    alignment: "center",
+    label: "Ultima fecha de modificacion",
+  },
+  { id: "talentName", alignment: "center", label: "Talento" },
+  { id: "tecnology", alignment: "center", label: "Tecnologias" },
+  { id: "actions", alignment: "center", label: "Acción" },
 ];
 
 const EnhancedTableHead = (props) => {
@@ -199,6 +175,14 @@ const EnhancedTableHead = (props) => {
   return (
     <TableHead>
       <TableRow>
+        <TableCell padding="checkbox">
+          <Checkbox
+            indeterminate={numSelected > 0 && numSelected < rowCount}
+            checked={rowCount > 0 && numSelected === rowCount}
+            onChange={onSelectAllClick}
+            inputProps={{ "aria-label": "select all" }}
+          />
+        </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -252,11 +236,19 @@ const EnhancedTableToolbar = (props) => {
   );
 };
 
-function EnhancedTable({ setDeleteRecruiterModal }) {
-  // const rows = useSelector(selectRecruiters);
-
-  const rows = RecruitersInfo;
+function EnhancedTable() {
+  const talents = useSelector(selectTalents);
+  const projectsList = useSelector(currentTalentProjects);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [order, setOrder] = React.useState("asc");
+  const [orderBy, setOrderBy] = React.useState("projectName");
+  const [selected, setSelected] = React.useState([]);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const [rows, setRows] = React.useState([]);
+
   const getTecnologies = (tecnologies) => {
     return tecnologies
       .map((tecno) => {
@@ -264,13 +256,25 @@ function EnhancedTable({ setDeleteRecruiterModal }) {
       })
       .join(", ");
   };
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("firstName");
-  const [selected, setSelected] = React.useState([]);
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    setRows(
+      projectsList.map((project) => {
+        const talent = talents.find(
+          (talent) => talent.talentId === project.talentId
+        );
+        return {
+          projectName: project.projectName,
+          talentName: talent.talentName,
+          talentLastName: talent.talentLastName,
+          lastModification: project.lastModificationDate,
+          technology: talent.technology,
+          projectId: project.projectId,
+          talentId: project.talentId,
+        };
+      })
+    );
+  }, [talents, projectsList]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -280,11 +284,27 @@ function EnhancedTable({ setDeleteRecruiterModal }) {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.id);
+      const newSelecteds = rows.map((n) => n.projectId);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
+  };
+
+  const handleEdit = (projectId, type) => {
+    dispatch(setCurrentProject({ projectId }));
+    dispatch(setUpdateType({ type }));
+    dispatch(setShowUpdate({ status: true, type: DIALOG_UPDATE_TYPE.update }));
+  };
+
+  const handlePageChange = (pathToGo, projectId) => {
+    dispatch(setCurrentProject({ projectId }));
+    navigate(pathToGo);
+  };
+
+  const handleUserPageChange = (pathToGo, talentId) => {
+    dispatch(setCurrentTalent({ talentId }));
+    navigate(pathToGo);
   };
 
   const handleClick = (event, id) => {
@@ -316,15 +336,16 @@ function EnhancedTable({ setDeleteRecruiterModal }) {
     setPage(0);
   };
 
+  const handleDelete = (projectId, type) => {
+    dispatch(setCurrentProject({ projectId }));
+    dispatch(setUpdateType({ type }));
+    dispatch(setShowUpdate({ status: true, type: DIALOG_UPDATE_TYPE.delete }));
+  };
+
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-
-  const handleShowInfo = (pathToGo, recruiterId) => {
-    dispatch(setCurrentRecruiter({ recruiterId }));
-    navigate(pathToGo);
-  };
 
   return (
     <div>
@@ -347,7 +368,7 @@ function EnhancedTable({ setDeleteRecruiterModal }) {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.id);
+                  const isItemSelected = isSelected(row.projectId);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
@@ -356,30 +377,76 @@ function EnhancedTable({ setDeleteRecruiterModal }) {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={`${row.id}-${index}`}
+                      key={`${row.projectId}-${index}`}
                       selected={isItemSelected}
                     >
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        onClick={() =>
-                          handleShowInfo("/talent/recruiters/profile", row.id)
-                        }
-                        style={{ cursor: "pointer" }}
-                      >
-                        <Customer>
-                          <Avatar alt="Remy Sharp" src={row.photoUrl} />
-                          <Box ml={3}>
-                            {`${row.firstName} ${row.lastName}`}
-                            <br />
-                            {row.email}
-                          </Box>
-                        </Customer>
+                      <TableCell padding="checkbox">
+                        <Checkbox
+                          checked={isItemSelected}
+                          inputProps={{ "aria-labelledby": labelId }}
+                          onClick={(event) => handleClick(event, row.projectId)}
+                        />
                       </TableCell>
-                      <TableCell align="right">{row.company}</TableCell>
+                      <TableCell align="center">
+                        {" "}
+                        <Link
+                          onClick={() =>
+                            handlePageChange(
+                              "/Talents/projects/list/folder/details",
+                              row.projectId
+                            )
+                          }
+                        >
+                          {row.projectName}
+                        </Link>
+                      </TableCell>
+                      <TableCell align="center">
+                        {row.lastModification}
+                      </TableCell>
+                      {/* <TableCell>{row.idCard}</TableCell> */}
+                      <TableCell align="center">
+                        {" "}
+                        <Link
+                          onClick={() =>
+                            handleUserPageChange(
+                              "/Talents/perfil",
+                              row.talentId
+                            )
+                          }
+                        >
+                          {`${row.talentName} ${row.talentLastName}`}
+                        </Link>
+                      </TableCell>
                       <TableCell>{getTecnologies(row.technology)}</TableCell>
-                      <TableCell align="center">En proceso</TableCell>
+                      <TableCell align="center">
+                        <IconButton
+                          aria-label="edit"
+                          size="large"
+                          color="warning"
+                          onClick={() =>
+                            handleEdit(
+                              row.projectId,
+                              PROJECT_UPDATE_TYPE.project
+                            )
+                          }
+                        >
+                          <Edit />
+                        </IconButton>
+                        <IconButton
+                          aria-label="delete"
+                          align="center"
+                          size="large"
+                          color="error"
+                          onClick={() =>
+                            handleDelete(
+                              row.projectId,
+                              PROJECT_DELETE_TYPE.project
+                            )
+                          }
+                        >
+                          <RemoveCircle />
+                        </IconButton>
+                      </TableCell>
                     </TableRow>
                   );
                 })}
@@ -407,23 +474,24 @@ function EnhancedTable({ setDeleteRecruiterModal }) {
 }
 
 function InvoiceList() {
+  const showUpdateModal = useSelector(showUpdate);
+
   return (
     <React.Fragment>
       <Helmet title="Invoices" />
-
       <Grid justifyContent="space-between" container spacing={10}>
         <Grid item>
           <Typography variant="h3" gutterBottom display="inline">
-            Lista de reclutadores que tienen un proceso contigo
+            Mis Proyectos
           </Typography>
         </Grid>
       </Grid>
-
       <Divider my={6} />
-
       <Grid container spacing={6}>
         <Grid item xs={12}>
           <EnhancedTable />
+          {showUpdateModal.value && <ProjectsDialog />}
+          <UndoAction />
         </Grid>
       </Grid>
     </React.Fragment>

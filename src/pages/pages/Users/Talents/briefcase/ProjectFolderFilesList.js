@@ -1,13 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components/macro";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Link as ReactRouterLink } from "react-router-dom";
-import {
-  PROJECT_UPDATE_TYPE,
-  DIALOG_UPDATE_TYPE,
-  PROJECT_DELETE_TYPE,
-} from "../../../../../common/constants/data";
 
 import {
   Avatar as MuiAvatar,
@@ -48,21 +43,21 @@ import {
 } from "@mui/icons-material";
 import { spacing } from "@mui/system";
 import Actions from "./Actions";
-import ProjectsDialog from "./projectsDialog";
+import {
+  DIALOG_UPDATE_TYPE,
+  PROJECT_DELETE_TYPE,
+} from "../../../../../common/constants/data";
+
 import { useSelector, useDispatch } from "react-redux";
-import {
-  selectTalents,
-  setCurrentTalent,
-} from "../../../../../redux/slices/talentSlice";
-import {
-  showUpdate,
-  setShowUpdate,
-  setCurrentProject,
-  setUpdateType,
-  currentTalentProjects,
-} from "../../../../../redux/slices/projectsSlice";
 import UndoAction from "./UndoAction";
-import tecnologiesInfo from "../../../Bootcamps/tecnologies.json";
+import ProjectsDialog from "./projectsDialog";
+import {
+  currentFolder,
+  setCurrentFile,
+  setShowUpdate,
+  setUpdateType,
+  showUpdate,
+} from "../../../../../redux/slices/projectsSlice";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -154,8 +149,8 @@ const headCells = [
     alignment: "center",
     label: "Ultima fecha de modificacion",
   },
-  { id: "talentName", alignment: "center", label: "Talento" },
-  { id: "tecnology", alignment: "center", label: "Tecnologias" },
+  { id: "talentName", alignment: "center", label: "Tipo de Archivo" },
+  { id: "tecnology", alignment: "center", label: "Formato" },
   { id: "actions", alignment: "center", label: "Acción" },
 ];
 
@@ -237,44 +232,15 @@ const EnhancedTableToolbar = (props) => {
 };
 
 function EnhancedTable() {
-  const talents = useSelector(selectTalents);
-  const projectsList = useSelector(currentTalentProjects);
+  const currentSelectedFolder = useSelector(currentFolder);
+  const rows = currentSelectedFolder?.files || [];
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("projectName");
+  const [orderBy, setOrderBy] = React.useState("talentName");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-  const [rows, setRows] = React.useState([]);
-
-  const getTecnologies = (tecnologies) => {
-    return tecnologies
-      .map((tecno) => {
-        return tecnologiesInfo.find((tec) => tec.id === tecno).name;
-      })
-      .join(", ");
-  };
-
-  useEffect(() => {
-    setRows(
-      projectsList.map((project) => {
-        const talent = talents.find(
-          (talent) => talent.talentId === project.talentId
-        );
-        return {
-          projectName: project.projectName,
-          talentName: talent.talentName,
-          talentLastName: talent.talentLastName,
-          lastModification: project.lastModificationDate,
-          technology: talent.technology,
-          projectId: project.projectId,
-          talentId: project.talentId,
-        };
-      })
-    );
-  }, [talents, projectsList]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -284,26 +250,15 @@ function EnhancedTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.projectId);
+      const newSelecteds = rows.map((n) => n.fileId);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleEdit = (projectId, type) => {
-    dispatch(setCurrentProject({ projectId }));
-    dispatch(setUpdateType({ type }));
-    dispatch(setShowUpdate({ status: true, type: DIALOG_UPDATE_TYPE.update }));
-  };
-
-  const handlePageChange = (pathToGo, projectId) => {
-    dispatch(setCurrentProject({ projectId }));
-    navigate(pathToGo);
-  };
-
-  const handleUserPageChange = (pathToGo, talentId) => {
-    dispatch(setCurrentTalent({ talentId }));
+  const handlePageChange = (pathToGo, fileId) => {
+    dispatch(setCurrentFile({ fileId }));
     navigate(pathToGo);
   };
 
@@ -336,8 +291,8 @@ function EnhancedTable() {
     setPage(0);
   };
 
-  const handleDelete = (projectId, type) => {
-    dispatch(setCurrentProject({ projectId }));
+  const handleDelete = (fileId, type) => {
+    dispatch(setCurrentFile({ fileId }));
     dispatch(setUpdateType({ type }));
     dispatch(setShowUpdate({ status: true, type: DIALOG_UPDATE_TYPE.delete }));
   };
@@ -368,7 +323,7 @@ function EnhancedTable() {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.projectId);
+                  const isItemSelected = isSelected(row.fileId);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
@@ -377,57 +332,36 @@ function EnhancedTable() {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={`${row.projectId}-${index}`}
+                      key={`${row.fileId}-${index}`}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
                           checked={isItemSelected}
                           inputProps={{ "aria-labelledby": labelId }}
-                          onClick={(event) => handleClick(event, row.projectId)}
+                          onClick={(event) => handleClick(event, row.fileId)}
                         />
                       </TableCell>
+                      <TableCell align="center">{row.name}</TableCell>
                       <TableCell align="center">
-                        {" "}
-                        <Link
-                          onClick={() =>
-                            handlePageChange(
-                              "/talent/projects/list/folder/details",
-                              row.projectId
-                            )
-                          }
-                        >
-                          {row.projectName}
-                        </Link>
-                      </TableCell>
-                      <TableCell align="center">
-                        {row.lastModification}
+                        {row.lastModificationDate}
                       </TableCell>
                       {/* <TableCell>{row.idCard}</TableCell> */}
-                      <TableCell align="center">
-                        {" "}
-                        <Link
-                          onClick={() =>
-                            handleUserPageChange("/talent/perfil", row.talentId)
-                          }
-                        >
-                          {`${row.talentName} ${row.talentLastName}`}
-                        </Link>
-                      </TableCell>
-                      <TableCell>{getTecnologies(row.technology)}</TableCell>
+                      <TableCell align="center">{row.fileType}</TableCell>
+                      <TableCell align="center">{row.format}</TableCell>
                       <TableCell align="center">
                         <IconButton
-                          aria-label="edit"
+                          aria-label="info"
                           size="large"
-                          color="warning"
+                          color="info"
                           onClick={() =>
-                            handleEdit(
-                              row.projectId,
-                              PROJECT_UPDATE_TYPE.project
+                            handlePageChange(
+                              `/Talents/projects/list/folder/files/details`,
+                              row.fileId
                             )
                           }
                         >
-                          <Edit />
+                          <Info />
                         </IconButton>
                         <IconButton
                           aria-label="delete"
@@ -435,10 +369,7 @@ function EnhancedTable() {
                           size="large"
                           color="error"
                           onClick={() =>
-                            handleDelete(
-                              row.projectId,
-                              PROJECT_DELETE_TYPE.project
-                            )
+                            handleDelete(row.fileId, PROJECT_DELETE_TYPE.file)
                           }
                         >
                           <RemoveCircle />
@@ -479,8 +410,22 @@ function InvoiceList() {
       <Grid justifyContent="space-between" container spacing={10}>
         <Grid item>
           <Typography variant="h3" gutterBottom display="inline">
-            Mis Proyectos
+            Lista de Archivos
           </Typography>
+
+          <Breadcrumbs aria-label="Breadcrumb" mt={2}>
+            <Link
+              component={NavLink}
+              to="/Talents/projects/list/folder/details"
+            >
+              Lista de Carpetas
+            </Link>
+            <Typography>Archivo</Typography>
+            <Typography>Lista</Typography>
+          </Breadcrumbs>
+        </Grid>
+        <Grid item>
+          <Actions />
         </Grid>
       </Grid>
       <Divider my={6} />

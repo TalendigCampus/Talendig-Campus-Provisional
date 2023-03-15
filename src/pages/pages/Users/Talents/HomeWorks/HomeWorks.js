@@ -55,7 +55,7 @@ const Project = (props) => {
     <Card>
       <CardActionArea
         onClick={() => {
-          handdleAction("/talent/HomeWorkDetails");
+          handdleAction("/Talents/HomeWorkDetails");
         }}
       >
         <CardContent>
@@ -79,7 +79,7 @@ const Project = (props) => {
           size="small"
           color="primary"
           onClick={() => {
-            handdleAction("/talent/HomeWorkDetails");
+            handdleAction("/Talents/HomeWorkDetails");
           }}
         >
           Más Información
