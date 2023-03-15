@@ -7,17 +7,12 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { spacing } from "@mui/system";
 
-import GlobalStyle from "../components/GlobalStyle";
-import Navbar from "../components/navbar/Navbar";
-import adminDashboardItems from "../components/sidebar/adminDashboardItems";
-import recruiterDashboardItems from "../components/sidebar/recruiterDashboardItems";
-import talentDashboardItems from "../components/sidebar/talentDashboardItems";
-import instructorDashboardItems from "../components/sidebar/instructorDashboardItems";
-import Sidebar from "../components/sidebar/Sidebar";
-import Footer from "../components/Footer";
-import Settings from "../components/Settings";
-import useAuth from "../hooks/useAuth";
-import { PROFILES } from "../common/constants/data";
+import GlobalStyle from "../../../../../components/GlobalStyle";
+import Navbar from "../../../../../components/navbar/Navbar";
+import dashboardItems from "./dashboardItems";
+import Sidebar from "../../../../../components/sidebar/Sidebar";
+import Footer from "../../../../../components/Footer";
+import Settings from "../../../../../components/Settings";
 
 const drawerWidth = 258;
 
@@ -57,29 +52,6 @@ const MainContent = styled(Paper)`
 
 const Dashboard = ({ children }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { user } = useAuth();
-
-  let sidebarItems;
-
-  switch (user.profile) {
-    case PROFILES.admin:
-      sidebarItems = adminDashboardItems;
-      break;
-    case PROFILES.talent:
-      sidebarItems = talentDashboardItems;
-      break;
-    case PROFILES.instructor:
-      sidebarItems = instructorDashboardItems;
-      break;
-    case PROFILES.recruiter:
-      sidebarItems = recruiterDashboardItems;
-      break;
-    case PROFILES.institution:
-      sidebarItems = adminDashboardItems;
-      break;
-    default:
-      break;
-  }
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -99,13 +71,13 @@ const Dashboard = ({ children }) => {
             variant="temporary"
             open={mobileOpen}
             onClose={handleDrawerToggle}
-            items={sidebarItems}
+            items={dashboardItems}
           />
         </Hidden>
         <Hidden mdDown implementation="css">
           <Sidebar
             PaperProps={{ style: { width: drawerWidth } }}
-            items={sidebarItems}
+            items={dashboardItems}
           />
         </Hidden>
       </Drawer>

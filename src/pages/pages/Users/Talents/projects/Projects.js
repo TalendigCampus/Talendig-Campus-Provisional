@@ -50,7 +50,7 @@ const Project = (props) => {
       <CardActionArea>
         <CardContent
           onClick={() => {
-            handdleAction("/Talents/HomeWorkDetails");
+            handdleAction("/talent/HomeWorkDetails");
           }}
         >
           <Typography gutterBottom variant="h5" component="h2">
@@ -74,7 +74,7 @@ const Project = (props) => {
           size="small"
           color="primary"
           onClick={() => {
-            handdleAction("/Talents/ProjectDetails");
+            handdleAction("/talent/ProjectDetails");
           }}
         >
           Más Información

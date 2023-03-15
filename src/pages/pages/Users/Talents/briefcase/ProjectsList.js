@@ -392,7 +392,7 @@ function EnhancedTable() {
                         <Link
                           onClick={() =>
                             handlePageChange(
-                              "/Talents/projects/list/folder/details",
+                              "/talent/projects/list/folder/details",
                               row.projectId
                             )
                           }
@@ -408,10 +408,7 @@ function EnhancedTable() {
                         {" "}
                         <Link
                           onClick={() =>
-                            handleUserPageChange(
-                              "/Talents/perfil",
-                              row.talentId
-                            )
+                            handleUserPageChange("/talent/perfil", row.talentId)
                           }
                         >
                           {`${row.talentName} ${row.talentLastName}`}

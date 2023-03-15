@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components/macro";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { useNavigate } from "react-router-dom";
 
 import {
   Avatar as MuiAvatar,
@@ -15,6 +14,7 @@ import {
   Grid,
   IconButton,
   Link,
+  Description,
   Paper as MuiPaper,
   Table,
   TableBody,
@@ -27,6 +27,7 @@ import {
   Toolbar,
   Tooltip,
   Typography,
+  Dialog,
 } from "@mui/material";
 import { green, orange } from "@mui/material/colors";
 import {
@@ -37,16 +38,24 @@ import {
   Edit,
   RemoveCircle,
   Info,
+  LibraryBooks,
 } from "@mui/icons-material";
 import { spacing } from "@mui/system";
-import RecruitersInfo from "./RecruiterInfo.json";
-import tecnologiesInfo from "../../../Bootcamps/tecnologies.json";
+
 import { useSelector, useDispatch } from "react-redux";
 import {
-  selectRecruiters,
-  setCurrentRecruiter,
-  setShowUndo,
-} from "../../../../../redux/slices/recruiterSlice";
+  selectTalents,
+  setCurrentTalent,
+  setShowAlert,
+  deleteTalent,
+  allowDelete,
+  showUndo,
+} from "../../../../redux/slices/talentSlice";
+import tecnologiesInfo from "../../Bootcamps/tecnologies.json";
+import {
+  selectBootcamps,
+  bootcampProfile,
+} from "../../../../redux/slices/bootcampSlice";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -80,72 +89,77 @@ const Customer = styled.div`
   align-items: center;
 `;
 
-// function createData(
-//   recruiter,
-//   recruiterEmail,
-//   recruiterAvatar,
-//   idCard,
-//   company,
-//   birth,
-//   tecnology,
-//   id
-// ) {
-//   return {
-//     recruiter,
-//     recruiterEmail,
-//     idCard,
-//     recruiterAvatar,
-//     company,
-//     birth,
-//     tecnology,
-//     id,
-//   };
-// }
-
-//const rows = RecruitersInfo;
-
-// const rows = [
-//   createData(
-//     "Alexander Santos",
-//     "alex@gmail.com",
-//     "A",
-//     "012-09879879-0",
-//     "Banco Popular",
-//     "1980-05-22",
-//     "Angular, Javascript, React",
-//     "1"
-//   ),
-//   createData(
-//     "Ramon Hernandez",
-//     "ramon@gmail.com	",
-//     "R",
-//     "008-9878768-3",
-//     "Banco Reservas",
-//     "1920-04-10",
-//     "Ruby, MERN, Nodejs",
-//     "2"
-//   ),
-//   createData(
-//     "Juana Jimenez",
-//     "juana@gmail.com",
-//     "J",
-//     "002-1591642-0",
-//     "Altice",
-//     "1986-02-10",
-//     "C#, SQL Server, .Net",
-//     "3"
-//   ),
-//   createData(
-//     "Yacaira Rodriguez",
-//     "yacaira@gmail.com",
-//     "Y",
-//     "012-9089798-0",
-//     "Claro",
-//     "1995-12-10",
-//     "React, Javascript",
-//     "4"
-//   ),
-// ];
+function createData(
+  talentName,
+  talentEmail,
+  recruiterAvatar,
+  idCard,
+  birth,
+  bootcamp,
+  tecnology,
+  id
+) {
+  return {
+    talentName,
+    talentEmail,
+    idCard,
+    recruiterAvatar,
+    birth,
+    bootcamp,
+    tecnology,
+    id,
+  };
+}
+/* createData(
+    "Anthony Peralta",
+    "anthony@gmail.com",
+    "A",
+    "012-09879879-0",
+    "1999-10-08",
+    "ASP.Net",
+    "PHP, Angular, Javascript, ASP.net",
+    "1"
+  ),
+  createData(
+    "Madelson Acosta",
+    "madelson@gmail.com",
+    "M",
+    "402-2342343-0",
+    "1920-04-10",
+    "MERN",
+    "Ruby, MERN, Nodejs",
+    "2"
+  ),
+  createData(
+    "Felix Ortega",
+    "felix@gmail.com",
+    "F",
+    "002-1591642-0",
+    "1986-02-10",
+    "ASP.Net",
+    "C#, SQL Server, .Net",
+    "3"
+  ),
+  createData(
+    "Kiancis Dominguez",
+    "kiancis@gmail.com",
+    "K",
+    "012-9089798-0",
+    "1995-12-10",
+    "MERN",
+    "React, Javascript",
+    "4"
+  ),
+  createData(
+    "Gabriel Encarnacion",
+    "gabriel@gmail.com",
+    "G",
+    "012-9089798-0",
+    "1995-12-10",
+    "Mern",
+    "React, Javascript, Nodejs",
+    "5"
+  ), */
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -177,10 +191,12 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: "firstName", alignment: "left", label: "Reclutador" },
-  { id: "company", alignment: "right", label: "Empresa" },
-  { id: "technology", alignment: "left", label: "Tecnologias Buscadas" },
-  { id: "status", alignment: "center", label: "Estado del proceso" },
+  { id: "talentName", alignment: "left", label: "Nombre" },
+  { id: "idCard", alignment: "left", label: "Cedula" },
+  { id: "birth", alignment: "right", label: "Fecha de Nacimiento" },
+  { id: "bootcamp", alignment: "right", label: "Bootcamp" },
+  { id: "technology", alignment: "left", label: "Tecnologias" },
+  { id: "actions", alignment: "right", label: "Acción" },
 ];
 
 const EnhancedTableHead = (props) => {
@@ -199,6 +215,14 @@ const EnhancedTableHead = (props) => {
   return (
     <TableHead>
       <TableRow>
+        <TableCell padding="checkbox">
+          <Checkbox
+            indeterminate={numSelected > 0 && numSelected < rowCount}
+            checked={rowCount > 0 && numSelected === rowCount}
+            onChange={onSelectAllClick}
+            inputProps={{ "aria-label": "select all" }}
+          />
+        </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -252,11 +276,25 @@ const EnhancedTableToolbar = (props) => {
   );
 };
 
-function EnhancedTable({ setDeleteRecruiterModal }) {
-  // const rows = useSelector(selectRecruiters);
-
-  const rows = RecruitersInfo;
+function EnhancedTable({ setAllowDelete }) {
+  const navigate = useNavigate();
+  const [order, setOrder] = React.useState("asc");
+  const [orderBy, setOrderBy] = React.useState("talentName");
+  const [selected, setSelected] = React.useState([]);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  /* const [rows, setRows] = React.useState(JsonInfo); */
+  const rows = useSelector(selectTalents);
+  const bootcamps = useSelector(selectBootcamps);
+  const allowDeleteTalent = useSelector(allowDelete);
   const dispatch = useDispatch();
+  const getBootcamp = (id) => {
+    const result = bootcamps.find((bootcamp) => bootcamp.id === id);
+    return {
+      id: result.id,
+      name: result.bootcampName,
+    };
+  };
   const getTecnologies = (tecnologies) => {
     return tecnologies
       .map((tecno) => {
@@ -264,13 +302,6 @@ function EnhancedTable({ setDeleteRecruiterModal }) {
       })
       .join(", ");
   };
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("firstName");
-  const [selected, setSelected] = React.useState([]);
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-  const navigate = useNavigate();
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -280,11 +311,21 @@ function EnhancedTable({ setDeleteRecruiterModal }) {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.id);
+      const newSelecteds = rows.map((n) => n.talentId);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
+  };
+
+  const handdlePath = (pathToGo, talentId) => {
+    dispatch(setCurrentTalent({ talentId }));
+    navigate(pathToGo);
+  };
+
+  const handleBootcamp = (id) => {
+    dispatch(bootcampProfile({ id }));
+    navigate("/admin/dashboard/bootcamps/bootcamp-profile");
   };
 
   const handleClick = (event, id) => {
@@ -316,19 +357,20 @@ function EnhancedTable({ setDeleteRecruiterModal }) {
     setPage(0);
   };
 
+  const handleDelete = (talentId) => {
+    setAllowDelete(true);
+    dispatch(setCurrentTalent({ talentId }));
+  };
+
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
-  const handleShowInfo = (pathToGo, recruiterId) => {
-    dispatch(setCurrentRecruiter({ recruiterId }));
-    navigate(pathToGo);
-  };
-
   return (
     <div>
       <Paper>
+        <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
             aria-labelledby="tableTitle"
@@ -347,7 +389,7 @@ function EnhancedTable({ setDeleteRecruiterModal }) {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.id);
+                  const isItemSelected = isSelected(row.talentId);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
@@ -356,30 +398,62 @@ function EnhancedTable({ setDeleteRecruiterModal }) {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={`${row.id}-${index}`}
+                      key={`${row.talentId}-${index}`}
                       selected={isItemSelected}
                     >
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        onClick={() =>
-                          handleShowInfo("/talent/recruiters/profile", row.id)
-                        }
-                        style={{ cursor: "pointer" }}
-                      >
+                      <TableCell padding="checkbox">
+                        <Checkbox
+                          checked={isItemSelected}
+                          inputProps={{ "aria-labelledby": labelId }}
+                          onClick={(event) => handleClick(event, row.talentId)}
+                        />
+                      </TableCell>
+                      <TableCell component="th" id={labelId} scope="row">
                         <Customer>
                           <Avatar alt="Remy Sharp" src={row.photoUrl} />
                           <Box ml={3}>
-                            {`${row.firstName} ${row.lastName}`}
+                            {`${row.talentName} ${row.talentLastName}`}
                             <br />
-                            {row.email}
+                            {row.talentEmail}
                           </Box>
                         </Customer>
                       </TableCell>
-                      <TableCell align="right">{row.company}</TableCell>
+                      <TableCell>{row.idCard}</TableCell>
+                      <TableCell align="center">{row.birth}</TableCell>
+                      <TableCell
+                        align="right"
+                        style={{
+                          color: "blue",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => handleBootcamp(row.bootcamp)}
+                      >
+                        {getBootcamp(row.bootcamp).name}
+                      </TableCell>
                       <TableCell>{getTecnologies(row.technology)}</TableCell>
-                      <TableCell align="center">En proceso</TableCell>
+                      <TableCell align="right">
+                        <IconButton
+                          aria-label="info"
+                          size="large"
+                          color="info"
+                          onClick={() =>
+                            handdlePath(
+                              `/admin/dashboard/users/talents/info`,
+                              row.talentId
+                            )
+                          }
+                        >
+                          <Info />
+                        </IconButton>
+                        <IconButton
+                          aria-label="delete"
+                          size="large"
+                          color="error"
+                          onClick={() => handleDelete(row.talentId)}
+                        >
+                          <RemoveCircle />
+                        </IconButton>
+                      </TableCell>
                     </TableRow>
                   );
                 })}
@@ -407,24 +481,33 @@ function EnhancedTable({ setDeleteRecruiterModal }) {
 }
 
 function InvoiceList() {
+  const [allowDelete, setAllowDelete] = React.useState(false);
+  let status = useSelector(showUndo);
+  const [id, setId] = React.useState(null);
+
   return (
     <React.Fragment>
       <Helmet title="Invoices" />
-
       <Grid justifyContent="space-between" container spacing={10}>
         <Grid item>
           <Typography variant="h3" gutterBottom display="inline">
-            Lista de reclutadores que tienen un proceso contigo
+            Lista de Talentos
           </Typography>
+
+          <Breadcrumbs aria-label="Breadcrumb" mt={2}>
+            <Link component={NavLink} to="/admin/dashboard/users/talents">
+              Panel Talentos
+            </Link>
+
+            <Typography>Talentos</Typography>
+            <Typography>Lista</Typography>
+          </Breadcrumbs>
         </Grid>
+        <Grid item></Grid>
       </Grid>
-
       <Divider my={6} />
-
       <Grid container spacing={6}>
-        <Grid item xs={12}>
-          <EnhancedTable />
-        </Grid>
+        <Grid item xs={12}></Grid>
       </Grid>
     </React.Fragment>
   );

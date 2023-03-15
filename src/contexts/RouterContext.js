@@ -6,6 +6,7 @@ import { auth, lost404 } from "../routes";
 import talentRoutes from "../pages/pages/Users/Talents/routes";
 import adminRoutes from "../pages/pages/adminPages/routes";
 import recruiterRoutes from "../pages/pages/Users/Recruiters/routes";
+import instructorRoutes from "../pages/pages/Users/Instructors/routes";
 
 const RouterContext = createContext(null);
 
@@ -23,6 +24,9 @@ function RouterProvider() {
         break;
       case PROFILES.recruiter:
         routes = [lost404, recruiterRoutes];
+        break;
+      case PROFILES.instructor:
+        routes = [lost404, instructorRoutes];
         break;
       default:
         break;

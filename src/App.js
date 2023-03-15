@@ -13,7 +13,6 @@ import jssPreset from "@mui/styles/jssPreset";
 
 import "./i18n";
 import createTheme from "./theme";
-import { global } from "./routes";
 
 import useTheme from "./hooks/useTheme";
 import { store } from "./redux/store";

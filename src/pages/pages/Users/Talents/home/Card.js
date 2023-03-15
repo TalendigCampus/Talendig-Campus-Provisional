@@ -36,7 +36,7 @@ function MediaCard({ bootcamp }) {
     <Card mb={6}>
       <CardActionArea
         onClick={() => {
-          handdleNavigate(bootcamp.id, "/Talents/bootcamp-info");
+          handdleNavigate(bootcamp.id, "/talent/bootcamp-info");
         }}
       >
         <CardMedia image={bootcamp.image} title={bootcamp.bootcampName} />
@@ -52,7 +52,7 @@ function MediaCard({ bootcamp }) {
           size="small"
           color="primary"
           onClick={() => {
-            handdleNavigate(bootcamp.id, "/Talents/bootcamp-info");
+            handdleNavigate(bootcamp.id, "/talent/bootcamp-info");
           }}
         >
           Mas Información

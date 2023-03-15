@@ -107,16 +107,16 @@ function AuthProvider({ children }) {
     // const { accessToken, user } = response.data;
 
     // setSession(accessToken);
-    const user = UserInfo.find(
+    const userInfo = UserInfo.find(
       (user) => user.email === email && user.password === password
     );
 
-    if (user) {
+    if (userInfo) {
       let name = "";
       let image = "";
       let userData;
 
-      switch (user.perfil) {
+      switch (userInfo.perfil) {
         case PROFILES.talent:
           const talent = talentInfo.find(
             (talent) => talent.talentEmail === email
@@ -160,19 +160,21 @@ function AuthProvider({ children }) {
           break;
       }
 
+      const user = {
+        name,
+        image,
+        profile: userInfo.perfil,
+      };
+
       dispatch({
         type: SIGN_IN,
         payload: {
-          user: {
-            name,
-            image,
-            profile: user.perfil,
-          },
+          user,
         },
       });
       return {
         ...userData,
-        perfil: user.perfil,
+        perfil: userInfo.perfil,
       };
     } else {
       return false;
