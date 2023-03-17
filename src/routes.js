@@ -137,7 +137,14 @@ import InstructorTarea from "./pages/pages/Users/Instructors/HomeWorkDetails";
 import InstructorLayout from "./pages/pages/Users/Instructors/layout/structureLayout";
 import InstructorTalentProfile from "./pages/pages/Users/Instructors/Talent";
 import InstructorTalentList from "./pages/pages/Users/Instructors/TalentList";
-
+import InstructorTalentProjects from "./pages/pages/Users/Instructors/projects/ProjectsList";
+import InstructorTalentPortfolio from "./pages/pages/Users/Instructors/Portafolio/BriefcaseList";
+import InstructorProfile from "./pages/pages/Users/Instructors/profile/InstructorsProfile";
+import InstructorTalentsProfile from "./pages/pages/Users/Instructors/profile/TalentsProfile";
+import InstructorRoadmap from "./pages/pages/Users/Instructors/Roadmap";
+import InstructorTalentProjectsFolder from "./pages/pages/Users/Instructors/projects/ProjectsFolderList";
+import InstructorProjectFiles from "./pages/pages/Users/Instructors/projects/ProjectFolderFilesList";
+import InstructorsFileDetails from "./pages/pages/Users/Instructors/projects/ProjectFileDetails";
 // User sign
 import UserLogin from "./pages/pages/Login/SignIn";
 
@@ -403,26 +410,49 @@ const routes = [
         element: <InstructorTarea />,
       },
       {
-        path: "projects",
-        element: <Projects />,
+        path: "profile",
+        element: <InstructorProfile />,
       },
       {
-        path: "changelog",
-        element: <Changelog />,
-      },
-      {
-        path: "talentos",
-        element: <InstructorTalentProfile />,
+        path: "talents",
         children: [
           {
             path: "list",
             element: <InstructorTalentList />,
           },
+          {
+            path: "profile",
+            element: <InstructorTalentsProfile />,
+          },
         ],
       },
       {
-        path: "list",
-        element: <InstructorTalentList />,
+        path: "projects",
+        element: <InstructorTalentProjects />,
+      },
+      {
+        path: "folder",
+        element: <InstructorTalentProjectsFolder />,
+      },
+      {
+        path: "portfolio",
+        element: <InstructorTalentPortfolio />,
+      },
+      {
+        path: "files",
+        element: <InstructorProjectFiles />,
+      },
+      {
+        path: "details",
+        element: <InstructorsFileDetails />,
+      },
+      {
+        path: "roadmap",
+        element: <InstructorRoadmap />,
+      },
+      {
+        path: "changelog",
+        element: <Changelog />,
       },
     ],
   },
