@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import styled from "styled-components/macro";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
@@ -40,27 +39,21 @@ import {
   RemoveCircle,
   Info,
   LibraryBooks,
-  Star,
-  StarBorder,
 } from "@mui/icons-material";
 import { spacing } from "@mui/system";
 import Actions from "./Actions";
-import AlertDialog from "./Alert";
-import TalentUndo from "./TalentUndo";
+
 import { useSelector, useDispatch } from "react-redux";
+import { ListBriefcaseSelected } from "./ListBriefcaseSelected";
+import BriefcaseUndo from "./BriefcaseUndo";
 import {
-  selectTalents,
-  setCurrentTalent,
-  setShowAlert,
-  deleteTalent,
   allowDelete,
+  briefcaseToDelete,
+  selectbriefcases,
   showUndo,
-} from "../../../../redux/slices/talentSlice";
-import tecnologiesInfo from "../../Bootcamps/tecnologies.json";
-import {
-  selectBootcamps,
-  bootcampProfile,
-} from "../../../../redux/slices/bootcampSlice";
+} from "../../../../../redux/slices/brieftcaseSlice";
+import BriefcaseDialogs from "./BriefcaseDialog";
+import { setCurrentProject } from "../../../../../redux/slices/projectsSlice";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -94,78 +87,6 @@ const Customer = styled.div`
   align-items: center;
 `;
 
-function createData(
-  talentName,
-  talentEmail,
-  recruiterAvatar,
-  idCard,
-  birth,
-  bootcamp,
-  tecnology,
-  id
-) {
-  return {
-    talentName,
-    talentEmail,
-    idCard,
-    recruiterAvatar,
-    birth,
-    bootcamp,
-    tecnology,
-    id,
-  };
-}
-/* createData(
-    "Anthony Peralta",
-    "anthony@gmail.com",
-    "A",
-    "012-09879879-0",
-    "1999-10-08",
-    "ASP.Net",
-    "PHP, Angular, Javascript, ASP.net",
-    "1"
-  ),
-  createData(
-    "Madelson Acosta",
-    "madelson@gmail.com",
-    "M",
-    "402-2342343-0",
-    "1920-04-10",
-    "MERN",
-    "Ruby, MERN, Nodejs",
-    "2"
-  ),
-  createData(
-    "Felix Ortega",
-    "felix@gmail.com",
-    "F",
-    "002-1591642-0",
-    "1986-02-10",
-    "ASP.Net",
-    "C#, SQL Server, .Net",
-    "3"
-  ),
-  createData(
-    "Kiancis Dominguez",
-    "kiancis@gmail.com",
-    "K",
-    "012-9089798-0",
-    "1995-12-10",
-    "MERN",
-    "React, Javascript",
-    "4"
-  ),
-  createData(
-    "Gabriel Encarnacion",
-    "gabriel@gmail.com",
-    "G",
-    "012-9089798-0",
-    "1995-12-10",
-    "Mern",
-    "React, Javascript, Nodejs",
-    "5"
-  ), */
-
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -196,12 +117,14 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: "talentName", alignment: "left", label: "Nombre" },
-  { id: "idCard", alignment: "left", label: "Cedula" },
-  { id: "birth", alignment: "right", label: "Fecha de Nacimiento" },
-  { id: "bootcamp", alignment: "right", label: "Bootcamp" },
-  { id: "technology", alignment: "left", label: "Tecnologias" },
-  { id: "actions", alignment: "right", label: "Acción" },
+  { id: "briefcaseName", alignment: "center", label: "Nombre" },
+  {
+    id: "lastModification",
+    alignment: "center",
+    label: "Ultima fecha de modificacion",
+  },
+  { id: "profile", alignment: "center", label: "Perfil" },
+  { id: "actions", alignment: "center", label: "Acción" },
 ];
 
 const EnhancedTableHead = (props) => {
@@ -281,52 +204,17 @@ const EnhancedTableToolbar = (props) => {
   );
 };
 
-function RowCheckIconButton({ row }) {
-  const [checked, setChecked] = useState(false);
-
-  const handleClick = () => {
-    setChecked(!checked);
-  };
-
-  return (
-    <IconButton onClick={handleClick}>
-      {checked && <Star color="warning" />}
-      {!checked && <StarBorder />}
-    </IconButton>
-  );
-}
-
 function EnhancedTable({ setAllowDelete }) {
-  const [checked, setChecked] = useState(false);
-
-  const handleChange = () => {
-    setChecked(!checked);
-  };
   const navigate = useNavigate();
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("talentName");
+  const [orderBy, setOrderBy] = React.useState("briefcaseName");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  /* const [rows, setRows] = React.useState(JsonInfo); */
-  const rows = useSelector(selectTalents);
-  const bootcamps = useSelector(selectBootcamps);
-  const allowDeleteTalent = useSelector(allowDelete);
+  const rows = useSelector(selectbriefcases);
+  console.log(rows);
+  const allowDeletebriefcase = useSelector(allowDelete);
   const dispatch = useDispatch();
-  const getBootcamp = (id) => {
-    const result = bootcamps.find((bootcamp) => bootcamp.id === id);
-    return {
-      id: result.id,
-      name: result.bootcampName,
-    };
-  };
-  const getTecnologies = (tecnologies) => {
-    return tecnologies
-      .map((tecno) => {
-        return tecnologiesInfo.find((tec) => tec.id === tecno).name;
-      })
-      .join(", ");
-  };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -336,21 +224,17 @@ function EnhancedTable({ setAllowDelete }) {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.talentId);
+      const newSelecteds = rows.map((n) => n.briefcaseId);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handdlePath = (pathToGo, talentId) => {
-    dispatch(setCurrentTalent({ talentId }));
+  const handdlePath = (pathToGo, id) => {
+    ListBriefcaseSelected.id = id;
+    ListBriefcaseSelected.correct = true;
     navigate(pathToGo);
-  };
-
-  const handleBootcamp = (id) => {
-    dispatch(bootcampProfile({ id }));
-    navigate("/admin/dashboard/bootcamps/bootcamp-profile");
   };
 
   const handleClick = (event, id) => {
@@ -382,12 +266,16 @@ function EnhancedTable({ setAllowDelete }) {
     setPage(0);
   };
 
-  const handleDelete = (talentId) => {
+  const handleDelete = (briefcaseId) => {
     setAllowDelete(true);
-    dispatch(setCurrentTalent({ talentId }));
+    dispatch(briefcaseToDelete({ briefcaseId }));
+    console.log(briefcaseId);
   };
 
-  let valor = true;
+  const handleUserPageChange = (pathToGo, projectId) => {
+    dispatch(setCurrentProject({ projectId }));
+    navigate(pathToGo);
+  };
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
@@ -416,7 +304,7 @@ function EnhancedTable({ setAllowDelete }) {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.talentId);
+                  const isItemSelected = isSelected(row.briefcaseId);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
@@ -425,49 +313,44 @@ function EnhancedTable({ setAllowDelete }) {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={`${row.talentId}-${index}`}
+                      key={`${row.briefcaseId}-${index}`}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
                           checked={isItemSelected}
                           inputProps={{ "aria-labelledby": labelId }}
-                          onClick={(event) => handleClick(event, row.talentId)}
+                          onClick={(event) =>
+                            handleClick(event, row.briefcaseId)
+                          }
                         />
                       </TableCell>
-                      <TableCell component="th" id={labelId} scope="row">
-                        <Customer>
-                          <Avatar alt="Remy Sharp" src={row.photoUrl} />
-                          <Box ml={3}>
-                            {`${row.talentName} ${row.talentLastName}`}
-                            <br />
-                            {row.talentEmail}
-                          </Box>
-                        </Customer>
+                      <TableCell align="center">
+                        <Link
+                          onClick={() =>
+                            handleUserPageChange(
+                              "/instructors/projects",
+                              row.projectId
+                            )
+                          }
+                        >
+                          {`${row.briefcaseName} ${row.briefcaseLastName}`}
+                        </Link>
                       </TableCell>
-                      <TableCell>{row.idCard}</TableCell>
-                      <TableCell align="center">{row.birth}</TableCell>
-                      <TableCell
-                        align="right"
-                        style={{
-                          color: "blue",
-                          cursor: "pointer",
-                        }}
-                        onClick={() => handleBootcamp(row.bootcamp)}
-                      >
-                        {getBootcamp(row.bootcamp).name}
+                      <TableCell align="center">
+                        {row.lastModification}
                       </TableCell>
-                      <TableCell>{getTecnologies(row.technology)}</TableCell>
-                      <TableCell align="right">
-                        <RowCheckIconButton row={row} />
+                      {/* <TableCell>{row.idCard}</TableCell> */}
+                      <TableCell align="center">{row.profile}</TableCell>
+                      <TableCell align="center">
                         <IconButton
                           aria-label="info"
                           size="large"
                           color="info"
                           onClick={() =>
                             handdlePath(
-                              `/instructors/talents/profile`,
-                              row.talentId
+                              `/instructors/projects`,
+                              row.briefcaseId
                             )
                           }
                         >
@@ -475,9 +358,10 @@ function EnhancedTable({ setAllowDelete }) {
                         </IconButton>
                         <IconButton
                           aria-label="delete"
+                          align="center"
                           size="large"
                           color="error"
-                          onClick={() => handleDelete(row.talentId)}
+                          onClick={() => handleDelete(row.briefcaseId)}
                         >
                           <RemoveCircle />
                         </IconButton>
@@ -508,17 +392,18 @@ function EnhancedTable({ setAllowDelete }) {
   );
 }
 
-function InvoiceList() {
+function BriefcaseList() {
   const [allowDelete, setAllowDelete] = React.useState(false);
   let status = useSelector(showUndo);
   const [id, setId] = React.useState(null);
+
   return (
     <React.Fragment>
       <Helmet title="Invoices" />
       <Grid justifyContent="space-between" container spacing={10}>
         <Grid item>
           <Typography variant="h3" gutterBottom display="inline">
-            Lista de Talentos
+            Lista de Portafolio
           </Typography>
         </Grid>
         <Grid item>
@@ -530,16 +415,16 @@ function InvoiceList() {
         <Grid item xs={12}>
           <EnhancedTable setAllowDelete={setAllowDelete} setId={setId} />
           {allowDelete && (
-            <AlertDialog
+            <BriefcaseDialogs
               allowDelete={allowDelete}
               setAllowDelete={setAllowDelete}
             />
           )}
-          {status && <TalentUndo />}
+          {status && <BriefcaseUndo />}
         </Grid>
       </Grid>
     </React.Fragment>
   );
 }
 
-export default InvoiceList;
+export default BriefcaseList;

@@ -353,10 +353,7 @@ function EnhancedTable() {
                           size="large"
                           color="info"
                           onClick={() =>
-                            handlePageChange(
-                              `/admin/dashboard/users/projects/list/folder/files/details`,
-                              row.fileId
-                            )
+                            handlePageChange(`/instructors/details`, row.fileId)
                           }
                         >
                           <Info />

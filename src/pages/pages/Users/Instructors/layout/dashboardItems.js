@@ -16,12 +16,12 @@ const pagesSection = [
     title: "Inicio",
   },
   {
-    href: "/instructors/talentos",
-    icon: PersonSearch,
-    title: "Talentos",
+    href: "/instructors/profile",
+    icon: AccountBox,
+    title: "Mi Perfil",
   },
   {
-    href: "/instructors/list",
+    href: "/instructors/talents/list",
     icon: Description,
     title: "Lista de Talentos",
   },
@@ -31,7 +31,7 @@ const pagesSection = [
     icon: AutoStories,
   },
   {
-    href: "/instructors/projects",
+    href: "/instructors/portfolio",
     icon: BusinessCenter,
     title: "Portafolio de Estudiantes",
   },
