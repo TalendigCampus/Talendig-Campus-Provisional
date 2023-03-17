@@ -1,29 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components/macro";
 
 import { Button as MuiButton, Menu, MenuItem } from "@mui/material";
-import {
-  Loop as LoopIcon,
-  FilterList as FilterListIcon,
-} from "@mui/icons-material";
 import { spacing } from "@mui/system";
 import { MoreHorizontal } from "react-feather";
 import { useNavigate } from "react-router-dom";
 
 const Button = styled(MuiButton)(spacing);
 
-const SmallButton = styled(Button)`
-  padding: 4px;
-  min-width: 0;
-
-  svg {
-    width: 0.9em;
-    height: 0.9em;
-  }
-`;
-
 function Actions() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
 
   const handleClick = (event) => {
@@ -34,7 +20,7 @@ function Actions() {
     setAnchorEl(null);
   };
 
-  const handleChange = (pathToGo) => {
+  const handlePageChange = (pathToGo) => {
     navigate(pathToGo);
   };
 
@@ -57,12 +43,14 @@ function Actions() {
         onClose={handleClose}
       >
         <MenuItem
-          onClick={() => handleChange("/admin/dashboard/users/recruiters/list")}
+          onClick={() =>
+            handlePageChange("/admin/dashboard/users/recruiters/list")
+          }
         >
           Lista
         </MenuItem>
         <MenuItem
-          onClick={() => handleChange("/admin/dashboard/users/recruiters")}
+          onClick={() => handlePageChange("/admin/dashboard/users/recruiters")}
         >
           Estadisticas
         </MenuItem>

@@ -12,7 +12,7 @@ import {
   Typography as MuiTypography,
 } from "@mui/material";
 import { spacing } from "@mui/system";
-import { green, red } from "@mui/material/colors";
+import { green } from "@mui/material/colors";
 
 import PieChart from "./PieChart";
 import BarChart from "./BarChart";
