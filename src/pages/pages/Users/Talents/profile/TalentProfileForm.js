@@ -445,7 +445,7 @@ function BasicForm(talent) {
                       variant="contained"
                       color="primary"
                       onClick={() =>
-                        handleNavigate("/Talents/roadmap", values.talentId)
+                        handleNavigate("/talent/roadmap", values.talentId)
                       }
                       mt={3}
                       ml={3}
@@ -457,7 +457,7 @@ function BasicForm(talent) {
                       variant="contained"
                       color="info"
                       onClick={() =>
-                        handleNavigate("/Talents/curriculum", values.talentId)
+                        handleNavigate("/talent/curriculum", values.talentId)
                       }
                       mt={3}
                       ml={3}
@@ -469,7 +469,7 @@ function BasicForm(talent) {
                       variant="contained"
                       color="error"
                       onClick={() =>
-                        handleNavigate("/Talents/projects", values.talentId)
+                        handleNavigate("/talent/projects", values.talentId)
                       }
                       mt={3}
                       ml={3}

@@ -108,7 +108,7 @@ function HomeWorkDetails() {
             type="button"
             variant="contained"
             color="success"
-            onClick={() => handlePageChange("/Talents/home")}
+            onClick={() => handlePageChange("/talent/home")}
             mt={3}
             ml={3}
           >

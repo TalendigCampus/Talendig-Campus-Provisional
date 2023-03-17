@@ -356,7 +356,7 @@ function EnhancedTable() {
                           color="info"
                           onClick={() =>
                             handlePageChange(
-                              `/Talents/projects/list/folder/files/details`,
+                              `/talent/projects/list/folder/files/details`,
                               row.fileId
                             )
                           }
@@ -414,10 +414,7 @@ function InvoiceList() {
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link
-              component={NavLink}
-              to="/Talents/projects/list/folder/details"
-            >
+            <Link component={NavLink} to="/talent/projects/list/folder/details">
               Lista de Carpetas
             </Link>
             <Typography>Archivo</Typography>

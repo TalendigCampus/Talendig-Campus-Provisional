@@ -278,7 +278,7 @@ function Curriculum() {
       </Typography>
 
       <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/Talents/bootcamp-info">
+        <Link component={NavLink} to="/talent/bootcamp-info">
           Bootcamp
         </Link>
         <Typography gutterBottom display="inline">
