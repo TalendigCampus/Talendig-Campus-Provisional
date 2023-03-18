@@ -157,9 +157,6 @@ import MyBootcamp from "./pages/pages/Users/Institutions/Bootcamps/MyBootcamp/My
 import TalentListIndex from "./pages/pages/Users/Institutions/Reclutar/TalentListIndex";
 import InstructorInformation from "./pages/pages/Users/Institutions/Reclutar/InstructorInformation";
 import TalentInformation from "./pages/pages/Users/Institutions/Reclutar/TalentInformation";
-
-// User sign
-import UserLogin from "./pages/pages/Login/SignIn";
 import SelectionOfTalents from "./pages/pages/Users/Institutions/Reclutar/SelectionOfTalents";
 import StudentsInstitutions from "./pages/pages/Users/Institutions/StudentsInstitution/StudentsInstitutions";
 import StudentsDetails from "./pages/pages/Users/Institutions/StudentsInstitution/StudentsDetails";
@@ -169,6 +166,9 @@ import InternshipForm from "./pages/pages/Users/Institutions/StudentsInstitution
 import ViewRequests from "./pages/pages/Users/Institutions/StudentsInstitution/Internship/ViewRequests";
 import SelectionOfInstructors from "./pages/pages/Users/Institutions/Reclutar/SelectionOfInstructors";
 import InternshipDetails from "./pages/pages/Users/Institutions/StudentsInstitution/Internship/InternshipDetails";
+
+// User sign
+import UserLogin from "./pages/pages/Login/SignIn";
 
 // Dashboard components
 const Default = async(() => import("./pages/dashboards/Default"));

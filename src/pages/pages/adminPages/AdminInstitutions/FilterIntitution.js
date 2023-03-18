@@ -57,13 +57,13 @@ function FilterIntitution() {
       >
         <MenuItem
           onClick={() =>
-            handleChange("/admin/dashboard/Users/Institutions/list")
+            handleChange("/admin/dashboard/users/institutions/list")
           }
         >
           Lista
         </MenuItem>
         <MenuItem
-          onClick={() => handleChange("/admin/dashboard/Users/Institutions")}
+          onClick={() => handleChange("/admin/dashboard/users/institutions")}
         >
           Estadisticas
         </MenuItem>

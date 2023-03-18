@@ -34,7 +34,7 @@ const Rows = [
   createData(
     "Claro Dominicana",
     "claro@gmail.com",
-    "/static/img/Institutions/institucion1.jpg",
+    "/static/img/institutions/institucion1.jpg",
     "2023-1-5",
     "Av. Luperon ezquina 27 de Febrero #1023",
     "8290983454",
@@ -48,7 +48,7 @@ const Rows = [
   createData(
     "GBH",
     "gbh@gmail.com",
-    "/static/img/Institutions/institucion2.jpg",
+    "/static/img/institutions/institucion2.jpg",
     "2022-12-5",
     "Av. Lincoln ezquina Sarasota #200",
     "8292342343",
@@ -62,7 +62,7 @@ const Rows = [
   createData(
     "Instituto Politécnico Loyola",
     "loyola@gmail.com",
-    "/static/img/Institutions/institucion5.jpg",
+    "/static/img/institutions/institucion5.jpg",
     "2020-3-9",
     "P. Ángel Arias, San Cristóbal",
     "8293244645",
@@ -76,7 +76,7 @@ const Rows = [
   createData(
     "Instituto Tecnologico de Las Americas",
     "itla@gmail.com",
-    "/static/img/Institutions/institucion4.jpg",
+    "/static/img/institutions/institucion4.jpg",
     "2021-7-9",
     "Las Américas, Km. 27, La Caleta, Calle 27, 11606",
     "8292342343",

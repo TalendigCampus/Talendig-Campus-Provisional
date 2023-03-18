@@ -200,7 +200,7 @@ function Private({ dataRows }) {
           marginRight="15px"
           onClick={(event) =>
             handleChange(
-              "/admin/dashboard/Users/Institutions/list",
+              "/admin/dashboard/users/institutions/list",
               dataRows.id
             )
           }
@@ -213,7 +213,7 @@ function Private({ dataRows }) {
           mt={3}
           onClick={(event) =>
             handleChange(
-              "/admin/dashboard/Users/Institutions/profile",
+              "/admin/dashboard/users/institutions/profile",
               dataRows.id
             )
           }
@@ -242,10 +242,10 @@ function InfoProfile() {
           Panel
         </Link>
         <Typography>Usuarios</Typography>
-        <Link component={NavLink} to="/admin/dashboard/Users/Institutions">
+        <Link component={NavLink} to="/admin/dashboard/users/institutions">
           Instituciones
         </Link>
-        <Link component={NavLink} to="/admin/dashboard/Users/Institutions/list">
+        <Link component={NavLink} to="/admin/dashboard/users/institutions/list">
           lista
         </Link>
         <Typography>Mi Perfil</Typography>

@@ -483,7 +483,7 @@ function EnhancedTable() {
                           <Info
                             onClick={(event) =>
                               handleChange(
-                                "/admin/dashboard/Users/Institutions/info",
+                                "/admin/dashboard/users/institutions/info",
                                 row.id
                               )
                             }
@@ -583,7 +583,7 @@ function DataGridPage() {
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/admin/dashboard/Users/Institutions">
+            <Link component={NavLink} to="/admin/dashboard/users/institutions">
               Panel Instituciones
             </Link>
             <Typography>Instituciones</Typography>

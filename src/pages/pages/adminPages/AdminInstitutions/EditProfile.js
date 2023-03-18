@@ -208,7 +208,7 @@ function Private({ dataRows }) {
           mt={3}
           onClick={(event) =>
             handleChange(
-              "/admin/dashboard/Users/Institutions/info",
+              "/admin/dashboard/users/institutions/info",
               dataRows.id
             )
           }
@@ -220,7 +220,7 @@ function Private({ dataRows }) {
           color="error"
           mt={3}
           onClick={(event) =>
-            handleChangeCancel("/admin/dashboard/Users/Institutions/info")
+            handleChangeCancel("/admin/dashboard/users/institutions/info")
           }
         >
           Cancelar

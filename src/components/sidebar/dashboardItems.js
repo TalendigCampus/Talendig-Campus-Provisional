@@ -40,7 +40,7 @@ const pagesSection = [
         title: "Reclutadores",
       },
       {
-        href: "/admin/dashboard/Users/Institutions",
+        href: "/admin/dashboard/users/institutions",
         title: "Instituciones",
       },
     ],
