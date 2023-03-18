@@ -1,6 +1,6 @@
 import { createContext } from "react";
-import { useRoutes } from "react-router-dom";
-import { PROFILES } from "../common/constants/data";
+import { useNavigate, useRoutes } from "react-router-dom";
+import { PROFILES, URLPROFILE } from "../common/constants/data";
 import useAuth from "../hooks/useAuth";
 import { auth, lost404 } from "../routes";
 import talentRoutes from "../pages/pages/Users/Talents/routes";
@@ -11,8 +11,8 @@ import instructorRoutes from "../pages/pages/Users/Instructors/routes";
 const RouterContext = createContext(null);
 
 function RouterProvider() {
+  const navigate = useNavigate();
   const { user } = useAuth();
-
   let routes = [];
   if (user) {
     switch (user.profile) {
@@ -32,6 +32,9 @@ function RouterProvider() {
         break;
     }
   } else {
+    if (!window.location.pathname.includes("/auth/login")) {
+      navigate("/auth/login");
+    }
     routes = [auth, lost404];
   }
 

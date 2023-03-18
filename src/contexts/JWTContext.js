@@ -54,6 +54,12 @@ const JWTReducer = (state, action) => {
 
 const AuthContext = createContext(null);
 
+const expires = (day) => {
+  const d = new Date();
+  d.setTime(d.getTime() + day * 24 * 60 * 60 * 1000);
+  return d.toUTCString();
+};
+
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(JWTReducer, initialState);
 
@@ -165,6 +171,9 @@ function AuthProvider({ children }) {
         image,
         profile: userInfo.perfil,
       };
+      document.cookie = `user=${JSON.stringify({
+        id: userInfo.id,
+      })}; expires=${expires(1)}; path=/;`;
 
       dispatch({
         type: SIGN_IN,
@@ -183,6 +192,7 @@ function AuthProvider({ children }) {
 
   const signOut = async () => {
     setSession(null);
+    document.cookie = `user=; expires=${expires(-1)}; path=/;`;
     dispatch({ type: SIGN_OUT });
   };
 
