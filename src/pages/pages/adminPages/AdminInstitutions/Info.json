@@ -1,0 +1,58 @@
+[
+    {
+  "institution":"Claro Dominicana",
+  "institutionEmail":"claro@gmail.com",
+  "institutionAvatar":"/static/img/Institutions/institucion1.jpg",
+  "registrationDate":"2023-1-5",
+  "address":"Av. Luperon ezquina 27 de Febrero #1023",
+  "phoneNumber":"8290983454",
+  "id":1,
+  "dateCreateAccount":"Usuario desde: 05-12-2022",
+  "lastConection":"Última conexión: 05-12-2022 10:00 AM",
+  "password":"adfWFAEF",
+  "confirmPassword":"adfWFAEF",
+  "date":"05-25-2022"
+    },
+    {
+  "institution":"GBH",
+  "institutionEmail":"gbh@gmail.com",
+  "institutionAvatar":"/static/img/Institutions/institucion2.jpg",
+  "registrationDate":"2022-12-5",
+  "address":"Av. Lincoln ezquina Sarasota #200",
+  "phoneNumber":"8292342343",
+  "id":2,
+  "dateCreateAccount":"Usuario desde: 05-12-2022",
+  "lastConection":"Última conexión: 05-12-2022 10:00 AM",
+  "newPassword":"adfWFAEF",
+  "confirmPassword":"adfWFAEF",
+  "date":"05-25-2022"
+    },
+    {
+  "institution":"Instituto Politécnico Loyola",
+  "institutionEmail":"loyola@gmail.com",
+  "institutionAvatar":"/static/img/Institutions/institucion5.jpg",
+  "registrationDate":"2020-3-9",
+  "address":"P. Ángel Arias, San Cristóbal",
+  "phoneNumber":"8293244645",
+  "id":3,
+  "dateCreateAccount":"Usuario desde: 05-12-2022",
+  "lastConection":"Última conexión: 05-12-2022 10:00 AM",
+  "newPassword":"adfWFAEF",
+  "confirmPassword":"adfWFAEF",
+  "date":"05-25-2022"
+    },
+    {
+  "institution":"Instituto Tecnologico de Las Americas",
+  "institutionEmail":"itla@gmail.com",
+  "institutionAvatar": "/static/img/Institutions/institucion4.jpg",
+  "registrationDate":"2021-7-9",
+  "address":"Las Américas, Km. 27, La Caleta, Calle 27, 11606",
+  "phoneNumber":"8292342343",
+  "id":4,
+  "dateCreateAccount":"Usuario desde: 05-12-2022",
+  "lastConection":"Última conexión: 05-12-2022 10:00 AM",
+  "newPassword":"adfWFAEF",
+  "confirmPassword":"adfWFAEF",
+  "date":"05-25-2022"
+    }
+]

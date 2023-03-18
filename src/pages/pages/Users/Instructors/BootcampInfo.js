@@ -36,6 +36,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import {
   ExpandMore as ExpandMoreIcon,
   Add as AddIcon,
+  SwapCalls,
 } from "@mui/icons-material";
 import { CloudUpload as MuiCloudUpload } from "@mui/icons-material";
 
@@ -81,7 +82,7 @@ function SimpleCard() {
         </Alert>
       </CardContent>
       <CardActions>
-        <Button size="small" component={NavLink} to="/talents/list">
+        <Button size="small" component={NavLink} to="/instructors/talents/list">
           Ver Lista de Talentos
         </Button>
       </CardActions>
@@ -128,6 +129,16 @@ function MediaCard({ bootcamps }) {
           {bootcamp.bootcampName}! Que es la abreviacion de las tecnologias
           MongoDB, Express, React y Node!
         </Typography>
+
+        <Spacer my={6} />
+        <Button
+          variant="contained"
+          color="primary"
+          component={NavLink}
+          to="/instructors/roadmap"
+        >
+          <SwapCalls /> Ver Roadmap
+        </Button>
       </CardContent>
       <br />
     </Card>
@@ -340,7 +351,6 @@ function BootcampInstructorsInfo({ semanas }) {
           <MediaCard2 />
           <Spacer mb={6} />
           <SimpleAccordion />
-          <Pagination mb={2} count={4} color="primary" />
         </Grid>
         <Grid item xs={12} md={4}>
           <SimpleCard />

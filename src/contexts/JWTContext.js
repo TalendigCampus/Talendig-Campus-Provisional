@@ -7,6 +7,7 @@ import UserInfo from "../pages/pages/Login/users.json";
 import talentInfo from "../pages/pages/adminPages/AdminTalent/info.json";
 import recruiterInfo from "../pages/pages/adminPages/AdminRecruiters/RecruiterInfo.json";
 import instructorInfo from "../pages/pages/adminPages/AdminInstructors/InstructorsList/InstructorsInfo.json";
+import institutionInfo from "../pages/pages/adminPages/AdminInstitutions/Info.json";
 
 const INITIALIZE = "INITIALIZE";
 const SIGN_IN = "SIGN_IN";
@@ -151,9 +152,13 @@ function AuthProvider({ children }) {
           userData = instructor;
           break;
         case PROFILES.institution:
-          // dispatch(
-          //   setCurrentInstitution({ recruiterId: user.recruiterId })
-          // );
+          const institution = institutionInfo.find(
+            (institution) => institution.institutionEmail === email
+          );
+
+          name = institution.institution;
+          image = institution.institutionAvatar;
+          userData = institution;
           break;
         case PROFILES.admin:
           const admin = ADMIN;

@@ -1,12 +1,13 @@
 import { createContext } from "react";
 import { useNavigate, useRoutes } from "react-router-dom";
-import { PROFILES, URLPROFILE } from "../common/constants/data";
+import { PROFILES } from "../common/constants/data";
 import useAuth from "../hooks/useAuth";
 import { auth, lost404 } from "../routes";
 import talentRoutes from "../pages/pages/Users/Talents/routes";
 import adminRoutes from "../pages/pages/adminPages/routes";
 import recruiterRoutes from "../pages/pages/Users/Recruiters/routes";
 import instructorRoutes from "../pages/pages/Users/Instructors/routes";
+import institutionRoutes from "../pages/pages/Users/Institutions/routes";
 
 const RouterContext = createContext(null);
 
@@ -27,6 +28,9 @@ function RouterProvider() {
         break;
       case PROFILES.instructor:
         routes = [lost404, instructorRoutes];
+        break;
+      case PROFILES.institution:
+        routes = [lost404, institutionRoutes];
         break;
       default:
         break;

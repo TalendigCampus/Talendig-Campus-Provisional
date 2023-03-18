@@ -13,6 +13,7 @@ import adminDashboardItems from "../components/sidebar/adminDashboardItems";
 import recruiterDashboardItems from "../components/sidebar/recruiterDashboardItems";
 import talentDashboardItems from "../components/sidebar/talentDashboardItems";
 import instructorDashboardItems from "../components/sidebar/instructorDashboardItems";
+import institutionDashboardItems from "../components/sidebar/institutionDashboardItems";
 import Sidebar from "../components/sidebar/Sidebar";
 import Footer from "../components/Footer";
 import Settings from "../components/Settings";
@@ -75,7 +76,7 @@ const Dashboard = ({ children }) => {
       sidebarItems = recruiterDashboardItems;
       break;
     case PROFILES.institution:
-      sidebarItems = adminDashboardItems;
+      sidebarItems = institutionDashboardItems;
       break;
     default:
       break;

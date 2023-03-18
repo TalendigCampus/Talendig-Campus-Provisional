@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components/macro";
-import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import { Formik } from "formik";
 
@@ -15,10 +14,11 @@ import {
 import { spacing } from "@mui/system";
 
 import useAuth from "../../../hooks/useAuth";
-import { ADMIN, PROFILES, URLPROFILE } from "../../../common/constants/data";
+import { PROFILES, URLPROFILE } from "../../../common/constants/data";
 import { setCurrentTalent } from "../../../redux/slices/talentSlice";
 import { setCurrentRecruiter } from "../../../redux/slices/recruiterSlice";
 import { setCurrentInstructor } from "../../../redux/slices/instructorSlice";
+import { setcurrentInstitution } from "../../../redux/slices/institutionSlice";
 import { useDispatch } from "react-redux";
 import UserInfo from "./users.json";
 
@@ -46,9 +46,7 @@ function SignIn() {
           dispatch(setCurrentInstructor({ instructorId: user.instructorId }));
           break;
         case PROFILES.institution:
-          // dispatch(
-          //   setCurrentInstitution({ recruiterId: user.recruiterId })
-          // );
+          dispatch(setcurrentInstitution({ id: user.id }));
           break;
         case PROFILES.admin:
         default:
