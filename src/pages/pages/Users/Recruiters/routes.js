@@ -32,6 +32,24 @@ const RecruiterTalentBootcamp = async(() =>
   import("./TalentBoocamp/BootcampProfile")
 );
 
+const RecruiterTalentRoadMap = async(() => import("./TalentDetails/Roadmap"));
+
+const RecruiterTalentCurriculum = async(() =>
+  import("./TalentDetails/Curriculum")
+);
+
+const RecruiterTalentProjectsFolder = async(() =>
+  import("./TalentProjects/ProjectsFolderList")
+);
+
+const RecruiterTalentProjectsFolderFiles = async(() =>
+  import("./TalentProjects/ProjectFolderFilesList")
+);
+
+const RecruiterProjectsFolderFilesDetails = async(() =>
+  import("./TalentProjects/ProjectFileDetails")
+);
+
 const recruiterRoutes = {
   path: "recruiters",
   element: <DashboardLayout />,
@@ -69,6 +87,26 @@ const recruiterRoutes = {
     {
       path: "favorites",
       element: <RecruiterTalentFavorite />,
+    },
+    {
+      path: "talentRoadMap",
+      element: <RecruiterTalentRoadMap />,
+    },
+    {
+      path: "talentCurriculum",
+      element: <RecruiterTalentCurriculum />,
+    },
+    {
+      path: "talentProjectsFolder",
+      element: <RecruiterTalentProjectsFolder />,
+    },
+    {
+      path: "talentProjectsFolderFiles",
+      element: <RecruiterTalentProjectsFolderFiles />,
+    },
+    {
+      path: "talentProjectsFolderFilesDetails",
+      element: <RecruiterProjectsFolderFilesDetails />,
     },
     {
       path: "history",
