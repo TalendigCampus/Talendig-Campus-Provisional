@@ -33,8 +33,7 @@ function SignIn() {
     <React.Fragment>
       {/* <Brand /> */}
       <Wrapper>
-        <Helmet title="Sign In" />
-        <BigAvatar alt="talendig" src="/static/img/talents/persona88.svg" />
+        <Helmet title="Inicio de sesión" />
         <Typography component="h1" variant="body1" align="center" mb={2}>
           Inicia sesión para continuar
         </Typography>

@@ -40,8 +40,9 @@ const FooterBadge = styled(Badge)`
 
 const SidebarFooter = ({ ...rest }) => {
   const { user } = useAuth();
-  const onLine = true;
+  const onLine = navigator.onLine;
   let styleOnline = onLine ? "green" : "red";
+
   return (
     <Footer {...rest}>
       <Grid container spacing={2}>

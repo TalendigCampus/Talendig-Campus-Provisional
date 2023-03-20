@@ -40,6 +40,9 @@
       "decision": {
         "selection": "",
         "comments": ""
+      },
+      "status": {
+        "intern": false
       }
     }
   },
@@ -85,6 +88,9 @@
       "decision": {
         "selection": "",
         "comments": ""
+      },
+      "status": {
+        "intern": false
       }
     }
   },
@@ -121,7 +127,7 @@
       "activeStep": 0,
       "activeProcess": false,
       "completedSteps": {
-        "0": false
+        "0": true
       },
       "category": {
         "rating": "highProjectsCount",
@@ -130,6 +136,9 @@
       "decision": {
         "selection": "",
         "comments": ""
+      },
+      "status": {
+        "intern": false
       }
     }
   },
@@ -164,7 +173,7 @@
     "talentId": 4,
     "recruiterProcess": {
       "activeStep": 0,
-      "activeProcess": false,
+      "activeProcess": true,
       "completedSteps": {
         "0": false
       },
@@ -175,6 +184,9 @@
       "decision": {
         "selection": "",
         "comments": ""
+      },
+      "status": {
+        "intern": false
       }
     }
   },
@@ -220,6 +232,9 @@
       "decision": {
         "selection": "",
         "comments": ""
+      },
+      "status": {
+        "intern": false
       }
     }
   },
@@ -246,7 +261,25 @@
     "lenguages": "Ingles, Español",
     "biography": "Mi objetivo es formar parte de una institución, en la cual pueda poner en práctica todos mis conocimientos. Con Capacidad para comprender y resolver problemas de forma rápida y práctica para el desarrollo funcional de la intitucion.",
     "work": "Talendig",
-    "talentId": 6
+    "talentId": 6,
+    "recruiterProcess": {
+      "activeStep": 0,
+      "activeProcess": true,
+      "completedSteps": {
+        "0": false
+      },
+      "category": {
+        "rating": "bestScore",
+        "favorite": false
+      },
+      "decision": {
+        "selection": "",
+        "comments": ""
+      },
+      "status": {
+        "intern": false
+      }
+    }
   },
   {
     "talentName": "Rafael",
@@ -271,6 +304,24 @@
     "lenguages": "Ingles, Español",
     "biography": "Mi objetivo es formar parte de una institución, en la cual pueda poner en práctica todos mis conocimientos. Con Capacidad para comprender y resolver problemas de forma rápida y práctica para el desarrollo funcional de la intitucion.",
     "work": "Talendig",
-    "talentId": 7
+    "talentId": 7,
+    "recruiterProcess": {
+      "activeStep": 0,
+      "activeProcess": false,
+      "completedSteps": {
+        "0": true
+      },
+      "category": {
+        "rating": "bestScore",
+        "favorite": false
+      },
+      "decision": {
+        "selection": "",
+        "comments": ""
+      },
+      "status": {
+        "intern": false
+      }
+    }
   }
 ]

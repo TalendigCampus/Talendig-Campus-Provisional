@@ -101,9 +101,9 @@ export const ADMIN = {
 export const URLPROFILE = {
   admin: "/admin/dashboard/home",
   talent: "/talent/home",
-  instructor: "/instructor/home",
+  instructor: "/instructors/home",
   institution: "/institution/home",
-  recruiter: "/recruiter/home",
+  recruiter: "/recruiters/home",
 };
 
 export const PROFILES = {

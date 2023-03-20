@@ -2,8 +2,12 @@ import { createContext, useEffect, useReducer } from "react";
 
 import axios from "../utils/axios";
 import { isValidToken, setSession } from "../utils/jwt";
+import { ADMIN, PROFILES } from "../common/constants/data";
 import UserInfo from "../pages/pages/Login/users.json";
 import talentInfo from "../pages/pages/adminPages/AdminTalent/info.json";
+import recruiterInfo from "../pages/pages/adminPages/AdminRecruiters/RecruiterInfo.json";
+import instructorInfo from "../pages/pages/adminPages/AdminInstructors/InstructorsList/InstructorsInfo.json";
+import institutionInfo from "../pages/pages/adminPages/AdminInstitutions/Info.json";
 
 const INITIALIZE = "INITIALIZE";
 const SIGN_IN = "SIGN_IN";
@@ -50,6 +54,12 @@ const JWTReducer = (state, action) => {
 };
 
 const AuthContext = createContext(null);
+
+const expires = (day) => {
+  const d = new Date();
+  d.setTime(d.getTime() + day * 24 * 60 * 60 * 1000);
+  return d.toUTCString();
+};
 
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(JWTReducer, initialState);
@@ -104,37 +114,81 @@ function AuthProvider({ children }) {
     // const { accessToken, user } = response.data;
 
     // setSession(accessToken);
-    const user = UserInfo.find(
+    const userInfo = UserInfo.find(
       (user) => user.email === email && user.password === password
     );
 
-    if (user) {
+    if (userInfo) {
       let name = "";
       let image = "";
       let userData;
-      if (user.perfil === "talent") {
-        const talent = talentInfo.find(
-          (talent) => talent.talentEmail === email
-        );
 
-        name = talent.talentName + " " + talent.talentLastName;
-        image = talent.photoUrl;
-        userData = talent;
+      switch (userInfo.perfil) {
+        case PROFILES.talent:
+          const talent = talentInfo.find(
+            (talent) => talent.talentEmail === email
+          );
+
+          name = talent.talentName + " " + talent.talentLastName;
+          image = talent.photoUrl;
+          userData = talent;
+          break;
+        case PROFILES.recruiter:
+          const recruiter = recruiterInfo.find(
+            (recruiter) => recruiter.email === email
+          );
+
+          name = recruiter.firstName + " " + recruiter.lastName;
+          image = recruiter.photoUrl;
+          userData = recruiter;
+          break;
+        case PROFILES.instructor:
+          const instructor = instructorInfo.find(
+            (instructor) => instructor.email === email
+          );
+
+          name = instructor.firstName + " " + instructor.lastName;
+          image = instructor.photoUrl;
+          userData = instructor;
+          break;
+        case PROFILES.institution:
+          const institution = institutionInfo.find(
+            (institution) => institution.institutionEmail === email
+          );
+
+          name = institution.institution;
+          image = institution.institutionAvatar;
+          userData = institution;
+          break;
+        case PROFILES.admin:
+          const admin = ADMIN;
+
+          name = admin.firstName + " " + admin.lastName;
+          image = admin.image;
+          userData = admin;
+          break;
+        default:
+          break;
       }
+
+      const user = {
+        name,
+        image,
+        profile: userInfo.perfil,
+      };
+      document.cookie = `user=${JSON.stringify({
+        id: userInfo.id,
+      })}; expires=${expires(1)}; path=/;`;
 
       dispatch({
         type: SIGN_IN,
         payload: {
-          user: {
-            name,
-            image,
-            profile: user.perfil,
-          },
+          user,
         },
       });
       return {
         ...userData,
-        perfil: user.perfil,
+        perfil: userInfo.perfil,
       };
     } else {
       return false;
@@ -143,6 +197,7 @@ function AuthProvider({ children }) {
 
   const signOut = async () => {
     setSession(null);
+    document.cookie = `user=; expires=${expires(-1)}; path=/;`;
     dispatch({ type: SIGN_OUT });
   };
 

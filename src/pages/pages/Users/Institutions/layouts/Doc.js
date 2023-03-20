@@ -7,12 +7,11 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { spacing } from "@mui/system";
 
-import GlobalStyle from "../../../../../components/GlobalStyle";
-import Navbar from "../../../../../components/navbar/Navbar";
-import dashboardItems from "./dashboardItems";
-import Sidebar from "./Sidebar";
-import Footer from "../../../../../components/Footer";
-import Settings from "../../../../../components/Settings";
+import GlobalStyle from "../components/GlobalStyle";
+import NavbarSimple from "../components/navbar/NavbarSimple";
+import docItems from "../components/sidebar/docItems";
+import Sidebar from "../components/sidebar/Sidebar";
+import Settings from "../components/Settings";
 
 const drawerWidth = 258;
 
@@ -50,7 +49,7 @@ const MainContent = styled(Paper)`
   }
 `;
 
-const Dashboard = ({ children }) => {
+const Doc = ({ children }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
@@ -71,27 +70,28 @@ const Dashboard = ({ children }) => {
             variant="temporary"
             open={mobileOpen}
             onClose={handleDrawerToggle}
-            items={dashboardItems}
+            items={docItems}
+            showFooter={false}
           />
         </Hidden>
         <Hidden mdDown implementation="css">
           <Sidebar
             PaperProps={{ style: { width: drawerWidth } }}
-            items={dashboardItems}
+            items={docItems}
+            showFooter={false}
           />
         </Hidden>
       </Drawer>
       <AppContent>
-        <Navbar onDrawerToggle={handleDrawerToggle} />
+        <NavbarSimple onDrawerToggle={handleDrawerToggle} />
         <MainContent p={isLgUp ? 12 : 5}>
           {children}
           <Outlet />
         </MainContent>
-        <Footer />
       </AppContent>
       <Settings />
     </Root>
   );
 };
 
-export default Dashboard;
+export default Doc;

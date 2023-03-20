@@ -1,4 +1,13 @@
 import {
+  Group,
+  Home,
+  PeopleAlt,
+  Person,
+  School,
+  Work,
+} from "@mui/icons-material";
+import { ListItem } from "@mui/material";
+import {
   BookOpen,
   Briefcase,
   Calendar,
@@ -14,58 +23,83 @@ import {
   Sliders,
   Users,
 } from "react-feather";
-import { NORMALICONS } from "../../common/constants/data";
+import { NORMALICONS } from "../../../../../common/constants/data";
 
 const pagesSection = [
   {
-    href: "home",
-    icon: Sliders,
-    title: "Panel",
+    href: "/institution/home",
+    icon: Home,
+    title: "Inicio",
   },
   {
-    href: "/users",
     icon: Layout,
-    title: "Usuarios",
+    title: "Bootcamps",
     children: [
       {
-        href: "/admin/dashboard/users/talents",
-        title: "Talentos",
+        href: "/institution/bootcamps",
+        title: "Bootcamps",
       },
       {
-        href: "/admin/dashboard/users/instructors",
-        title: "Instructores",
-      },
-      {
-        href: "/admin/dashboard/users/recruiters",
-        title: "Reclutadores",
-      },
-      {
-        href: "/admin/dashboard/users/institutions",
-        title: "Instituciones",
+        href: "/institution/bootcamps/my-bootcamps",
+        title: "Mis bootcamps",
       },
     ],
   },
   {
-    href: "/admin/dashboard/bootcamps",
-    icon: NORMALICONS.bootcamp,
-    title: "Bootcamps",
+    icon: Work,
+    title: "Reclutar",
+    children: [
+      {
+        href: "/institution/recruit/instructors",
+        title: "Instuctores",
+      },
+      {
+        href: "/institution/recruit/talents",
+        title: "Talentos",
+      },
+    ],
   },
   {
-    href: "/admin/dashboard/users/projects",
-    icon: NORMALICONS.project,
-    title: "Proyectos",
+    icon: Person,
+    href: "/institution/profile",
+    title: "Perfil",
   },
   {
-    href: "/admin/dashboard/users/briefcase",
-    icon: NORMALICONS.portfolio,
-    title: "Portafolios",
+    icon: School,
+    href: "/institution/students",
+    title: "Talentos de la institucion",
   },
   {
-    href: "/admin/dashboard/users/changelog",
+    icon: Calendar,
+    href: "/institution/events",
+    title: "Eventos",
+  },
+  {
     icon: List,
+    href: "/institution/changelog",
     title: "Changelog",
-    badge: "v1.0.0",
   },
+  // {
+  //   href: "/admin/dashboard/bootcamps",
+  //   icon: NORMALICONS.bootcamp,
+  //   title: "Bootcamps",
+  // },
+  // {
+  //   href: "/admin/dashboard/users/projects",
+  //   icon: NORMALICONS.project,
+  //   title: "Proyectos",
+  // },
+  // {
+  //   href: "/admin/dashboard/users/briefcase",
+  //   icon: NORMALICONS.portfolio,
+  //   title: "Portafolios",
+  // },
+  // {
+  //   href: "/admin/dashboard/users/changelog",
+  //   icon: List,
+  //   title: "Changelog",
+  //   badge: "v1.0.0",
+  // },
   //   {
   //     href: "/invoices",
   //     icon: CreditCard,

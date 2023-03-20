@@ -59,8 +59,8 @@ const SidebarFooter = ({ ...rest }) => {
             {/* Demo data */}
             {!user && (
               <Avatar
-                alt="Lucy Lavender"
-                src="/static/img/recruiters/recruiter-1.jpg"
+                alt="Claro"
+                src="/static/img/Institutions/institucion1.jpg"
               />
             )}
           </FooterBadge>
@@ -70,8 +70,8 @@ const SidebarFooter = ({ ...rest }) => {
             <FooterText variant="body2">{user.displayName}</FooterText>
           )}
           {/* Demo data */}
-          {!user && <FooterText variant="body2">Alexander Santos</FooterText>}
-          <FooterSubText variant="caption">Reclutador</FooterSubText>
+          {!user && <FooterText variant="body2">Claro</FooterText>}
+          <FooterSubText variant="caption">institucion</FooterSubText>
         </Grid>
       </Grid>
     </Footer>

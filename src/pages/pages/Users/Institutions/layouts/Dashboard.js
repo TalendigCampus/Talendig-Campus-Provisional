@@ -9,8 +9,8 @@ import { spacing } from "@mui/system";
 
 import GlobalStyle from "../../../../../components/GlobalStyle";
 import Navbar from "../../../../../components/navbar/Navbar";
-import dashboardItems from "./dashboardItems";
-import Sidebar from "../../../../../components/sidebar/Sidebar";
+import dashboardItems from "../sidebar/dashboardItems";
+import Sidebar from "../sidebar/Sidebar";
 import Footer from "../../../../../components/Footer";
 import Settings from "../../../../../components/Settings";
 
@@ -50,7 +50,7 @@ const MainContent = styled(Paper)`
   }
 `;
 
-const Dashboard = ({ children }) => {
+const DashboardInstitution = ({ children }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
@@ -94,4 +94,4 @@ const Dashboard = ({ children }) => {
   );
 };
 
-export default Dashboard;
+export default DashboardInstitution;

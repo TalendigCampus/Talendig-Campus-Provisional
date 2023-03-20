@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components/macro";
-import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import { Formik } from "formik";
 
@@ -15,10 +14,13 @@ import {
 import { spacing } from "@mui/system";
 
 import useAuth from "../../../hooks/useAuth";
-import { ADMIN, PROFILES, URLPROFILE } from "../../../common/constants/data";
+import { PROFILES, URLPROFILE } from "../../../common/constants/data";
 import { setCurrentTalent } from "../../../redux/slices/talentSlice";
+import { setCurrentRecruiter } from "../../../redux/slices/recruiterSlice";
+import { setCurrentInstructor } from "../../../redux/slices/instructorSlice";
+import { setcurrentInstitution } from "../../../redux/slices/institutionSlice";
 import { useDispatch } from "react-redux";
-import talentInfo from "../adminPages/AdminTalent/info.json";
+import UserInfo from "./users.json";
 
 const Alert = styled(MuiAlert)(spacing);
 
@@ -27,7 +29,44 @@ const TextField = styled(MuiTextField)(spacing);
 function SignIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { signIn } = useAuth();
+  const { signIn, user } = useAuth();
+
+  const setUser = async (email, password) => {
+    const user = await signIn(email, password);
+
+    if (user) {
+      switch (user.perfil) {
+        case PROFILES.talent:
+          dispatch(setCurrentTalent({ talentId: user.talentId }));
+          break;
+        case PROFILES.recruiter:
+          dispatch(setCurrentRecruiter({ recruiterId: user.recruiterId }));
+          break;
+        case PROFILES.instructor:
+          dispatch(setCurrentInstructor({ instructorId: user.instructorId }));
+          break;
+        case PROFILES.institution:
+          dispatch(setcurrentInstitution({ id: user.id }));
+          break;
+        case PROFILES.admin:
+        default:
+          break;
+      }
+      navigate(URLPROFILE[user.perfil]);
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  if (!user) {
+    let user = JSON.parse(document.cookie.split("=").pop() || "{}");
+
+    if (user && user.id) {
+      const credentials = UserInfo.find((u) => u.id === user.id);
+      setUser(credentials.email, credentials.password);
+    }
+  }
 
   return (
     <Formik
@@ -46,18 +85,9 @@ function SignIn() {
       })}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
         try {
-          const user = await signIn(values.email, values.password);
+          const user = setUser(values.email, values.password);
 
-          if (user) {
-            switch (user.perfil) {
-              case PROFILES[user.perfil]:
-                dispatch(setCurrentTalent({ talentId: user.talentId }));
-                break;
-              default:
-                break;
-            }
-            navigate(URLPROFILE[user.perfil]);
-          } else {
+          if (!user) {
             const message = "Datos incorrectos.";
 
             setStatus({ success: false });

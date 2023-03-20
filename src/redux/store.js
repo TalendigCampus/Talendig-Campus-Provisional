@@ -6,6 +6,7 @@ import bootcampReducer from "./slices/bootcampSlice";
 import talentReducer from "./slices/talentSlice";
 import projectsReducer from "./slices/projectsSlice";
 import briefcaseReducer from "./slices/brieftcaseSlice";
+import institutionSlice from "./slices/institutionSlice";
 
 export const store = configureStore({
   reducer: {
@@ -15,5 +16,6 @@ export const store = configureStore({
     talent: talentReducer,
     projects: projectsReducer,
     briefcase: briefcaseReducer,
+    institution: institutionSlice,
   },
 });
