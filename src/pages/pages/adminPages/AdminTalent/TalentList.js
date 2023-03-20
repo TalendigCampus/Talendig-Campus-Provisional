@@ -7,14 +7,11 @@ import {
   Avatar as MuiAvatar,
   Box,
   Breadcrumbs as MuiBreadcrumbs,
-  Button,
   Checkbox,
-  Chip as MuiChip,
   Divider as MuiDivider,
   Grid,
   IconButton,
   Link,
-  Description,
   Paper as MuiPaper,
   Table,
   TableBody,
@@ -25,24 +22,11 @@ import {
   TableRow,
   TableSortLabel,
   Toolbar,
-  Tooltip,
   Typography,
-  Dialog,
 } from "@mui/material";
-import { green, orange } from "@mui/material/colors";
-import {
-  Add as AddIcon,
-  Archive as ArchiveIcon,
-  FilterList as FilterListIcon,
-  RemoveRedEye as RemoveRedEyeIcon,
-  Edit,
-  RemoveCircle,
-  Info,
-  LibraryBooks,
-} from "@mui/icons-material";
+import { RemoveCircle, Info } from "@mui/icons-material";
 import { spacing } from "@mui/system";
 import Actions from "./Actions";
-import JsonInfo from "./info.json";
 import AlertDialog from "./Alert";
 import TalentUndo from "./TalentUndo";
 
@@ -50,8 +34,6 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   selectTalents,
   setCurrentTalent,
-  setShowAlert,
-  deleteTalent,
   allowDelete,
   showUndo,
 } from "../../../../redux/slices/talentSlice";
@@ -66,15 +48,6 @@ const Divider = styled(MuiDivider)(spacing);
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
 const Paper = styled(MuiPaper)(spacing);
-
-const Chip = styled(MuiChip)`
-  ${spacing};
-
-  background: ${(props) => props.paid && green[500]};
-  background: ${(props) => props.sent && orange[700]};
-  color: ${(props) =>
-    (props.paid || props.sent) && props.theme.palette.common.white};
-`;
 
 const Spacer = styled.div`
   flex: 1 1 100%;
@@ -92,78 +65,6 @@ const Customer = styled.div`
   display: flex;
   align-items: center;
 `;
-
-function createData(
-  talentName,
-  talentEmail,
-  recruiterAvatar,
-  idCard,
-  birth,
-  bootcamp,
-  tecnology,
-  id
-) {
-  return {
-    talentName,
-    talentEmail,
-    idCard,
-    recruiterAvatar,
-    birth,
-    bootcamp,
-    tecnology,
-    id,
-  };
-}
-/* createData(
-    "Anthony Peralta",
-    "anthony@gmail.com",
-    "A",
-    "012-09879879-0",
-    "1999-10-08",
-    "ASP.Net",
-    "PHP, Angular, Javascript, ASP.net",
-    "1"
-  ),
-  createData(
-    "Madelson Acosta",
-    "madelson@gmail.com",
-    "M",
-    "402-2342343-0",
-    "1920-04-10",
-    "MERN",
-    "Ruby, MERN, Nodejs",
-    "2"
-  ),
-  createData(
-    "Felix Ortega",
-    "felix@gmail.com",
-    "F",
-    "002-1591642-0",
-    "1986-02-10",
-    "ASP.Net",
-    "C#, SQL Server, .Net",
-    "3"
-  ),
-  createData(
-    "Kiancis Dominguez",
-    "kiancis@gmail.com",
-    "K",
-    "012-9089798-0",
-    "1995-12-10",
-    "MERN",
-    "React, Javascript",
-    "4"
-  ),
-  createData(
-    "Gabriel Encarnacion",
-    "gabriel@gmail.com",
-    "G",
-    "012-9089798-0",
-    "1995-12-10",
-    "Mern",
-    "React, Javascript, Nodejs",
-    "5"
-  ), */
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -261,21 +162,6 @@ const EnhancedTableToolbar = (props) => {
         )}
       </ToolbarTitle>
       <Spacer />
-      {/* <div>
-        {numSelected > 0 ? (
-          <Tooltip title="Delete">
-            <IconButton aria-label="Delete" size="large">
-              <ArchiveIcon />
-            </IconButton>
-          </Tooltip>
-        ) : (
-          <Tooltip title="Filter list">
-            <IconButton aria-label="Filter list" size="large">
-              <FilterListIcon />
-            </IconButton>
-          </Tooltip>
-        )}
-      </div> */}
     </Toolbar>
   );
 };
@@ -287,10 +173,9 @@ function EnhancedTable({ setAllowDelete }) {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  /* const [rows, setRows] = React.useState(JsonInfo); */
   const rows = useSelector(selectTalents);
   const bootcamps = useSelector(selectBootcamps);
-  const allowDeleteTalent = useSelector(allowDelete);
+  /*   const allowDeleteTalent = useSelector(allowDelete); */
   const dispatch = useDispatch();
   const getBootcamp = (id) => {
     const result = bootcamps.find((bootcamp) => bootcamp.id === id);

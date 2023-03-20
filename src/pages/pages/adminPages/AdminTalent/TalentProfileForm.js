@@ -1,7 +1,6 @@
 import React from "react";
 import * as Yup from "yup";
 import styled from "styled-components/macro";
-import { NavLink } from "react-router-dom";
 import { Formik } from "formik";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
@@ -11,15 +10,12 @@ import {
   Box,
   Breadcrumbs as MuiBreadcrumbs,
   Button as MuiButton,
-  IconButton,
   Card as MuiCard,
   CardContent,
   CircularProgress,
   Divider as MuiDivider,
   Grid,
-  Link,
   TextField as MuiTextField,
-  Typography,
 } from "@mui/material";
 import { spacing } from "@mui/system";
 
@@ -44,10 +40,6 @@ import {
   selectProjects,
 } from "../../../../redux/slices/projectsSlice.js";
 
-const Divider = styled(MuiDivider)(spacing);
-
-const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
-
 const Card = styled(MuiCard)(spacing);
 
 const Alert = styled(MuiAlert)(spacing);
@@ -57,24 +49,6 @@ const TextField = styled(MuiTextField)(spacing);
 const Button = styled(MuiButton)(spacing);
 
 const timeOut = (time) => new Promise((res) => setTimeout(res, time));
-
-// const initialValues = {
-//   firstName: "Alexander",
-//   lastName: "Santos",
-//   birth: "1980-05-22",
-//   identificationCard: "012-0987987-9",
-//   phoneNumber: "829-098-0987",
-//   company: "Banco Popular",
-//   email: "alex@gmail.com",
-//   address: {
-//     street: "Nueva Vista",
-//     numHouseOrApartment: "#99",
-//     neighborhood: "Los Jardinez",
-//     city: "Santo Domingo",
-//   },
-//   password: "mypassword123",
-//   confirmPassword: "mypassword123",
-// };
 
 const validationSchema = Yup.object().shape({
   talentName: Yup.string().required("Required"),

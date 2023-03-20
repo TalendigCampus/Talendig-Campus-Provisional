@@ -3,8 +3,6 @@ import styled from "styled-components/macro";
 import {
   Button,
   Card as MuiCard,
-  CardContent,
-  Typography,
   Paper as MuiPaper,
   Dialog,
   DialogActions,

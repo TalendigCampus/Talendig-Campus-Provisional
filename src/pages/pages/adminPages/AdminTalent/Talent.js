@@ -1,84 +1,33 @@
 import React from "react";
 import styled, { withTheme } from "styled-components/macro";
-import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Chart from "react-chartjs-2";
 import * as Icon from "react-feather";
-import { useTranslation } from "react-i18next";
 import Actions from "./Actions";
 
-import {
-  Briefcase,
-  DollarSign,
-  ExternalLink,
-  Facebook,
-  Home,
-  Instagram,
-  MapPin,
-  ShoppingBag,
-  Twitter,
-} from "react-feather";
+import { Briefcase, ShoppingBag } from "react-feather";
 
 import {
-  Avatar as MuiAvatar,
   Box,
-  Breadcrumbs as MuiBreadcrumbs,
-  Button as MuiButton,
   Card as MuiCard,
   CardContent,
-  Chip as MuiChip,
   Divider as MuiDivider,
   Grid as MuiGrid,
-  LinearProgress as MuiLinearProgress,
-  Link,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
   Typography as MuiTypography,
 } from "@mui/material";
 import { spacing } from "@mui/system";
 
 import { orange, red } from "@mui/material/colors";
 
-const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
-
-const Button = styled(MuiButton)(spacing);
-
 const Card = styled(MuiCard)(spacing);
-
-const Chip = styled(MuiChip)(spacing);
 
 const Divider = styled(MuiDivider)(spacing);
 
 const Grid = styled(MuiGrid)(spacing);
 
-const LinearProgress = styled(MuiLinearProgress)(spacing);
-
 const Spacer = styled.div(spacing);
 
 const Typography = styled(MuiTypography)(spacing);
-
-const Centered = styled.div`
-  text-align: center;
-`;
-
-const Avatar = styled(MuiAvatar)`
-  display: inline-block;
-  height: 128px;
-  width: 128px;
-`;
-
-const AboutIcon = styled.span`
-  display: flex;
-  padding-right: ${(props) => props.theme.spacing(2)};
-
-  svg {
-    width: 14px;
-    height: 14px;
-  }
-`;
 
 const ChartWrapper = styled.div`
   height: 280px;
@@ -96,254 +45,6 @@ const StatsIcon = styled.div`
     color: ${(props) => props.theme.palette.secondary.main};
   }
 `;
-
-const ProductsChip = styled(Chip)`
-  height: 20px;
-  padding: 4px 0;
-  font-size: 90%;
-  background-color: ${(props) =>
-    props.theme.palette[props.color ? props.color : "primary"].light};
-  color: ${(props) => props.theme.palette.common.white};
-`;
-
-const TableWrapper = styled.div`
-  overflow-y: auto;
-  max-width: calc(100vw - ${(props) => props.theme.spacing(12)});
-`;
-
-/* function Details() {
-  return (
-    <Card mb={6}>
-      <CardContent>
-        <Typography variant="h6" gutterBottom>
-          Profile Details
-        </Typography>
-
-        <Spacer mb={4} />
-
-        <Centered>
-          <Avatar alt="Lucy Lavender" src="/static/img/avatars/avatar-1.jpg" />
-          <Typography variant="body2" component="div" gutterBottom>
-            <Box fontWeight="fontWeightMedium">Lucy Lavender</Box>
-            <Box fontWeight="fontWeightRegular">Lead Developer</Box>
-          </Typography>
-
-          <Button mr={2} variant="contained" color="primary" size="small">
-            Follow
-          </Button>
-          <Button mr={2} variant="contained" color="primary" size="small">
-            Message
-          </Button>
-        </Centered>
-      </CardContent>
-    </Card>
-  );
-}
-
-function Skills() {
-  return (
-    <Card mb={6}>
-      <CardContent>
-        <Typography variant="h6" gutterBottom>
-          Skills
-        </Typography>
-
-        <Spacer mb={4} />
-
-        <Centered>
-          <Chip size="small" mr={1} mb={1} label="HTML" color="secondary" />
-          <Chip size="small" mr={1} mb={1} label="JavaScript" />
-          <Chip size="small" mr={1} mb={1} label="Sass" />
-          <Chip size="small" mr={1} mb={1} label="React" />
-          <Chip size="small" mr={1} mb={1} label="Redux" />
-          <Chip size="small" mr={1} mb={1} label="Next.js" />
-          <Chip size="small" mr={1} mb={1} label="Material UI" />
-          <Chip size="small" mr={1} mb={1} label="UI" />
-          <Chip size="small" mr={1} mb={1} label="UX" />
-        </Centered>
-      </CardContent>
-    </Card>
-  );
-}
-
-function About() {
-  return (
-    <Card mb={6}>
-      <CardContent>
-        <Typography variant="h6" gutterBottom>
-          About
-        </Typography>
-
-        <Spacer mb={4} />
-
-        <Grid container direction="row" alignItems="center" mb={2}>
-          <Grid item>
-            <AboutIcon>
-              <Home />
-            </AboutIcon>
-          </Grid>
-          <Grid item>
-            Lives in{" "}
-            <Link href="https://material-app.bootlab.io/">
-              San Fransisco, SA
-            </Link>
-          </Grid>
-        </Grid>
-        <Grid container direction="row" alignItems="center" mb={2}>
-          <Grid item>
-            <AboutIcon>
-              <Briefcase />
-            </AboutIcon>
-          </Grid>
-          <Grid item>
-            Works at{" "}
-            <Link href="https://material-app.bootlab.io/">Material UI</Link>
-          </Grid>
-        </Grid>
-        <Grid container direction="row" alignItems="center">
-          <Grid item>
-            <AboutIcon>
-              <MapPin />
-            </AboutIcon>
-          </Grid>
-          <Grid item>
-            Lives in <Link href="https://material-app.bootlab.io/">Boston</Link>
-          </Grid>
-        </Grid>
-      </CardContent>
-    </Card>
-  );
-}
-
-function Elsewhere() {
-  return (
-    <Card mb={6}>
-      <CardContent>
-        <Typography variant="h6" gutterBottom>
-          Elsewhere
-        </Typography>
-
-        <Spacer mb={4} />
-
-        <Grid container direction="row" alignItems="center" mb={2}>
-          <Grid item>
-            <AboutIcon>
-              <ExternalLink />
-            </AboutIcon>
-          </Grid>
-          <Grid item>
-            <Link href="https://material-app.bootlab.io/">lucylavender.io</Link>
-          </Grid>
-        </Grid>
-        <Grid container direction="row" alignItems="center" mb={2}>
-          <Grid item>
-            <AboutIcon>
-              <Twitter />
-            </AboutIcon>
-          </Grid>
-          <Grid item>
-            <Link href="https://material-app.bootlab.io/">Twitter</Link>
-          </Grid>
-        </Grid>
-        <Grid container direction="row" alignItems="center" mb={2}>
-          <Grid item>
-            <AboutIcon>
-              <Facebook />
-            </AboutIcon>
-          </Grid>
-          <Grid item>
-            <Link href="https://material-app.bootlab.io/">Facebook</Link>
-          </Grid>
-        </Grid>
-        <Grid container direction="row" alignItems="center">
-          <Grid item>
-            <AboutIcon>
-              <Instagram />
-            </AboutIcon>
-          </Grid>
-          <Grid item>
-            <Link href="https://material-app.bootlab.io/">Instagram</Link>
-          </Grid>
-        </Grid>
-      </CardContent>
-    </Card>
-  );
-} */
-
-/* function Earnings() {
-  return (
-    <Box position="relative">
-      <Card mb={6} pt={2}>
-        <CardContent>
-          <Typography variant="h2" gutterBottom>
-            <Box fontWeight="fontWeightRegular">$ 2.405</Box>
-          </Typography>
-          <Typography variant="body2" gutterBottom mt={3} mb={0}>
-            Total Earnings
-          </Typography>
-
-          <StatsIcon>
-            <DollarSign />
-          </StatsIcon>
-          <LinearProgress
-            variant="determinate"
-            value={75}
-            color="secondary"
-            mt={4}
-          />
-        </CardContent>
-      </Card>
-    </Box>
-  );
-}
-
-function Orders() {
-  return (
-    <Box position="relative">
-      <Card mb={6} pt={2}>
-        <CardContent>
-          <Typography variant="h2" gutterBottom>
-            <Box fontWeight="fontWeightRegular">30</Box>
-          </Typography>
-          <Typography variant="body2" gutterBottom mt={3} mb={0}>
-            Orders Today
-          </Typography>
-
-          <StatsIcon>
-            <ShoppingBag />
-          </StatsIcon>
-        </CardContent>
-      </Card>
-    </Box>
-  );
-}
-
-function Revenue() {
-  return (
-    <Box position="relative">
-      <Card mb={6} pt={2}>
-        <CardContent>
-          <Typography variant="h2" gutterBottom>
-            <Box fontWeight="fontWeightRegular">$ 1.224</Box>
-          </Typography>
-          <Typography variant="body2" gutterBottom mt={3} mb={0}>
-            Total Revenue
-          </Typography>
-
-          <StatsIcon>
-            <DollarSign />
-          </StatsIcon>
-          <LinearProgress
-            variant="determinate"
-            value={50}
-            color="secondary"
-            mt={4}
-          />
-        </CardContent>
-      </Card>
-    </Box>
-  );
-} */
 
 function RegisteredTalents() {
   return (
@@ -537,85 +238,6 @@ const GraphicBootcamps = withTheme(({ theme }) => {
 });
 
 const SalesRevenue = withTheme(({ theme }) => {
-  /* const data = {
-    labels: [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ],
-    datasets: [
-      {
-        label: "Sales",
-        backgroundColor: theme.palette.secondary.main,
-        borderColor: theme.palette.secondary.main,
-        hoverBackgroundColor: theme.palette.secondary.main,
-        hoverBorderColor: theme.palette.secondary.main,
-        data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
-        barPercentage: 0.625,
-        categoryPercentage: 0.5,
-      },
-      {
-        label: "Revenue",
-        backgroundColor: theme.palette.grey[200],
-        borderColor: theme.palette.grey[200],
-        hoverBackgroundColor: theme.palette.grey[200],
-        hoverBorderColor: theme.palette.grey[200],
-        data: [69, 66, 24, 48, 52, 51, 44, 53, 62, 79, 51, 68],
-        barPercentage: 0.625,
-        categoryPercentage: 0.5,
-      },
-    ],
-  };
-
-  const options = {
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: false,
-      },
-    },
-    scales: {
-      y: {
-        grid: {
-          display: false,
-        },
-        stacked: false,
-      },
-
-      x: {
-        stacked: false,
-        grid: {
-          color: "transparent",
-        },
-      },
-    },
-  };
-
-  return (
-    <Card mb={6}>
-      <CardContent>
-        <Typography variant="h6" gutterBottom>
-          Sales / Revenue
-        </Typography>
-
-        <Spacer mb={6} />
-
-        <ChartWrapper>
-          <Chart type="bar" data={data} options={options} />
-        </ChartWrapper>
-      </CardContent>
-    </Card>
-  ); */
-
   const data = {
     labels: ["Excelente", "Muy bueno", "En observación", "Bueno"],
     datasets: [
@@ -663,7 +285,6 @@ const SalesRevenue = withTheme(({ theme }) => {
 });
 
 function Profile() {
-  const { t } = useTranslation();
   return (
     <React.Fragment>
       <Helmet title="Profile" />
@@ -675,19 +296,8 @@ function Profile() {
             Talentos{" "}
           </Typography>{" "}
           <Typography variant="subtitle1">
-            {/* {t("Welcome back")}, José Armando! {t("We've missed you")}.{" "}
-            <span role="img" aria-label="Waving Hand Sign">
-              👋{" "}
-            </span>{" "} */}
             Bienvenido de nuevo Jose Armando te echamos de menos 👋
           </Typography>{" "}
-          {/* <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/admin/dashboard/home">
-              Panel
-            </Link>
-            <Typography>Usuarios</Typography>
-            <Typography>Talentos</Typography>
-          </Breadcrumbs> */}
         </Grid>{" "}
         <Grid item>
           <Actions />{" "}
@@ -695,12 +305,6 @@ function Profile() {
       </Grid>
       <Divider my={6} />
       <Grid container spacing={6}>
-        {/* <Grid item xs={12} lg={4} xl={3}>
-          <Details />
-          <Skills />
-          <About />
-          <Elsewhere />
-        </Grid> */}
         <Grid item xs={12} lg={11.9} xl={11.9}>
           <SalesRevenue />
           <Grid container spacing={6}>

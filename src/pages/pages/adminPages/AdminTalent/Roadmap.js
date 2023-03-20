@@ -12,9 +12,7 @@ import { spacing } from "@mui/system";
 import {
   Avatar,
   Breadcrumbs as MuiBreadcrumbs,
-  Button as MuiButton,
   Card as MuiCard,
-  CardContent,
   Divider as MuiDivider,
   FormControl as MuiFormControl,
   Link,
@@ -24,25 +22,7 @@ import {
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
-const Card = styled(MuiCard)(spacing);
-
 const Divider = styled(MuiDivider)(spacing);
-
-const FormControl = styled(MuiFormControl)(spacing);
-
-const TextField = styled(MuiTextField)(spacing);
-
-const CenteredContent = styled.div`
-  text-align: center;
-`;
-
-const Spacer = styled.div(spacing);
-
-const BigAvatar = styled(Avatar)`
-  width: 150px;
-  height: 150px;
-  margin: 0 auto ${(props) => props.theme.spacing(2)};
-`;
 
 function RoadmapPrimerNivel() {
   return (

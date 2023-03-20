@@ -124,10 +124,6 @@ function Public(props) {
             </CenteredContent>
           </Grid>
         </Grid>
-
-        {/* <Button variant="contained" color="primary">
-          Save changes
-        </Button> */}
       </CardContent>
     </Card>
   );
@@ -239,10 +235,6 @@ function Private(props) {
             />
           </Grid>
         </Grid>
-
-        {/* <Button variant="contained" color="primary" mt={3}>
-          Save changes
-        </Button> */}
       </CardContent>
     </Card>
   );
