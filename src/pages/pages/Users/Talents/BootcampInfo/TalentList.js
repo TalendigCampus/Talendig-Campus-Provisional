@@ -304,7 +304,7 @@ function EnhancedTable({ setAllowDelete }) {
 
   const handleBootcamp = (id) => {
     dispatch(bootcampProfile({ id }));
-    navigate("/admin/dashboard/bootcamps/bootcamp-profile");
+    navigate("/talent/bootcamps/my-bootcamps");
   };
 
   const handleClick = (event, id) => {

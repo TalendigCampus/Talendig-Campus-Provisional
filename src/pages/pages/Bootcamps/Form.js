@@ -8,23 +8,13 @@ import { Edit2, List } from "react-feather";
 import {
   Alert as MuiAlert,
   Box,
-  Breadcrumbs as MuiBreadcrumbs,
   Button as MuiButton,
   Card as MuiCard,
   CardContent,
   CircularProgress,
-  Divider as MuiDivider,
-  Grid,
-  Link,
-  Select,
   TextField as MuiTextField,
-  Typography,
 } from "@mui/material";
 import { spacing } from "@mui/system";
-
-const Divider = styled(MuiDivider)(spacing);
-
-const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
 const Card = styled(MuiCard)(spacing);
 
@@ -98,7 +88,7 @@ function BootcampForm() {
           <CardContent>
             {status && status.sent && (
               <Alert severity="success" my={3}>
-                [DEMO] Your data has been submitted successfully!
+                [DEMO] ¡Los datos han sido subidos con exito!
               </Alert>
             )}
 
@@ -162,21 +152,6 @@ function BootcampForm() {
                   variant="outlined"
                   my={2}
                 />
-
-                {/* <Select
-                  name="teacher"
-                  label="Instructor"
-                  fullWidth
-                  error={Boolean(touched.password && errors.password)}
-                  helperText={touched.password && errors.password}
-                  onBlur={handleBlur}
-                  value={age}
-                  onChange={handleChange}
-                >
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                </Select> */}
 
                 <Button
                   type="submit"

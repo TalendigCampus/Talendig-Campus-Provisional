@@ -12,6 +12,8 @@ import {
   Card as MuiCard,
   Divider as MuiDivider,
   Typography,
+  FormControl,
+  TextField,
 } from "@mui/material";
 import { spacing } from "@mui/system";
 
@@ -36,19 +38,28 @@ function Description({ setShowComments }) {
   };
   return (
     <CardContent>
-      <Typography variant="h6" gutterBottom>
-        Descripcion
-      </Typography>
+      <FormControl fullWidth my={2} variant="outlined">
+        <TextField
+          label="Titulo"
+          id="Descripcion"
+          multiline={true}
+          rows={0}
+          maxRows={0}
+          variant="outlined"
+        />
+      </FormControl>
 
       <Spacer mb={4} />
-      <Typography variant="p" gutterBottom>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur
-        dolores ipsum corporis dicta? Reiciendis veritatis ea inventore cum ad
-        officia non facere, quis in qui! Animi necessitatibus, nostrum harum
-        sequi inventore nobis numquam cumque dolorum sint voluptates error hic
-        expedita maiores soluta est exercitationem! Quisquam culpa inventore
-        maiores qui deleniti?
-      </Typography>
+      <FormControl fullWidth my={2} variant="outlined">
+        <TextField
+          label="Descripcion"
+          id="Descripcion"
+          multiline={true}
+          rows={0}
+          maxRows={0}
+          variant="outlined"
+        />
+      </FormControl>
 
       <Spacer mb={4} />
       <input
@@ -94,13 +105,13 @@ function HomeWorkDetails() {
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/">
+            <Link component={NavLink} to="/instructor/home">
               Dashboard
             </Link>
-            <Link component={NavLink} to="/">
-              Pages
+            <Link component={NavLink} to="/instructor/bootcampInfo">
+              Bootcamp
             </Link>
-            <Typography>Bootcamp</Typography>
+            <Typography>Asignaciones</Typography>
           </Breadcrumbs>
         </Grid>
         <Grid item>

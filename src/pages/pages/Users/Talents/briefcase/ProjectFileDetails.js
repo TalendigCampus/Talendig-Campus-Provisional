@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components/macro";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
@@ -54,22 +54,46 @@ function Settings() {
   const currentSelectedFile = useSelector(currentFile);
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState(currentSelectedFile.name);
+  const navigate = useNavigate();
+  const handlePageChange = (pathToGo) => {
+    navigate(pathToGo);
+  };
 
   return (
     <React.Fragment>
       <Helmet title="Recruiter Profile" />
+      <Grid justifyContent="space-between" container spacing={10}>
+        <Grid item>
+          <Typography variant="h3" gutterBottom display="inline">
+            {currentSelectedFile?.name || ""}
+          </Typography>
 
-      <Typography variant="h3" gutterBottom display="inline">
-        {currentSelectedFile?.name || ""}
-      </Typography>
-
-      <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/talent/projects/list/folder/files">
-          Lista de Archivos
-        </Link>
-        <Typography>Archivo</Typography>
-        <Typography>detalles</Typography>
-      </Breadcrumbs>
+          <Breadcrumbs aria-label="Breadcrumb" mt={2}>
+            <Link component={NavLink} to="/talent/projects">
+              Lista de Proyectos
+            </Link>
+            <Link component={NavLink} to="/talent/projects/list/folder/details">
+              Lista de Carpetas
+            </Link>
+            <Link component={NavLink} to="/talent/projects/list/folder/files">
+              Lista de Archivos
+            </Link>
+            <Typography>Detalles de Archivo</Typography>
+          </Breadcrumbs>
+        </Grid>
+        <Grid item>
+          <Button
+            type="button"
+            variant="contained"
+            color="success"
+            onClick={() => handlePageChange(-1)}
+            mt={3}
+            ml={3}
+          >
+            Volver
+          </Button>
+        </Grid>
+      </Grid>
 
       <Divider my={6} />
 

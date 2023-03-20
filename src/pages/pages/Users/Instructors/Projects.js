@@ -103,35 +103,35 @@ function Projects() {
         <Grid item xs={12} lg={6} xl={3}>
           <Project
             title="Landing page redesign"
-            description="Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum."
+            description="Proyecto de Talento"
             chip={<Chip label="Finished" color="success" />}
           />
         </Grid>
         <Grid item xs={12} lg={6} xl={3}>
           <Project
             title="Company posters"
-            description="Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo. Maecenas malesuada. Praesent congue erat at massa."
+            description="Proyecto de Talento"
             chip={<Chip label="In progress" color="warning" />}
           />
         </Grid>
         <Grid item xs={12} lg={6} xl={3}>
           <Project
             title="Product page design"
-            description="Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum."
+            description="Proyecto de Talento"
             chip={<Chip label="Finished" color="success" />}
           />
         </Grid>
         <Grid item xs={12} lg={6} xl={3}>
           <Project
             title="Upgrade CRM software"
-            description="Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices mauris."
+            description="Proyecto de Talento"
             chip={<Chip label="In progress" color="warning" />}
           />
         </Grid>
         <Grid item xs={12} lg={6} xl={3}>
           <Project
             title="Fix form validation"
-            description="Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices mauris."
+            description="Proyecto de Talento"
             chip={<Chip label="In progress" color="warning" />}
             image="/static/img/unsplash/unsplash-1.jpg"
           />
@@ -139,7 +139,7 @@ function Projects() {
         <Grid item xs={12} lg={6} xl={3}>
           <Project
             title="New company logo"
-            description="Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum."
+            description="Proyecto de Talento"
             chip={<Chip label="On hold" color="error" />}
             image="/static/img/unsplash/unsplash-2.jpg"
           />
@@ -147,7 +147,7 @@ function Projects() {
         <Grid item xs={12} lg={6} xl={3}>
           <Project
             title="Upgrade to latest Maps API"
-            description="Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices mauris."
+            description="Proyecto de Talento"
             chip={<Chip label="Finished" color="success" />}
             image="/static/img/unsplash/unsplash-3.jpg"
           />
@@ -155,7 +155,7 @@ function Projects() {
         <Grid item xs={12} lg={6} xl={3}>
           <Project
             title="Refactor backend templates"
-            description="Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo. Maecenas malesuada. Praesent congue erat at massa."
+            description="Proyecto de Talento"
             chip={<Chip label="On hold" color="error" />}
             image="/static/img/unsplash/unsplash-4.jpg"
           />

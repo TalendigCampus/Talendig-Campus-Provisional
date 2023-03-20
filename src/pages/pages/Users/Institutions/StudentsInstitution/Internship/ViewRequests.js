@@ -119,7 +119,7 @@ function ViewRequests() {
         <Grid item xs={12} lg={6} xl={3}>
           <Project
             title="Desarrollo web MERN"
-            description="Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum."
+            description="Crear aplicaciones web con MERN Stack."
             chip={<Chip label="En progreso" color="warning" />}
           />
         </Grid>

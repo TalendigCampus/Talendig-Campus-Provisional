@@ -406,7 +406,7 @@ function BootcampsDetails() {
             type="button"
             variant="contained"
             color="success"
-            onClick={() => handlePageChange("/talent/home")}
+            onClick={() => handlePageChange(-1)}
             mt={3}
             ml={3}
           >

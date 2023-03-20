@@ -7,6 +7,8 @@ import {
   CardContent,
   Grid,
   Link,
+  FormControl,
+  TextField,
   Breadcrumbs as MuiBreadcrumbs,
   Button as MuiButton,
   Card as MuiCard,
@@ -36,19 +38,15 @@ function Description({ setShowComments }) {
   };
   return (
     <CardContent>
-      <Typography variant="h6" gutterBottom>
-        Descripcion
-      </Typography>
+      <Typography variant="h3">Tarea</Typography>
 
       <Spacer mb={4} />
-      <Typography variant="p" gutterBottom>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur
-        dolores ipsum corporis dicta? Reiciendis veritatis ea inventore cum ad
-        officia non facere, quis in qui! Animi necessitatibus, nostrum harum
-        sequi inventore nobis numquam cumque dolorum sint voluptates error hic
-        expedita maiores soluta est exercitationem! Quisquam culpa inventore
-        maiores qui deleniti?
+      <Typography>
+        Esta es la asignacion del Bootcamp, sube aqui tus archivos y deja un
+        comentario para que el instructor lo vea si es necesario. Buena Suerte!
       </Typography>
+      <Spacer mb={4} />
+      <Typography>Fecha de Cierre: (30-Mayo-2023) - 11:59:00</Typography>
 
       <Spacer mb={4} />
       <input

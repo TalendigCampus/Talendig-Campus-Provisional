@@ -1,14 +1,10 @@
 import React from "react";
 import styled from "styled-components/macro";
-import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
 import {
-  Link,
-  Breadcrumbs as MuiBreadcrumbs,
   Card as MuiCard,
   CardContent as MuiCardContent,
-  Divider as MuiDivider,
   Paper as MuiPaper,
   Typography,
   IconButton,
@@ -38,10 +34,6 @@ const Card = styled(MuiCard)(spacing);
 
 const CardContent = styled(MuiCardContent)(spacing);
 
-const Divider = styled(MuiDivider)(spacing);
-
-const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
-
 const Paper = styled(MuiPaper)(spacing);
 
 const columns = [
@@ -54,12 +46,6 @@ const columns = [
     flex: 1,
   },
 ];
-
-// const rows = [
-//   { id: 1, tecnology: "Angular" },
-//   { id: 2, tecnology: "Javascript" },
-//   { id: 3, tecnology: "React" },
-// ];
 
 function DataGridDemo() {
   const [selectedTecnologies, setSelectedTecnologies] = React.useState([]);
