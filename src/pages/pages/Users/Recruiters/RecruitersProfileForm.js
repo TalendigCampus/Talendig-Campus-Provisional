@@ -434,32 +434,16 @@ function BasicForm() {
                   </>
                 )}
                 {isNotEditing && (
-                  <>
-                    <Button
-                      type="button"
-                      variant="contained"
-                      color="warning"
-                      onClick={handleEdit}
-                      mt={3}
-                      ml={3}
-                    >
-                      <Edit />
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="contained"
-                      color="success"
-                      onClick={() =>
-                        handlePageChange(
-                          "/admin/dashboard/users/recruiters/list"
-                        )
-                      }
-                      mt={3}
-                      ml={3}
-                    >
-                      <ListAlt />
-                    </Button>
-                  </>
+                  <Button
+                    type="button"
+                    variant="contained"
+                    color="warning"
+                    onClick={handleEdit}
+                    mt={3}
+                    ml={3}
+                  >
+                    <Edit />
+                  </Button>
                 )}
               </form>
             )}
