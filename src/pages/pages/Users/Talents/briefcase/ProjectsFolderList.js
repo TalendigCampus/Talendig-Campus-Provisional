@@ -438,8 +438,7 @@ function InvoiceList() {
             <Link component={NavLink} to="/talent/projects">
               Lista de Proyectos
             </Link>
-            <Typography>Carpetas</Typography>
-            <Typography>Lista</Typography>
+            <Typography>Lista de Carpetas</Typography>
           </Breadcrumbs>
         </Grid>
         <Grid item>

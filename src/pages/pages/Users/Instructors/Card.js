@@ -58,7 +58,11 @@ function MediaCard(props) {
   };
   return (
     <Card mb={6}>
-      <CardActionArea>
+      <CardActionArea
+        onClick={(event) =>
+          handleChange("/instructors/bootcampInfo", props.bootcampId)
+        }
+      >
         <CardMedia image={props.bootcampImage} title={props.bootcampName} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
@@ -68,9 +72,6 @@ function MediaCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
         <Button
           size="small"
           color="primary"

@@ -69,11 +69,16 @@ function Settings() {
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
+            <Link component={NavLink} to="/talent/projects">
+              Lista de Proyectos
+            </Link>
+            <Link component={NavLink} to="/talent/projects/list/folder/details">
+              Lista de Carpetas
+            </Link>
             <Link component={NavLink} to="/talent/projects/list/folder/files">
               Lista de Archivos
             </Link>
-            <Typography>Archivo</Typography>
-            <Typography>detalles</Typography>
+            <Typography>Detalles de Archivo</Typography>
           </Breadcrumbs>
         </Grid>
         <Grid item>

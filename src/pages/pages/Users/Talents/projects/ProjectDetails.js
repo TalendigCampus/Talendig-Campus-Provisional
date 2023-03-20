@@ -7,6 +7,8 @@ import {
   CardContent,
   Grid,
   Link,
+  FormControl,
+  TextField,
   Breadcrumbs as MuiBreadcrumbs,
   Button as MuiButton,
   Card as MuiCard,
@@ -36,19 +38,28 @@ function Description({ setShowComments }) {
   };
   return (
     <CardContent>
-      <Typography variant="h6" gutterBottom>
-        Descripcion
-      </Typography>
+      <FormControl fullWidth my={2} variant="outlined">
+        <TextField
+          label="Titulo"
+          id="Descripcion"
+          multiline={true}
+          rows={0}
+          maxRows={0}
+          variant="outlined"
+        />
+      </FormControl>
 
       <Spacer mb={4} />
-      <Typography variant="p" gutterBottom>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur
-        dolores ipsum corporis dicta? Reiciendis veritatis ea inventore cum ad
-        officia non facere, quis in qui! Animi necessitatibus, nostrum harum
-        sequi inventore nobis numquam cumque dolorum sint voluptates error hic
-        expedita maiores soluta est exercitationem! Quisquam culpa inventore
-        maiores qui deleniti?
-      </Typography>
+      <FormControl fullWidth my={2} variant="outlined">
+        <TextField
+          label="Descripcion"
+          id="Descripcion"
+          multiline={true}
+          rows={0}
+          maxRows={0}
+          variant="outlined"
+        />
+      </FormControl>
 
       <Spacer mb={4} />
       <input
