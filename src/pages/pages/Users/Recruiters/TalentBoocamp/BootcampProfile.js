@@ -123,10 +123,10 @@ function BootcampProfile() {
       </Typography>
 
       <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/admin/dashboard/bootcamps">
+        <Link component={NavLink} to="/recruiters/talentsList/bestScore">
           Panel Bootcamps
         </Link>
-        <Link component={NavLink} to="/admin/dashboard/bootcamps/list">
+        <Link component={NavLink} to="/recruiters/talentsList/bestScore">
           Lista de Bootcamps
         </Link>
         <Typography>{bootcamp ? bootcamp.bootcampName : ""}</Typography>

@@ -247,6 +247,17 @@ function Roadmap() {
       <Typography variant="h3" gutterBottom display="inline">
         Roadmap
       </Typography>
+
+      <Breadcrumbs aria-label="Breadcrumb" mt={2}>
+        <Link component={NavLink} to="/instructors/home">
+          Inicio
+        </Link>
+        <Link component={NavLink} to="/instructors/bootcampInfo">
+          Bootcamp
+        </Link>
+        <Typography>Roadmap</Typography>
+      </Breadcrumbs>
+
       <Divider my={6} />
       <PositionedTooltips />
     </React.Fragment>

@@ -477,15 +477,14 @@ function InvoiceList() {
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/instructors/portfolio">
-              Panel proyectos
+            <Link component={NavLink} to="/instructors/home">
+              Inicio
             </Link>
-            <Typography>proyectos</Typography>
-            <Typography>Lista proyectos</Typography>
+            <Link component={NavLink} to="/instructors/portfolio">
+              Portafolio
+            </Link>
+            <Typography>Proyectos</Typography>
           </Breadcrumbs>
-        </Grid>
-        <Grid item>
-          <Actions />
         </Grid>
       </Grid>
       <Divider my={6} />

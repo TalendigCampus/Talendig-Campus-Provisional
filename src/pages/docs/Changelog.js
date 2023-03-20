@@ -40,7 +40,7 @@ function Changelog() {
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/">
+            <Link component={NavLink} to="/instructors/home">
               Dashboard
             </Link>
             <Typography>Changelog</Typography>

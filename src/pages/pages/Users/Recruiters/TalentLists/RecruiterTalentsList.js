@@ -407,8 +407,8 @@ function InvoiceList() {
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/admin/dashboard/users/talents">
-              Panel Talentos
+            <Link component={NavLink} to="/recruiters/home">
+              Inicio
             </Link>
 
             <Typography>Talentos</Typography>

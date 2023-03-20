@@ -56,14 +56,8 @@ function Actions() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem
-          onClick={() => handleChange("/admin/dashboard/users/projects/list")}
-        >
-          Lista
-        </MenuItem>
-        <MenuItem
-          onClick={() => handleChange("/admin/dashboard/users/projects")}
-        >
+        <MenuItem onClick={() => handleChange("/talent/home")}>Lista</MenuItem>
+        <MenuItem onClick={() => handleChange("/talent/home")}>
           Estadisticas
         </MenuItem>
       </Menu>
