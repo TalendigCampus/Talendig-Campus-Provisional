@@ -107,13 +107,6 @@ function AuthProvider({ children }) {
   }, []);
 
   const signIn = async (email, password) => {
-    // const response = await axios.post("/api/auth/sign-in", {
-    //   email,
-    //   password,
-    // });
-    // const { accessToken, user } = response.data;
-
-    // setSession(accessToken);
     const userInfo = UserInfo.find(
       (user) => user.email === email && user.password === password
     );

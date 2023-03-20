@@ -36,6 +36,7 @@ function TalentHome() {
   const bootcampTalent = bootcamps.filter((bootcamp) =>
     bootcamp.talents.includes(talentId)
   );
+
   return (
     <React.Fragment>
       <Helmet title="Default Dashboard" />

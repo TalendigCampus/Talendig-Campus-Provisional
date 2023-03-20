@@ -1,27 +1,21 @@
 import React from "react";
 import * as Yup from "yup";
 import styled from "styled-components/macro";
-import { NavLink } from "react-router-dom";
-import { Formik, Field } from "formik";
+import { Formik } from "formik";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 
 import {
   Alert as MuiAlert,
   Box,
-  Breadcrumbs as MuiBreadcrumbs,
   Button as MuiButton,
-  IconButton,
   Card as MuiCard,
   CardContent,
   CircularProgress,
-  Divider as MuiDivider,
   Grid,
   Select,
   MenuItem,
-  Link,
   TextField as MuiTextField,
-  Typography,
   FormControl,
   InputLabel,
 } from "@mui/material";
@@ -35,10 +29,6 @@ import {
 
 import { selectInstructors } from "../../../redux/slices/instructorSlice";
 
-const Divider = styled(MuiDivider)(spacing);
-
-const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
-
 const Card = styled(MuiCard)(spacing);
 
 const Alert = styled(MuiAlert)(spacing);
@@ -46,26 +36,6 @@ const Alert = styled(MuiAlert)(spacing);
 const TextField = styled(MuiTextField)(spacing);
 
 const Button = styled(MuiButton)(spacing);
-
-const timeOut = (time) => new Promise((res) => setTimeout(res, time));
-
-// const initialValues = {
-//   firstName: "Alexander",
-//   lastName: "Santos",
-//   birth: "1980-05-22",
-//   identificationCard: "012-0987987-9",
-//   phoneNumber: "829-098-0987",
-//   company: "Banco Popular",
-//   email: "alex@gmail.com",
-//   address: {
-//     street: "Nueva Vista",
-//     numHouseOrApartment: "#99",
-//     neighborhood: "Los Jardinez",
-//     city: "Santo Domingo",
-//   },
-//   password: "mypassword123",
-//   confirmPassword: "mypassword123",
-// };
 
 const validationSchema = Yup.object().shape({
   bootcampName: Yup.string().required("Required"),
@@ -94,7 +64,7 @@ function BasicForm(bootcampPrivate) {
   };
   const handleSubmit = async (
     values,
-    { resetForm, setErrors, setStatus, setSubmitting }
+    { setErrors, setStatus, setSubmitting }
   ) => {
     setIsNotEditing((currentSate) => !currentSate);
     try {
@@ -114,7 +84,6 @@ function BasicForm(bootcampPrivate) {
       if (values.bootcampName !== bootcampPrivate.bootcampName) {
         dispatch(bootcampProfile({ id: bootcampPrivate.id }));
       }
-      // await timeOut(1500);
       setStatus({ sent: true });
       setSubmitting(false);
     } catch (error) {
@@ -293,7 +262,7 @@ function BasicForm(bootcampPrivate) {
   );
 }
 
-function FormikPage(bootcampPrivate) {
+function BootcamProfileForm(bootcampPrivate) {
   return (
     <React.Fragment>
       <Helmet title="Bootcamp Form" />
@@ -302,4 +271,4 @@ function FormikPage(bootcampPrivate) {
   );
 }
 
-export default FormikPage;
+export default BootcamProfileForm;

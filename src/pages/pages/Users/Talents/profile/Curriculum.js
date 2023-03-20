@@ -394,12 +394,6 @@ function Lenguages(props) {
 }
 
 function Curriculum() {
-  // let { talentId } = useParams();
-  // console.log(talentId);
-  // console.log(rows);
-  // const result = rows.find((row) => row.talentId === Number(talentId));
-  // console.log(result);
-
   const talent = useSelector(CurrentTalent);
   return (
     <React.Fragment>
@@ -415,14 +409,14 @@ function Curriculum() {
         <Grid item xs={12} lg={4} xl={3}>
           <Details {...talent} />
           <Skills {...talent} />
-          <About {...talent} />
           <Referens {...talent} />
+          <Lenguages {...talent} />
         </Grid>
         <Grid item xs={12} lg={8} xl={9}>
           <AboutMe {...talent} />
           <Expirence {...talent} />
           <Education {...talent} />
-          <Lenguages {...talent} />
+          <About {...talent} />
         </Grid>
       </Grid>
     </React.Fragment>

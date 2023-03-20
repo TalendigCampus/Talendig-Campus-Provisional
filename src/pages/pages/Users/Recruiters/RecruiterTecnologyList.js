@@ -106,7 +106,9 @@ function DataGridDemo() {
     }
 
     setTecnologiesToSelect(tecnologies);
-    setSelectedTecnology(tecnologies[0].id);
+    if (tecnologies && tecnologies.length) {
+      setSelectedTecnology(tecnologies[0].id);
+    }
   };
 
   const getTecnologyName = (tecno) => {
@@ -188,56 +190,58 @@ function DataGridDemo() {
             <DeleteForever />
           </IconButton>
         ) : null}
-        {activateAdd ? (
-          <>
-            <FormControl>
-              <InputLabel id="demo-simple-select-autowidth-label">
-                Tecnologías
-              </InputLabel>
-              <Select
-                id="tecnology"
-                label="Tecnologías"
-                value={selectedTecnology}
-                fullWidth
-                onChange={handleSelectChange}
-                variant="outlined"
+        {tecnologiesToSelect && tecnologiesToSelect.length ? (
+          activateAdd ? (
+            <>
+              <FormControl>
+                <InputLabel id="demo-simple-select-autowidth-label">
+                  Tecnologías
+                </InputLabel>
+                <Select
+                  id="tecnology"
+                  label="Tecnologías"
+                  value={selectedTecnology}
+                  fullWidth
+                  onChange={handleSelectChange}
+                  variant="outlined"
+                >
+                  {tecnologiesToSelect.map((tecnology) => {
+                    return (
+                      <MenuItem key={tecnology.id} value={Number(tecnology.id)}>
+                        {tecnology.name}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
+              <IconButton
+                type="submit"
+                size="large"
+                color="success"
+                onClick={handleAddTecnology}
               >
-                {tecnologiesToSelect.map((tecnology) => {
-                  return (
-                    <MenuItem key={tecnology.id} value={Number(tecnology.id)}>
-                      {tecnology.name}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
+                <Save />
+              </IconButton>
+              <IconButton
+                type="submit"
+                size="large"
+                color="info"
+                onClick={handleActivateAdd}
+              >
+                <VisibilityOff />
+              </IconButton>
+            </>
+          ) : (
             <IconButton
               type="submit"
               size="large"
               color="success"
-              onClick={handleAddTecnology}
-            >
-              <Save />
-            </IconButton>
-            <IconButton
-              type="submit"
-              size="large"
-              color="info"
               onClick={handleActivateAdd}
             >
-              <VisibilityOff />
+              <AddCircle />
             </IconButton>
-          </>
-        ) : (
-          <IconButton
-            type="submit"
-            size="large"
-            color="success"
-            onClick={handleActivateAdd}
-          >
-            <AddCircle />
-          </IconButton>
-        )}
+          )
+        ) : null}
       </CardContent>
       <Paper>
         <div style={{ height: 300, width: "100%" }}>

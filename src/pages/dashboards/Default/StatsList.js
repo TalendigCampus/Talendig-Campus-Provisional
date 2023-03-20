@@ -76,7 +76,7 @@ function StatsList() {
   return (
     <Card
       mb={1}
-      style={{ backgroundColor: "transparent", border: "1px solid #E5E4E2" }}
+      style={{ backgroundColor: "transparent", border: "1px solid grey" }}
     >
       <CardContent>
         <Grid container spacing={6}>

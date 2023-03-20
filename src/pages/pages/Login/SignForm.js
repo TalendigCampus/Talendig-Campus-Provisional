@@ -85,8 +85,7 @@ function SignIn() {
       })}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
         try {
-          const user = setUser(values.email, values.password);
-
+          const user = await setUser(values.email, values.password);
           if (!user) {
             const message = "Datos incorrectos.";
 
@@ -113,10 +112,6 @@ function SignIn() {
         values,
       }) => (
         <form noValidate onSubmit={handleSubmit}>
-          {/* <Alert mt={3} mb={3} severity="info">
-            Use <strong>demo@bootlab.io</strong> and{" "}
-            <strong>unsafepassword</strong> to sign in
-          </Alert> */}
           {errors.submit && (
             <Alert mt={2} mb={3} severity="warning">
               {errors.submit}
@@ -159,14 +154,6 @@ function SignIn() {
           >
             Iniciar sesión
           </Button>
-          {/* <Button
-            component={Link}
-            to="/auth/reset-password"
-            fullWidth
-            color="primary"
-          >
-            Forgot password
-          </Button> */}
         </form>
       )}
     </Formik>
