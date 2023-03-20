@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled, { withTheme } from "styled-components/macro";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Chart from "react-chartjs-2";
 
@@ -281,33 +281,51 @@ function Curriculum() {
   // console.log(result);
 
   const result = useSelector(currentRecruiter);
+  const navigate = useNavigate();
+  const handlePageChange = (pathToGo) => {
+    navigate(pathToGo);
+  };
 
   return (
     <React.Fragment>
       <Helmet title="Profile" />
+      <Grid justifyContent="space-between" container spacing={10}>
+        <Grid item>
+          <Typography variant="h3" gutterBottom display="inline">
+            Perfil del instructor
+          </Typography>
 
-      <Typography variant="h3" gutterBottom display="inline">
-        Curriculum
-      </Typography>
-
-      <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/talent/recruiters">
-          Lista de reclutadores
-        </Link>
-        <Typography gutterBottom display="inline">
-          {`${result.firstName} ${result.lastName}`}
-        </Typography>
-      </Breadcrumbs>
-
+          <Breadcrumbs aria-label="Breadcrumb" mt={2}>
+            <Link component={NavLink} to="/talent/recruiters">
+              Lista de reclutadores
+            </Link>
+            <Typography gutterBottom display="inline">
+              {`${result.firstName} ${result.lastName}`}
+            </Typography>
+          </Breadcrumbs>
+        </Grid>
+        <Grid item>
+          <Button
+            type="button"
+            variant="contained"
+            color="success"
+            onClick={() => handlePageChange(-1)}
+            mt={3}
+            ml={3}
+          >
+            Volver
+          </Button>
+        </Grid>
+      </Grid>
       <Divider my={6} />
 
       <Grid container spacing={6}>
         <Grid item xs={12} lg={4} xl={3}>
           <Details {...result} />
           <Skills {...result} />
-          <About {...result} />
         </Grid>
         <Grid item xs={12} lg={8} xl={9}>
+          <About {...result} />
           <AboutMe {...result} />
         </Grid>
       </Grid>

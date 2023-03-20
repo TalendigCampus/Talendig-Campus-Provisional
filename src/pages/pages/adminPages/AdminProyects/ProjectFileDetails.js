@@ -5,19 +5,16 @@ import { Helmet } from "react-helmet-async";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import {
-  Avatar,
   Breadcrumbs as MuiBreadcrumbs,
   Button as MuiButton,
   Card as MuiCard,
   CardContent,
   Divider as MuiDivider,
-  FormControl as MuiFormControl,
   Grid,
   Link,
   TextField as MuiTextField,
   Typography,
 } from "@mui/material";
-import { CloudUpload as MuiCloudUpload } from "@mui/icons-material";
 import { spacing } from "@mui/system";
 import { PROJECT_UPDATE_TYPE } from "../../../../common/constants/data";
 import { useSelector, useDispatch } from "react-redux";
@@ -32,25 +29,11 @@ const Card = styled(MuiCard)(spacing);
 
 const Divider = styled(MuiDivider)(spacing);
 
-const FormControl = styled(MuiFormControl)(spacing);
-
 const TextField = styled(MuiTextField)(spacing);
 
 const Button = styled(MuiButton)(spacing);
 
-const CloudUpload = styled(MuiCloudUpload)(spacing);
-
-const CenteredContent = styled.div`
-  text-align: center;
-`;
-
-const BigAvatar = styled(Avatar)`
-  width: 150px;
-  height: 150px;
-  margin: 0 auto ${(props) => props.theme.spacing(2)};
-`;
-
-function Settings() {
+function ProjectFileDetails() {
   const currentSelectedFile = useSelector(currentFile);
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState(currentSelectedFile.name);
@@ -129,4 +112,4 @@ function Settings() {
   );
 }
 
-export default Settings;
+export default ProjectFileDetails;

@@ -58,24 +58,6 @@ const Button = styled(MuiButton)(spacing);
 
 const timeOut = (time) => new Promise((res) => setTimeout(res, time));
 
-// const initialValues = {
-//   firstName: "Alexander",
-//   lastName: "Santos",
-//   birth: "1980-05-22",
-//   identificationCard: "012-0987987-9",
-//   phoneNumber: "829-098-0987",
-//   company: "Banco Popular",
-//   email: "alex@gmail.com",
-//   address: {
-//     street: "Nueva Vista",
-//     numHouseOrApartment: "#99",
-//     neighborhood: "Los Jardinez",
-//     city: "Santo Domingo",
-//   },
-//   password: "mypassword123",
-//   confirmPassword: "mypassword123",
-// };
-
 const validationSchema = Yup.object().shape({
   talentName: Yup.string().required("Required"),
   talentLastName: Yup.string().required("Required"),
@@ -438,7 +420,8 @@ function BasicForm(talent) {
                       mt={3}
                       ml={3}
                     >
-                      <Edit />
+                      <Edit style={{ "margin-right": "10px" }} />
+                      Editar
                     </Button>
                     <Button
                       type="button"
@@ -450,7 +433,8 @@ function BasicForm(talent) {
                       mt={3}
                       ml={3}
                     >
-                      <SwapCalls />
+                      <SwapCalls style={{ "margin-right": "10px" }} />
+                      RoadMap
                     </Button>
                     <Button
                       type="button"
@@ -462,7 +446,8 @@ function BasicForm(talent) {
                       mt={3}
                       ml={3}
                     >
-                      <InsertDriveFile />
+                      <InsertDriveFile style={{ "margin-right": "10px" }} />
+                      Curriculum
                     </Button>
                     <Button
                       type="button"
@@ -474,7 +459,8 @@ function BasicForm(talent) {
                       mt={3}
                       ml={3}
                     >
-                      <ImportContacts />
+                      <ImportContacts style={{ "margin-right": "10px" }} />
+                      Proyectos
                     </Button>
                   </>
                 )}

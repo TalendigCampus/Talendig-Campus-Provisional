@@ -420,6 +420,10 @@ function EnhancedTable() {
 
 function InvoiceList() {
   const showUpdateModal = useSelector(showUpdate);
+  const navigate = useNavigate();
+  const handlePageChange = (pathToGo) => {
+    navigate(pathToGo);
+  };
 
   return (
     <React.Fragment>
@@ -438,7 +442,16 @@ function InvoiceList() {
           </Breadcrumbs>
         </Grid>
         <Grid item>
-          <Actions />
+          <Button
+            type="button"
+            variant="contained"
+            color="success"
+            onClick={() => handlePageChange(-1)}
+            mt={3}
+            ml={3}
+          >
+            Volver
+          </Button>
         </Grid>
       </Grid>
       <Divider my={6} />
