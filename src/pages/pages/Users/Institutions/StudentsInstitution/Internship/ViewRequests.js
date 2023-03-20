@@ -20,6 +20,15 @@ import {
 import { AvatarGroup as MuiAvatarGroup } from "@mui/material";
 import { spacing } from "@mui/system";
 import Actions from "./Actions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  currentSelection,
+  currentTalentIntership,
+  setCurrentTalentIntership,
+  setTalentsIntership,
+  talentsIntership,
+  titleInternship,
+} from "../../../../../../redux/slices/institutionSlice";
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
@@ -53,38 +62,56 @@ const AvatarGroup = styled(MuiAvatarGroup)`
 
 const Project = ({ image, title, description, chip }) => {
   const navigate = useNavigate();
-
-  const handleClose = (id) => {
-    //   dispatch(bootcampProfile({ id: Number(id) }));
-    navigate("/institution/students/view-requests-details");
+  const titleInternshipRedux = useSelector(titleInternship);
+  const newCurrentSelection = useSelector(currentTalentIntership);
+  const dispatch = useDispatch();
+  console.log(newCurrentSelection);
+  const handleClose = (path, nameGroup) => {
+    dispatch(setCurrentTalentIntership({ nameGroup }));
+    navigate(path);
   };
-  return (
-    <Card>
-      {image ? <CardMedia image={image} title="Contemplative Reptile" /> : null}
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="h2">
-          {title}
-        </Typography>
+  return titleInternshipRedux.map((title) => {
+    return (
+      <Grid item xs={12} lg={6} xl={3}>
+        <Card>
+          {image ? (
+            <CardMedia image={image} title="Contemplative Reptile" />
+          ) : null}
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              {title.nameGroup}
+            </Typography>
 
-        {chip}
+            {chip}
 
-        <Typography mb={4} color="textSecondary" component="p">
-          {description}
-        </Typography>
+            <Typography mb={4} color="textSecondary" component="p">
+              {title.description}
+            </Typography>
 
-        <AvatarGroup max={3}>
-          <Avatar alt="Avatar" src="/static/img/avatars/avatar-1.jpg" />
-          <Avatar alt="Avatar" src="/static/img/avatars/avatar-2.jpg" />
-          <Avatar alt="Avatar" src="/static/img/avatars/avatar-3.jpg" />
-        </AvatarGroup>
-      </CardContent>
-      <CardActions>
-        <Button size="small" color="primary" onClick={handleClose}>
-          Detalles
-        </Button>
-      </CardActions>
-    </Card>
-  );
+            <AvatarGroup max={3}>
+              {title.talents.map((data) => {
+                return <Avatar alt="Avatar" src={data.photoUrl} />;
+              })}
+            </AvatarGroup>
+          </CardContent>
+          <CardActions>
+            <Button
+              size="small"
+              color="primary"
+              onClick={() =>
+                handleClose(
+                  "/institution/students/view-requests-details",
+                  title.nameGroup
+                )
+              }
+            >
+              Detalles
+            </Button>
+          </CardActions>
+        </Card>
+      </Grid>
+    );
+  });
 };
 
 function ViewRequests() {
@@ -116,13 +143,7 @@ function ViewRequests() {
       <Divider my={6} />
 
       <Grid container spacing={6}>
-        <Grid item xs={12} lg={6} xl={3}>
-          <Project
-            title="Desarrollo web MERN"
-            description="Crear aplicaciones web con MERN Stack."
-            chip={<Chip label="En progreso" color="warning" />}
-          />
-        </Grid>
+        <Project />
       </Grid>
     </React.Fragment>
   );

@@ -139,14 +139,6 @@ const EnhancedTableHead = (props) => {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{ "aria-label": "select all" }}
-          />
-        </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -328,13 +320,6 @@ function EnhancedTable({ setDeleteInstructorModal }) {
                         key={`${row.id}-${index}`}
                         selected={isItemSelected}
                       >
-                        <TableCell padding="checkbox">
-                          <Checkbox
-                            checked={isItemSelected}
-                            inputProps={{ "aria-labelledby": labelId }}
-                            onClick={(event) => handleClick(event, row.id)}
-                          />
-                        </TableCell>
                         <TableCell component="th" id={labelId} scope="row">
                           <Customer>
                             <Avatar alt="Remy Sharp" src={row.photoUrl} />

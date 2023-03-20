@@ -45,7 +45,7 @@ import {
   addTecnology,
   selectBootcamps,
 } from "../../../../../redux/slices/bootcampSlice";
-import tecnologiesInfo from "../Bootcamps/tecnologies.json";
+import tecnologiesInfo from "../../../Bootcamps/tecnologies.json";
 import { useSelector } from "react-redux";
 import Project from "../Componets/Projects";
 import {

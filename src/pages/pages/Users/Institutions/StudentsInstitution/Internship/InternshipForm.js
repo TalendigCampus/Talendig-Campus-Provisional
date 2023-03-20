@@ -23,10 +23,15 @@ import { spacing } from "@mui/system";
 import Actions from "./Actions";
 import MyStudentsAdd from "./MyStudentsAdd";
 import {
+  currentSelection,
+  currentTalentIntership,
   selectStudents,
   setShowStudentsFree,
+  setTalentsIntership,
+  setTitleInternship,
+  titleInternship,
 } from "../../../../../../redux/slices/institutionSlice";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -43,13 +48,17 @@ const Button = styled(MuiButton)(spacing);
 const timeOut = (time) => new Promise((res) => setTimeout(res, time));
 
 const initialValues = {
+  id: 0,
   nameGroup: "",
   laboralArea: "",
+  description: "",
 };
 
 const validationSchema = Yup.object().shape({
   nameGroup: Yup.string().required("Required"),
-  nameGroup: Yup.string().required("Required"),
+  laboralArea: Yup.string().required("Required"),
+  description: Yup.string(),
+
   // email: Yup.string().email().required("Required"),
   // password: Yup.string()
   //   .min(12, "Must be at least 12 characters")
@@ -65,6 +74,10 @@ const validationSchema = Yup.object().shape({
 });
 
 function BasicForm() {
+  const titleInternshipRedux = useSelector(titleInternship);
+  const newcurrentTalentIntership = useSelector(currentSelection);
+
+  const dispatch = useDispatch();
   const handleSubmit = async (
     values,
     { resetForm, setErrors, setStatus, setSubmitting }
@@ -79,6 +92,14 @@ function BasicForm() {
       setErrors({ submit: error.message });
       setSubmitting(false);
     }
+    const titles = {
+      nameGroup: values.nameGroup,
+      laboralArea: values.laboralArea,
+      description: values.description,
+      talents: newcurrentTalentIntership,
+    };
+    dispatch(setTitleInternship(titles));
+    console.log(titleInternshipRedux);
   };
 
   return (
@@ -134,7 +155,7 @@ function BasicForm() {
                     <TextField
                       name="laboralArea"
                       label="Area laboral a solicitar"
-                      value={values.lastName}
+                      value={values.laboralArea}
                       error={Boolean(touched.laboralArea && errors.laboralArea)}
                       fullWidth
                       helperText={touched.laboralArea && errors.laboralArea}
@@ -144,6 +165,20 @@ function BasicForm() {
                       my={2}
                     />
                   </Grid>
+                </Grid>
+                <Grid item>
+                  <TextField
+                    name="description"
+                    label="Descripcion del grupo"
+                    value={values.description}
+                    error={Boolean(touched.description && errors.description)}
+                    fullWidth
+                    helperText={touched.description && errors.description}
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    variant="outlined"
+                    my={2}
+                  />
                 </Grid>
                 <Divider my={6} />
                 <MyStudentsAdd />

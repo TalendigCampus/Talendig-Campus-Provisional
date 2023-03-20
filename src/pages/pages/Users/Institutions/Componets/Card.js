@@ -27,14 +27,14 @@ export function MediaCard(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleClose = (id) => {
+  const getDetails = (id) => {
     dispatch(bootcampProfile({ id: Number(id) }));
     navigate("/institution/bootcamps/details");
   };
   console.log(props.id);
   return (
     <Card mb={6}>
-      <CardActionArea>
+      <CardActionArea onClick={() => getDetails(props.id)}>
         <CardMedia image={props.image} title={props.bootcampName} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
@@ -52,7 +52,7 @@ export function MediaCard(props) {
         <Button
           size="small"
           color="primary"
-          onClick={() => handleClose(props.id)}
+          onClick={() => getDetails(props.id)}
         >
           Mas informacion
         </Button>
@@ -65,14 +65,14 @@ export function MyMediaCard(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleClose = (id) => {
+  const getDetails = (id) => {
     dispatch(bootcampProfile({ id: Number(id) }));
     navigate("/institution/bootcamps/my-bootcamps/details");
   };
   console.log(props.id);
   return (
     <Card mb={6}>
-      <CardActionArea>
+      <CardActionArea onClick={() => getDetails(props.id)}>
         <CardMedia image={props.image} title={props.bootcampName} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
@@ -87,7 +87,7 @@ export function MyMediaCard(props) {
         <Button
           size="small"
           color="primary"
-          onClick={() => handleClose(props.id)}
+          onClick={() => getDetails(props.id)}
         >
           Detalles
         </Button>
