@@ -264,7 +264,7 @@
     "talentId": 6,
     "recruiterProcess": {
       "activeStep": 0,
-      "activeProcess": true,
+      "activeProcess": false,
       "completedSteps": {
         "0": false
       },
