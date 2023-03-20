@@ -65,6 +65,25 @@ function Settings() {
         {currentSelectedFile?.name || ""}
       </Typography>
 
+      <Breadcrumbs aria-label="Breadcrumb" mt={2}>
+        <Link component={NavLink} to="/instructors/home">
+          Inicio
+        </Link>
+        <Link component={NavLink} to="/instructors/portfolio">
+          Portafolio
+        </Link>
+        <Link component={NavLink} to="/instructors/projects">
+          Proyectos
+        </Link>
+        <Link component={NavLink} to="/instructors/folder">
+          Folder
+        </Link>
+        <Link component={NavLink} to="/instructors/files">
+          Archivos
+        </Link>
+        <Typography>Detalles</Typography>
+      </Breadcrumbs>
+
       <Divider my={6} />
 
       <Card mb={6}>

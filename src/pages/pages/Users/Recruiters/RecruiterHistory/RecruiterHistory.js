@@ -107,13 +107,10 @@ function Projects() {
       </Typography>
 
       <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/">
-          Dashboard
+        <Link component={NavLink} to="/recruiter/home">
+          Inicio
         </Link>
-        <Link component={NavLink} to="/">
-          Pages
-        </Link>
-        <Typography>Projects</Typography>
+        <Typography>Historial</Typography>
       </Breadcrumbs>
 
       <Divider my={6} />

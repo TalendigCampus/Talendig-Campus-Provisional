@@ -28,6 +28,7 @@ import {
   StarRate,
 } from "@mui/icons-material";
 import { spacing } from "@mui/system";
+import Actions from "../Actions";
 import TalentTecnologyList from "./TalentTecnologyList";
 import TalentProfileForm from "./TalentProfileForm";
 
@@ -175,9 +176,26 @@ function Settings() {
     <React.Fragment>
       <Helmet title="Recruiter Profile" />
 
-      <Typography variant="h3" gutterBottom display="inline">
-        Perfil Talento
-      </Typography>
+      <Grid justifyContent="space-between" container spacing={10}>
+        <Grid item>
+          <Typography variant="h3" gutterBottom display="inline">
+            Perfil de Talento
+          </Typography>
+
+          <Breadcrumbs aria-label="Breadcrumb" mt={2}>
+            <Link component={NavLink} to="/instructors/home">
+              Inicio
+            </Link>
+            <Link component={NavLink} to="/instructors/talents/list">
+              Lista
+            </Link>
+            <Typography>Perfil</Typography>
+          </Breadcrumbs>
+        </Grid>
+        <Grid item>
+          <Actions />
+        </Grid>
+      </Grid>
 
       <Divider my={6} />
 

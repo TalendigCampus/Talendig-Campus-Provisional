@@ -56,13 +56,8 @@ function Actions() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem
-          onClick={() => handleClose("/admin/dashboard/users/talents/list")}
-        >
-          Lista{" "}
-        </MenuItem>{" "}
-        <MenuItem onClick={() => handleClose("/admin/dashboard/users/talents")}>
-          Estadisticas{" "}
+        <MenuItem onClick={() => handleClose("/instructors/talents/list")}>
+          Lista
         </MenuItem>
       </Menu>
     </React.Fragment>

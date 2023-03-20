@@ -407,10 +407,24 @@ function InvoiceList() {
           <Typography variant="h3" gutterBottom display="inline">
             Lista de Archivos
           </Typography>
+
+          <Breadcrumbs aria-label="Breadcrumb" mt={2}>
+            <Link component={NavLink} to="/instructors/home">
+              Inicio
+            </Link>
+            <Link component={NavLink} to="/instructors/portfolio">
+              Portafolio
+            </Link>
+            <Link component={NavLink} to="/instructors/projects">
+              Proyectos
+            </Link>
+            <Link component={NavLink} to="/instructors/folder">
+              Folder
+            </Link>
+            <Typography>Archivos</Typography>
+          </Breadcrumbs>
         </Grid>
-        <Grid item>
-          <Actions />
-        </Grid>
+        <Grid item></Grid>
       </Grid>
       <Divider my={6} />
       <Grid container spacing={6}>

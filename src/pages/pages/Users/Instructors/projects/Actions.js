@@ -61,11 +61,6 @@ function Actions() {
         >
           Lista
         </MenuItem>
-        <MenuItem
-          onClick={() => handleChange("/admin/dashboard/users/projects")}
-        >
-          Estadisticas
-        </MenuItem>
       </Menu>
     </React.Fragment>
   );

@@ -428,9 +428,19 @@ function InvoiceList() {
           <Typography variant="h3" gutterBottom display="inline">
             Lista de Carpetas
           </Typography>
-        </Grid>
-        <Grid item>
-          <Actions />
+
+          <Breadcrumbs aria-label="Breadcrumb" mt={2}>
+            <Link component={NavLink} to="/instructors/home">
+              Inicio
+            </Link>
+            <Link component={NavLink} to="/instructors/portfolio">
+              Portafolio
+            </Link>
+            <Link component={NavLink} to="/instructors/projects">
+              Proyectos
+            </Link>
+            <Typography>Folder</Typography>
+          </Breadcrumbs>
         </Grid>
       </Grid>
       <Divider my={6} />

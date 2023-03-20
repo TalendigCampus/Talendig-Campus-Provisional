@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import { spacing } from "@mui/system";
 
-/* import Actions from "./Actions"; */
 import BootcapmsDispo from "./CardContent";
 import { useDispatch } from "react-redux";
 import { CurrentTalent } from "../../../../../redux/slices/talentSlice";
@@ -25,7 +24,6 @@ const Typography = styled(MuiTypography)(spacing);
 const Spacer = styled.div(spacing);
 
 function TalentHome() {
-  const { t } = useTranslation();
   const dispatch = useDispatch();
   const talent = useSelector(CurrentTalent);
 
