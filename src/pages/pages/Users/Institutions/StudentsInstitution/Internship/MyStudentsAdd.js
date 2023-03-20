@@ -45,7 +45,9 @@ import Actions from "./Actions";
 import { useSelector, useDispatch } from "react-redux";
 import tecnologiesInfo from "../../../../Bootcamps/tecnologies.json";
 import {
+  currentSelection,
   selectStudents,
+  setCurrentSelection,
   setShowStudentsFree,
   showStudentsFree,
 } from "../../../../../../redux/slices/institutionSlice";
@@ -212,6 +214,7 @@ function EnhancedTable({ setAllowDelete }) {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   //   const [rows, setRows] = React.useState([]);
   let rows = useSelector(selectStudents);
+  let selectioncurrent = useSelector(currentSelection);
 
   const dispatch = useDispatch();
 
@@ -248,6 +251,7 @@ function EnhancedTable({ setAllowDelete }) {
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, id);
+      console.log(newSelected);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -259,9 +263,9 @@ function EnhancedTable({ setAllowDelete }) {
       );
     }
 
+    dispatch(setCurrentSelection(newSelected));
     setSelected(newSelected);
   };
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };

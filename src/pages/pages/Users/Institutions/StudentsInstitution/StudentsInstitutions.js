@@ -51,7 +51,7 @@ import {
   allowDelete,
   showUndo,
 } from "../../../../../redux/slices/talentSlice";
-import tecnologiesInfo from "../Bootcamps/tecnologies.json";
+import tecnologiesInfo from "../../../Bootcamps/tecnologies.json";
 import {
   selectBootcamps,
   bootcampProfile,
@@ -92,76 +92,6 @@ const Customer = styled.div`
   display: flex;
   align-items: center;
 `;
-
-function createData(
-  talentName,
-  talentEmail,
-  recruiterAvatar,
-  birth,
-  bootcamp,
-  tecnology,
-  id
-) {
-  return {
-    talentName,
-    talentEmail,
-    recruiterAvatar,
-    birth,
-    bootcamp,
-    tecnology,
-    id,
-  };
-}
-/* createData(
-    "Anthony Peralta",
-    "anthony@gmail.com",
-    "A",
-    "012-09879879-0",
-    "1999-10-08",
-    "ASP.Net",
-    "PHP, Angular, Javascript, ASP.net",
-    "1"
-  ),
-  createData(
-    "Madelson Acosta",
-    "madelson@gmail.com",
-    "M",
-    "402-2342343-0",
-    "1920-04-10",
-    "MERN",
-    "Ruby, MERN, Nodejs",
-    "2"
-  ),
-  createData(
-    "Felix Ortega",
-    "felix@gmail.com",
-    "F",
-    "002-1591642-0",
-    "1986-02-10",
-    "ASP.Net",
-    "C#, SQL Server, .Net",
-    "3"
-  ),
-  createData(
-    "Kiancis Dominguez",
-    "kiancis@gmail.com",
-    "K",
-    "012-9089798-0",
-    "1995-12-10",
-    "MERN",
-    "React, Javascript",
-    "4"
-  ),
-  createData(
-    "Gabriel Encarnacion",
-    "gabriel@gmail.com",
-    "G",
-    "012-9089798-0",
-    "1995-12-10",
-    "Mern",
-    "React, Javascript, Nodejs",
-    "5"
-  ), */
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -216,14 +146,6 @@ const EnhancedTableHead = (props) => {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{ "aria-label": "select all" }}
-          />
-        </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -258,21 +180,6 @@ const EnhancedTableToolbar = (props) => {
         )}
       </ToolbarTitle>
       <Spacer />
-      {/* <div>
-        {numSelected > 0 ? (
-          <Tooltip title="Delete">
-            <IconButton aria-label="Delete" size="large">
-              <ArchiveIcon />
-            </IconButton>
-          </Tooltip>
-        ) : (
-          <Tooltip title="Filter list">
-            <IconButton aria-label="Filter list" size="large">
-              <FilterListIcon />
-            </IconButton>
-          </Tooltip>
-        )}
-      </div> */}
     </Toolbar>
   );
 };
@@ -403,13 +310,6 @@ function EnhancedTable({ setAllowDelete, newJson }) {
                       key={`${row.talentId}-${index}`}
                       selected={isItemSelected}
                     >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          checked={isItemSelected}
-                          inputProps={{ "aria-labelledby": labelId }}
-                          onClick={(event) => handleClick(event, row.talentId)}
-                        />
-                      </TableCell>
                       <TableCell component="th" id={labelId} scope="row">
                         <Customer>
                           <Avatar alt="Remy Sharp" src={row.photoUrl} />
