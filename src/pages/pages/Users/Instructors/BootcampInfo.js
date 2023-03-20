@@ -160,9 +160,7 @@ function Modulos({ semanas }) {
             rows={1}
             maxRows={1}
             variant="outlined"
-            defaultValue="Nunc vitae orci ultricies, auctor nunc in, volutpat nisl.
-                Integer sit amet egestas eros, vitae egestas augue. Duis vel est
-                augue."
+            defaultValue="Nuevo Modulo"
           />
         </FormControl>
         <FormControl fullWidth my={2} variant="outlined">
@@ -173,9 +171,7 @@ function Modulos({ semanas }) {
             rows={0}
             maxRows={0}
             variant="outlined"
-            defaultValue="Nunc vitae orci ultricies, auctor nunc in, volutpat nisl.
-                Integer sit amet egestas eros, vitae egestas augue. Duis vel est
-                augue."
+            defaultValue="Estos son sus materiales y recursos para la leccion de esta semana. Aquí estaremos aprendiendo del MERN stack"
           />
         </FormControl>
         <Button variant="contained" color="primary">
