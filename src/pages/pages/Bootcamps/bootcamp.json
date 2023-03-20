@@ -9,7 +9,7 @@
     "tecnologies": [1, 2, 3, 4],
     "teacherId": 1,
     "status": "Disponible",
-    "description": "Bootcamp donde aprenderás a crear aplicaciones web con MERN Stack .",
+    "description": "Bootcamp donde aprenderás a crear aplicaciones web con MERN Stack.",
     "price": "1,499.99",
     "rank": 6,
     "inscription": true,

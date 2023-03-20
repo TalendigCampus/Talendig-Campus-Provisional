@@ -414,11 +414,13 @@ function InvoiceList() {
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
+            <Link component={NavLink} to="/talent/projects">
+              Lista de Proyectos
+            </Link>
             <Link component={NavLink} to="/talent/projects/list/folder/details">
               Lista de Carpetas
             </Link>
-            <Typography>Archivo</Typography>
-            <Typography>Lista</Typography>
+            <Typography>Lista de Archivos</Typography>
           </Breadcrumbs>
         </Grid>
         <Grid item>

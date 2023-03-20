@@ -105,13 +105,13 @@ function HomeWorkDetails() {
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/">
+            <Link component={NavLink} to="/instructor/home">
               Dashboard
             </Link>
-            <Link component={NavLink} to="/">
-              Pages
+            <Link component={NavLink} to="/instructor/bootcampInfo">
+              Bootcamp
             </Link>
-            <Typography>Bootcamp</Typography>
+            <Typography>Asignaciones</Typography>
           </Breadcrumbs>
         </Grid>
         <Grid item>
