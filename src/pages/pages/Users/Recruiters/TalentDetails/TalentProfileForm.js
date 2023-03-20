@@ -406,89 +406,52 @@ function BasicForm(talent) {
                   variant="outlined"
                   my={2}
                 />
-                {!isNotEditing && (
-                  <>
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      color="primary"
-                      mt={3}
-                    >
-                      Guardar
-                    </Button>
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      color="error"
-                      onClick={handleEdit}
-                      mt={3}
-                      ml={3}
-                    >
-                      Cancelar
-                    </Button>
-                  </>
-                )}
-                {isNotEditing && (
-                  <>
-                    <Button
-                      type="button"
-                      variant="contained"
-                      color="primary"
-                      onClick={() =>
-                        handleNavigate(
-                          "/admin/dashboard/users/talents/roadmap",
-                          values.talentId
-                        )
-                      }
-                      mt={3}
-                      ml={3}
-                    >
-                      <SwapCalls />
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="contained"
-                      color="info"
-                      onClick={() =>
-                        handleNavigate(
-                          `/admin/dashboard/users/talents/curriculum`,
-                          values.talentId
-                        )
-                      }
-                      mt={3}
-                      ml={3}
-                    >
-                      <InsertDriveFile />
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="contained"
-                      color="error"
-                      onClick={() =>
-                        handleNavigate(
-                          `/admin/dashboard/users/projects/list/folder/details`,
-                          values.talentId
-                        )
-                      }
-                      mt={3}
-                      ml={3}
-                    >
-                      <ImportContacts />
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="contained"
-                      color="success"
-                      onClick={() =>
-                        handlePageChange("/admin/dashboard/users/talents/list")
-                      }
-                      mt={3}
-                      ml={3}
-                    >
-                      <ListAlt />
-                    </Button>
-                  </>
-                )}
+
+                <Button
+                  type="button"
+                  variant="contained"
+                  color="primary"
+                  onClick={() =>
+                    handleNavigate("/recruiters/talentRoadMap", values.talentId)
+                  }
+                  mt={3}
+                  ml={3}
+                >
+                  <SwapCalls />
+                  <Typography ml={1}>Roadmap</Typography>
+                </Button>
+                <Button
+                  type="button"
+                  variant="contained"
+                  color="info"
+                  onClick={() =>
+                    handleNavigate(
+                      `/recruiters/talentCurriculum`,
+                      values.talentId
+                    )
+                  }
+                  mt={3}
+                  ml={3}
+                >
+                  <InsertDriveFile />
+                  <Typography ml={1}>Curriculum</Typography>
+                </Button>
+                <Button
+                  type="button"
+                  variant="contained"
+                  color="error"
+                  onClick={() =>
+                    handleNavigate(
+                      `/recruiters/talentProjectsFolder`,
+                      values.talentId
+                    )
+                  }
+                  mt={3}
+                  ml={3}
+                >
+                  <ImportContacts />
+                  <Typography ml={1}>Proyectos</Typography>
+                </Button>
               </form>
             )}
           </CardContent>
