@@ -3,9 +3,6 @@ import styled from "styled-components/macro";
 import {
   Button,
   Card as MuiCard,
-  CardContent,
-  Typography,
-  Paper as MuiPaper,
   Dialog,
   DialogActions,
   DialogContent,
@@ -23,7 +20,6 @@ import {
 } from "../../../redux/slices/brieftcaseSlice";
 
 const Card = styled(MuiCard)(spacing);
-const Paper = styled(MuiPaper)(spacing);
 
 function BriefcaseDialogs({ allowDelete, setAllowDelete }) {
   const dispatch = useDispatch();

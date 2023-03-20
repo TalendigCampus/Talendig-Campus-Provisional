@@ -1,4 +1,3 @@
-import { Pagination as MuiPagination } from "@mui/material";
 import Stats from "./Stats";
 import { spacing } from "@mui/system";
 import React, { useState } from "react";
@@ -8,8 +7,6 @@ import {
   JSXICONS,
   STATSQUANTITYBYPAGINATION,
 } from "../../../common/constants/data";
-
-const Pagination = styled(MuiPagination)(spacing);
 
 const Card = styled(MuiCard)(spacing);
 
@@ -32,14 +29,10 @@ const STATSDATA = [
 
 function StatsList() {
   const [page, setPage] = useState(1);
-  const pageQuantity = Math.ceil(STATSDATA.length / STATSQUANTITYBYPAGINATION);
   const dataToShow = STATSDATA.slice(
     (page - 1) * STATSQUANTITYBYPAGINATION,
     page * STATSQUANTITYBYPAGINATION
   );
-  const handleChange = (event, value) => {
-    setPage(value);
-  };
 
   return (
     <Card

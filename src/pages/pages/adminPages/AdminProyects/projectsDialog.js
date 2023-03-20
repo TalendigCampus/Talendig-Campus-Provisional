@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import styled from "styled-components/macro";
-import { NavLink } from "react-router-dom";
+import React from "react";
 import { Helmet } from "react-helmet-async";
 import {
   PROJECT_UPDATE_TYPE,
@@ -8,40 +6,15 @@ import {
   DIALOG_UPDATE_TYPE,
 } from "../../../../common/constants/data";
 import {
-  Avatar,
   Button,
-  Box,
-  CardContent,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
-  FormControl,
-  FormControlLabel,
   Grid,
-  InputLabel,
-  Link,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  MenuItem,
-  Breadcrumbs as MuiBreadcrumbs,
-  Card as MuiCard,
-  Divider as MuiDivider,
-  Paper as MuiPaper,
-  Select,
-  Switch,
   TextField,
-  Typography,
 } from "@mui/material";
-import {
-  Add as AddIcon,
-  Person as PersonIcon,
-  TramRounded,
-} from "@mui/icons-material";
-import { spacing } from "@mui/system";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -58,16 +31,7 @@ import {
   setUpdateType,
 } from "../../../../redux/slices/projectsSlice";
 
-const Card = styled(MuiCard)(spacing);
-
-const Divider = styled(MuiDivider)(spacing);
-
-const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
-
-const Paper = styled(MuiPaper)(spacing);
-
 function AlertDialog() {
-  //const recruiterToDelete = useSelector(currentRecruiter);
   const [userInput, setUserInput] = React.useState("");
   const showUpdateModal = useSelector(showUpdate);
   const type = useSelector(updateType);

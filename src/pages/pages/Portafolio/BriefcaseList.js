@@ -4,17 +4,12 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
 import {
-  Avatar as MuiAvatar,
-  Box,
   Breadcrumbs as MuiBreadcrumbs,
-  Button,
   Checkbox,
-  Chip as MuiChip,
   Divider as MuiDivider,
   Grid,
   IconButton,
   Link,
-  Description,
   Paper as MuiPaper,
   Table,
   TableBody,
@@ -25,21 +20,9 @@ import {
   TableRow,
   TableSortLabel,
   Toolbar,
-  Tooltip,
   Typography,
-  Dialog,
 } from "@mui/material";
-import { green, orange } from "@mui/material/colors";
-import {
-  Add as AddIcon,
-  Archive as ArchiveIcon,
-  FilterList as FilterListIcon,
-  RemoveRedEye as RemoveRedEyeIcon,
-  Edit,
-  RemoveCircle,
-  Info,
-  LibraryBooks,
-} from "@mui/icons-material";
+import { RemoveCircle, Info } from "@mui/icons-material";
 import { spacing } from "@mui/system";
 import Actions from "./Actions";
 
@@ -47,7 +30,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { ListBriefcaseSelected } from "./ListBriefcaseSelected";
 import BriefcaseUndo from "./BriefcaseUndo";
 import {
-  allowDelete,
   briefcaseToDelete,
   selectbriefcases,
   showUndo,
@@ -61,30 +43,12 @@ const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
 const Paper = styled(MuiPaper)(spacing);
 
-const Chip = styled(MuiChip)`
-  ${spacing};
-
-  background: ${(props) => props.paid && green[500]};
-  background: ${(props) => props.sent && orange[700]};
-  color: ${(props) =>
-    (props.paid || props.sent) && props.theme.palette.common.white};
-`;
-
 const Spacer = styled.div`
   flex: 1 1 100%;
 `;
 
 const ToolbarTitle = styled.div`
   min-width: 150px;
-`;
-
-const Avatar = styled(MuiAvatar)`
-  background: ${(props) => props.theme.palette.primary.main};
-`;
-
-const Customer = styled.div`
-  display: flex;
-  align-items: center;
 `;
 
 function descendingComparator(a, b, orderBy) {
@@ -185,21 +149,6 @@ const EnhancedTableToolbar = (props) => {
         )}
       </ToolbarTitle>
       <Spacer />
-      {/* <div>
-        {numSelected > 0 ? (
-          <Tooltip title="Delete">
-            <IconButton aria-label="Delete" size="large">
-              <ArchiveIcon />
-            </IconButton>
-          </Tooltip>
-        ) : (
-          <Tooltip title="Filter list">
-            <IconButton aria-label="Filter list" size="large">
-              <FilterListIcon />
-            </IconButton>
-          </Tooltip>
-        )}
-      </div> */}
     </Toolbar>
   );
 };
@@ -213,7 +162,6 @@ function EnhancedTable({ setAllowDelete }) {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const rows = useSelector(selectbriefcases);
   console.log(rows);
-  const allowDeletebriefcase = useSelector(allowDelete);
   const dispatch = useDispatch();
 
   const handleRequestSort = (event, property) => {
@@ -340,7 +288,6 @@ function EnhancedTable({ setAllowDelete }) {
                       <TableCell align="center">
                         {row.lastModification}
                       </TableCell>
-                      {/* <TableCell>{row.idCard}</TableCell> */}
                       <TableCell align="center">{row.profile}</TableCell>
                       <TableCell align="center">
                         <IconButton

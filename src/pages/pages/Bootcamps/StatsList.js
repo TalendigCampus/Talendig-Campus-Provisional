@@ -26,7 +26,7 @@ function StatsList() {
     <>
       <Grid container spacing={6}>
         {dataToShow.map((stat) => (
-          <Grid key={stat.id} item xs={12} sm={6} md={6} lg={4} xl={3}>
+          <Grid key={stat.id} item xs={12} sm={6} md={6} lg={4} xl={4}>
             <Stats
               key={stat.id}
               title={stat.name}

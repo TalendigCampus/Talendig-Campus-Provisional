@@ -18,8 +18,6 @@ const Divider = styled(MuiDivider)(spacing);
 
 const Typography = styled(MuiTypography)(spacing);
 
-const Spacer = styled.div(spacing);
-
 function BootcampsStatistics() {
   const { t } = useTranslation();
 
