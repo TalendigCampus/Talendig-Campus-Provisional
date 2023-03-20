@@ -26,12 +26,15 @@ const BigAvatar = styled(Avatar)`
   height: 92px;
   text-align: center;
   margin: 0 auto ${(props) => props.theme.spacing(5)};
+  background-color: ${(props) =>
+    props.theme.sidebar.header.background
+      ? props.theme.sidebar.header.background
+      : "grey"};
 `;
 
 function SignIn() {
   return (
     <React.Fragment>
-      {/* <Brand /> */}
       <Wrapper>
         <Helmet title="Inicio de sesión" />
         <BigAvatar alt="talendig" src="/static/img/talents/persona88.svg" />

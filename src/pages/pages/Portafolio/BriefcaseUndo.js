@@ -3,8 +3,6 @@ import React from "react";
 import styled from "styled-components/macro";
 import {
   Card as MuiCard,
-  CardContent,
-  Typography,
   Paper as MuiPaper,
   Button as MuiButton,
   Snackbar,
@@ -22,7 +20,6 @@ import {
   briefcaseToBeRemoved,
 } from "../../../redux/slices/brieftcaseSlice";
 
-const Card = styled(MuiCard)(spacing);
 const Paper = styled(MuiPaper)(spacing);
 const Button = styled(MuiButton)(spacing);
 
@@ -31,7 +28,7 @@ function SimpleSnackbar() {
   const dispatch = useDispatch();
   let currentBriefcase = useSelector(briefcaseToBeRemoved);
 
-  const handleClose = (event, reason) => {
+  const handleClose = () => {
     dispatch(setShowUndo({ status: false }));
   };
 

@@ -13,7 +13,6 @@ import { spacing } from "@mui/system";
 import Actions from "./Actions";
 import BarChart from "./BarChart";
 import LineChart from "./LineChart";
-import DoughnutChart from "./DoughnutChart";
 import StatsList from "./StatsList";
 
 const Divider = styled(MuiDivider)(spacing);

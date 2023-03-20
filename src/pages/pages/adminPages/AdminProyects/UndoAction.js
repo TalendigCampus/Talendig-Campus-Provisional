@@ -1,22 +1,13 @@
 import React from "react";
 import styled from "styled-components/macro";
-import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { PROJECT_UPDATE_TYPE } from "../../../../common/constants/data";
 import {
-  CardContent,
-  Fade,
   Grid,
   IconButton,
-  Link,
-  Breadcrumbs as MuiBreadcrumbs,
   Button as MuiButton,
-  Card as MuiCard,
-  Divider as MuiDivider,
   Paper as MuiPaper,
-  Slide,
   Snackbar,
-  Typography,
 } from "@mui/material";
 import { Close as CloseIcon } from "@mui/icons-material";
 import { spacing } from "@mui/system";
@@ -31,12 +22,6 @@ import {
   currentFolder,
   currentFile,
 } from "../../../../redux/slices/projectsSlice";
-
-const Card = styled(MuiCard)(spacing);
-
-const Divider = styled(MuiDivider)(spacing);
-
-const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
 const Paper = styled(MuiPaper)(spacing);
 
@@ -62,7 +47,7 @@ function SimpleSnackbar() {
     handleClose();
   };
 
-  const handleClose = (event, reason) => {
+  const handleClose = (reason) => {
     if (reason === "clickaway") {
       return;
     }
