@@ -426,7 +426,8 @@ function BasicForm(instructor) {
                       mt={3}
                       ml={3}
                     >
-                      <Edit />
+                      <Edit style={{ "margin-right": "10px" }} />
+                      Editar
                     </Button>
                     <Button
                       type="button"
@@ -440,7 +441,8 @@ function BasicForm(instructor) {
                       mt={3}
                       ml={3}
                     >
-                      <ListAlt />
+                      <ListAlt style={{ "margin-right": "10px" }} />
+                      Volver a instructores
                     </Button>
                   </>
                 )}
