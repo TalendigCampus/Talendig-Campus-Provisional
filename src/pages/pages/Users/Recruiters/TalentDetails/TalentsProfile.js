@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/macro";
-import { NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import RecruitmentSteps from "../TalentProcess/RecruitmentSteps";
 import {
@@ -16,7 +16,7 @@ import {
   TextField as MuiTextField,
   Typography,
 } from "@mui/material";
-import { CloudUpload as MuiCloudUpload } from "@mui/icons-material";
+import { ArrowBack } from "@mui/icons-material";
 import { spacing } from "@mui/system";
 import TalentTecnologyList from "./TalentTecnologyList";
 import TalentProfileForm from "./TalentProfileForm";
@@ -36,8 +36,6 @@ const TextField = styled(MuiTextField)(spacing);
 
 const Button = styled(MuiButton)(spacing);
 
-const CloudUpload = styled(MuiCloudUpload)(spacing);
-
 const CenteredContent = styled.div`
   text-align: center;
 `;
@@ -50,6 +48,7 @@ const BigAvatar = styled(Avatar)`
 
 function Public() {
   const talent = useSelector(CurrentTalent);
+
   return (
     <Card mb={6}>
       <CardContent>
@@ -94,25 +93,38 @@ function Tecnology() {
 
 function Settings() {
   const talent = useSelector(CurrentTalent);
+  const navigate = useNavigate();
+  const goBack = () => {
+    navigate(-1);
+  };
 
   return (
     <React.Fragment>
       <Helmet title="Recruiter Profile" />
-
-      <Typography variant="h3" gutterBottom display="inline">
-        Perfil Talento
-      </Typography>
-
-      <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/recruiter/home">
-          Inicio
-        </Link>
-        <Link component={NavLink} to="/recruiters/talentsList/bestScore">
-          Talentos
-        </Link>
-        <Typography>Perfil</Typography>
-      </Breadcrumbs>
-
+      <Grid
+        justifyContent="space-between"
+        alignItems="center"
+        container
+        spacing={10}
+      >
+        <Grid item>
+          <Typography variant="h3" gutterBottom display="inline">
+            Perfil Talento
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Button
+            type="button"
+            variant="contained"
+            color="success"
+            onClick={goBack}
+            mt={3}
+            ml={3}
+          >
+            Volver
+          </Button>
+        </Grid>
+      </Grid>
       <Divider my={6} />
 
       <Grid container spacing={6}>
