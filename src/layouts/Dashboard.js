@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import { Outlet } from "react-router-dom";
 
@@ -19,6 +19,9 @@ import Footer from "../components/Footer";
 import Settings from "../components/Settings";
 import useAuth from "../hooks/useAuth";
 import { PROFILES } from "../common/constants/data";
+
+import { useDispatch, useSelector } from "react-redux";
+import { isMobile, setIsMobile } from "../redux/slices/tourSlice";
 
 const drawerWidth = 258;
 
@@ -57,7 +60,9 @@ const MainContent = styled(Paper)`
 `;
 
 const Dashboard = ({ children }) => {
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const dispatch = useDispatch();
+  const mobileOpen = useSelector(isMobile);
+
   const { user } = useAuth();
 
   let sidebarItems;
@@ -83,18 +88,23 @@ const Dashboard = ({ children }) => {
   }
 
   const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
+    dispatch(setIsMobile({ isMobile: !mobileOpen }));
   };
 
   const theme = useTheme();
-  const isLgUp = useMediaQuery(theme.breakpoints.up("lg"));
+  const isLgUp = useMediaQuery(theme.breakpoints.up("md"));
 
   return (
     <Root>
       <CssBaseline />
       <GlobalStyle />
       <Drawer>
-        <Hidden lgUp implementation="js">
+        {isLgUp ? (
+          <Sidebar
+            PaperProps={{ style: { width: drawerWidth } }}
+            items={sidebarItems}
+          />
+        ) : (
           <Sidebar
             PaperProps={{ style: { width: drawerWidth } }}
             variant="temporary"
@@ -102,13 +112,7 @@ const Dashboard = ({ children }) => {
             onClose={handleDrawerToggle}
             items={sidebarItems}
           />
-        </Hidden>
-        <Hidden mdDown implementation="css">
-          <Sidebar
-            PaperProps={{ style: { width: drawerWidth } }}
-            items={sidebarItems}
-          />
-        </Hidden>
+        )}
       </Drawer>
       <AppContent>
         <Navbar onDrawerToggle={handleDrawerToggle} />

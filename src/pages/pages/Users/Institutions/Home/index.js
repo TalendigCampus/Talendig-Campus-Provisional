@@ -10,6 +10,7 @@ import {
   Typography as MuiTypography,
 } from "@mui/material";
 import { spacing } from "@mui/system";
+
 import Actions from "../Bootcamps/Actions";
 import Projects from "../Componets/Projects";
 import { useSelector } from "react-redux";
@@ -36,6 +37,7 @@ const Chip = styled(MuiChip)`
 
 function InstitutionsHome() {
   const { t } = useTranslation();
+
   const rows = useSelector(selectBootcamps);
 
   return (

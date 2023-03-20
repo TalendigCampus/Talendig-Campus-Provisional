@@ -85,6 +85,7 @@ const SidebarNavListItem = (props) => {
   const {
     title,
     href,
+    id,
     depth = 0,
     children,
     icon: Icon,
@@ -92,7 +93,7 @@ const SidebarNavListItem = (props) => {
     open: openProp = false,
   } = props;
 
-  const [open, setOpen] = React.useState(openProp);
+  const [open, setOpen] = React.useState(true);
 
   const handleToggle = () => {
     setOpen((state) => !state);
@@ -101,7 +102,7 @@ const SidebarNavListItem = (props) => {
   if (children) {
     return (
       <React.Fragment>
-        <Item depth={depth} onClick={handleToggle}>
+        <Item depth={depth} onClick={handleToggle} id={id}>
           {Icon && <Icon />}
           <Title depth={depth}>
             {title}
@@ -121,6 +122,7 @@ const SidebarNavListItem = (props) => {
         component={CustomRouterLink}
         to={href}
         activeClassName="active"
+        id={id}
       >
         {Icon && <Icon />}
         <Title depth={depth}>
