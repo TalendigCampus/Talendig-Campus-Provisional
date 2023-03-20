@@ -521,9 +521,6 @@ function InvoiceList() {
             Lista de Talentos
           </Typography>
         </Grid>
-        <Grid item>
-          <Actions />
-        </Grid>
       </Grid>
       <Divider my={6} />
       <Grid container spacing={6}>

@@ -405,9 +405,13 @@ function BriefcaseList() {
           <Typography variant="h3" gutterBottom display="inline">
             Lista de Portafolio
           </Typography>
-        </Grid>
-        <Grid item>
-          <Actions />
+
+          <Breadcrumbs aria-label="Breadcrumb" mt={2}>
+            <Link component={NavLink} to="/instructors/home">
+              Inicio
+            </Link>
+            <Typography>Portafolio</Typography>
+          </Breadcrumbs>
         </Grid>
       </Grid>
       <Divider my={6} />

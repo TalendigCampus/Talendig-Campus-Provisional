@@ -189,18 +189,8 @@ function Settings() {
       </Typography>
 
       <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/admin/dashboard/home">
-          Panel
-        </Link>
-        <Typography>Usuarios</Typography>
-        <Link component={NavLink} to="/admin/dashboard/users/recruiters">
-          Reclutadores
-        </Link>
-        <Link
-          component={NavLink}
-          to="/admin/dashboard/users/instructors/list_instructors"
-        >
-          Lista
+        <Link component={NavLink} to="/recruiters/home">
+          Inicio
         </Link>
         <Typography>Perfil</Typography>
       </Breadcrumbs>

@@ -395,11 +395,8 @@ function BootcampsDetails() {
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/">
-              Dashboard
-            </Link>
-            <Link component={NavLink} to="/">
-              Pages
+            <Link component={NavLink} to="/talent/home">
+              Inicio
             </Link>
             <Typography>Bootcamp</Typography>
           </Breadcrumbs>

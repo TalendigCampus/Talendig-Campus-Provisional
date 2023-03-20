@@ -38,37 +38,7 @@ function Actions() {
     navigate(pathToGo);
   };
 
-  return (
-    <React.Fragment>
-      <Button
-        variant="contained"
-        color="secondary"
-        aria-owns={anchorEl ? "simple-menu" : undefined}
-        aria-haspopup="true"
-        onClick={handleClick}
-        mr={5}
-      >
-        <MoreHorizontal />
-      </Button>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem
-          onClick={() => handleChange("/admin/dashboard/users/briefcase/list")}
-        >
-          Lista
-        </MenuItem>
-        <MenuItem
-          onClick={() => handleChange("/admin/dashboard/users/briefcase")}
-        >
-          Estadisticas
-        </MenuItem>
-      </Menu>
-    </React.Fragment>
-  );
+  return <React.Fragment></React.Fragment>;
 }
 
 export default Actions;
