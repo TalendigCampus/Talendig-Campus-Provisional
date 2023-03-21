@@ -308,7 +308,7 @@ function Calendar() {
     <React.Fragment>
       <Helmet title="Calendar" />
       <Typography variant="h3" gutterBottom display="inline">
-        Calendar
+        Calendario
       </Typography>
 
       <Divider my={6} />
