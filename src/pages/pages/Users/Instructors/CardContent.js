@@ -46,7 +46,7 @@ export function BootcapmsDispo() {
 
       <Grid container spacing={6}>
         {dataToShow.map((stat) => (
-          <Grid item xs={12} sm={12} md={12} lg={2.9} xl={2.9}>
+          <Grid item xs={12} sm={12} md={6} lg={2.9} xl={2.9}>
             <MediaCard
               key={stat.id}
               bootcampImage={stat.bootcampImage}
@@ -99,7 +99,7 @@ export function MyBootcamps({ instructorId }) {
 
       <Grid container spacing={6}>
         {dataToShow.map((stat) => (
-          <Grid key={stat.id} item xs={12} sm={12} md={12} lg={2.9} xl={2.9}>
+          <Grid item key={stat.id} xs={12} sm={12} md={12} lg={4} xl={3}>
             <MediaCard
               key={stat.id}
               bootcampImage={stat.image}
@@ -109,6 +109,45 @@ export function MyBootcamps({ instructorId }) {
             />
           </Grid>
         ))}
+        <Grid item key={"2"} xs={12} sm={12} md={12} lg={4} xl={3}>
+          <MediaCard
+            key={"2"}
+            bootcampImage={
+              "https://images.yourstory.com/cs/1/6b460cd040d711e994bbefffe3577d8b/full-stack-web-development-1586433444650.png?w=752&fm=auto&ar=2:1&mode=crop&crop=faces"
+            }
+            bootcampName={"Full Stack Bootcamp"}
+            bootcampDescription={
+              "Bootcamp donde aprenderás a crear aplicaciones web con Full Stack"
+            }
+            bootcampId={"2"}
+          />
+        </Grid>
+        <Grid item key={"3"} xs={12} sm={12} md={12} lg={4} xl={3}>
+          <MediaCard
+            key={"3"}
+            bootcampImage={
+              "https://kinsta.com/es/wp-content/uploads/sites/8/2021/12/front-end-developer.png"
+            }
+            bootcampName={"Frontend Bootcamp"}
+            bootcampDescription={
+              "Bootcamp donde aprenderás a crear aplicaciones web con Frontend"
+            }
+            bootcampId={"3"}
+          />
+        </Grid>
+        <Grid item key={"4"} xs={12} sm={12} md={12} lg={4} xl={3}>
+          <MediaCard
+            key={"4"}
+            bootcampImage={
+              "https://www.dongee.com/tutoriales/content/images/2023/01/image-17.png"
+            }
+            bootcampName={"Backend Bootcamp"}
+            bootcampDescription={
+              "Bootcamp donde aprenderás a crear aplicaciones web con Backend"
+            }
+            bootcampId={"4"}
+          />
+        </Grid>
       </Grid>
 
       <Pagination

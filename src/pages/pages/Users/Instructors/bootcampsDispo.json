@@ -38,7 +38,7 @@
   {
     "id": "5",
     "bootcampName": "React Native Bootcamp",
-    "bootcampDescription": "Bootcamp donde aprenderás a crear aplicaciones móviles con ReactN",
+    "bootcampDescription": "Bootcamp donde aprenderás a crear aplicaciones móviles con React Native",
     "bootcampImage": "https://camo.githubusercontent.com/0f312f8f027645e809cc639173458e4f7a46a41e/68747470733a2f2f63646e2e61757468302e636f6d2f626c6f672f616c7465726e6174697665732d746f2d6e61746976652d6d6f62696c652d646576656c6f706d656e742f72656163742d6e61746976652d6c6f676f2e706e67",
     "bootcampPrice": "1000",
     "bootcampDuration": "3 meses",
