@@ -128,7 +128,7 @@ function Demos() {
       <Box px={4} my={3}>
         <Alert icon={false} severity="info">
           <strong>Hola!</strong> Usuarios de Talendig Campus en talendig, puedes
-          seleccionar el tema que más te guste
+          seleccionar el tema que más te guste.
         </Alert>
       </Box>
 
