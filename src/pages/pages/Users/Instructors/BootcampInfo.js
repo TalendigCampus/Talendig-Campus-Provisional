@@ -31,6 +31,7 @@ import bootcampsDispo from "./bootcampsDispo.json";
 import calendarStyle from "./Calendar.style";
 import demoEvents from "./demo-events.json";
 import FullCalendar from "@fullcalendar/react";
+import esLocale from "@fullcalendar/core/locales/es";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import {
@@ -75,7 +76,7 @@ function SimpleCard() {
     <Card mb={6}>
       <CardContent>
         <Typography color="textSecondary" gutterBottom>
-          Status del Bootcamp
+          Estado del Bootcamp
         </Typography>
         <Alert variant="outlined" severity="success">
           Este Bootcamp se esta impartiendo en el momento
@@ -289,6 +290,7 @@ function EmptyCard() {
             initialView="dayGridMonth"
             initialDate="2023-03-12"
             plugins={[dayGridPlugin, interactionPlugin]}
+            locale={esLocale}
             events={demoEvents}
             editable={true}
             headerToolbar={{
@@ -341,15 +343,17 @@ function BootcampInstructorsInfo({ semanas }) {
       <Divider my={6} />
 
       <Grid container spacing={6}>
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} md={12}>
+          <SimpleCard />
+        </Grid>
+        <Grid item xs={12} md={12}>
           <MediaCard />
           <Divider my={6} />
           <MediaCard2 />
           <Spacer mb={6} />
           <SimpleAccordion />
         </Grid>
-        <Grid item xs={12} md={4}>
-          <SimpleCard />
+        <Grid item xs={12} md={12}>
           <Calendar />
         </Grid>
       </Grid>
