@@ -442,6 +442,11 @@ function InvoiceList() {
   let status = useSelector(showUndo);
   const [id, setId] = React.useState(null);
 
+  const navigate = useNavigate();
+  const handlePageChange = (pathToGo) => {
+    navigate(pathToGo);
+  };
+
   return (
     <React.Fragment>
       <Helmet title="Invoices" />
@@ -463,6 +468,18 @@ function InvoiceList() {
               Lista de talentos
             </Link>
           </Breadcrumbs>
+        </Grid>
+        <Grid item>
+          <Button
+            type="button"
+            variant="contained"
+            color="success"
+            onClick={() => handlePageChange(-1)}
+            mt={3}
+            ml={3}
+          >
+            Volver
+          </Button>
         </Grid>
       </Grid>
       <Divider my={6} />
