@@ -292,7 +292,7 @@ function Curriculum() {
       <Grid justifyContent="space-between" container spacing={10}>
         <Grid item>
           <Typography variant="h3" gutterBottom display="inline">
-            Perfil del instructor
+            Perfil del Reclutador
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
