@@ -126,7 +126,7 @@ export const RECRUITER_TOUR_STEPS = [
   {
     selector: "#recruiterHome",
     content:
-      "Aqui podrás ver información relacionada a tu manejo de talentos, cantidad de talentos en proceso, contratados, entre otros 📈",
+      "Aqui podrás ver información relacionada a tu manejo de talentos, cantidad de talentos en proceso, reclutados, entre otros 📈",
   },
   {
     selector: "#recruiterPerfil",
@@ -163,7 +163,7 @@ export const RECRUITER_TOUR_STEPS = [
   {
     selector: "#recruiterHistory",
     content:
-      "Tu historial de contacto con los talentos contratados o aquellos que deben mejorar 📜",
+      "Tu historial de contacto con los talentos reclutados o aquellos que deben mejorar 📜",
   },
   {
     selector: "#recruiterChangeLog",

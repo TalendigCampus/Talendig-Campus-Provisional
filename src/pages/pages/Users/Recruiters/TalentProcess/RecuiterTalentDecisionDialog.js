@@ -117,7 +117,7 @@ function AlertDialog({ setShowDecision }) {
             error={Boolean(isTouched.selection && !recruiterChoice.selection)}
           >
             <MenuItem key={1} value="contratado">
-              Contratado
+              Reclutado
             </MenuItem>
             <MenuItem key={2} value="debeMejorar">
               Debe Mejorar

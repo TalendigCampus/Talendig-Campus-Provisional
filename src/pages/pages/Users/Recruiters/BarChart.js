@@ -74,7 +74,7 @@ const BarChart = ({ theme }) => {
     <Card mb={1}>
       <CardContent>
         <Typography variant="h6" gutterBottom sx={{ fontWeight: "bold" }}>
-          Talentos Contratados
+          Talentos Reclutados
         </Typography>
 
         <Spacer mb={6} />

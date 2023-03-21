@@ -405,7 +405,7 @@ function InvoiceList() {
       >
         <Grid item>
           <Typography variant="h3" gutterBottom display="inline">
-            Perfil Talento
+            Lista de Talentos
           </Typography>
         </Grid>
         <Grid item>

@@ -118,8 +118,8 @@ function Projects() {
       <Grid container spacing={6}>
         <Grid item xs={12} lg={6} xl={3}>
           <Project
-            description="Lista de Talentos que fueron contratados y que cuentan con las actitudes y aptitudes valoradas para la empresa."
-            chip={<Chip label="Contratados" color="success" />}
+            description="Lista de Talentos que fueron Reclutados y que cuentan con las actitudes y aptitudes valoradas para la empresa."
+            chip={<Chip label="Reclutados" color="success" />}
             image="/static/img/miscellaneous/recruiterHired.jpg"
             talentImages={recruiterTalents
               .filter(

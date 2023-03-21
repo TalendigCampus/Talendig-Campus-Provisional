@@ -400,7 +400,7 @@ function Curriculum() {
       <Helmet title="Profile" />
 
       <Typography variant="h3" gutterBottom display="inline">
-        Perfil de {`${talent.talentName} ${talent.talentLastName}`}
+        Curriculum de {`${talent.talentName} ${talent.talentLastName}`}
       </Typography>
 
       <Divider my={6} />
