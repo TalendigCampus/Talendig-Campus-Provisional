@@ -195,7 +195,7 @@ function About(props) {
           </Grid>
           <Grid item>
             Vivo en{" "}
-            <Link href="https://material-app.bootlab.io/">
+            <Link>
               {props.address.neighborhood}, {props.address.street}
             </Link>
           </Grid>
@@ -206,10 +206,7 @@ function About(props) {
               </AboutIcon>
             </Grid>
             <Grid item>
-              Ciudad{" "}
-              <Link href="https://material-app.bootlab.io/">
-                {props.address.city}
-              </Link>
+              Ciudad <Link>{props.address.city}</Link>
             </Grid>
           </Grid>
           <Grid container direction="row" alignItems="center">
@@ -219,10 +216,7 @@ function About(props) {
               </AboutIcon>
             </Grid>
             <Grid item>
-              Numero de telefono:{" "}
-              <Link href="https://material-app.bootlab.io/">
-                {props.phoneNumber}
-              </Link>
+              Numero de telefono: <Link>{props.phoneNumber}</Link>
             </Grid>
           </Grid>
           <Grid container direction="row" alignItems="center">
@@ -232,10 +226,7 @@ function About(props) {
               </AboutIcon>
             </Grid>
             <Grid item>
-              Email:{" "}
-              <Link href="https://material-app.bootlab.io/">
-                {props.talentEmail}
-              </Link>
+              Email: <Link>{props.talentEmail}</Link>
             </Grid>
           </Grid>
         </Grid>

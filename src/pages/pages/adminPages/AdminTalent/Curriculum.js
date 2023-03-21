@@ -190,10 +190,7 @@ function About(props) {
             </AboutIcon>
           </Grid>
           <Grid item>
-            Vivo en{" "}
-            <Link href="https://material-app.bootlab.io/">
-              {props.neighborhood}
-            </Link>
+            Vivo en <Link>{props.neighborhood}</Link>
           </Grid>
           <Grid container direction="row" alignItems="center">
             <Grid item>
@@ -202,8 +199,7 @@ function About(props) {
               </AboutIcon>
             </Grid>
             <Grid item>
-              Ciudad{" "}
-              <Link href="https://material-app.bootlab.io/">{props.city}</Link>
+              Ciudad <Link>{props.city}</Link>
             </Grid>
           </Grid>
           <Grid container direction="row" alignItems="center" mb={2}>
@@ -213,10 +209,7 @@ function About(props) {
               </AboutIcon>
             </Grid>
             <Grid item>
-              Numero de telefono{" "}
-              <Link href="https://material-app.bootlab.io/">
-                {props.phoneNumber}
-              </Link>
+              Numero de telefono <Link>{props.phoneNumber}</Link>
             </Grid>
           </Grid>
           <Grid container direction="row" alignItems="center" mb={2}>
@@ -226,10 +219,7 @@ function About(props) {
               </AboutIcon>
             </Grid>
             <Grid item>
-              Email{" "}
-              <Link href="https://material-app.bootlab.io/">
-                {props.talentEmail}
-              </Link>
+              Email <Link>{props.talentEmail}</Link>
             </Grid>
           </Grid>
         </Grid>
@@ -255,9 +245,7 @@ function Referens(props) {
             </AboutIcon>
           </Grid>
           <Grid item>
-            <Link href="https://material-app.bootlab.io/">
-              {props.contactEmergencyName}
-            </Link>
+            <Link>{props.contactEmergencyName}</Link>
           </Grid>
         </Grid>
         <Grid container direction="row" alignItems="center" mb={2}>
@@ -266,9 +254,7 @@ function Referens(props) {
               <Phone />
             </AboutIcon>
           </Grid>
-          <Link href="https://material-app.bootlab.io/">
-            {props.contactNumEmergencyName}
-          </Link>
+          <Link>{props.contactNumEmergencyName}</Link>
         </Grid>
       </CardContent>
     </Card>
@@ -314,9 +300,7 @@ function Expirence(props) {
                 </AboutIcon>
               </Grid>
               <Grid item>
-                <Link href="https://material-app.bootlab.io/">
-                  {workExpirence}
-                </Link>
+                <Link>{workExpirence}</Link>
               </Grid>
             </Grid>
           );
@@ -346,7 +330,7 @@ function Education(props) {
                 </AboutIcon>
               </Grid>
               <Grid item>
-                <Link href="https://material-app.bootlab.io/">{education}</Link>
+                <Link>{education}</Link>
               </Grid>
             </Grid>
           );
@@ -376,7 +360,7 @@ function Lenguages(props) {
                 </AboutIcon>
               </Grid>
               <Grid item>
-                <Link href="https://material-app.bootlab.io/">{lenguage}</Link>
+                <Link>{lenguage}</Link>
                 <AboutIcon>
                   <Star />
                   <Star />

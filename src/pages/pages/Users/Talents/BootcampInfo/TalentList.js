@@ -474,7 +474,7 @@ function InvoiceList() {
             type="button"
             variant="contained"
             color="success"
-            onClick={() => handlePageChange(-1)}
+            onClick={() => handlePageChange("/talent/bootcamp-info")}
             mt={3}
             ml={3}
           >

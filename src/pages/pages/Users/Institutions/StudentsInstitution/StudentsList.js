@@ -299,7 +299,6 @@ export function EnhancedTable({ setAllowDelete }) {
   return (
     <div>
       <Paper>
-        <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
             aria-labelledby="tableTitle"
