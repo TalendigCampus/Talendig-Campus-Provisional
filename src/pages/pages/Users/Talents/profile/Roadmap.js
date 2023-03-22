@@ -248,18 +248,13 @@ function Roadmap() {
         Roadmap
       </Typography>
       <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/admin/dashboard/home">
-          Panel
+        <Link component={NavLink} to="/talent/home">
+          Inicio
         </Link>
-        <Link component={NavLink} to="/admin/dashboard/users/talents">
-          Talentos
+        <Link component={NavLink} to="/talent/bootcamp-info">
+          Bootcamps
         </Link>
-        <Link component={NavLink} to="/admin/dashboard/users/talents/list">
-          Lista
-        </Link>
-        <Typography gutterBottom display="inline">
-          Roadmap
-        </Typography>
+        <Typography>Roadmap</Typography>
       </Breadcrumbs>
       <Divider my={6} />
       <PositionedTooltips />

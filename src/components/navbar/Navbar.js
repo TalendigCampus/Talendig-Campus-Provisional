@@ -4,11 +4,29 @@ import { darken } from "polished";
 import { Search as SearchIcon } from "react-feather";
 import { useTranslation } from "react-i18next";
 
+import Tour from "../../pages/pages/Tour/PagesTour";
+import useTour from "../../pages/pages/Tour/useTour";
+import {
+  ADMIN_TOUR_STEPS,
+  RECRUITER_TOUR_STEPS,
+  TALENT_TOUR_STEPS,
+  INSTRUCTOR_TOUR_STEPS,
+  INSTITUTION_TOUR_STEPS,
+  PROFILES,
+} from "../../common/constants/data";
+
+import { useDispatch } from "react-redux";
+import { setShowTour, setIsMobile } from "../../redux/slices/tourSlice";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
+import useAuth from "../../hooks/useAuth";
+
 import {
   Grid,
   Hidden,
   InputBase,
   AppBar as MuiAppBar,
+  Button as MuiButton,
   IconButton as MuiIconButton,
   Toolbar,
 } from "@mui/material";
@@ -17,6 +35,7 @@ import {
   Menu as MenuIcon,
   Fullscreen,
   FullscreenExit,
+  DirectionsCar,
 } from "@mui/icons-material";
 
 import { spacing } from "@mui/system";
@@ -25,6 +44,8 @@ import NavbarNotificationsDropdown from "./NavbarNotificationsDropdown";
 import NavbarMessagesDropdown from "./NavbarMessagesDropdown";
 import NavbarLanguagesDropdown from "./NavbarLanguagesDropdown";
 import NavbarUserDropdown from "./NavbarUserDropdown";
+
+const Button = styled(MuiButton)(spacing);
 
 const AppBar = styled(MuiAppBar)`
   background: ${(props) => props.theme.header.background};
@@ -83,9 +104,42 @@ const Input = styled(InputBase)`
   }
 `;
 
+const getTourSteps = (profile) => {
+  let steps = [];
+  switch (profile) {
+    case PROFILES.admin:
+      steps = ADMIN_TOUR_STEPS;
+      break;
+    case PROFILES.talent:
+      steps = TALENT_TOUR_STEPS;
+      break;
+    case PROFILES.instructor:
+      steps = INSTRUCTOR_TOUR_STEPS;
+      break;
+    case PROFILES.recruiter:
+      steps = RECRUITER_TOUR_STEPS;
+      break;
+    case PROFILES.institution:
+      steps = INSTITUTION_TOUR_STEPS;
+      break;
+    default:
+      break;
+  }
+
+  return steps;
+};
+
 const Navbar = ({ onDrawerToggle }) => {
-  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const theme = useTheme();
+  const { user } = useAuth();
+
+  const isMobileMode = useMediaQuery(theme.breakpoints.down("md"));
   const [enableFullScreen, setEnableFullScreen] = React.useState(false);
+
+  const [openShowTour, setOpenShowTour] = useTour({
+    localStorageKey: `${user.profile}Tour`,
+  });
 
   const launchFullScreen = (element) => {
     if (element.requestFullScreen) {
@@ -106,9 +160,17 @@ const Navbar = ({ onDrawerToggle }) => {
       document.webkitCancelFullScreen();
     }
   };
+
   enableFullScreen
     ? launchFullScreen(document.documentElement)
     : cancelFullScreen();
+
+  const showTour = () => {
+    (isMobileMode &&
+      dispatch(setIsMobile({ isMobile: true })) &&
+      setTimeout(() => dispatch(setShowTour()), 230)) ||
+      dispatch(setShowTour());
+  };
 
   return (
     <React.Fragment>
@@ -139,6 +201,16 @@ const Navbar = ({ onDrawerToggle }) => {
             <Grid item>
               {/* <NavbarMessagesDropdown />
               <NavbarNotificationsDropdown /> */}
+              <Button
+                mr={2}
+                variant="contained"
+                color="primary"
+                onClick={showTour}
+              >
+                Tour
+                <DirectionsCar />
+              </Button>
+
               <IconButton
                 aria-haspopup="true"
                 onClick={() =>
@@ -155,6 +227,11 @@ const Navbar = ({ onDrawerToggle }) => {
           </Grid>
         </Toolbar>
       </AppBar>
+      <Tour
+        userSteps={getTourSteps(user.profile)}
+        showTour={openShowTour}
+        setShowTour={setOpenShowTour}
+      />
     </React.Fragment>
   );
 };

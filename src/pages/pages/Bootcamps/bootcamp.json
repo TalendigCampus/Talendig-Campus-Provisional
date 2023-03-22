@@ -22,7 +22,7 @@
       "Adición de inicio de sesión de Facebook a sus sitios web de ASP .NET Core",
       "Proteja su aplicación web contra Cross-Site Scripting Attack (XSS)"
     ],
-    "InPossession ": true
+    "InPossession": true
   },
   {
     "id": 2,
@@ -47,7 +47,7 @@
       "Adición de inicio de sesión de Facebook a sus sitios web de ASP .NET Core",
       "Proteja su aplicación web contra Cross-Site Scripting Attack (XSS)"
     ],
-    "InPossession ": false
+    "InPossession": false
   },
   {
     "id": 3,
@@ -71,7 +71,7 @@
       "Adición de inicio de sesión de Facebook a sus sitios web de ASP .NET Core",
       "Proteja su aplicación web contra Cross-Site Scripting Attack (XSS)"
     ],
-    "InPossession ": true
+    "InPossession": true
   },
   {
     "id": 4,
@@ -95,7 +95,7 @@
       "Adición de inicio de sesión de Facebook a sus sitios web de ASP .NET Core",
       "Proteja su aplicación web contra Cross-Site Scripting Attack (XSS)"
     ],
-    "InPossession ": false
+    "InPossession": false
   },
   {
     "id": 5,
@@ -119,7 +119,7 @@
       "Adición de inicio de sesión de Facebook a sus sitios web de ASP .NET Core",
       "Proteja su aplicación web contra Cross-Site Scripting Attack (XSS)"
     ],
-    "InPossession ": true
+    "InPossession": true
   },
   {
     "id": 6,
@@ -143,6 +143,6 @@
       "Adición de inicio de sesión de Facebook a sus sitios web de ASP .NET Core",
       "Proteja su aplicación web contra Cross-Site Scripting Attack (XSS)"
     ],
-    "InPossession ": false
+    "InPossession": false
   }
 ]

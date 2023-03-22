@@ -8,6 +8,14 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import * as Icon from "@mui/icons-material";
 import { spacing } from "@mui/system";
+import Timeline from "@mui/lab/Timeline";
+import TimelineItem from "@mui/lab/TimelineItem";
+import TimelineSeparator from "@mui/lab/TimelineSeparator";
+import TimelineConnector from "@mui/lab/TimelineConnector";
+import TimelineContent from "@mui/lab/TimelineContent";
+import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
+import TimelineDot from "@mui/lab/TimelineDot";
+import { ExpandMore as ExpandMoreIcon } from "@mui/icons-material";
 
 import {
   Avatar,
@@ -18,135 +26,213 @@ import {
   Link,
   TextField as MuiTextField,
   Typography,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
 } from "@mui/material";
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
 const Divider = styled(MuiDivider)(spacing);
 
+const FormControl = styled(MuiFormControl)(spacing);
+
+const TextField = styled(MuiTextField)(spacing);
+
+const CenteredContent = styled.div`
+  text-align: center;
+`;
+
+const Spacer = styled.div(spacing);
+
+const BigAvatar = styled(Avatar)`
+  width: 150px;
+  height: 150px;
+  margin: 0 auto ${(props) => props.theme.spacing(2)};
+`;
+
+function PositionedTooltips() {
+  return (
+    <React.Fragment>
+      <Grid container spacing={12}>
+        <Grid item xs={12} lg={12}>
+          <RoadmapPrimerNivel />
+        </Grid>
+        <Grid item xs={12} lg={12}>
+          <RoadmapSegundoNivel />
+        </Grid>
+        <Grid item xs={12} lg={12}>
+          <RoadmapTercerNivel />
+        </Grid>
+      </Grid>
+    </React.Fragment>
+  );
+}
+
 function RoadmapPrimerNivel() {
   return (
-    <Grid container spacing={6}>
-      <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-        <Tooltip title="Intro">
-          <Button>
-            <Icon.School style={{ fontSize: "50px" }} />
-          </Button>
-        </Tooltip>
-        <Tooltip title="Que es una variable?">
-          <Button>
-            <Icon.School style={{ fontSize: "50px" }} />
-          </Button>
-        </Tooltip>
-        <Tooltip title="Ejercicios de Variables">
-          <Button>
-            <Icon.School style={{ fontSize: "50px" }} />
-          </Button>
-        </Tooltip>
-        <Tooltip title="Examen: Las Variables">
-          <Button>
-            <Icon.GolfCourse color="warning" style={{ fontSize: "50px" }} />
-          </Button>
-        </Tooltip>
-      </Grid>
-    </Grid>
+    <Accordion>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <Typography variant="h4">Modulo 1</Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        <Timeline position="alternate">
+          <TimelineItem>
+            <TimelineOppositeContent color="text.secondary">
+              Completado!
+            </TimelineOppositeContent>
+            <TimelineSeparator>
+              <TimelineDot color="primary">
+                <Icon.School style={{ fontSize: "50px" }} color="white" />
+              </TimelineDot>
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent sx={{ py: "50px" }}>
+              Que es una variable?
+            </TimelineContent>
+          </TimelineItem>
+          <TimelineItem>
+            <TimelineOppositeContent color="text.secondary">
+              Proxima Leccion
+            </TimelineOppositeContent>
+            <TimelineSeparator>
+              <TimelineDot color="primary" variant="outlined">
+                <Icon.School style={{ fontSize: "50px" }} color="primary" />
+              </TimelineDot>
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent sx={{ py: "50px" }}>
+              Ejercicios de Variables
+            </TimelineContent>
+          </TimelineItem>
+          <TimelineItem>
+            <TimelineSeparator>
+              <TimelineDot variant="outlined">
+                <Icon.GolfCourse color="warning" style={{ fontSize: "50px" }} />
+              </TimelineDot>
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent>Examen: Las Variables</TimelineContent>
+          </TimelineItem>
+        </Timeline>
+      </AccordionDetails>
+    </Accordion>
   );
 }
 
 function RoadmapSegundoNivel() {
   return (
-    <Grid container spacing={6}>
-      <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-        <Tooltip title="Aprendiendo Logica" placement="top-start">
-          <Button>
-            <Icon.School style={{ fontSize: "50px" }} />
-          </Button>
-        </Tooltip>
-        <Tooltip title="Calculadora en Lenguaje de Programacion">
-          <Button>
-            <Icon.School style={{ fontSize: "50px" }} />
-          </Button>
-        </Tooltip>
-        <Tooltip title="Formularios">
-          <Button>
-            <Icon.School style={{ fontSize: "50px" }} />
-          </Button>
-        </Tooltip>
-        <Tooltip title="El Login">
-          <Button>
-            <Icon.School style={{ fontSize: "50px" }} />
-          </Button>
-        </Tooltip>
-        <Tooltip title="Examen de Formularios">
-          <Button>
-            <Icon.GolfCourse color="warning" style={{ fontSize: "50px" }} />
-          </Button>
-        </Tooltip>
-      </Grid>
-    </Grid>
+    <Accordion>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <Typography variant="h4">Modulo 2</Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        <Timeline position="alternate">
+          <TimelineItem>
+            <TimelineSeparator>
+              <TimelineDot variant="outlined">
+                <Icon.School style={{ fontSize: "50px" }} color="primary" />
+              </TimelineDot>
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent sx={{ py: "50px" }}>
+              Calculadora en Lenguaje de Programacion
+            </TimelineContent>
+          </TimelineItem>
+          <TimelineItem>
+            <TimelineSeparator>
+              <TimelineDot variant="outlined">
+                <Icon.School style={{ fontSize: "50px" }} color="primary" />
+              </TimelineDot>
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent sx={{ py: "50px" }}>Formularios</TimelineContent>
+          </TimelineItem>
+          <TimelineItem>
+            <TimelineSeparator>
+              <TimelineDot variant="outlined">
+                <Icon.School style={{ fontSize: "50px" }} color="primary" />
+              </TimelineDot>
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent sx={{ py: "50px" }}>El Login</TimelineContent>
+          </TimelineItem>
+          <TimelineItem>
+            <TimelineSeparator>
+              <TimelineDot variant="outlined">
+                <Icon.GolfCourse color="warning" style={{ fontSize: "50px" }} />
+              </TimelineDot>
+            </TimelineSeparator>
+            <TimelineContent sx={{ py: "50px" }}>
+              Examen de Formularios
+            </TimelineContent>
+          </TimelineItem>
+        </Timeline>
+      </AccordionDetails>
+    </Accordion>
   );
 }
 
 function RoadmapTercerNivel() {
   return (
-    <Grid container spacing={6}>
-      <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-        <Tooltip title="Añadir Usuarios">
-          <Button>
-            <Icon.School style={{ fontSize: "50px" }} />
-          </Button>
-        </Tooltip>
-        <Tooltip title="Variables Locales y Globales">
-          <Button>
-            <Icon.School style={{ fontSize: "50px" }} />
-          </Button>
-        </Tooltip>
-        <Tooltip title="Hooks">
-          <Button>
-            <Icon.School style={{ fontSize: "50px" }} />
-          </Button>
-        </Tooltip>
-        <Tooltip title="Logica Avanzada">
-          <Button>
-            <Icon.School style={{ fontSize: "50px" }} />
-          </Button>
-        </Tooltip>
-        <Tooltip title="Programacion FrontEnd y BackEnd">
-          <Button>
-            <Icon.School style={{ fontSize: "50px" }} />
-          </Button>
-        </Tooltip>
-        <Tooltip title="Examen Final">
-          <Button>
-            <Icon.Flag color="error" style={{ fontSize: "50px" }} />
-          </Button>
-        </Tooltip>
-      </Grid>
-    </Grid>
-  );
-}
-
-function PositionedTooltips() {
-  return (
-    <React.Fragment>
-      <Grid container spacing={4}>
-        <Grid item xs={12} lg={4}>
-          <RoadmapPrimerNivel />
-        </Grid>
-        <Grid item xs={12} lg={4}></Grid>
-        <Grid item xs={12} lg={4}></Grid>
-        <Grid item xs={12} lg={4}></Grid>
-        <Grid item xs={12} lg={4}>
-          <RoadmapSegundoNivel />
-        </Grid>
-        <Grid item xs={12} lg={4}></Grid>
-        <Grid item xs={12} lg={4}></Grid>
-        <Grid item xs={12} lg={4}></Grid>
-        <Grid item xs={12} lg={4}>
-          <RoadmapTercerNivel />
-        </Grid>
-      </Grid>
-    </React.Fragment>
+    <Accordion>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <Typography variant="h4">Modulo 3</Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        <Timeline position="alternate">
+          <TimelineItem>
+            <TimelineSeparator>
+              <TimelineDot variant="outlined">
+                <Icon.School style={{ fontSize: "50px" }} color="primary" />
+              </TimelineDot>
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent sx={{ py: "50px" }}>
+              Añadir Usuarios
+            </TimelineContent>
+          </TimelineItem>
+          <TimelineItem>
+            <TimelineSeparator>
+              <TimelineDot variant="outlined">
+                <Icon.School style={{ fontSize: "50px" }} color="primary" />
+              </TimelineDot>
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent sx={{ py: "50px" }}>
+              Variables Locales y Globales
+            </TimelineContent>
+          </TimelineItem>
+          <TimelineItem>
+            <TimelineSeparator>
+              <TimelineDot variant="outlined">
+                <Icon.School style={{ fontSize: "50px" }} color="primary" />
+              </TimelineDot>
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent sx={{ py: "50px" }}>Hooks</TimelineContent>
+          </TimelineItem>
+          <TimelineItem>
+            <TimelineSeparator>
+              <TimelineDot variant="outlined">
+                <Icon.School color="primary" style={{ fontSize: "50px" }} />
+              </TimelineDot>
+            </TimelineSeparator>
+            <TimelineContent sx={{ py: "50px" }}>
+              Logica Avanzada
+            </TimelineContent>
+          </TimelineItem>
+          <TimelineItem>
+            <TimelineSeparator>
+              <TimelineDot variant="outlined">
+                <Icon.Flag color="success" style={{ fontSize: "50px" }} />
+              </TimelineDot>
+            </TimelineSeparator>
+            <TimelineContent sx={{ py: "50px" }}>Examen Final</TimelineContent>
+          </TimelineItem>
+        </Timeline>
+      </AccordionDetails>
+    </Accordion>
   );
 }
 

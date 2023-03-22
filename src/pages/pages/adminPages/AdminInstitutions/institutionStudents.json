@@ -1,0 +1,338 @@
+[
+  {
+    "talentName": "Loreta",
+    "talentLastName": "Peralta",
+    "talentEmail": "loreta@claro.com",
+    "talenAvatar": "L",
+    "password": "123456789123456789",
+    "confirmPassword": "123456789123456789",
+    "phoneNumber": "8092315445",
+    "contactEmergencyName": "Maria del Carmen",
+    "contactNumEmergencyName": "8299234598",
+    "idCard": "012-09879879-0",
+    "birth": "1999-10-08",
+    "address": {
+      "street": "Nueva Vista",
+      "numHouseOrApartment": "#99",
+      "neighborhood": "Los Jardinez",
+      "city": "Santo Domingo"
+    },
+    "bootcamp": 1,
+    "technology": [2, 4, 6, 5],
+    "affiliationDate": "05-12-2022",
+    "lastConnectionDate": "05-12-2022 3:00 PM",
+    "photoUrl": "/static/img/avatars/avatar-1.jpg",
+    "education": " Universidad Autonoma de Santo Domingo, Bootcamp en MERN",
+    "workExpirences": "Escuela Catolica Santiago, Excelencia Estudiantil",
+    "lenguages": "Ingles, Español",
+    "biography": "Soy un joven Licenciado en Informática con conocimientos en el desarrollo web, móvil y de escritorio. Capaz de crear aplicaciones intuitivas y trabajar en soluciones tecnológicas automatizadas, integrables, distribuidas y continuas. Mi preocupación constante  por potenciar la asertividad y comunicación permite que me incorpore de manera colaborativa y efectiva en el desarrollo de proyectos ágiles.",
+    "talentId": 1,
+    "recruiterProcess": {
+      "activeStep": 1,
+      "activeProcess": false,
+      "completedSteps": {
+        "0": true
+      },
+      "category": {
+        "rating": "bestScore",
+        "favorite": true
+      },
+      "decision": {
+        "selection": "",
+        "comments": ""
+      },
+      "status": {
+        "intern": true
+      }
+  }
+},
+
+  {
+    "talentName": "Pedro",
+    "talentLastName": "Acosta",
+    "talentEmail": "pedro@claro.com",
+    "talenAvatar": "P",
+    "password": "123456789123456789",
+    "confirmPassword": "123456789123456789",
+    "phoneNumber": "8092315445",
+    "contactEmergencyName": "Ana mercedes",
+    "contactNumEmergencyName": "8091236789",
+    "idCard": "402-2342343-0",
+    "birth": "1920-04-10",
+    "address": {
+      "street": "Nueva Vista",
+      "numHouseOrApartment": "#99",
+      "neighborhood": "Los Jardinez",
+      "city": "Santo Domingo"
+    },
+    "bootcamp": 1,
+    "career": "Software Developer",
+    "technology": [2, 4, 1, 3],
+    "affiliationDate": "05-12-2022",
+    "lastConnectionDate": "05-12-2022 3:00 PM",
+    "photoUrl": "/static/img/avatars/avatar-2.jpg",
+    "education": " Universidad Autonoma de Santo Domingo, Bootcamp en MERN",
+    "workExpirences": "Escuela Catolica Santiago, Excelencia Estudiantil",
+    "lenguages": "Ingles, Español",
+    "biography": "Soy una persona muy integra y apasionada. Me gusta intentar cosas nuevas y desafiarme cada día, ser la mejor version de mi. Me fascina la programación, sin duda una de las cosas que más disfruto en mi tiempo libre. Resolver cuestionantes que a su vez tienen una utilidad para los demás me hace muy feliz.",
+    "talentId": 2,
+    "recruiterProcess": {
+      "activeStep": 0,
+      "activeProcess": false,
+      "completedSteps": {
+        "0": false
+      },
+      "category": {
+        "rating": "recommended",
+        "favorite": false
+      },
+      "decision": {
+        "selection": "",
+        "comments": ""
+      },
+      "status": {
+        "intern": true
+      }
+    }
+  },
+  {
+    "talentName": "Marcos",
+    "talentLastName": "Ortega",
+    "talentEmail": "marcos@claro.com.com",
+    "talenAvatar": "M",
+    "password": "123456789123456789",
+    "confirmPassword": "123456789123456789",
+    "phoneNumber": "8092315445",
+    "contactEmergencyName": "Penelope Ricardo",
+    "contactNumEmergencyName": "8293256782",
+    "idCard": "002-1591642-0",
+    "birth": "1920-04-10",
+    "address": {
+      "street": "Nueva Vista",
+      "numHouseOrApartment": "#99",
+      "neighborhood": "Los Jardinez",
+      "city": "Santo Domingo"
+    },
+    "bootcamp": 5,
+    "career": "Software Developer",
+    "technology": [5, 3, 1, 2],
+    "affiliationDate": "05-12-2022",
+    "lastConnectionDate": "05-12-2022 3:00 PM",
+    "photoUrl": "/static/img/avatars/avatar-2.jpg",
+    "education": " Universidad Autonoma de Santo Domingo, Bootcamp en MERN",
+    "workExpirences": "Escuela Catolica Santiago, Excelencia Estudiantil",
+    "lenguages": "Ingles, Español",
+    "biography": "Soy licenciado en publicidad egresado de UNAPEC. Con más de 5 años de experiencia en la comunicación visual, me apasiona el diseño de experiencias de usuario. Me he desempeñado en labores como creación de key visual para campañas publicitarias, creación de identidad corporativa, líneas gráficas para implementación digital, prototipado, UX research, wireframes, entre otras.",
+    "talentId": 3,
+    "recruiterProcess": {
+      "activeStep": 0,
+      "activeProcess": false,
+      "completedSteps": {
+        "0": false
+      },
+      "category": {
+        "rating": "highProjectsCount",
+        "favorite": false
+      },
+      "decision": {
+        "selection": "",
+        "comments": ""
+      },
+      "status": {
+        "intern": true
+      }
+    }
+  },
+  {
+    "talentName": "Carla",
+    "talentLastName": "Dominguez",
+    "talentEmail": "carlos@claro.com",
+    "talenAvatar": "C",
+    "password": "123456789123456789",
+    "confirmPassword": "123456789123456789",
+    "phoneNumber": "8092315445",
+    "contactEmergencyName": "Kiara de los Santos",
+    "contactNumEmergencyName": "8299838745",
+    "idCard": "002-15233625-0",
+    "birth": "1920-04-10",
+    "address": {
+      "street": "Nueva Vista",
+      "numHouseOrApartment": "#99",
+      "neighborhood": "Los Jardinez",
+      "city": "Santo Domingo"
+    },
+    "bootcamp": 1,
+    "career": "Software Developer",
+    "technology": [3, 2, 1],
+    "affiliationDate": "05-12-2022",
+    "lastConnectionDate": "05-12-2022 3:00 PM",
+    "photoUrl": "/static/img/avatars/avatar-5.jpg",
+    "education": " Universidad Autonoma de Santo Domingo, Bootcamp en MERN",
+    "workExpirences": "Escuela Catolica Santiago, Excelencia Estudiantil",
+    "lenguages": "Ingles, Español",
+    "biography": "Estudiante dedicado, con muchos conocimientos en el área de la tecnología, con deseos de superarse, el cual le apasiona aprender más cada día, especializado en el área de la programación y el Soporte Técnico(usuarios y maquinaria), poseo una gran variedad de valores, en los cuales destaco la humildad, la responsabilidad y respeto.",
+    "talentId": 4,
+    "recruiterProcess": {
+      "activeStep": 0,
+      "activeProcess": true,
+      "completedSteps": {
+        "0": false
+      },
+      "category": {
+        "rating": "recommended",
+        "favorite": false
+      },
+      "decision": {
+        "selection": "",
+        "comments": ""
+      },
+      "status": {
+        "intern": false
+      }
+    }
+  },
+  {
+    "talentName": "Maria",
+    "talentLastName": "Encarnacion",
+    "talentEmail": "maria@claro.com",
+    "talenAvatar": "M",
+    "password": "123456789123456789",
+    "confirmPassword": "123456789123456789",
+    "phoneNumber": "8092315445",
+    "contactEmergencyName": "Rosalia",
+    "contactNumEmergencyName": "8299508123",
+    "idCard": "012-9089798-0",
+    "birth": "1995-12-10",
+    "address": {
+      "street": "Nueva Vista",
+      "numHouseOrApartment": "#99",
+      "neighborhood": "Los Jardinez",
+      "city": "Santo Domingo"
+    },
+    "bootcamp": 3,
+    "technology": [2, 4],
+    "affiliationDate": "05-12-2022",
+    "lastConnectionDate": "05-12-2022 3:00 PM",
+    "photoUrl": "/static/img/avatars/avatar-3.jpg",
+    "education": " Universidad Autonoma de Santo Domingo, Bootcamp en MERN",
+    "workExpirences": "Escuela Catolica Santiago, Excelencia Estudiantil",
+    "lenguages": "Ingles, Español",
+    "biography": "Mi objetivo es formar parte de una institución, en la cual pueda poner en práctica todos mis conocimientos. Con Capacidad para comprender y resolver problemas de forma rápida y práctica para el desarrollo funcional de la intitucion.",
+    "work": "Talendig",
+    "talentId": 5,
+    "recruiterProcess": {
+      "activeStep": 0,
+      "activeProcess": false,
+      "completedSteps": {
+        "0": false
+      },
+      "category": {
+        "rating": "bestScore",
+        "favorite": false
+      },
+      "decision": {
+        "selection": "",
+        "comments": ""
+      },
+      "status": {
+        "intern": false
+      }
+    }
+  },
+  {
+    "talentName": "Kristy",
+    "talentLastName": "De Los Santos",
+    "talentEmail": "tristan@claro.com",
+    "talenAvatar": "T",
+    "imgTalent": "/static/img/avatars/avatar-4.jpg",
+    "password": "12345",
+    "phoneNumber": "8092315445",
+    "contactEmergencyName": "Rosalia",
+    "contactNumEmergencyName": "8299508123",
+    "idCard": "012-9089798-0",
+    "birth": "1995-12-10",
+    "city": "Santo Domingo de Guzman",
+    "address": {
+      "street": "Nueva Vista",
+      "numHouseOrApartment": "#99",
+      "neighborhood": "Los Jardinez",
+      "city": "Santo Domingo"
+    },
+    "Street": "Albaro Garabito",
+    "bootcamp": 3,
+    "career": "Software Developer",
+    "technology": [2, 4, 1, 3],
+    "education": " Universidad Autonoma de Santo Domingo, Bootcamp en MERN",
+    "workExpirences": "Escuela Catolica Santiago, Excelencia Estudiantil",
+    "lenguages": "Ingles, Español",
+    "biography": "Mi objetivo es formar parte de una institución, en la cual pueda poner en práctica todos mis conocimientos. Con Capacidad para comprender y resolver problemas de forma rápida y práctica para el desarrollo funcional de la intitucion.",
+    "work": "Talendig",
+    "talentId": 6,
+    "recruiterProcess": {
+      "activeStep": 0,
+      "activeProcess": false,
+      "completedSteps": {
+        "0": false
+      },
+      "category": {
+        "rating": "bestScore",
+        "favorite": false
+      },
+      "decision": {
+        "selection": "",
+        "comments": ""
+      },
+      "status": {
+        "intern": true
+      }
+    }
+  },
+  {
+    "talentName": "Laura",
+    "talentLastName": "Mejia",
+    "talentEmail": "laura@claro.com",
+    "talenAvatar": "L",
+    "imgTalent": "/static/img/avatars/avatar-5.jpg",
+    "password": "12345",
+    "phoneNumber": "8092315445",
+    "contactEmergencyName": "Rosalia",
+    "contactNumEmergencyName": "8299508123",
+    "idCard": "012-9089798-0",
+    "birth": "1995-12-10",
+    "city": "Santo Domingo de Guzman",
+    "address": {
+      "street": "Nueva Vista",
+      "numHouseOrApartment": "#99",
+      "neighborhood": "Los Jardinez",
+      "city": "Santo Domingo"
+    },
+    "Street": "Albaro Garabito",
+    "bootcamp": 5,
+    "career": "Software Developer",
+    "technology": [3, 6, 5],
+    "education": " Universidad Autonoma de Santo Domingo, Bootcamp en MERN",
+    "workExpirences": "Escuela Catolica Santiago, Excelencia Estudiantil",
+    "lenguages": "Ingles, Español",
+    "biography": "Mi objetivo es formar parte de una institución, en la cual pueda poner en práctica todos mis conocimientos. Con Capacidad para comprender y resolver problemas de forma rápida y práctica para el desarrollo funcional de la intitucion.",
+    "work": "Talendig",
+    "talentId": 7,
+    "recruiterProcess": {
+      "activeStep": 0,
+      "activeProcess": true,
+      "completedSteps": {
+        "0": false
+      },
+      "category": {
+        "rating": "bestScore",
+        "favorite": false
+      },
+      "decision": {
+        "selection": "",
+        "comments": ""
+      },
+      "status": {
+        "intern": false
+      }
+    }
+  }
+]

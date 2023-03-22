@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import styled from "styled-components/macro";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
@@ -39,9 +40,13 @@ import {
   RemoveCircle,
   Info,
   LibraryBooks,
+  Star,
+  StarBorder,
 } from "@mui/icons-material";
 import { spacing } from "@mui/system";
-
+import Actions from "./Actions";
+import AlertDialog from "./Alert";
+import TalentUndo from "./TalentUndo";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectTalents,
@@ -276,7 +281,27 @@ const EnhancedTableToolbar = (props) => {
   );
 };
 
+function RowCheckIconButton({ row }) {
+  const [checked, setChecked] = useState(false);
+
+  const handleClick = () => {
+    setChecked(!checked);
+  };
+
+  return (
+    <IconButton onClick={handleClick}>
+      {checked && <Star color="warning" />}
+      {!checked && <StarBorder />}
+    </IconButton>
+  );
+}
+
 function EnhancedTable({ setAllowDelete }) {
+  const [checked, setChecked] = useState(false);
+
+  const handleChange = () => {
+    setChecked(!checked);
+  };
   const navigate = useNavigate();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("talentName");
@@ -362,6 +387,8 @@ function EnhancedTable({ setAllowDelete }) {
     dispatch(setCurrentTalent({ talentId }));
   };
 
+  let valor = true;
+
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
   const emptyRows =
@@ -432,13 +459,14 @@ function EnhancedTable({ setAllowDelete }) {
                       </TableCell>
                       <TableCell>{getTecnologies(row.technology)}</TableCell>
                       <TableCell align="right">
+                        <RowCheckIconButton row={row} />
                         <IconButton
                           aria-label="info"
                           size="large"
                           color="info"
                           onClick={() =>
                             handdlePath(
-                              `/admin/dashboard/users/talents/info`,
+                              `/instructors/talents/profile`,
                               row.talentId
                             )
                           }
@@ -484,7 +512,6 @@ function InvoiceList() {
   const [allowDelete, setAllowDelete] = React.useState(false);
   let status = useSelector(showUndo);
   const [id, setId] = React.useState(null);
-
   return (
     <React.Fragment>
       <Helmet title="Invoices" />
@@ -493,21 +520,20 @@ function InvoiceList() {
           <Typography variant="h3" gutterBottom display="inline">
             Lista de Talentos
           </Typography>
-
-          <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/admin/dashboard/users/talents">
-              Panel Talentos
-            </Link>
-
-            <Typography>Talentos</Typography>
-            <Typography>Lista</Typography>
-          </Breadcrumbs>
         </Grid>
-        <Grid item></Grid>
       </Grid>
       <Divider my={6} />
       <Grid container spacing={6}>
-        <Grid item xs={12}></Grid>
+        <Grid item xs={12}>
+          <EnhancedTable setAllowDelete={setAllowDelete} setId={setId} />
+          {allowDelete && (
+            <AlertDialog
+              allowDelete={allowDelete}
+              setAllowDelete={setAllowDelete}
+            />
+          )}
+          {status && <TalentUndo />}
+        </Grid>
       </Grid>
     </React.Fragment>
   );

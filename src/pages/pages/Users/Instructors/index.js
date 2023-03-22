@@ -25,7 +25,6 @@ const Typography = styled(MuiTypography)(spacing);
 const Spacer = styled.div(spacing);
 
 function InstructorHome() {
-  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   dispatch(setCurrentInstructor({ instructorId: "1" }));
