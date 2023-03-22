@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components/macro";
 import { Outlet } from "react-router-dom";
 
-import { Hidden, CssBaseline, Paper as MuiPaper } from "@mui/material";
+import { CssBaseline, Paper as MuiPaper } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { spacing } from "@mui/system";

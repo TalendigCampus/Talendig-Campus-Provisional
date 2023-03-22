@@ -64,7 +64,7 @@ function Recruiters() {
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={6} xl>
           <Stats
-            title="Talentos Contratados"
+            title="Talentos Reclutados"
             amount="50"
             percentagetext="+12%"
             percentagecolor={green[500]}

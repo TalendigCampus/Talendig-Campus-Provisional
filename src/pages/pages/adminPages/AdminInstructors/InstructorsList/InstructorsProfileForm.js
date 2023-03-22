@@ -1,7 +1,6 @@
 import React from "react";
 import * as Yup from "yup";
 import styled from "styled-components/macro";
-import { NavLink } from "react-router-dom";
 import { Formik } from "formik";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
@@ -11,15 +10,12 @@ import {
   Box,
   Breadcrumbs as MuiBreadcrumbs,
   Button as MuiButton,
-  IconButton,
   Card as MuiCard,
   CardContent,
   CircularProgress,
   Divider as MuiDivider,
   Grid,
-  Link,
   TextField as MuiTextField,
-  Typography,
 } from "@mui/material";
 import { spacing } from "@mui/system";
 
@@ -32,10 +28,6 @@ import {
   updateInstructor,
 } from "../../../../../redux/slices/instructorSlice";
 import { selectBootcamps } from "../../../../../redux/slices/bootcampSlice";
-
-const Divider = styled(MuiDivider)(spacing);
-
-const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
 const Card = styled(MuiCard)(spacing);
 
@@ -434,7 +426,8 @@ function BasicForm(instructor) {
                       mt={3}
                       ml={3}
                     >
-                      <Edit />
+                      <Edit style={{ "margin-right": "10px" }} />
+                      Editar
                     </Button>
                     <Button
                       type="button"
@@ -448,7 +441,8 @@ function BasicForm(instructor) {
                       mt={3}
                       ml={3}
                     >
-                      <ListAlt />
+                      <ListAlt style={{ "margin-right": "10px" }} />
+                      Volver a instructores
                     </Button>
                   </>
                 )}

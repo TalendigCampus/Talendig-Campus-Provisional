@@ -2,20 +2,14 @@ import React from "react";
 import styled from "styled-components/macro";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { Link as ReactRouterLink } from "react-router-dom";
 
 import {
-  Avatar as MuiAvatar,
-  Box,
   Breadcrumbs as MuiBreadcrumbs,
-  Button,
   Checkbox,
-  Chip as MuiChip,
   Divider as MuiDivider,
   Grid,
   IconButton,
   Link,
-  Description,
   Paper as MuiPaper,
   Table,
   TableBody,
@@ -26,21 +20,9 @@ import {
   TableRow,
   TableSortLabel,
   Toolbar,
-  Tooltip,
   Typography,
-  Dialog,
 } from "@mui/material";
-import { green, orange } from "@mui/material/colors";
-import {
-  Add as AddIcon,
-  Archive as ArchiveIcon,
-  FilterList as FilterListIcon,
-  RemoveRedEye as RemoveRedEyeIcon,
-  Edit,
-  RemoveCircle,
-  Info,
-  LibraryBooks,
-} from "@mui/icons-material";
+import { RemoveCircle, Info } from "@mui/icons-material";
 import { spacing } from "@mui/system";
 import Actions from "./Actions";
 import { DIALOG_UPDATE_TYPE } from "../../../../common/constants/data";
@@ -62,15 +44,6 @@ const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
 const Paper = styled(MuiPaper)(spacing);
 
-const Chip = styled(MuiChip)`
-  ${spacing};
-
-  background: ${(props) => props.paid && green[500]};
-  background: ${(props) => props.sent && orange[700]};
-  color: ${(props) =>
-    (props.paid || props.sent) && props.theme.palette.common.white};
-`;
-
 const Spacer = styled.div`
   flex: 1 1 100%;
 `;
@@ -78,37 +51,6 @@ const Spacer = styled.div`
 const ToolbarTitle = styled.div`
   min-width: 150px;
 `;
-
-const Avatar = styled(MuiAvatar)`
-  background: ${(props) => props.theme.palette.primary.main};
-`;
-
-const Customer = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-/* function createData(
-  talentName,
-  talentEmail,
-  recruiterAvatar,
-  idCard,
-  birth,
-  bootcamp,
-  tecnology,
-  id
-) {
-  return {
-    talentName,
-    talentEmail,
-    idCard,
-    recruiterAvatar,
-    birth,
-    bootcamp,
-    tecnology,
-    id,
-  };
-} */
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -209,21 +151,6 @@ const EnhancedTableToolbar = (props) => {
         )}
       </ToolbarTitle>
       <Spacer />
-      {/* <div>
-        {numSelected > 0 ? (
-          <Tooltip title="Delete">
-            <IconButton aria-label="Delete" size="large">
-              <ArchiveIcon />
-            </IconButton>
-          </Tooltip>
-        ) : (
-          <Tooltip title="Filter list">
-            <IconButton aria-label="Filter list" size="large">
-              <FilterListIcon />
-            </IconButton>
-          </Tooltip>
-        )}
-      </div> */}
     </Toolbar>
   );
 };
@@ -302,7 +229,6 @@ function EnhancedTable() {
   return (
     <div>
       <Paper>
-        <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
             aria-labelledby="tableTitle"
@@ -344,7 +270,6 @@ function EnhancedTable() {
                       <TableCell align="center">
                         {row.lastModificationDate}
                       </TableCell>
-                      {/* <TableCell>{row.idCard}</TableCell> */}
                       <TableCell align="center">{row.fileType}</TableCell>
                       <TableCell align="center">{row.format}</TableCell>
                       <TableCell align="center">
@@ -396,7 +321,7 @@ function EnhancedTable() {
   );
 }
 
-function InvoiceList() {
+function ProjectFolderList() {
   const showUpdateModal = useSelector(showUpdate);
 
   return (
@@ -435,4 +360,4 @@ function InvoiceList() {
   );
 }
 
-export default InvoiceList;
+export default ProjectFolderList;

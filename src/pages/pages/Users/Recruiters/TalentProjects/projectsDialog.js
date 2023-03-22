@@ -4,7 +4,7 @@ import {
   PROJECT_UPDATE_TYPE,
   PROJECT_DELETE_TYPE,
   DIALOG_UPDATE_TYPE,
-} from "../../../../common/constants/data";
+} from "../../../../../common/constants/data";
 import {
   Button,
   Dialog,
@@ -29,7 +29,7 @@ import {
   deleteProject,
   setShowUndo,
   setUpdateType,
-} from "../../../../redux/slices/projectsSlice";
+} from "../../../../../redux/slices/projectsSlice";
 
 function AlertDialog() {
   const [userInput, setUserInput] = React.useState("");

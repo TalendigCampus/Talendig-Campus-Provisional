@@ -289,7 +289,6 @@ function EnhancedTable({ setAllowDelete }) {
   return (
     <div>
       <Paper>
-        <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
             aria-labelledby="tableTitle"
@@ -389,23 +388,39 @@ function EnhancedTable({ setAllowDelete }) {
 }
 
 function InvoiceList() {
+  const navigate = useNavigate();
+  const goBack = () => {
+    navigate(-1);
+  };
   return (
     <React.Fragment>
       <Helmet title="Invoices" />
-      <Grid justifyContent="space-between" container spacing={10}>
+
+      <Grid
+        justifyContent="space-between"
+        alignItems="center"
+        container
+        spacing={10}
+      >
         <Grid item>
           <Typography variant="h3" gutterBottom display="inline">
             Lista de Talentos
           </Typography>
-
-          <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/recruiter/home">
-              Inicio
-            </Link>
-            <Typography>Lista</Typography>
-          </Breadcrumbs>
+        </Grid>
+        <Grid item>
+          <Button
+            type="button"
+            variant="contained"
+            color="success"
+            onClick={goBack}
+            mt={3}
+            ml={3}
+          >
+            Volver
+          </Button>
         </Grid>
       </Grid>
+
       <Divider my={6} />
       <Grid container spacing={6}>
         <Grid item xs={12}>

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled, { withTheme } from "styled-components/macro";
-import { NavLink, useParams } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Chart from "react-chartjs-2";
 
@@ -380,13 +380,39 @@ function Lenguages(props) {
 
 function Curriculum() {
   const talent = useSelector(CurrentTalent);
+  const navigate = useNavigate();
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <React.Fragment>
       <Helmet title="Profile" />
 
-      <Typography variant="h3" gutterBottom display="inline">
-        Curriculum de {`${talent.talentName} ${talent.talentLastName}`}
-      </Typography>
+      <Grid
+        justifyContent="space-between"
+        alignItems="center"
+        container
+        spacing={10}
+      >
+        <Grid item>
+          <Typography variant="h3" gutterBottom display="inline">
+            Curriculum de {`${talent.talentName} ${talent.talentLastName}`}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Button
+            type="button"
+            variant="contained"
+            color="success"
+            onClick={goBack}
+            mt={3}
+            ml={3}
+          >
+            Volver
+          </Button>
+        </Grid>
+      </Grid>
 
       <Divider my={6} />
 

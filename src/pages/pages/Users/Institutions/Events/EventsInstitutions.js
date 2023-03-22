@@ -3,6 +3,7 @@ import styled from "styled-components/macro";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import FullCalendar from "@fullcalendar/react";
+import esLocale from "@fullcalendar/core/locales/es";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 
@@ -39,8 +40,9 @@ function EmptyCard() {
         <FullCalendarWrapper>
           <FullCalendar
             initialView="dayGridMonth"
-            initialDate="2021-02-14"
+            initialDate="2023-03-14"
             plugins={[dayGridPlugin, interactionPlugin]}
+            locale={esLocale}
             events={demoEvents}
             editable={true}
             headerToolbar={{

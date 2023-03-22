@@ -56,7 +56,12 @@ import {
   bootcampProfile,
 } from "../../../../../../redux/slices/bootcampSlice";
 import institutionStudents from "../../../../adminPages/AdminInstitutions/institutionStudents.json";
-import { setCurrentTalent } from "../../../../../../redux/slices/institutionSlice";
+import {
+  currentSelection,
+  currentTalentIntership,
+  setCurrentTalent,
+  talentsIntership,
+} from "../../../../../../redux/slices/institutionSlice";
 import Actions from "./Actions";
 
 const Divider = styled(MuiDivider)(spacing);
@@ -167,14 +172,6 @@ const EnhancedTableHead = (props) => {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{ "aria-label": "select all" }}
-          />
-        </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -221,7 +218,9 @@ export function EnhancedTable({ setAllowDelete }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   /* const [rows, setRows] = React.useState(JsonInfo); */
-  const rows = institutionStudents;
+  const newCurrentSelectionIntership = useSelector(currentTalentIntership);
+  const rows = newCurrentSelectionIntership.talents;
+  console.log(rows);
   const bootcamps = useSelector(selectBootcamps);
   const allowDeleteTalent = useSelector(allowDelete);
   const dispatch = useDispatch();
@@ -328,94 +327,82 @@ export function EnhancedTable({ setAllowDelete }) {
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.talentId);
                   const labelId = `enhanced-table-checkbox-${index}`;
-                  if (row.recruiterProcess.activeProcess === true)
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        aria-checked={isItemSelected}
-                        tabIndex={-1}
-                        key={`${row.talentId}-${index}`}
-                        selected={isItemSelected}
-                      >
-                        <TableCell padding="checkbox">
-                          <Checkbox
-                            checked={isItemSelected}
-                            inputProps={{ "aria-labelledby": labelId }}
-                            onClick={(event) =>
-                              handleClick(event, row.talentId)
-                            }
-                          />
-                        </TableCell>
-                        <TableCell component="th" id={labelId} scope="row">
-                          <Customer>
-                            <Avatar alt="Remy Sharp" src={row.photoUrl} />
-                            <Box ml={3}>
-                              {`${row.talentName} ${row.talentLastName}`}
-                              <br />
-                              {row.talentEmail}
-                            </Box>
-                          </Customer>
-                        </TableCell>
+                  return (
+                    <TableRow
+                      aria-checked={isItemSelected}
+                      tabIndex={-1}
+                      key={`${row.talentId}-${index}`}
+                      selected={isItemSelected}
+                    >
+                      <TableCell component="th" id={labelId} scope="row">
+                        <Customer>
+                          <Avatar alt="Remy Sharp" src={row.photoUrl} />
+                          <Box ml={3}>
+                            {`${row.talentName} ${row.talentLastName}`}
+                            <br />
+                            {row.talentEmail}
+                          </Box>
+                        </Customer>
+                      </TableCell>
 
-                        <TableCell
-                          align="right"
-                          style={{
-                            color: "blue",
-                            cursor: "pointer",
-                          }}
-                          onClick={() => handleBootcamp(row.bootcamp)}
+                      <TableCell
+                        align="right"
+                        style={{
+                          color: "blue",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => handleBootcamp(row.bootcamp)}
+                      >
+                        {getBootcamp(row.bootcamp).name}
+                      </TableCell>
+                      <TableCell>{getTecnologies(row.technology)}</TableCell>
+                      <TableCell align="center">
+                        {row.recruiterProcess.status.intern === true && (
+                          <Chip
+                            size="small"
+                            mr={1}
+                            mb={1}
+                            label="Empleado"
+                            cancelled={+true}
+                          />
+                        )}
+                        {row.recruiterProcess.activeProcess === true && (
+                          <Chip
+                            size="small"
+                            mr={1}
+                            mb={1}
+                            label="En proceso"
+                            processing={+true}
+                          />
+                        )}
+                        {row.recruiterProcess.status.intern === false &&
+                          row.recruiterProcess.activeProcess === false && (
+                            <Chip
+                              size="small"
+                              mr={1}
+                              mb={1}
+                              label="Libre"
+                              shipped={+true}
+                            />
+                          )}
+                      </TableCell>
+                      <TableCell align="right">
+                        <IconButton
+                          aria-label="info"
+                          size="large"
+                          color="info"
+                          onClick={() =>
+                            handdlePath(
+                              `/institution/students/details`,
+                              row.talentId
+                            )
+                          }
                         >
-                          {getBootcamp(row.bootcamp).name}
-                        </TableCell>
-                        <TableCell>{getTecnologies(row.technology)}</TableCell>
-                        <TableCell align="center">
-                          {row.recruiterProcess.status.intern === true && (
-                            <Chip
-                              size="small"
-                              mr={1}
-                              mb={1}
-                              label="Empleado"
-                              cancelled={+true}
-                            />
-                          )}
-                          {row.recruiterProcess.activeProcess === true && (
-                            <Chip
-                              size="small"
-                              mr={1}
-                              mb={1}
-                              label="En proceso"
-                              processing={+true}
-                            />
-                          )}
-                          {row.recruiterProcess.status.intern === false &&
-                            row.recruiterProcess.activeProcess === false && (
-                              <Chip
-                                size="small"
-                                mr={1}
-                                mb={1}
-                                label="Libre"
-                                shipped={+true}
-                              />
-                            )}
-                        </TableCell>
-                        <TableCell align="right">
-                          <IconButton
-                            aria-label="info"
-                            size="large"
-                            color="info"
-                            onClick={() =>
-                              handdlePath(
-                                `/institution/students/details`,
-                                row.talentId
-                              )
-                            }
-                          >
-                            <Info />
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    );
+                          <Info />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  );
                 })}
               {emptyRows > 0 && (
                 <TableRow style={{ height: 53 * emptyRows }}>
@@ -440,22 +427,7 @@ export function EnhancedTable({ setAllowDelete }) {
   );
 }
 
-// function Status({ row }) {
-//   console.log(row);
-//   if (row.recruiterProcess.status.intern === true) {
-//     return (
-//       <Chip size="small" mr={1} mb={1} label="Empleado" cancelled={+true} />
-//     );
-//   } else if (row.recruiterProcess.activeProcess === true) {
-//     return (
-//       <Chip size="small" mr={1} mb={1} label="En proceso" processing={+true} />
-//     );
-//   } else {
-//     <Chip size="small" mr={1} mb={1} label="Libre" shipped={+true} />;
-//   }
-// }
-
-function ListStudentToAdd() {
+function ListStudentToAdd({ newCurrentSelectionIntership }) {
   const [allowDelete, setAllowDelete] = React.useState(false);
   let status = useSelector(showUndo);
   const [id, setId] = React.useState(null);

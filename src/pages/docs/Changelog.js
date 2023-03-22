@@ -39,13 +39,6 @@ function Changelog() {
             Changelog
           </Typography>
 
-          <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-            <Link component={NavLink} to="/instructors/home">
-              Dashboard
-            </Link>
-            <Typography>Changelog</Typography>
-          </Breadcrumbs>
-
           <Divider my={6} />
 
           <Box mt={3}>

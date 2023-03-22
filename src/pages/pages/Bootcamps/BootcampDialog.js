@@ -1,43 +1,15 @@
-import React, { useState } from "react";
-import styled from "styled-components/macro";
-import { NavLink } from "react-router-dom";
+import React from "react";
 import { Helmet } from "react-helmet-async";
 
 import {
-  Avatar,
   Button,
-  Box,
-  CardContent,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
-  FormControl,
-  FormControlLabel,
   Grid,
-  InputLabel,
-  Link,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  MenuItem,
-  Breadcrumbs as MuiBreadcrumbs,
-  Card as MuiCard,
-  Divider as MuiDivider,
-  Paper as MuiPaper,
-  Select,
-  Switch,
-  TextField,
-  Typography,
 } from "@mui/material";
-import {
-  Add as AddIcon,
-  Person as PersonIcon,
-  TramRounded,
-} from "@mui/icons-material";
-import { spacing } from "@mui/system";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -45,14 +17,6 @@ import {
   bootcampToBeRemoved,
   setShowUndo,
 } from "../../../redux/slices/bootcampSlice";
-
-const Card = styled(MuiCard)(spacing);
-
-const Divider = styled(MuiDivider)(spacing);
-
-const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
-
-const Paper = styled(MuiPaper)(spacing);
 
 function AlertDialog({ deleteBootcampModal, setDeleteBootcampModal }) {
   const bootcampToDelete = useSelector(bootcampToBeRemoved);
@@ -95,7 +59,7 @@ function AlertDialog({ deleteBootcampModal, setDeleteBootcampModal }) {
   );
 }
 
-function Dialogs({ deleteBootcampModal, setDeleteBootcampModal }) {
+function BootcampDialog({ deleteBootcampModal, setDeleteBootcampModal }) {
   return (
     <React.Fragment>
       <Helmet title="Dialogs" />
@@ -111,4 +75,4 @@ function Dialogs({ deleteBootcampModal, setDeleteBootcampModal }) {
   );
 }
 
-export default Dialogs;
+export default BootcampDialog;

@@ -1,15 +1,10 @@
 import React from "react";
 import styled from "styled-components/macro";
-import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { useNavigate } from "react-router-dom";
 
 import {
-  Link,
-  Breadcrumbs as MuiBreadcrumbs,
   Card as MuiCard,
   CardContent as MuiCardContent,
-  Divider as MuiDivider,
   Paper as MuiPaper,
   Typography,
   Select,
@@ -39,10 +34,6 @@ const Card = styled(MuiCard)(spacing);
 
 const CardContent = styled(MuiCardContent)(spacing);
 
-const Divider = styled(MuiDivider)(spacing);
-
-const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
-
 const Paper = styled(MuiPaper)(spacing);
 
 const columns = [
@@ -55,12 +46,6 @@ const columns = [
     flex: 1,
   },
 ];
-
-// const rows = [
-//   { id: 1, tecnology: "Angular" },
-//   { id: 2, tecnology: "Javascript" },
-//   { id: 3, tecnology: "React" },
-// ];
 
 function DataGridDemo() {
   const [selectedStudents, setSelectedStudents] = React.useState([]);
@@ -83,7 +68,9 @@ function DataGridDemo() {
     }
 
     setTalentsToSelect(talents);
-    setSelectedTalent(talents[0].talentId);
+    if (talents && talents.length) {
+      setSelectedTalent(talents[0].talentId);
+    }
   };
 
   const getTalent = (id) => {
@@ -159,59 +146,61 @@ function DataGridDemo() {
             <PersonRemove />
           </IconButton>
         ) : null}
-        {activateAdd ? (
-          <>
-            <FormControl>
-              <InputLabel id="demo-simple-select-autowidth-label">
-                Talentos
-              </InputLabel>
-              <Select
-                id="talent"
-                label="Talentos"
-                value={selectedTalent}
-                fullWidth
-                onChange={handleSelectChange}
-                variant="outlined"
+        {talentsToSelect && talentsToSelect.length ? (
+          activateAdd ? (
+            <>
+              <FormControl>
+                <InputLabel id="demo-simple-select-autowidth-label">
+                  Talentos
+                </InputLabel>
+                <Select
+                  id="talent"
+                  label="Talentos"
+                  value={selectedTalent}
+                  fullWidth
+                  onChange={handleSelectChange}
+                  variant="outlined"
+                >
+                  {talentsToSelect.map((talent) => {
+                    return (
+                      <MenuItem
+                        key={talent.talentId}
+                        value={Number(talent.talentId)}
+                      >
+                        {`${talent.talentName} ${talent.talentLastName}`}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
+              <IconButton
+                type="submit"
+                size="large"
+                color="success"
+                onClick={handleAddTalent}
               >
-                {talentsToSelect.map((talent) => {
-                  return (
-                    <MenuItem
-                      key={talent.talentId}
-                      value={Number(talent.talentId)}
-                    >
-                      {`${talent.talentName} ${talent.talentLastName}`}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
+                <Save />
+              </IconButton>
+              <IconButton
+                type="submit"
+                size="large"
+                color="info"
+                onClick={handleActivateAdd}
+              >
+                <VisibilityOff />
+              </IconButton>
+            </>
+          ) : (
             <IconButton
               type="submit"
               size="large"
               color="success"
-              onClick={handleAddTalent}
-            >
-              <Save />
-            </IconButton>
-            <IconButton
-              type="submit"
-              size="large"
-              color="info"
               onClick={handleActivateAdd}
             >
-              <VisibilityOff />
+              <PersonAdd />
             </IconButton>
-          </>
-        ) : (
-          <IconButton
-            type="submit"
-            size="large"
-            color="success"
-            onClick={handleActivateAdd}
-          >
-            <PersonAdd />
-          </IconButton>
-        )}
+          )
+        ) : null}
       </CardContent>
       <Paper>
         <div style={{ height: 300, width: "100%" }}>

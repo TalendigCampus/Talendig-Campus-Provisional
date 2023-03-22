@@ -126,7 +126,7 @@ export const RECRUITER_TOUR_STEPS = [
   {
     selector: "#recruiterHome",
     content:
-      "Aqui podrás ver información relacionada a tu manejo de talentos, cantidad de talentos en proceso, contratados, entre otros 📈",
+      "Aqui podrás ver información relacionada a tu manejo de talentos, cantidad de talentos en proceso, reclutados, entre otros 📈",
   },
   {
     selector: "#recruiterPerfil",
@@ -163,7 +163,7 @@ export const RECRUITER_TOUR_STEPS = [
   {
     selector: "#recruiterHistory",
     content:
-      "Tu historial de contacto con los talentos contratados o aquellos que deben mejorar 📜",
+      "Tu historial de contacto con los talentos reclutados o aquellos que deben mejorar 📜",
   },
   {
     selector: "#recruiterChangeLog",
@@ -175,44 +175,42 @@ export const TALENT_TOUR_STEPS = [
   {
     selector: "#talentHome",
     content:
-      "Aqui podrás ver información relacionada a tu manejo de talentos, cantidad de talentos en proceso, contratados, entre otros 📈",
+      "Aqui podrás ver información relacionada a tu panel y manejo de bootcamps 📈",
   },
   {
     selector: "#talentPerfil",
     content:
-      "Mantener un pefil actualizado es vital como reclutador, aquí podras controlar todo acerca de tus intereses e información  👦🏾 ",
+      "Mantener un pefil actualizado es vital para ti y reclutadores, aquí podras controlar todo acerca de tus intereses e información  👦🏾 ",
   },
   {
     selector: "#talentBootcamps",
     content:
-      "Aquí verás listas de potenciales talentos con aptitudes y actitudes que serán un ➕ para tu organización ️‍🔥",
+      "Aquí verás la listas de tus bootcamps y de otros bootcamps que te ayudarán a alcanzar tu siguiente nivel 🔥",
   },
   {
     selector: "#talentCurrentBootcamp",
-    content: "Talentos con las mejores puntuaciones de su bootcamp 💯",
+    content: "Tus bootcamps 💖",
   },
   {
     selector: "#talentOtherBootcamps",
-    content: "Talentos recomendados por su instructor 👨🏽‍🎓",
+    content: "Bootcamps que te pueden interesar 💯",
   },
   {
     selector: "#talentProjects",
-    content:
-      "Talentos con +10 proyectos aparte de los asignados en el bootcamp 🛠️",
+    content: "Tu portafolio y lista de proyectos 🛠️",
   },
   {
     selector: "#talentCurriculum",
-    content:
-      "Aquí veras los talentos con los cuales has inicialiado un proceso ⌛",
+    content: "Aquí podrás ver tu curriculum 📜",
   },
   {
     selector: "#talentRoadmap",
-    content: "Tus talentos favoritos 💖",
+    content: "Tu roadmap a completar 🚩",
   },
   {
     selector: "#talentRecruiters",
     content:
-      "Tu historial de contacto con los talentos contratados o aquellos que deben mejorar 📜",
+      "Aquí podrás ver los reclutadores a los que les pareces fabuloso 💼",
   },
   {
     selector: "#talentChangelog",
@@ -224,25 +222,24 @@ export const INSTRUCTOR_TOUR_STEPS = [
   {
     selector: "#instructorHome",
     content:
-      "Aqui podrás ver información relacionada a tu manejo de talentos, cantidad de talentos en proceso, contratados, entre otros 📈",
+      "Aqui podrás ver información relacionada al manejo de los bootcamps que impartes 📈",
   },
   {
     selector: "#instructorPerfil",
     content:
-      "Mantener un pefil actualizado es vital como reclutador, aquí podras controlar todo acerca de tus intereses e información  👦🏾 ",
+      "Mantener un pefil actualizado es vital como instructor, aquí podras controlar todo acerca de tus intereses e información  👦🏾 ",
   },
   {
     selector: "#instructorTalentList",
-    content:
-      "Aquí verás listas de potenciales talentos con aptitudes y actitudes que serán un ➕ para tu organización ️‍🔥",
+    content: "Aquí verás la listas de los talentos a los cuales entrenas 🥋",
   },
   {
     selector: "#instructorBootcamps",
-    content: "Talentos con las mejores puntuaciones de su bootcamp 💯",
+    content: "Los bootcamps que impartes 💯",
   },
   {
     selector: "#instructorTalentPortfolio",
-    content: "Talentos recomendados por su instructor 👨🏽‍🎓",
+    content: "Portafolio de tus talentos 🛠️",
   },
   {
     selector: "#instructorChangeLog",
@@ -254,49 +251,47 @@ export const INSTITUTION_TOUR_STEPS = [
   {
     selector: "#institutionHome",
     content:
-      "Aqui podrás ver información relacionada a tu manejo de talentos, cantidad de talentos en proceso, contratados, entre otros 📈",
+      "Aqui podrás ver información relacionada a los bootcamps y cursos destacados con la mas alta vanguardia en tecnologias 📈",
   },
   {
     selector: "#institutionBootcampsList",
     content:
-      "Mantener un pefil actualizado es vital como reclutador, aquí podras controlar todo acerca de tus intereses e información  👦🏾 ",
+      "Aquí verás la listas de los bootcamps que ayudarán a tu institutción a alcanzar el siguiente nivel 🔥 ",
   },
   {
     selector: "#institutionBootcampDetails",
-    content:
-      "Aquí verás listas de potenciales talentos con aptitudes y actitudes que serán un ➕ para tu organización ️‍🔥",
+    content: "Bootcamps que te pueden interesar 💯",
   },
   {
     selector: "#institutionMyBootcamps",
-    content: "Talentos con las mejores puntuaciones de su bootcamp 💯",
+    content: "Tus bootcamps 💖",
   },
   {
     selector: "#institutionRecruitmentOptions",
-    content: "Talentos recomendados por su instructor 👨🏽‍🎓",
+    content:
+      "Aquí verás listas de potenciales talentos e instructores con aptitudes y actitudes que serán un ➕ para tu organización ️👨🏽‍🎓",
   },
   {
     selector: "#institutionRecruitInstructors",
-    content:
-      "Talentos con +10 proyectos aparte de los asignados en el bootcamp 🛠️",
+    content: "Lista de Instructores 🥋",
   },
   {
     selector: "#institutionRecruitTalents",
-    content:
-      "Aquí veras los talentos con los cuales has inicialiado un proceso ⌛",
+    content: "Lista de Talentos 🎓",
   },
   {
     selector: "#institutionPerfil",
-    content: "Tus talentos favoritos 💖",
+    content:
+      "Mantener un pefil actualizado es vital como institución, aquí podras controlar todo acerca de tus intereses e información 🏨",
   },
   {
     selector: "#institutionTalents",
-    content:
-      "Tu historial de contacto con los talentos contratados o aquellos que deben mejorar 📜",
+    content: "Tus estudiantes en Talendig 👣",
   },
   {
     selector: "#institutionEvents",
     content:
-      "Tu historial de contacto con los talentos contratados o aquellos que deben mejorar 📜",
+      "Los eventos son parte importante de Talendig, no te lo pierdas! 📜",
   },
   {
     selector: "#institutionChangelog",
@@ -308,44 +303,42 @@ export const ADMIN_TOUR_STEPS = [
   {
     selector: "#adminHome",
     content:
-      "Aqui podrás ver información relacionada a tu manejo de talentos, cantidad de talentos en proceso, contratados, entre otros 📈",
+      "Aqui podrás ver información relacionada a tu manejo de talentos, instructores, reclutadores e instituciones 📈",
   },
   {
     selector: "#adminUsers",
-    content:
-      "Mantener un pefil actualizado es vital como reclutador, aquí podras controlar todo acerca de tus intereses e información  👦🏾 ",
+    content: "Aqui podrás ver y administrar a tus usuarios 👨‍👩‍👧‍👧",
   },
   {
     selector: "#adminTalents",
     content:
-      "Aquí verás listas de potenciales talentos con aptitudes y actitudes que serán un ➕ para tu organización ️‍🔥",
+      "Aquí verás listas de potenciales talentos con aptitudes y actitudes que serán un ➕ para cualquier organización ️‍🔥",
   },
   {
     selector: "#adminInstructors",
-    content: "Talentos con las mejores puntuaciones de su bootcamp 💯",
+    content:
+      "En está parte administrarás a los intructores, para llevar un registro de su desempeño 🥋",
   },
   {
     selector: "#adminRecruiters",
-    content: "Talentos recomendados por su instructor 👨🏽‍🎓",
+    content: " Aquí podrás ver la lista de reclutadores y lo más activos 💼",
   },
   {
     selector: "#adminInstitutions",
-    content:
-      "Talentos con +10 proyectos aparte de los asignados en el bootcamp 🛠️",
+    content: "Manejo de instituciones 🏨",
   },
   {
     selector: "#adminBootcamps",
-    content:
-      "Aquí veras los talentos con los cuales has inicialiado un proceso ⌛",
+    content: "Administra tus bootcamp 👩‍🏫",
   },
   {
     selector: "#adminProjects",
-    content: "Tus talentos favoritos 💖",
+    content: "En está parte administrarás a los proyectos 🛠️",
   },
   {
     selector: "#adminPortfolios",
     content:
-      "Tu historial de contacto con los talentos contratados o aquellos que deben mejorar 📜",
+      "Los portafolios demuestran el interés y avance de los talentos, echale un vistazo 📜",
   },
   {
     selector: "#adminChangelog",

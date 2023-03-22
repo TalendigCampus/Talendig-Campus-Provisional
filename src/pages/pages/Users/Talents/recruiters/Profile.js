@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled, { withTheme } from "styled-components/macro";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Chart from "react-chartjs-2";
 
@@ -195,7 +195,7 @@ function About(props) {
           </Grid>
           <Grid item>
             Vivo en{" "}
-            <Link href="https://material-app.bootlab.io/">
+            <Link>
               {props.address.neighborhood}, {props.address.street}
             </Link>
           </Grid>
@@ -206,10 +206,7 @@ function About(props) {
               </AboutIcon>
             </Grid>
             <Grid item>
-              Ciudad{" "}
-              <Link href="https://material-app.bootlab.io/">
-                {props.address.city}
-              </Link>
+              Ciudad <Link>{props.address.city}</Link>
             </Grid>
           </Grid>
           <Grid container direction="row" alignItems="center">
@@ -219,10 +216,7 @@ function About(props) {
               </AboutIcon>
             </Grid>
             <Grid item>
-              Numero de telefono:{" "}
-              <Link href="https://material-app.bootlab.io/">
-                {props.phoneNumber}
-              </Link>
+              Numero de telefono: <Link>{props.phoneNumber}</Link>
             </Grid>
           </Grid>
           <Grid container direction="row" alignItems="center">
@@ -232,8 +226,7 @@ function About(props) {
               </AboutIcon>
             </Grid>
             <Grid item>
-              Email:{" "}
-              <Link href="https://material-app.bootlab.io/">{props.email}</Link>
+              Email: <Link>{props.email}</Link>
             </Grid>
           </Grid>
           <Grid container direction="row" alignItems="center">
@@ -243,10 +236,7 @@ function About(props) {
               </AboutIcon>
             </Grid>
             <Grid item>
-              Empresa o institución:{" "}
-              <Link href="https://material-app.bootlab.io/">
-                {props.company}
-              </Link>
+              Empresa o institución: <Link>{props.company}</Link>
             </Grid>
           </Grid>
         </Grid>
@@ -281,33 +271,51 @@ function Curriculum() {
   // console.log(result);
 
   const result = useSelector(currentRecruiter);
+  const navigate = useNavigate();
+  const handlePageChange = (pathToGo) => {
+    navigate(pathToGo);
+  };
 
   return (
     <React.Fragment>
       <Helmet title="Profile" />
+      <Grid justifyContent="space-between" container spacing={10}>
+        <Grid item>
+          <Typography variant="h3" gutterBottom display="inline">
+            Perfil del Reclutador
+          </Typography>
 
-      <Typography variant="h3" gutterBottom display="inline">
-        Curriculum
-      </Typography>
-
-      <Breadcrumbs aria-label="Breadcrumb" mt={2}>
-        <Link component={NavLink} to="/talent/recruiters">
-          Lista de reclutadores
-        </Link>
-        <Typography gutterBottom display="inline">
-          {`${result.firstName} ${result.lastName}`}
-        </Typography>
-      </Breadcrumbs>
-
+          <Breadcrumbs aria-label="Breadcrumb" mt={2}>
+            <Link component={NavLink} to="/talent/recruiters">
+              Lista de reclutadores
+            </Link>
+            <Typography gutterBottom display="inline">
+              {`${result.firstName} ${result.lastName}`}
+            </Typography>
+          </Breadcrumbs>
+        </Grid>
+        <Grid item>
+          <Button
+            type="button"
+            variant="contained"
+            color="success"
+            onClick={() => handlePageChange(-1)}
+            mt={3}
+            ml={3}
+          >
+            Volver
+          </Button>
+        </Grid>
+      </Grid>
       <Divider my={6} />
 
       <Grid container spacing={6}>
         <Grid item xs={12} lg={4} xl={3}>
           <Details {...result} />
           <Skills {...result} />
-          <About {...result} />
         </Grid>
         <Grid item xs={12} lg={8} xl={9}>
+          <About {...result} />
           <AboutMe {...result} />
         </Grid>
       </Grid>

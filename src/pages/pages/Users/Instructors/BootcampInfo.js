@@ -31,6 +31,7 @@ import bootcampsDispo from "./bootcampsDispo.json";
 import calendarStyle from "./Calendar.style";
 import demoEvents from "./demo-events.json";
 import FullCalendar from "@fullcalendar/react";
+import esLocale from "@fullcalendar/core/locales/es";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import {
@@ -75,7 +76,7 @@ function SimpleCard() {
     <Card mb={6}>
       <CardContent>
         <Typography color="textSecondary" gutterBottom>
-          Status del Bootcamp
+          Estado del Bootcamp
         </Typography>
         <Alert variant="outlined" severity="success">
           Este Bootcamp se esta impartiendo en el momento
@@ -160,9 +161,7 @@ function Modulos({ semanas }) {
             rows={1}
             maxRows={1}
             variant="outlined"
-            defaultValue="Nunc vitae orci ultricies, auctor nunc in, volutpat nisl.
-                Integer sit amet egestas eros, vitae egestas augue. Duis vel est
-                augue."
+            defaultValue="Nuevo Modulo"
           />
         </FormControl>
         <FormControl fullWidth my={2} variant="outlined">
@@ -173,9 +172,7 @@ function Modulos({ semanas }) {
             rows={0}
             maxRows={0}
             variant="outlined"
-            defaultValue="Nunc vitae orci ultricies, auctor nunc in, volutpat nisl.
-                Integer sit amet egestas eros, vitae egestas augue. Duis vel est
-                augue."
+            defaultValue="Estos son sus materiales y recursos para la leccion de esta semana. Aquí estaremos aprendiendo del MERN stack"
           />
         </FormControl>
         <Button variant="contained" color="primary">
@@ -293,6 +290,7 @@ function EmptyCard() {
             initialView="dayGridMonth"
             initialDate="2023-03-12"
             plugins={[dayGridPlugin, interactionPlugin]}
+            locale={esLocale}
             events={demoEvents}
             editable={true}
             headerToolbar={{
@@ -312,7 +310,7 @@ function Calendar() {
     <React.Fragment>
       <Helmet title="Calendar" />
       <Typography variant="h3" gutterBottom display="inline">
-        Calendar
+        Calendario
       </Typography>
 
       <Divider my={6} />
@@ -345,15 +343,17 @@ function BootcampInstructorsInfo({ semanas }) {
       <Divider my={6} />
 
       <Grid container spacing={6}>
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} md={12}>
+          <SimpleCard />
+        </Grid>
+        <Grid item xs={12} md={12}>
           <MediaCard />
           <Divider my={6} />
           <MediaCard2 />
           <Spacer mb={6} />
           <SimpleAccordion />
         </Grid>
-        <Grid item xs={12} md={4}>
-          <SimpleCard />
+        <Grid item xs={12} md={12}>
           <Calendar />
         </Grid>
       </Grid>

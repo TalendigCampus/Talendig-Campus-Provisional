@@ -15,6 +15,8 @@ import {
 import { ReactComponent as Logo } from "../../vendor/logo_talendig-icon.svg";
 import Footer from "./SidebarFooter";
 import SidebarNav from "./SidebarNav";
+import useAuth from "../../hooks/useAuth";
+import { PROFILES } from "../../common/constants/data";
 
 const Box = styled(MuiBox)(spacing);
 
@@ -73,9 +75,34 @@ const BrandChip = styled(Chip)`
 `;
 
 const Sidebar = ({ items, showFooter = true, ...rest }) => {
+  const { user } = useAuth();
+  const [homeRoute, setHomeRoute] = React.useState("");
+
+  React.useEffect(() => {
+    switch (user.profile) {
+      case PROFILES.admin:
+        setHomeRoute("/admin/dashboard/home");
+        break;
+      case PROFILES.talent:
+        setHomeRoute("/talent/home");
+        break;
+      case PROFILES.recruiter:
+        setHomeRoute("/recruiters/home");
+        break;
+      case PROFILES.instructor:
+        setHomeRoute("/instructors/home");
+        break;
+      case PROFILES.institution:
+        setHomeRoute("/institution/home");
+        break;
+      default:
+        break;
+    }
+  }, [user]);
+
   return (
     <Drawer variant="permanent" {...rest}>
-      <Brand component={NavLink} to="/">
+      <Brand component={NavLink} to={homeRoute}>
         <BrandIcon />{" "}
         <Box ml={1}>
           Talendig Campus <BrandChip label="Fábrica de Talento" />

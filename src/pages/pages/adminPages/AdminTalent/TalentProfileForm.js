@@ -412,7 +412,8 @@ function BasicForm(talent) {
                       mt={3}
                       ml={3}
                     >
-                      <Edit />
+                      <Edit style={{ "margin-right": "10px" }} />
+                      Editar
                     </Button>
                     <Button
                       type="button"
@@ -427,7 +428,8 @@ function BasicForm(talent) {
                       mt={3}
                       ml={3}
                     >
-                      <SwapCalls />
+                      <SwapCalls style={{ "margin-right": "10px" }} />
+                      RoadMap
                     </Button>
                     <Button
                       type="button"
@@ -442,7 +444,8 @@ function BasicForm(talent) {
                       mt={3}
                       ml={3}
                     >
-                      <InsertDriveFile />
+                      <InsertDriveFile style={{ "margin-right": "10px" }} />
+                      Curriculum
                     </Button>
                     <Button
                       type="button"
@@ -457,7 +460,8 @@ function BasicForm(talent) {
                       mt={3}
                       ml={3}
                     >
-                      <ImportContacts />
+                      <ImportContacts style={{ "margin-right": "10px" }} />
+                      Proyectos
                     </Button>
                     <Button
                       type="button"
@@ -469,7 +473,8 @@ function BasicForm(talent) {
                       mt={3}
                       ml={3}
                     >
-                      <ListAlt />
+                      <ListAlt style={{ "margin-right": "10px" }} />
+                      Volver a talentos
                     </Button>
                   </>
                 )}

@@ -9,6 +9,11 @@ const institutionSlice = createSlice({
     StudentInfo,
     currentInstitution: null,
     currentTalent: null,
+    currentSelection: [],
+    titleInternship: [],
+    talentsIntership: [],
+    titleDataIntership: [],
+    currentTalentIntership: null,
     institutionPreview: null,
     showUndo: false,
     allowDelete: false,
@@ -31,6 +36,25 @@ const institutionSlice = createSlice({
       state.currentTalent = state.StudentInfo.find(
         (student) => student.talentId === action.payload.talentId
       );
+    },
+    setCurrentSelection: (state, action) => {
+      state.currentSelection = state.StudentInfo.filter((institution) => {
+        return action.payload.includes(institution.talentId);
+      });
+    },
+    setTitleInternship: (state, action) => {
+      state.titleInternship.push(action.payload);
+    },
+    setCurrentTalentIntership: (state, action) => {
+      state.currentTalentIntership = state.titleInternship.find(
+        (student) => student.nameGroup === action.payload.nameGroup
+      );
+    },
+    setTalentsIntership: (state, action) => {
+      state.talentsIntership.push(action.payload);
+    },
+    setTitleDataIntership: (state, action) => {
+      state.titleDataIntership.push(action.payload);
     },
     updateInstitution: (state, action) => {
       state.currentInstitution = action.payload.currentInstitution;
@@ -160,6 +184,10 @@ export const {
   addInstitution,
   setcurrentInstitution,
   setCurrentTalent,
+  setCurrentSelection,
+  setTitleInternship,
+  setCurrentTalentIntership,
+  setTalentsIntership,
   setShowUndo,
   setAllowDelete,
   updateInstitution,
@@ -179,6 +207,14 @@ export const institutionPreview = (state) =>
 export const currentInstitution = (state) =>
   state.institution.currentInstitution;
 export const CurrentTalent = (state) => state.institution.currentTalent;
+export const currentSelection = (state) => state.institution.currentSelection;
+export const titleInternship = (state) => state.institution.titleInternship;
+export const currentTalentIntership = (state) =>
+  state.institution.currentTalentIntership;
+export const titleDataIntership = (state) =>
+  state.institution.titleDataIntership;
+export const talentsIntership = (state) => state.institution.talentsIntership;
+
 export const showUndo = (state) => state.institution.showUndo;
 export const allowDelete = (state) => state.institution.allowDelete;
 

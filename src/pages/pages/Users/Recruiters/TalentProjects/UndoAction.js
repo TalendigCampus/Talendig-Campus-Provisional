@@ -1,14 +1,11 @@
 import React from "react";
 import styled from "styled-components/macro";
 import { Helmet } from "react-helmet-async";
-
+import { PROJECT_UPDATE_TYPE } from "../../../../../common/constants/data";
 import {
   Grid,
   IconButton,
-  Breadcrumbs as MuiBreadcrumbs,
   Button as MuiButton,
-  Card as MuiCard,
-  Divider as MuiDivider,
   Paper as MuiPaper,
   Snackbar,
 } from "@mui/material";
@@ -17,26 +14,40 @@ import { spacing } from "@mui/system";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
-  addBootcamp,
-  bootcampToBeRemoved,
-  setShowUndo,
+  currentProject,
   showUndo,
-} from "../../../redux/slices/bootcampSlice";
+  setShowUndo,
+  addProject,
+  updateType,
+  currentFolder,
+  currentFile,
+} from "../../../../../redux/slices/projectsSlice";
 
 const Paper = styled(MuiPaper)(spacing);
 
 const Button = styled(MuiButton)(spacing);
 
 function SimpleSnackbar() {
-  const bootcampToDeleted = useSelector(bootcampToBeRemoved);
+  const currentSelectedProject = useSelector(currentProject);
+  const currentSelectedFolder = useSelector(currentFolder);
+  const currentSelectedFile = useSelector(currentFile);
+  const type = useSelector(updateType);
   const showUndoSnackbar = useSelector(showUndo);
   const dispatch = useDispatch();
+
   const handleClick = () => {
-    dispatch(addBootcamp({ bootcamp: bootcampToDeleted }));
+    if (type === PROJECT_UPDATE_TYPE.project) {
+      dispatch(addProject({ project: currentSelectedProject, type }));
+    } else if (type === PROJECT_UPDATE_TYPE.folder) {
+      dispatch(addProject({ projectFolder: currentSelectedFolder, type }));
+    } else if (type === PROJECT_UPDATE_TYPE.file) {
+      dispatch(addProject({ folderFile: currentSelectedFile, type }));
+    }
+
     handleClose();
   };
 
-  const handleClose = (event, reason) => {
+  const handleClose = (reason) => {
     if (reason === "clickaway") {
       return;
     }
@@ -54,11 +65,11 @@ function SimpleSnackbar() {
         open={showUndoSnackbar}
         autoHideDuration={6000}
         onClose={handleClose}
-        message="¿Deshacer acción?"
+        message="Deshacer acción"
         action={
           <React.Fragment>
             <Button color="secondary" size="small" onClick={handleClick}>
-              Si
+              UNDO
             </Button>
             <IconButton
               size="small"
@@ -78,7 +89,7 @@ function SimpleSnackbar() {
 function Snackbars() {
   return (
     <React.Fragment>
-      <Helmet />
+      <Helmet title="Snackbars" />
       <Grid container spacing={6}>
         <Grid item xs={12} md={6}>
           <SimpleSnackbar />

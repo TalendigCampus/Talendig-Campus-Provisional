@@ -2,19 +2,8 @@ import React from "react";
 import styled, { withTheme } from "styled-components/macro";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import Chart from "react-chartjs-2";
 
-import {
-  Briefcase,
-  DollarSign,
-  ExternalLink,
-  Facebook,
-  Home,
-  Instagram,
-  MapPin,
-  ShoppingBag,
-  Twitter,
-} from "react-feather";
+import { DollarSign } from "react-feather";
 
 import {
   Avatar as MuiAvatar,
@@ -28,42 +17,20 @@ import {
   Divider as MuiDivider,
   Grid as MuiGrid,
   Icon,
-  LinearProgress as MuiLinearProgress,
   Link,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
   Typography as MuiTypography,
 } from "@mui/material";
 import { spacing } from "@mui/system";
-import {
-  bootcampProfile,
-  deleteTecnologies,
-  selectBootcampProfile,
-  addTecnology,
-} from "../../../../../redux/slices/bootcampSlice";
-import tecnologiesInfo from "./tecnologies.json";
+import { selectBootcampProfile } from "../../../../../redux/slices/bootcampSlice";
+import tecnologiesInfo from "../../../Bootcamps/tecnologies.json";
 import { useSelector } from "react-redux";
 import Project from "../Componets/Projects";
 import {
   ArrowRight,
   CalendarToday,
-  Computer,
-  ComputerOutlined,
-  ListAlt,
-  Phone,
   PhoneAndroid,
-  PointOfSaleTwoTone,
-  Subscript,
-  Timeline,
-  TimeToLeave,
-  Vignette,
-  Watch,
   WatchLater,
 } from "@mui/icons-material";
-import { CloudUpload as MuiCloudUpload } from "@mui/icons-material";
 import { selectInstructors } from "../../../../../redux/slices/instructorSlice";
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
@@ -78,13 +45,9 @@ const Divider = styled(MuiDivider)(spacing);
 
 const Grid = styled(MuiGrid)(spacing);
 
-const LinearProgress = styled(MuiLinearProgress)(spacing);
-
 const Spacer = styled.div(spacing);
 
 const Typography = styled(MuiTypography)(spacing);
-
-const CloudUpload = styled(MuiCloudUpload)(spacing);
 
 const CenteredContent = styled.div`
   text-align: center;
@@ -100,12 +63,6 @@ const Centered = styled.div`
   text-align: center;
 `;
 
-const Avatar = styled(MuiAvatar)`
-  display: inline-block;
-  height: 128px;
-  width: 128px;
-`;
-
 const AboutIcon = styled.span`
   display: flex;
   padding-right: ${(props) => props.theme.spacing(2)};
@@ -114,11 +71,6 @@ const AboutIcon = styled.span`
     width: 14px;
     height: 14px;
   }
-`;
-
-const ChartWrapper = styled.div`
-  height: 280px;
-  position: relative;
 `;
 
 const StatsIcon = styled.div`
@@ -142,11 +94,6 @@ const ProductsChip = styled(Chip)`
   color: ${(props) => props.theme.palette.common.white};
 `;
 
-const TableWrapper = styled.div`
-  overflow-y: auto;
-  max-width: calc(100vw - ${(props) => props.theme.spacing(12)});
-`;
-
 function Details() {
   const bootcamp = useSelector(selectBootcampProfile);
   return (
@@ -160,7 +107,7 @@ function Details() {
   );
 }
 
-function Skills({ bootcamp }) {
+function TecnologiesSkills({ bootcamp }) {
   const [tecnologiesToSelect, setTecnologiesToSelect] = React.useState([]);
   console.log(tecnologiesToSelect);
   const filterTecnologies = () => {
@@ -245,7 +192,7 @@ function About({ bootcamp }) {
   );
 }
 
-function Elsewhere({ instructors, bootcamp }) {
+function Instructor({ instructors, bootcamp }) {
   return (
     <Card mb={6}>
       <CardContent>
@@ -300,7 +247,7 @@ function Description({ bootcamp }) {
   );
 }
 
-function Earnings({ bootcamp }) {
+function Price({ bootcamp }) {
   return (
     <Box position="relative">
       <Card mb={6} pt={2}>
@@ -408,19 +355,19 @@ function BootcampsDetails() {
           <Grid item xs={12} lg={5} xl={3}>
             <Details />
             <About bootcamp={bootcamp} />
-            <Elsewhere instructors={instructors} bootcamp={bootcamp} />
+            <Instructor instructors={instructors} bootcamp={bootcamp} />
           </Grid>
           <Grid item xs={12} lg={7} xl={9}>
             <Grid item xs={12} lg={12}>
               <Description bootcamp={bootcamp} />
             </Grid>
             <Grid item xs={12} lg={12}>
-              <Skills bootcamp={bootcamp} />
+              <TecnologiesSkills bootcamp={bootcamp} />
             </Grid>
             <Content bootcamp={bootcamp} />
             <Grid container spacing={6}>
               <Grid item xs={12} lg={12}>
-                <Earnings bootcamp={bootcamp} />
+                <Price bootcamp={bootcamp} />
               </Grid>
             </Grid>
           </Grid>

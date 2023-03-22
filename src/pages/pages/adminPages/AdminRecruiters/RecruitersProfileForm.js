@@ -417,7 +417,8 @@ function BasicForm() {
                       mt={3}
                       ml={3}
                     >
-                      <Edit />
+                      <Edit style={{ "margin-right": "10px" }} />
+                      Editar
                     </Button>
                     <Button
                       type="button"
@@ -431,7 +432,8 @@ function BasicForm() {
                       mt={3}
                       ml={3}
                     >
-                      <ListAlt />
+                      <ListAlt style={{ "margin-right": "10px" }} />
+                      Volver a reclutadores
                     </Button>
                   </>
                 )}

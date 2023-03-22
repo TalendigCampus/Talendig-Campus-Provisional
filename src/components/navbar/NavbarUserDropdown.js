@@ -40,7 +40,7 @@ function NavbarUserDropdown() {
           setProfileRoute("/recruiters/perfil");
           break;
         case PROFILES.instructor:
-          setShowProfileOption(false);
+          setProfileRoute("/instructors/profile");
           break;
         default:
           break;
