@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { spacing } from "@mui/system";
 
-import Actions from "../Bootcamps/Actions";
+import Actions from "../Bootcamps/Bootcamps/Actions";
 import Projects from "../Componets/Projects";
 import { useSelector } from "react-redux";
 import { selectBootcamps } from "../../../../../redux/slices/bootcampSlice";

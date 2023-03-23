@@ -1,6 +1,6 @@
 import Changelog from "../../../docs/Changelog";
 import DashboardLayout from "../../../../layouts/Dashboard";
-import BootcampsInstitutions from "./Bootcamps/BootcampsInstitutions";
+import BootcampsList from "./Bootcamps/BootcampsList";
 import BootcampsDetails from "./Bootcamps/BootcampsDetails";
 import InstitutionsHome from "./Home";
 import InstructorsInstitutions from "./Reclutar/InstructorsInstitutions";
@@ -32,7 +32,7 @@ const institutionRoutes = {
       children: [
         {
           index: true,
-          element: <BootcampsInstitutions />,
+          element: <BootcampsList />,
         },
         {
           path: "details",

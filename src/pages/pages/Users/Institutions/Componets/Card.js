@@ -46,9 +46,9 @@ export function MediaCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        {/* <Button size="small" color="primary">
           Compartir
-        </Button>
+        </Button> */}
         <Button
           size="small"
           color="primary"

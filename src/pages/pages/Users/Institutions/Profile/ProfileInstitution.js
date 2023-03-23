@@ -149,7 +149,7 @@ function ProfileInstitution() {
       <Helmet title="Recruiter Profile" />
 
       <Typography variant="h3" gutterBottom display="inline">
-        Perfil de {`${institution.institution}`}
+        Perfil de institucion
       </Typography>
 
       <Divider my={6} />

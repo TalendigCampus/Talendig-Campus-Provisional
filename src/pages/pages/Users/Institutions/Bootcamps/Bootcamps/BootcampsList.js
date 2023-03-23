@@ -18,7 +18,7 @@ const Divider = styled(MuiDivider)(spacing);
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
-function BootcampsInstitutions() {
+function BootcampsList() {
   return (
     <React.Fragment>
       <Helmet title="Bootcamps" />
@@ -45,4 +45,4 @@ function BootcampsInstitutions() {
   );
 }
 
-export default BootcampsInstitutions;
+export default BootcampsList;
