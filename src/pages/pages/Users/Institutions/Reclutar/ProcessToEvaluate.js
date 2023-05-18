@@ -7,6 +7,19 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Dialog, DialogContent } from "@mui/material";
 import { SwitchesGroup } from "../Componets/SelectionControl";
+import {
+  CurrentTalent,
+  setStatusProcess,
+  updateTalentInfo,
+  setProcessStep,
+  setProcessCompleted,
+} from "../../../../../redux/slices/talentSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  ActiveStep,
+  Completed,
+} from "../../../../../redux/slices/institutionSlice";
+import { useEffect } from "react";
 
 const steps = [
   "Revision inicial",
@@ -16,10 +29,12 @@ const steps = [
 ];
 
 export default function ProcessToEvaluate(props) {
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [completed, setCompleted] = React.useState({});
+  const dispatch = useDispatch();
+  let newDataTalent = useSelector(CurrentTalent);
+  const activeStep = newDataTalent.recruiterProcess.activeStep;
+  const completed = newDataTalent.recruiterProcess.completedSteps;
 
-  const { onClose, open, setOpen, setProcess } = props;
+  const { onClose, open, setOpen, setProcess, data } = props;
 
   const handleListItemClick = (value) => {
     setOpen(false);
@@ -48,21 +63,22 @@ export default function ProcessToEvaluate(props) {
           // find the first step that has been completed
           steps.findIndex((step, i) => !(i in completed))
         : activeStep + 1;
-    setActiveStep(newActiveStep);
+    dispatch(setProcessStep({ activeStep: newActiveStep }));
   };
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    let prevActiveStep = activeStep;
+    dispatch(setProcessStep({ activeStep: prevActiveStep - 1 }));
   };
 
   const handleStep = (step) => () => {
-    setActiveStep(step);
+    dispatch(setProcessStep({ activeStep: step }));
   };
 
   const handleComplete = () => {
-    const newCompleted = completed;
+    const newCompleted = { ...completed };
     newCompleted[activeStep] = true;
-    setCompleted(newCompleted);
+    dispatch(setProcessCompleted({ completedSteps: newCompleted }));
     setProcess(true);
     handleNext();
     if (completedSteps() === totalSteps()) {
@@ -72,9 +88,18 @@ export default function ProcessToEvaluate(props) {
   };
 
   const handleReset = () => {
-    setActiveStep(0);
-    setCompleted({});
+    dispatch(setProcessStep({ activeStep: 1 })); // Reinicia el índice del paso activo a 0
+    dispatch(setProcessCompleted({ completedSteps: { 0: true } })); // Reinicia el objeto de pasos completados a un objeto vacío
+    console.log(completed);
   };
+
+  if (activeStep >= 2) {
+    dispatch(setStatusProcess(true));
+    dispatch(updateTalentInfo({ updatedTalent: newDataTalent }));
+  } else {
+    dispatch(setStatusProcess(false));
+    dispatch(updateTalentInfo({ updatedTalent: newDataTalent }));
+  }
 
   return (
     <Dialog

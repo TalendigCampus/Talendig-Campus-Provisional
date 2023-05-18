@@ -299,7 +299,6 @@ export function EnhancedTable({ setAllowDelete }) {
   };
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
-
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
@@ -327,6 +326,8 @@ export function EnhancedTable({ setAllowDelete }) {
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.talentId);
                   const labelId = `enhanced-table-checkbox-${index}`;
+                  console.log(row);
+
                   return (
                     <TableRow
                       aria-checked={isItemSelected}
@@ -357,7 +358,7 @@ export function EnhancedTable({ setAllowDelete }) {
                       </TableCell>
                       <TableCell>{getTecnologies(row.technology)}</TableCell>
                       <TableCell align="center">
-                        {row.recruiterProcess.status.intern === true && (
+                        {row.institutionProcess.status.intern === true && (
                           <Chip
                             size="small"
                             mr={1}
@@ -366,7 +367,7 @@ export function EnhancedTable({ setAllowDelete }) {
                             cancelled={+true}
                           />
                         )}
-                        {row.recruiterProcess.activeProcess === true && (
+                        {row.institutionProcess.activeProcess === true && (
                           <Chip
                             size="small"
                             mr={1}
@@ -375,8 +376,8 @@ export function EnhancedTable({ setAllowDelete }) {
                             processing={+true}
                           />
                         )}
-                        {row.recruiterProcess.status.intern === false &&
-                          row.recruiterProcess.activeProcess === false && (
+                        {row.institutionProcess.status.intern === false &&
+                          row.institutionProcess.activeProcess === false && (
                             <Chip
                               size="small"
                               mr={1}

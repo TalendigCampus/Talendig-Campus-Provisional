@@ -124,7 +124,7 @@
     "biography": "Soy licenciado en publicidad egresado de UNAPEC. Con más de 5 años de experiencia en la comunicación visual, me apasiona el diseño de experiencias de usuario. Me he desempeñado en labores como creación de key visual para campañas publicitarias, creación de identidad corporativa, líneas gráficas para implementación digital, prototipado, UX research, wireframes, entre otras.",
     "talentId": 3,
     "recruiterProcess": {
-      "activeStep": 0,
+      "activeStep": 1,
       "activeProcess": false,
       "completedSteps": {
         "0": true
@@ -284,7 +284,7 @@
   {
     "talentName": "Rafael",
     "talentLastName": "Mejia",
-    "talentEmail": "gabriel@gmail.com",
+    "talentEmail": "rafael@gmail.com",
     "talenAvatar": "G",
     "imgTalent": "http://localhost/talendig-campus-template-master/img/talentos//persona1.jpg",
     "password": "12345",

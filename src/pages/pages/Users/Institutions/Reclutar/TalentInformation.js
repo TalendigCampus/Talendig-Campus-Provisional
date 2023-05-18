@@ -150,7 +150,6 @@ function Skills(props) {
       props.technology.includes(technology.id) && values.push(technology.name)
   );
   let skills = values;
-  console.log("yooouuu!!", skills);
   let i = 0;
   return (
     <Card mb={6}>
@@ -413,7 +412,7 @@ function Lenguages(props) {
   );
 }
 
-function ButtonForSolicitation() {
+function ButtonForSolicitation(props) {
   const [open, setOpen] = React.useState(false);
   const [process, setProcess] = React.useState(false);
 
@@ -445,6 +444,7 @@ function ButtonForSolicitation() {
               onClose={handleClose}
               setOpen={setOpen}
               setProcess={setProcess}
+              data={props}
             />
           </CardActions>
         </CardContent>
@@ -514,7 +514,7 @@ function TalentInformation() {
             <Expirence {...result} />
             <Education {...result} />
             <Lenguages {...result} />
-            <ButtonForSolicitation />
+            <ButtonForSolicitation {...result} />
           </Grid>
         </Grid>
       ) : (

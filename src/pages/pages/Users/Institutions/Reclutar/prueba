@@ -1,0 +1,71 @@
+const activeStep = useSelector(ActiveStep);
+const completed = useSelector({ Completed });
+const dispatch = useDispatch();
+let newDataTalent = useSelector(CurrentTalent);
+
+const { onClose, open, setOpen, setProcess, data } = props;
+
+const handleListItemClick = (value) => {
+  setOpen(false);
+};
+
+const totalSteps = () => {
+  return steps.length;
+};
+
+const completedSteps = () => {
+  return Object.keys(completed).length;
+};
+
+const isLastStep = () => {
+  return activeStep === totalSteps() - 1;
+};
+
+const allStepsCompleted = () => {
+  return completedSteps() === totalSteps();
+};
+
+const handleNext = () => {
+  const newActiveStep =
+    isLastStep() && !allStepsCompleted()
+      ? // It's the last step, but not all steps have been completed,
+        // find the first step that has been completed
+        steps.findIndex((step, i) => !(i in completed))
+      : activeStep + 1;
+  dispatch(setActiveStep(newActiveStep));
+};
+
+const handleBack = () => {
+  dispatch(setActiveStep((prevActiveStep) => prevActiveStep - 1));
+};
+
+const handleStep = (step) => () => {
+  dispatch(setActiveStep(step));
+};
+
+const handleComplete = () => {
+  const newCompleted = completed;
+  newCompleted[activeStep] = true;
+  console.log(completed);
+
+  dispatch(setCompleted(newCompleted));
+  setProcess(true);
+  handleNext();
+  if (completedSteps() === totalSteps()) {
+    setOpen(false);
+    setProcess(false);
+  }
+};
+
+const handleReset = () => {
+  dispatch(setActiveStep(0));
+  dispatch(setCompleted({}));
+};
+
+if (activeStep >= 1) {
+  dispatch(setStatusProcess(true));
+  dispatch(updateTalentInfo({ updatedTalent: newDataTalent }));
+} else {
+  dispatch(setStatusProcess(false));
+  dispatch(updateTalentInfo({ updatedTalent: newDataTalent }));
+}

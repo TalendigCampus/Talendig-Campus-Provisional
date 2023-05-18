@@ -7,6 +7,8 @@ const institutionSlice = createSlice({
   initialState: {
     InstitutionInfo,
     StudentInfo,
+    activeStep: 0,
+    completed: {},
     currentInstitution: null,
     currentTalent: null,
     currentSelection: [],
@@ -19,6 +21,13 @@ const institutionSlice = createSlice({
     allowDelete: false,
   },
   reducers: {
+    setActiveStep: (state, action) => {
+      state.activeStep = action.payload;
+    },
+    setCompleted: (state, action) => {
+      state.completed = { ...state.completed, [action.payload]: true };
+      console.log(state.completed);
+    },
     deleteInstitution: (state, action) => {
       state.InstitutionInfo = state.InstitutionInfo.filter(
         (institution) => institution.id !== action.payload.id
@@ -42,6 +51,7 @@ const institutionSlice = createSlice({
         return action.payload.includes(institution.talentId);
       });
     },
+
     setTitleInternship: (state, action) => {
       state.titleInternship.push(action.payload);
     },
@@ -130,7 +140,7 @@ const institutionSlice = createSlice({
       );
     },
     setProcessStep: (state, action) => {
-      const currentInstitution = state.InstitutionInfo.find(
+      const currentInstitution = state.StudentInfo.find(
         (institution) => institution.id === state.currentInstitution.id
       );
       currentInstitution.recruiterProcess.activeStep =
@@ -138,7 +148,7 @@ const institutionSlice = createSlice({
       state.currentInstitution = currentInstitution;
     },
     setProcessCompleted: (state, action) => {
-      const currentInstitution = state.InstitutionInfo.find(
+      const currentInstitution = state.StudentInfo.find(
         (institution) => institution.id === state.currentInstitution.id
       );
       currentInstitution.recruiterProcess.completedSteps =
@@ -146,7 +156,7 @@ const institutionSlice = createSlice({
       state.currentInstitution = currentInstitution;
     },
     setinstitutionFavorite: (state, action) => {
-      const currentInstitution = state.InstitutionInfo.find(
+      const currentInstitution = state.StudentInfo.find(
         (institution) => institution.id === state.currentInstitution.id
       );
 
@@ -182,6 +192,9 @@ export const {
   deleteInstitution,
   setShowStudentsFree,
   addInstitution,
+  setActiveStep,
+  setCompleted,
+  setStatusProcess,
   setcurrentInstitution,
   setCurrentTalent,
   setCurrentSelection,
@@ -214,7 +227,8 @@ export const currentTalentIntership = (state) =>
 export const titleDataIntership = (state) =>
   state.institution.titleDataIntership;
 export const talentsIntership = (state) => state.institution.talentsIntership;
-
+export const ActiveStep = (state) => state.institution.activeStep;
+export const Completed = (state) => state.institution.completed;
 export const showUndo = (state) => state.institution.showUndo;
 export const allowDelete = (state) => state.institution.allowDelete;
 

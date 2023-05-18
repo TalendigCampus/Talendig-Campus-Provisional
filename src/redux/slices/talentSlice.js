@@ -11,6 +11,19 @@ const talentSlice = createSlice({
     allowDelete: false,
   },
   reducers: {
+    setStatusProcess: (state, action) => {
+      state.currentTalent.recruiterProcess.activeProcess = action.payload;
+    },
+    updateTalentInfo: (state, action) => {
+      const updatedTalent = action.payload.updatedTalent;
+      const talentIndex = state.TalentsInfo.findIndex(
+        (talent) => talent.talentId === updatedTalent.talentId
+      );
+
+      if (talentIndex >= 0) {
+        state.TalentsInfo[talentIndex] = updatedTalent;
+      }
+    },
     deleteTalent: (state, action) => {
       state.TalentsInfo = state.TalentsInfo.filter(
         (talent) => talent.talentId !== action.payload.talentId
@@ -113,6 +126,8 @@ const talentSlice = createSlice({
 });
 
 export const {
+  updateTalentInfo,
+  setStatusProcess,
   deleteTalent,
   addTalent,
   setCurrentTalent,

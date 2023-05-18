@@ -31,7 +31,6 @@ export function MediaCard(props) {
     dispatch(bootcampProfile({ id: Number(id) }));
     navigate("/institution/bootcamps/details");
   };
-  console.log(props.id);
   return (
     <Card mb={6}>
       <CardActionArea onClick={() => getDetails(props.id)}>
@@ -69,7 +68,6 @@ export function MyMediaCard(props) {
     dispatch(bootcampProfile({ id: Number(id) }));
     navigate("/institution/bootcamps/my-bootcamps/details");
   };
-  console.log(props.id);
   return (
     <Card mb={6}>
       <CardActionArea onClick={() => getDetails(props.id)}>

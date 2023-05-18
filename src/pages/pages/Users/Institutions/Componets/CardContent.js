@@ -40,7 +40,6 @@ export function BootcapmsDispo({ rank }) {
     (page - 1) * STATSQUANTITYBYPAGINATION,
     page * STATSQUANTITYBYPAGINATION
   );
-  console.log(newDataRank);
 
   const handleChange = (event, value) => {
     setPage(value);
@@ -101,7 +100,6 @@ export function MyBootcamps({ InPossession }) {
       return stat;
     }
   });
-  console.log(rows);
   const pageQuantity = Math.ceil(
     newDataAvailable.length / STATSQUANTITYBYPAGINATION
   );

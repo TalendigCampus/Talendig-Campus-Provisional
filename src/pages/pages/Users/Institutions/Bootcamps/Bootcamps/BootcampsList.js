@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 
 import { spacing } from "@mui/system";
-import { BootcapmsDispo } from "../Componets/CardContent";
+import { BootcapmsDispo } from "../../Componets/CardContent";
 
 const Divider = styled(MuiDivider)(spacing);
 

@@ -352,7 +352,7 @@ export function EnhancedTable({ setAllowDelete }) {
                       </TableCell>
                       <TableCell>{getTecnologies(row.technology)}</TableCell>
                       <TableCell align="center">
-                        {row.recruiterProcess.status.intern === true && (
+                        {row.institutionProcess.status.intern === true && (
                           <Chip
                             size="small"
                             mr={1}
@@ -361,7 +361,7 @@ export function EnhancedTable({ setAllowDelete }) {
                             cancelled={+true}
                           />
                         )}
-                        {row.recruiterProcess.activeProcess === true && (
+                        {row.institutionProcess.activeProcess === true && (
                           <Chip
                             size="small"
                             mr={1}
@@ -370,8 +370,8 @@ export function EnhancedTable({ setAllowDelete }) {
                             processing={+true}
                           />
                         )}
-                        {row.recruiterProcess.status.intern === false &&
-                          row.recruiterProcess.activeProcess === false && (
+                        {row.institutionProcess.status.intern === false &&
+                          row.institutionProcess.activeProcess === false && (
                             <Chip
                               size="small"
                               mr={1}
@@ -424,11 +424,11 @@ export function EnhancedTable({ setAllowDelete }) {
 
 // function Status({ row }) {
 //   console.log(row);
-//   if (row.recruiterProcess.status.intern === true) {
+//   if (row.institutionProcess.status.intern === true) {
 //     return (
 //       <Chip size="small" mr={1} mb={1} label="Empleado" cancelled={+true} />
 //     );
-//   } else if (row.recruiterProcess.activeProcess === true) {
+//   } else if (row.institutionProcess.activeProcess === true) {
 //     return (
 //       <Chip size="small" mr={1} mb={1} label="En proceso" processing={+true} />
 //     );

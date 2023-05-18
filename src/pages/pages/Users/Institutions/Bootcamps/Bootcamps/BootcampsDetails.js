@@ -21,17 +21,17 @@ import {
   Typography as MuiTypography,
 } from "@mui/material";
 import { spacing } from "@mui/system";
-import { selectBootcampProfile } from "../../../../../redux/slices/bootcampSlice";
-import tecnologiesInfo from "../../../Bootcamps/tecnologies.json";
+import { selectBootcampProfile } from "../../../../../../redux/slices/bootcampSlice";
+import tecnologiesInfo from "../../../../Bootcamps/tecnologies.json";
 import { useSelector } from "react-redux";
-import Project from "../Componets/Projects";
+import Project from "../../Componets/Projects";
 import {
   ArrowRight,
   CalendarToday,
   PhoneAndroid,
   WatchLater,
 } from "@mui/icons-material";
-import { selectInstructors } from "../../../../../redux/slices/instructorSlice";
+import { selectInstructors } from "../../../../../../redux/slices/instructorSlice";
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
@@ -109,18 +109,14 @@ function Details() {
 
 function TecnologiesSkills({ bootcamp }) {
   const [tecnologiesToSelect, setTecnologiesToSelect] = React.useState([]);
-  console.log(tecnologiesToSelect);
-  const filterTecnologies = () => {
+
+  React.useEffect(() => {
     let tecnologies = bootcamp.tecnologies;
     let newSelectTecnologys = tecnologiesInfo.filter((tecnology) =>
       tecnologies.includes(tecnology.id)
     );
 
     setTecnologiesToSelect(newSelectTecnologys);
-  };
-
-  React.useEffect(() => {
-    filterTecnologies();
   });
 
   return (
