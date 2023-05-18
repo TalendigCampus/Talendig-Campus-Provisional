@@ -20,9 +20,7 @@ import { ExpandMore as ExpandMoreIcon } from "@mui/icons-material";
 import {
   Avatar,
   Breadcrumbs as MuiBreadcrumbs,
-  Button as MuiButton,
   Card as MuiCard,
-  CardContent,
   Divider as MuiDivider,
   FormControl as MuiFormControl,
   Link,
@@ -34,8 +32,6 @@ import {
 } from "@mui/material";
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
-
-const Card = styled(MuiCard)(spacing);
 
 const Divider = styled(MuiDivider)(spacing);
 

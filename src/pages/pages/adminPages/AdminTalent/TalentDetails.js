@@ -16,7 +16,6 @@ import {
   TextField as MuiTextField,
   Typography,
 } from "@mui/material";
-import { CloudUpload as MuiCloudUpload } from "@mui/icons-material";
 import { spacing } from "@mui/system";
 import { DatePicker } from "@mui/lab";
 import JsonInfo from "./info.json";
@@ -36,8 +35,6 @@ const FormControl = styled(MuiFormControl)(spacing);
 const TextField = styled(MuiTextField)(spacing);
 
 const Button = styled(MuiButton)(spacing);
-
-const CloudUpload = styled(MuiCloudUpload)(spacing);
 
 const CenteredContent = styled.div`
   text-align: center;

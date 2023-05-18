@@ -2,9 +2,6 @@ import React from "react";
 
 import styled from "styled-components/macro";
 import {
-  Card as MuiCard,
-  CardContent,
-  Typography,
   Paper as MuiPaper,
   Button as MuiButton,
   Snackbar,
@@ -19,11 +16,9 @@ import {
   showUndo,
   setShowUndo,
   addTalent,
-  deleteTalent,
   CurrentTalent,
 } from "../../../../redux/slices/talentSlice";
 
-const Card = styled(MuiCard)(spacing);
 const Paper = styled(MuiPaper)(spacing);
 const Button = styled(MuiButton)(spacing);
 

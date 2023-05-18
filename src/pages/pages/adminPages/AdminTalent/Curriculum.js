@@ -4,35 +4,18 @@ import { NavLink, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Chart from "react-chartjs-2";
 
-import {
-  Briefcase,
-  DollarSign,
-  ExternalLink,
-  Facebook,
-  Home,
-  Instagram,
-  MapPin,
-  ShoppingBag,
-  Twitter,
-} from "react-feather";
+import { Home, MapPin } from "react-feather";
 
 import {
   Avatar as MuiAvatar,
   Box,
   Breadcrumbs as MuiBreadcrumbs,
-  Button as MuiButton,
   Card as MuiCard,
   CardContent,
   Chip as MuiChip,
   Divider as MuiDivider,
   Grid as MuiGrid,
-  LinearProgress as MuiLinearProgress,
   Link,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
   Typography as MuiTypography,
 } from "@mui/material";
 import { spacing } from "@mui/system";
@@ -44,8 +27,6 @@ import { CurrentTalent } from "../../../../redux/slices/talentSlice";
 
 const Breadcrumbs = styled(MuiBreadcrumbs)(spacing);
 
-const Button = styled(MuiButton)(spacing);
-
 const Card = styled(MuiCard)(spacing);
 
 const Chip = styled(MuiChip)(spacing);
@@ -53,8 +34,6 @@ const Chip = styled(MuiChip)(spacing);
 const Divider = styled(MuiDivider)(spacing);
 
 const Grid = styled(MuiGrid)(spacing);
-
-const LinearProgress = styled(MuiLinearProgress)(spacing);
 
 const Spacer = styled.div(spacing);
 
@@ -84,39 +63,6 @@ const AboutIcon = styled.span`
     height: 14px;
   }
 `;
-
-const ChartWrapper = styled.div`
-  height: 280px;
-  position: relative;
-`;
-
-const StatsIcon = styled.div`
-  position: absolute;
-  right: 16px;
-  top: 32px;
-
-  svg {
-    width: 32px;
-    height: 32px;
-    color: ${(props) => props.theme.palette.secondary.main};
-  }
-`;
-
-const ProductsChip = styled(Chip)`
-  height: 20px;
-  padding: 4px 0;
-  font-size: 90%;
-  background-color: ${(props) =>
-    props.theme.palette[props.color ? props.color : "primary"].light};
-  color: ${(props) => props.theme.palette.common.white};
-`;
-
-const TableWrapper = styled.div`
-  overflow-y: auto;
-  max-width: calc(100vw - ${(props) => props.theme.spacing(12)});
-`;
-
-const rows = JsonInfo;
 
 function Details(props) {
   return (
@@ -378,12 +324,6 @@ function Lenguages(props) {
 }
 
 function Curriculum() {
-  // let { talentId } = useParams();
-  // console.log(talentId);
-  // console.log(rows);
-  // const result = rows.find((row) => row.talentId === Number(talentId));
-  // console.log(result);
-
   const result = useSelector(CurrentTalent);
 
   return (
