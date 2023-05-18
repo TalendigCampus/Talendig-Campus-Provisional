@@ -250,9 +250,12 @@
     "contactNumEmergencyName": "8299508123",
     "idCard": "012-9089798-0",
     "birth": "1995-12-10",
-    "city": "Santo Domingo de Guzman",
-    "neighborhood": "Villa Francisca",
-    "Street": "Albaro Garabito",
+    "address": {
+      "street": "Nueva Vista",
+      "numHouseOrApartment": "#99",
+      "neighborhood": "Los Jardinez",
+      "city": "Santo Domingo"
+    },
     "bootcamp": 4,
     "career": "Software Developer",
     "technology": [2, 4, 1, 3],
@@ -293,9 +296,12 @@
     "contactNumEmergencyName": "8299508123",
     "idCard": "012-9089798-0",
     "birth": "1995-12-10",
-    "city": "Santo Domingo de Guzman",
-    "neighborhood": "Villa Francisca",
-    "Street": "Albaro Garabito",
+    "address": {
+      "street": "Nueva Vista",
+      "numHouseOrApartment": "#99",
+      "neighborhood": "Los Jardinez",
+      "city": "Santo Domingo"
+    },
     "bootcamp": 2,
     "career": "Software Developer",
     "technology": [3, 6, 5],

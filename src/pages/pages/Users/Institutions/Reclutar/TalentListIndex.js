@@ -124,7 +124,6 @@ const headCells = [
   { id: "bootcamp", alignment: "right", label: "Bootcamp" },
   { id: "technology", alignment: "left", label: "Tecnologias" },
   { id: "status", alignment: "right", label: "Estado" },
-
   { id: "actions", alignment: "right", label: "Acción" },
 ];
 

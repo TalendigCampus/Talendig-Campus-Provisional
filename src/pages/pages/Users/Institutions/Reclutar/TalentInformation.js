@@ -465,6 +465,7 @@ function TalentInformation() {
   };
 
   const result = useSelector(CurrentTalent);
+  console.log(result);
   return (
     <React.Fragment>
       <Helmet title="Profile" />
