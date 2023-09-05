@@ -41,6 +41,7 @@ import Tooltips from "./pages/components/Tooltips";
 import SelectionCtrls from "./pages/forms/SelectionControls";
 import Selects from "./pages/forms/Selects";
 import TextFields from "./pages/forms/TextFields";
+import OrientacionCalidad from "./pages/forms/OrientacionCalidad";
 
 // Icon components
 import MaterialIcons from "./pages/icons/MaterialIcons";
@@ -328,6 +329,10 @@ const routes = [
       {
         path: "formik",
         element: <Formik />,
+      },
+      {
+        path: "orientacion-a-calidad",
+        element: <OrientacionCalidad />,
       },
     ],
   },
