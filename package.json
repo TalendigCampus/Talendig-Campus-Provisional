@@ -6,7 +6,7 @@
   "private": true,
   "license": "https://material-ui.com/store/license/",
   "scripts": {
-    "start": "craco start",
+    "start": "craco --openssl-legacy-provider start",
     "build": "craco build",
     "eject": "craco eject",
     "lint": "eslint src --ext .js,.jsx --fix"
@@ -71,6 +71,7 @@
     "react-redux": "7.2.5",
     "react-router-dom": "6.0.0-beta.4",
     "react-scripts": "4.0.3",
+    "react-signature-pad-wrapper": "^3.3.3",
     "react-syntax-highlighter": "15.4.4",
     "redux": "4.1.1",
     "redux-thunk": "2.3.0",
