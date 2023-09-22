@@ -43,14 +43,17 @@ function EntrevistaDeEvaluacion() {
   const [page, setPage] = useState(1);
 
   const PageDisplay = () => {
-    if (page === 1) {
-      return <Habilidades data={data} setData={setData} />;
-    } else if (page === 2) {
-      return <Recomendacion1 data={data} setData={setData} />;
-    } else if (page === 3) {
-      return <Recomendacion2 data={data} setData={setData} />;
-    } else {
-      return <Firma data={data} setData={setData} />;
+    switch (page) {
+      case 1:
+        return <Habilidades data={data} setData={setData} />;
+      case 2:
+        return <Recomendacion1 data={data} setData={setData} />;
+      case 3:
+        return <Recomendacion2 data={data} setData={setData} />;
+      case 4:
+        return <Firma data={data} setData={setData} />;
+      default:
+        <Habilidades data={data} setData={setData} />;
     }
   };
 

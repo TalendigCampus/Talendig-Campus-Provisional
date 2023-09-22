@@ -185,7 +185,7 @@ Firma.propTypes = {
   setData: PropTypes.func.isRequired,
 
   data: PropTypes.shape({
-    fecha: PropTypes.number,
+    fecha: PropTypes.string,
     comentario: PropTypes.string,
     opcion: PropTypes.string,
   }),
