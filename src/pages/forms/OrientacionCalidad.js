@@ -5,11 +5,8 @@ import { Helmet } from "react-helmet-async";
 
 import {
   CardContent,
-  Checkbox,
   FormControl,
   FormControlLabel,
-  FormGroup,
-  FormLabel,
   Button as MuiButton,
   Grid,
   Link,
@@ -19,10 +16,9 @@ import {
   Paper as MuiPaper,
   Radio,
   RadioGroup,
-  Switch,
   Typography,
-  Button,
 } from "@mui/material";
+
 import { spacing } from "@mui/system";
 
 const Card = styled(MuiCard)(spacing);
@@ -38,7 +34,7 @@ const RoundedButton = styled(MuiButton)({
 });
 
 const StyledFormControlLabel = styled(FormControlLabel)({
-  marginRight: "-20px", // Adjust this value to your needs
+  marginRight: "-20px",
 });
 
 function FormControlLabelPosition() {
