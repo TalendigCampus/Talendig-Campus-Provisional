@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components/macro";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
@@ -37,7 +37,74 @@ const StyledFormControlLabel = styled(FormControlLabel)({
   marginRight: "-20px",
 });
 
-function FormControlLabelPosition() {
+function Puntaje({ textoPregunta, nombre, valor, onChange }) {
+  return (
+    <FormControl component="fieldset" variant="standard">
+      <Divider />
+      <Grid
+        container
+        alignItems="center"
+        justifyContent="center"
+        paddingTop={7}
+        paddingBottom={7}
+        paddingX={7}
+      >
+        <Grid item xs={12} sm={6}>
+          <Typography>{textoPregunta}</Typography>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <RadioGroup
+            aria-label={nombre}
+            name={nombre}
+            value={valor}
+            onChange={onChange}
+            row
+          >
+            {[1, 2, 3, 4, 5].map((opcion) => (
+              <StyledFormControlLabel
+                key={opcion}
+                value={opcion.toString()}
+                control={<Radio color="primary" />}
+                label={opcion.toString()}
+                labelPlacement="bottom"
+              />
+            ))}
+          </RadioGroup>
+        </Grid>
+      </Grid>
+    </FormControl>
+  );
+}
+
+function FormularioEvaluacion() {
+  const [valorPropuesta, setValorPropuesta] = useState("1");
+  const [valorMejoraContinua, setValorMejoraContinua] = useState("1");
+  const [valorResponsabilidad, setValorResponsabilidad] = useState("1");
+  const [valorAprendeErrores, setAprendeErrores] = useState("1");
+  const [valorAlineacion, setValorAlineacion] = useState("1");
+  const [valorAdaptable, setValorAdaptable] = useState("1");
+  const [valorMejora, setValorMejora] = useState("1");
+  const [valorComunicacion, setValorComunicacion] = useState("1");
+  const [valorCalidad, setValorCalidad] = useState("1");
+
+  // TODO: ADD LOGIC TO SEND TO ENDPOINT ONCE ENDPOINT IS CONFIRMED ATT: CARLOS
+
+  const handleSubmit = () => {
+    const formData = {
+      propuesta: valorPropuesta,
+      mejoraContinua: valorMejoraContinua,
+      responsabilidad: valorResponsabilidad,
+      aprendeErrores: valorAprendeErrores,
+      alineacion: valorAlineacion,
+      adaptable: valorAdaptable,
+      mejora: valorMejora,
+      comunicacion: valorComunicacion,
+      calidad: valorCalidad,
+    };
+
+    console.log(formData);
+  };
+
   return (
     <Card mb={6} paddingX={3}>
       <CardContent>
@@ -51,477 +118,68 @@ function FormControlLabelPosition() {
           Comportamiento / Escala de clasificación
         </Typography>
         <Paper marginX={12}>
-          <FormControl component="fieldset" variant="standard">
-            <Divider />
-            <Grid
-              container
-              alignItems="center"
-              justifyContent="center"
-              paddingTop={7}
-              paddingBottom={7}
-              paddingX={7}
-            >
-              <Grid item xs={12} sm={6}>
-                <Typography>
-                  Realiza propuestas de mejora; Abierto a valorar las propuestas
-                  de los demas para optimizar el desempeño.
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <RadioGroup aria-label="position" name="position" row>
-                  <StyledFormControlLabel
-                    value="1"
-                    control={<Radio color="primary" />}
-                    label="1"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="2"
-                    control={<Radio color="primary" />}
-                    label="2"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="3"
-                    control={<Radio color="primary" />}
-                    label="3"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="4"
-                    control={<Radio color="primary" />}
-                    label="4"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="5"
-                    control={<Radio color="primary" />}
-                    label="5"
-                    labelPlacement="bottom"
-                  />
-                </RadioGroup>
-              </Grid>
-            </Grid>
-          </FormControl>
-          <FormControl component="fieldset" variant="standard">
-            <Divider />
-            <Grid
-              container
-              alignItems="center"
-              justifyContent="center"
-              paddingTop={7}
-              paddingBottom={7}
-              paddingX={7}
-            >
-              <Grid item xs={12} sm={6}>
-                <Typography>
-                  Desarrolla e implementa acciones dirigidas al mejoramiento
-                  continuo de los servicios de su area o de la institucion.
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <RadioGroup aria-label="position" name="position" row>
-                  <StyledFormControlLabel
-                    value="1"
-                    control={<Radio color="primary" />}
-                    label="1"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="2"
-                    control={<Radio color="primary" />}
-                    label="2"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="3"
-                    control={<Radio color="primary" />}
-                    label="3"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="4"
-                    control={<Radio color="primary" />}
-                    label="4"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="5"
-                    control={<Radio color="primary" />}
-                    label="5"
-                    labelPlacement="bottom"
-                  />
-                </RadioGroup>
-              </Grid>
-            </Grid>
-          </FormControl>
-          <FormControl component="fieldset" variant="standard">
-            <Divider />
-            <Grid
-              container
-              alignItems="center"
-              justifyContent="center"
-              paddingTop={7}
-              paddingBottom={7}
-              paddingX={7}
-            >
-              <Grid item xs={12} sm={6}>
-                <Typography>
-                  Asume sus actos con responsabilidad e intenta corregir
-                  loserrores cometidos.
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <RadioGroup aria-label="position" name="position" row>
-                  <StyledFormControlLabel
-                    value="1"
-                    control={<Radio color="primary" />}
-                    label="1"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="2"
-                    control={<Radio color="primary" />}
-                    label="2"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="3"
-                    control={<Radio color="primary" />}
-                    label="3"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="4"
-                    control={<Radio color="primary" />}
-                    label="4"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="5"
-                    control={<Radio color="primary" />}
-                    label="5"
-                    labelPlacement="bottom"
-                  />
-                </RadioGroup>
-              </Grid>
-            </Grid>
-          </FormControl>
-          <FormControl component="fieldset" variant="standard">
-            <Divider />
-            <Grid
-              container
-              alignItems="center"
-              justifyContent="center"
-              paddingTop={7}
-              paddingBottom={7}
-              paddingX={7}
-            >
-              <Grid item xs={12} sm={6}>
-                <Typography>
-                  Asume sus actos con responsabilidad e intenta corregir los Sus
-                  reportes, trabajos, o proyectos son completos, precisos y
-                  siempre estan bien presentados.
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <RadioGroup aria-label="position" name="position" row>
-                  <StyledFormControlLabel
-                    value="1"
-                    control={<Radio color="primary" />}
-                    label="1"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="2"
-                    control={<Radio color="primary" />}
-                    label="2"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="3"
-                    control={<Radio color="primary" />}
-                    label="3"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="4"
-                    control={<Radio color="primary" />}
-                    label="4"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="5"
-                    control={<Radio color="primary" />}
-                    label="5"
-                    labelPlacement="bottom"
-                  />
-                </RadioGroup>
-              </Grid>
-            </Grid>
-          </FormControl>
-          <FormControl component="fieldset" variant="standard">
-            <Divider />
-            <Grid
-              container
-              alignItems="center"
-              justifyContent="center"
-              paddingTop={7}
-              paddingBottom={7}
-              paddingX={7}
-            >
-              <Grid item xs={12} sm={6}>
-                <Typography>
-                  Los trabajos que realiza estan acorde a los procesos y
-                  procedimientos del area o de la institucion.
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <RadioGroup aria-label="position" name="position" row>
-                  <StyledFormControlLabel
-                    value="1"
-                    control={<Radio color="primary" />}
-                    label="1"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="2"
-                    control={<Radio color="primary" />}
-                    label="2"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="3"
-                    control={<Radio color="primary" />}
-                    label="3"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="4"
-                    control={<Radio color="primary" />}
-                    label="4"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="5"
-                    control={<Radio color="primary" />}
-                    label="5"
-                    labelPlacement="bottom"
-                  />
-                </RadioGroup>
-              </Grid>
-            </Grid>
-          </FormControl>
-          <FormControl component="fieldset" variant="standard">
-            <Divider />
-            <Grid
-              container
-              alignItems="center"
-              justifyContent="center"
-              paddingTop={7}
-              paddingBottom={7}
-              paddingX={7}
-            >
-              <Grid item xs={12} sm={6}>
-                <Typography>
-                  Asume las nuevas metodologias de trabajo con facilidad, aplica
-                  las sugerencias de mejoras en los procesos de su trabajo o de
-                  la institucion.
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <RadioGroup aria-label="position" name="position" row>
-                  <StyledFormControlLabel
-                    value="1"
-                    control={<Radio color="primary" />}
-                    label="1"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="2"
-                    control={<Radio color="primary" />}
-                    label="2"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="3"
-                    control={<Radio color="primary" />}
-                    label="3"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="4"
-                    control={<Radio color="primary" />}
-                    label="4"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="5"
-                    control={<Radio color="primary" />}
-                    label="5"
-                    labelPlacement="bottom"
-                  />
-                </RadioGroup>
-              </Grid>
-            </Grid>
-          </FormControl>
-          <FormControl component="fieldset" variant="standard">
-            <Divider />
-            <Grid
-              container
-              alignItems="center"
-              justifyContent="center"
-              paddingTop={7}
-              paddingBottom={7}
-              paddingX={7}
-            >
-              <Grid item xs={12} sm={6}>
-                <Typography>
-                  Se interesa por mejorar su trabajo y servicio; busca
-                  retroalimentacion de su supervisor, sus colegas y usuarios /
-                  clientes para incorporar mejoras sugeridad.
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <RadioGroup aria-label="position" name="position" row>
-                  <StyledFormControlLabel
-                    value="1"
-                    control={<Radio color="primary" />}
-                    label="1"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="2"
-                    control={<Radio color="primary" />}
-                    label="2"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="3"
-                    control={<Radio color="primary" />}
-                    label="3"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="4"
-                    control={<Radio color="primary" />}
-                    label="4"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="5"
-                    control={<Radio color="primary" />}
-                    label="5"
-                    labelPlacement="bottom"
-                  />
-                </RadioGroup>
-              </Grid>
-            </Grid>
-          </FormControl>
-          <Divider />
-          <FormControl component="fieldset" variant="standard">
-            <Grid
-              container
-              alignItems="center"
-              justifyContent="center"
-              paddingTop={7}
-              paddingBottom={7}
-              paddingX={7}
-            >
-              <Grid item xs={12} sm={6}>
-                <Typography>
-                  Comunica errores y presenta propuestas para que se corrijan.
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <RadioGroup aria-label="position" name="position" row>
-                  <StyledFormControlLabel
-                    value="1"
-                    control={<Radio color="primary" />}
-                    label="1"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="2"
-                    control={<Radio color="primary" />}
-                    label="2"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="3"
-                    control={<Radio color="primary" />}
-                    label="3"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="4"
-                    control={<Radio color="primary" />}
-                    label="4"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="5"
-                    control={<Radio color="primary" />}
-                    label="5"
-                    labelPlacement="bottom"
-                  />
-                </RadioGroup>
-              </Grid>
-            </Grid>
-          </FormControl>
-          <FormControl component="fieldset" variant="standard">
-            <Divider />
-            <Grid
-              container
-              alignItems="center"
-              justifyContent="center"
-              paddingTop={7}
-              paddingBottom={7}
-              paddingX={7}
-            >
-              <Grid item xs={12} sm={6}>
-                <Typography>
-                  Vigila la calidad del trabajo de otras personas para asegurar
-                  el trabajo bien hecho.
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <RadioGroup aria-label="position" name="position" row>
-                  <StyledFormControlLabel
-                    value="1"
-                    control={<Radio color="primary" />}
-                    label="1"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="2"
-                    control={<Radio color="primary" />}
-                    label="2"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="3"
-                    control={<Radio color="primary" />}
-                    label="3"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="4"
-                    control={<Radio color="primary" />}
-                    label="4"
-                    labelPlacement="bottom"
-                  />
-                  <StyledFormControlLabel
-                    value="5"
-                    control={<Radio color="primary" />}
-                    label="5"
-                    labelPlacement="bottom"
-                  />
-                </RadioGroup>
-              </Grid>
-            </Grid>
-          </FormControl>
-          <Divider />
+          <Puntaje
+            textoPregunta="Realiza propuestas de mejora; Abierto a valorar las propuestas de los demás para optimizar el desempeño."
+            nombre="propuesta"
+            valor={valorPropuesta}
+            onChange={(e) => setValorPropuesta(e.target.value)}
+          />
+
+          <Puntaje
+            textoPregunta="Desarrolla e implementa acciones dirigidas al mejoramiento continuo de los servicios de su área o de la institución."
+            nombre="mejoraContinua"
+            valor={valorMejoraContinua}
+            onChange={(e) => setValorMejoraContinua(e.target.value)}
+          />
+
+          <Puntaje
+            textoPregunta="Asume sus actos con responsabilidad e intenta corregir los errores cometidos."
+            nombre="responsabilidad"
+            valor={valorResponsabilidad}
+            onChange={(e) => setValorResponsabilidad(e.target.value)}
+          />
+
+          <Puntaje
+            textoPregunta="Asume sus actos con responsabilidad e intenta corregir los Sus reportes, trabajos, o proyectos son completos, precisos y siempre estan bien presentados."
+            nombre="aprendeErrores"
+            valor={valorAprendeErrores}
+            onChange={(e) => setAprendeErrores(e.target.value)}
+          />
+
+          <Puntaje
+            textoPregunta="Los trabajos que realiza estan acorde a los procesos y procedimientos del area o de la institucion."
+            nombre="alineacion"
+            valor={valorAlineacion}
+            onChange={(e) => setValorAlineacion(e.target.value)}
+          />
+
+          <Puntaje
+            textoPregunta="Asume las nuevas metodologias de trabajo con facilidad, aplica las sugerencias de mejoras en los procesos de su trabajo o de la institucion."
+            nombre="adaptable"
+            valor={valorAdaptable}
+            onChange={(e) => setValorAdaptable(e.target.value)}
+          />
+
+          <Puntaje
+            textoPregunta="Se interesa por mejorar su trabajo y servicio; busca retroalimentacion de su supervisor, sus colegas y usuarios / clientes para incorporar mejoras sugeridad."
+            nombre="mejora"
+            valor={valorMejora}
+            onChange={(e) => setValorMejora(e.target.value)}
+          />
+
+          <Puntaje
+            textoPregunta="Comunica errores y presenta propuestas para que se corrijan."
+            nombre="comunicacion"
+            valor={valorComunicacion}
+            onChange={(e) => setValorComunicacion(e.target.value)}
+          />
+
+          <Puntaje
+            textoPregunta="Vigila la calidad del trabajo de otras personas para asegurar el trabajo bien hecho."
+            nombre="calidad"
+            valor={valorCalidad}
+            onChange={(e) => setValorCalidad(e.target.value)}
+          />
         </Paper>
 
         <Grid
@@ -530,7 +188,12 @@ function FormControlLabelPosition() {
           justifyContent="center"
           marginTop={9}
         >
-          <RoundedButton mr={2} variant="contained" color="primary">
+          <RoundedButton
+            mr={2}
+            variant="contained"
+            color="primary"
+            onClick={handleSubmit}
+          >
             Someter
           </RoundedButton>
         </Grid>
@@ -561,7 +224,7 @@ function OrientacionCalidad() {
 
       <Grid container spacing={6} justifyContent="center">
         <Grid item xs={12} md={6}>
-          <FormControlLabelPosition />
+          <FormularioEvaluacion />
         </Grid>
       </Grid>
     </React.Fragment>
