@@ -33,15 +33,46 @@ function Firma({ data, setData }) {
     signatureRefServidor.current.clear();
   };
 
+  // const handleSave = () => {
+  //   const signatureDataEvaluador =
+  //     signatureRefEvaluador.current.toDataURL("image/png");
+  //   handleSaveFirmaEvaluador(signatureDataEvaluador);
+  // };
+
+  // const handleSaveServidor = () => {
+  //   const signatureDataServidor = signatureRefServidor.current.toDataURL();
+  //   handleSaveFirmaServidor(signatureDataServidor);
+  // };
+
   const handleSave = () => {
-    const signatureDataEvaluador = signatureRefEvaluador.current.toDataURL();
-    handleSaveFirmaEvaluador(signatureDataEvaluador);
+    const signatureDataEvaluador =
+      signatureRefEvaluador.current.toDataURL("image/png");
+    const imageBlob = dataURLtoBlob(signatureDataEvaluador);
+    const imageUrl = URL.createObjectURL(imageBlob);
+    handleSaveFirmaEvaluador(imageUrl);
+    alert("Firma del Evaluador guardada.");
   };
 
   const handleSaveServidor = () => {
-    const signatureDataServidor = signatureRefServidor.current.toDataURL();
-    handleSaveFirmaServidor(signatureDataServidor);
+    const signatureDataServidor =
+      signatureRefServidor.current.toDataURL("image/png");
+    const imageBlob = dataURLtoBlob(signatureDataServidor);
+    const imageUrl = URL.createObjectURL(imageBlob);
+    handleSaveFirmaServidor(imageUrl);
+    alert("Firma del Servidor guardada.");
   };
+
+  // Helper function to convert base64 to Blob
+  function dataURLtoBlob(dataURL) {
+    const byteString = atob(dataURL.split(",")[1]);
+    const mimeString = dataURL.split(",")[0].split(":")[1].split(";")[0];
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ab], { type: mimeString });
+  }
 
   return (
     <>
