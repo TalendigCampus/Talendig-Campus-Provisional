@@ -77,32 +77,30 @@ function Puntaje({ textoPregunta, nombre, valor, onChange }) {
 }
 
 function FormularioEvaluacion() {
-  const [valorPropuesta, setValorPropuesta] = useState("1");
-  const [valorMejoraContinua, setValorMejoraContinua] = useState("1");
-  const [valorResponsabilidad, setValorResponsabilidad] = useState("1");
-  const [valorAprendeErrores, setAprendeErrores] = useState("1");
-  const [valorAlineacion, setValorAlineacion] = useState("1");
-  const [valorAdaptable, setValorAdaptable] = useState("1");
-  const [valorMejora, setValorMejora] = useState("1");
-  const [valorComunicacion, setValorComunicacion] = useState("1");
-  const [valorCalidad, setValorCalidad] = useState("1");
+  const [formValues, setFormValues] = useState({
+    propuesta: "1",
+    mejoraContinua: "1",
+    responsabilidad: "1",
+    aprendeErrores: "1",
+    alineacion: "1",
+    adaptable: "1",
+    mejora: "1",
+    comunicacion: "1",
+    calidad: "1",
+  });
 
   // TODO: ADD LOGIC TO SEND TO ENDPOINT ONCE ENDPOINT IS CONFIRMED ATT: CARLOS
 
   const handleSubmit = () => {
-    const formData = {
-      propuesta: valorPropuesta,
-      mejoraContinua: valorMejoraContinua,
-      responsabilidad: valorResponsabilidad,
-      aprendeErrores: valorAprendeErrores,
-      alineacion: valorAlineacion,
-      adaptable: valorAdaptable,
-      mejora: valorMejora,
-      comunicacion: valorComunicacion,
-      calidad: valorCalidad,
-    };
+    console.log(formValues);
+  };
 
-    console.log(formData);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
   };
 
   return (
@@ -121,64 +119,64 @@ function FormularioEvaluacion() {
           <Puntaje
             textoPregunta="Realiza propuestas de mejora; Abierto a valorar las propuestas de los demás para optimizar el desempeño."
             nombre="propuesta"
-            valor={valorPropuesta}
-            onChange={(e) => setValorPropuesta(e.target.value)}
+            valor={formValues.propuesta}
+            onChange={handleChange}
           />
 
           <Puntaje
             textoPregunta="Desarrolla e implementa acciones dirigidas al mejoramiento continuo de los servicios de su área o de la institución."
             nombre="mejoraContinua"
-            valor={valorMejoraContinua}
-            onChange={(e) => setValorMejoraContinua(e.target.value)}
+            valor={formValues.mejoraContinua}
+            onChange={handleChange}
           />
 
           <Puntaje
             textoPregunta="Asume sus actos con responsabilidad e intenta corregir los errores cometidos."
             nombre="responsabilidad"
-            valor={valorResponsabilidad}
-            onChange={(e) => setValorResponsabilidad(e.target.value)}
+            valor={formValues.responsabilidad}
+            onChange={handleChange}
           />
 
           <Puntaje
             textoPregunta="Asume sus actos con responsabilidad e intenta corregir los Sus reportes, trabajos, o proyectos son completos, precisos y siempre estan bien presentados."
             nombre="aprendeErrores"
-            valor={valorAprendeErrores}
-            onChange={(e) => setAprendeErrores(e.target.value)}
+            valor={formValues.aprendeErrores}
+            onChange={handleChange}
           />
 
           <Puntaje
             textoPregunta="Los trabajos que realiza estan acorde a los procesos y procedimientos del area o de la institucion."
             nombre="alineacion"
-            valor={valorAlineacion}
-            onChange={(e) => setValorAlineacion(e.target.value)}
+            valor={formValues.alineacion}
+            onChange={handleChange}
           />
 
           <Puntaje
             textoPregunta="Asume las nuevas metodologias de trabajo con facilidad, aplica las sugerencias de mejoras en los procesos de su trabajo o de la institucion."
             nombre="adaptable"
-            valor={valorAdaptable}
-            onChange={(e) => setValorAdaptable(e.target.value)}
+            valor={formValues.adaptable}
+            onChange={handleChange}
           />
 
           <Puntaje
             textoPregunta="Se interesa por mejorar su trabajo y servicio; busca retroalimentacion de su supervisor, sus colegas y usuarios / clientes para incorporar mejoras sugeridad."
             nombre="mejora"
-            valor={valorMejora}
-            onChange={(e) => setValorMejora(e.target.value)}
+            valor={formValues.mejora}
+            onChange={handleChange}
           />
 
           <Puntaje
             textoPregunta="Comunica errores y presenta propuestas para que se corrijan."
             nombre="comunicacion"
-            valor={valorComunicacion}
-            onChange={(e) => setValorComunicacion(e.target.value)}
+            valor={formValues.comunicacion}
+            onChange={handleChange}
           />
 
           <Puntaje
             textoPregunta="Vigila la calidad del trabajo de otras personas para asegurar el trabajo bien hecho."
             nombre="calidad"
-            valor={valorCalidad}
-            onChange={(e) => setValorCalidad(e.target.value)}
+            valor={formValues.calidad}
+            onChange={handleChange}
           />
         </Paper>
 
