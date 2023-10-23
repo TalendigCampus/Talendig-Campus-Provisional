@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components/macro";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import axios from "axios";
 
 import {
   CardContent,
@@ -93,6 +94,15 @@ function FormularioEvaluacion() {
 
   const handleSubmit = () => {
     console.log(formValues);
+
+    axios
+      .post("/calidadForm", formValues)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   const handleChange = (event) => {
