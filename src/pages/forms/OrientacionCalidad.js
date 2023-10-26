@@ -96,7 +96,7 @@ function FormularioEvaluacion() {
     console.log(formValues);
 
     axios
-      .post("/calidadForm", formValues)
+      .post("http://localhost:8080/api/v1/calidadform", formValues)
       .then((response) => {
         console.log(response);
       })
