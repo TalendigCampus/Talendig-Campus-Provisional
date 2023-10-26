@@ -12,31 +12,51 @@ import Habilidades from "../components/Entrevista-Habilidades";
 import Recomendacion1 from "../components/Entrevista-Recomendacion1";
 import Recomendacion2 from "../components/Entrevista-Recomendacion2";
 import Firma from "../components/Entrevista-Firma";
+import axios from "axios";
 
 function EntrevistaDeEvaluacion() {
   const [data, setData] = useState({
-    fuerte1: "",
-    fuerte2: "",
-    mejora1: "",
-    mejora2: "",
-    recomendacion1: "",
-    recomendacion2: "",
-    otraClase1: "",
-    otraClase2: "",
-    entornoCondiciones1: "",
-    entornoCondiciones2: "",
-    satisfacciónProfesional1: "",
-    satisfacciónProfesional2: "",
-    fecha: null,
-    comentario: "",
-    opcion: "",
+    userId: "6536fae2c23512d9403dfbf6",
+    instructorId: "6539d3a4e0a976bef1bf5758",
+    puntos_fuertes: ["", ""],
+    areas_mejora: ["", ""],
+    recomendaciones: ["", "", "", ""],
+    condicion_trabajo: ["", "", "", ""],
+    comentarios: [""],
+    calificacion_plan_mejora: true,
     firmaEvaluador: "",
     firmaServidor: "",
   });
 
   const handleSubmit = () => {
-    alert("Form submitted");
+    // Crea un objeto que contenga los datos a enviar
+    const formData = { data };
 
+    // Realiza la solicitud POST al backend
+    axios
+      .post("http://localhost:8080/api/v1/aspecto-mejora", formData)
+      .then((response) => {
+        // Maneja la respuesta del servidor si es necesario
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("Error al enviar los datos al servidor:", error);
+      });
+
+    setData({
+      userId: "6536fae2c23512d9403dfbf6",
+      instructorId: "6539d3a4e0a976bef1bf5758",
+      puntos_fuertes: ["", ""],
+      areas_mejora: ["", ""],
+      recomendaciones: ["", "", "", ""],
+      condicion_trabajo: ["", "", "", ""],
+      comentarios: "",
+      calificacion_plan_mejora: true,
+      firmaEvaluador: "",
+      firmaServidor: "",
+    });
+
+    alert("Formulario enviado");
     console.log(data);
   };
 

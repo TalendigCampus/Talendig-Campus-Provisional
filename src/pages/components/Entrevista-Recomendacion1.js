@@ -2,6 +2,12 @@ import { Box, Typography, TextField } from "@mui/material";
 import PropTypes from "prop-types";
 
 function Recomendacion1({ data, setData }) {
+  const handleRecomendacionChange = (index, value) => {
+    const updatedRecomendacion = [...data.recomendaciones];
+    updatedRecomendacion[index] = value;
+    setData({ ...data, recomendaciones: updatedRecomendacion });
+  };
+
   return (
     <>
       <Box
@@ -20,16 +26,16 @@ function Recomendacion1({ data, setData }) {
           id="outlined-basic"
           label="Escriba una recomendación de informacion"
           variant="outlined"
-          value={data.recomendacion1}
-          onChange={(e) => setData({ ...data, recomendacion1: e.target.value })}
+          value={data.recomendaciones[0]}
+          onChange={(e) => handleRecomendacionChange(0, e.target.value)}
         />
 
         <TextField
           id="outlined-basic"
           label="Escriba otra recomendación de informacion"
           variant="outlined"
-          value={data.recomendacion2}
-          onChange={(e) => setData({ ...data, recomendacion2: e.target.value })}
+          value={data.recomendaciones[1]}
+          onChange={(e) => handleRecomendacionChange(1, e.target.value)}
         />
 
         <Box
@@ -48,16 +54,16 @@ function Recomendacion1({ data, setData }) {
             id="outlined-basic"
             label="Escriba una recomendación de otra clase"
             variant="outlined"
-            value={data.otraClase1}
-            onChange={(e) => setData({ ...data, otraClase1: e.target.value })}
+            value={data.recomendaciones[2]}
+            onChange={(e) => handleRecomendacionChange(2, e.target.value)}
           />
 
           <TextField
             id="outlined-basic"
             label="Escriba otra recomendación de otra clase"
             variant="outlined"
-            value={data.otraClase2}
-            onChange={(e) => setData({ ...data, otraClase2: e.target.value })}
+            value={data.recomendaciones[3]}
+            onChange={(e) => handleRecomendacionChange(3, e.target.value)}
           />
         </Box>
       </Box>

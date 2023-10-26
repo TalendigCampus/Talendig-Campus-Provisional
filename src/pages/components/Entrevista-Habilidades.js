@@ -2,6 +2,18 @@ import { Box, Typography, TextField } from "@mui/material";
 import PropTypes from "prop-types";
 
 function Habilidades({ data, setData }) {
+  const handleFuerteChange = (index, value) => {
+    const updatedFuerte = [...data.puntos_fuertes];
+    updatedFuerte[index] = value;
+    setData({ ...data, puntos_fuertes: updatedFuerte });
+  };
+
+  const handleMejoraChange = (index, value) => {
+    const updatedMejora = [...data.areas_mejora];
+    updatedMejora[index] = value;
+    setData({ ...data, areas_mejora: updatedMejora });
+  };
+
   return (
     <>
       <Box
@@ -20,16 +32,16 @@ function Habilidades({ data, setData }) {
           id="outlined-basic"
           label="Escriba un punto fuerte"
           variant="outlined"
-          value={data.fuerte1}
-          onChange={(e) => setData({ ...data, fuerte1: e.target.value })}
+          value={data.puntos_fuertes[0]}
+          onChange={(e) => handleFuerteChange(0, e.target.value)}
         />
 
         <TextField
           id="outlined-basic"
           label="Escriba otro punto fuerte"
           variant="outlined"
-          value={data.fuerte2}
-          onChange={(e) => setData({ ...data, fuerte2: e.target.value })}
+          value={data.puntos_fuertes[1]}
+          onChange={(e) => handleFuerteChange(1, e.target.value)}
         />
 
         <Box
@@ -48,16 +60,16 @@ function Habilidades({ data, setData }) {
             id="outlined-basic"
             label="Escriba una area de mejora"
             variant="outlined"
-            value={data.mejora1}
-            onChange={(e) => setData({ ...data, mejora1: e.target.value })}
+            value={data.areas_mejora[0]}
+            onChange={(e) => handleMejoraChange(0, e.target.value)}
           />
 
           <TextField
             id="outlined-basic"
             label="Escriba otra area de mejora"
             variant="outlined"
-            value={data.mejora2}
-            onChange={(e) => setData({ ...data, mejora2: e.target.value })}
+            value={data.areas_mejora[1]}
+            onChange={(e) => handleMejoraChange(1, e.target.value)}
           />
         </Box>
       </Box>

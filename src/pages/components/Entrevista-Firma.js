@@ -92,8 +92,8 @@ function Firma({ data, setData }) {
           id="outlined-basic"
           label="Escriba un comentario"
           variant="outlined"
-          value={data.comentario}
-          onChange={(e) => setData({ ...data, comentario: e.target.value })}
+          value={data.comentarios}
+          onChange={(e) => setData({ ...data, comentarios: e.target.value })}
         />
         <Box sx={{ display: "flex", gap: "20px", alignItems: "center" }}>
           <Typography variant="h6" sx={{ alignItems: "start" }}>
@@ -102,19 +102,23 @@ function Firma({ data, setData }) {
 
           <RadioGroup row>
             <FormControlLabel
-              value="Si"
+              value="true"
               control={<Radio />}
               label="Si"
-              checked={data.opcion === "Si"}
-              onChange={(e) => setData({ ...data, opcion: e.target.value })}
+              checked={data.calificacion_plan_mejora === "true"}
+              onChange={(e) =>
+                setData({ ...data, calificacion_plan_mejora: e.target.value })
+              }
             />
 
             <FormControlLabel
-              value="No"
+              value="false"
               control={<Radio />}
               label="No"
-              checked={data.opcion === "No"}
-              onChange={(e) => setData({ ...data, opcion: e.target.value })}
+              checked={data.calificacion_plan_mejora === "false"}
+              onChange={(e) =>
+                setData({ ...data, calificacion_plan_mejora: e.target.value })
+              }
             />
           </RadioGroup>
         </Box>
