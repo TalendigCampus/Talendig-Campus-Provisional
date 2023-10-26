@@ -16,16 +16,16 @@ import axios from "axios";
 
 function EntrevistaDeEvaluacion() {
   const [data, setData] = useState({
-    userId: "6536fae2c23512d9403dfbf6",
-    instructorId: "6539d3a4e0a976bef1bf5758",
+    userId: "650c566d33d491669553127b",
+    instructorId: "650c5e97733fc0d37b8bbb3b",
     puntos_fuertes: ["", ""],
     areas_mejora: ["", ""],
     recomendaciones: ["", "", "", ""],
     condicion_trabajo: ["", "", "", ""],
     comentarios: [""],
     calificacion_plan_mejora: true,
-    firmaEvaluador: "",
-    firmaServidor: "",
+    firmaEvaluador: "http://google.com",
+    firmaServidor: "http://google.com",
   });
 
   const handleSubmit = () => {
@@ -44,8 +44,10 @@ function EntrevistaDeEvaluacion() {
       });
 
     setData({
-      userId: "6536fae2c23512d9403dfbf6",
-      instructorId: "6539d3a4e0a976bef1bf5758",
+      userId: "650c566d33d491669553127b",
+      // userId: "6536fae2c23512d9403dfbf6",
+      instructorId: "650c566d33d491669553127b",
+      // instructorId: "6539d3a4e0a976bef1bf5758",
       puntos_fuertes: ["", ""],
       areas_mejora: ["", ""],
       recomendaciones: ["", "", "", ""],
@@ -91,6 +93,7 @@ function EntrevistaDeEvaluacion() {
         <header>
           <Box sx={{ textAlign: "center" }}>
             <Typography
+              cy-data-title="aspectoMejoraTitle"
               variant="h1"
               sx={{ fontSize: "2em", fontWeight: "bold", marginTop: "5%" }}
             >
@@ -139,55 +142,25 @@ function EntrevistaDeEvaluacion() {
           }}
         >
           <Box>
-            {page === 1 && (
-              <Typography
-                variant="h4"
-                sx={{
-                  fontWeight: "bold",
-                  fontSize: "2em",
-                  textAlign: "center",
-                }}
-              >
-                Puntos Fuertes y De Mejora
-              </Typography>
-            )}
-            {page === 2 && (
-              <Typography
-                variant="h4"
-                sx={{
-                  fontWeight: "bold",
-                  fontSize: "2em",
-                  textAlign: "center",
-                }}
-              >
-                Recomendacion
-              </Typography>
-            )}
-            {page === 3 && (
-              <Typography
-                variant="h4"
-                sx={{
-                  fontWeight: "bold",
-                  fontSize: "2em",
-                  textAlign: "center",
-                }}
-              >
-                II - Recomendacion
-              </Typography>
-            )}
-            {page === 4 && (
-              <Typography
-                variant="h4"
-                sx={{
-                  fontWeight: "bold",
-                  fontSize: "2em",
-                  textAlign: "center",
-                }}
-              >
-                Firma
-              </Typography>
-            )}
-
+            <Typography
+              cy-data-title="Page"
+              variant="h4"
+              sx={{
+                fontWeight: "bold",
+                fontSize: "2em",
+                textAlign: "center",
+              }}
+            >
+              {page === 1
+                ? "Puntos Fuertes y De Mejora"
+                : page === 2
+                ? "Recomendacion"
+                : page === 3
+                ? "II - Recomendacion"
+                : page === 4
+                ? "Firma"
+                : ""}
+            </Typography>
             <Divider
               variant="middle"
               sx={{
@@ -209,6 +182,7 @@ function EntrevistaDeEvaluacion() {
             >
               {page !== 1 && (
                 <Button
+                  cy-data-btn="btn prev page"
                   variant="contained"
                   onClick={() => {
                     setPage((index) => index - 1);
@@ -219,6 +193,7 @@ function EntrevistaDeEvaluacion() {
               )}
               {page !== 4 && (
                 <Button
+                  cy-data-btn="btn next page"
                   variant="contained"
                   onClick={() => {
                     setPage((index) => index + 1);

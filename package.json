@@ -9,6 +9,7 @@
     "start": "craco --openssl-legacy-provider start",
     "build": "craco build",
     "eject": "craco eject",
+    "test": "react-scripts test",
     "lint": "eslint src --ext .js,.jsx --fix"
   },
   "browserslist": [
@@ -81,7 +82,10 @@
   },
   "devDependencies": {
     "@babel/preset-env": "7.15.6",
+    "@testing-library/jest-dom": "^6.1.4",
+    "@testing-library/react": "^14.0.0",
     "craco-alias": "3.0.1",
+    "cypress": "^13.3.3",
     "eslint-config-prettier": "6.15.0",
     "eslint-plugin-prettier": "3.4.1",
     "prettier": "2.4.1",

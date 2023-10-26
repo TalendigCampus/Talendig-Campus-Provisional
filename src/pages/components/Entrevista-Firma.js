@@ -49,7 +49,8 @@ function Firma({ data, setData }) {
       signatureRefEvaluador.current.toDataURL("image/png");
     const imageBlob = dataURLtoBlob(signatureDataEvaluador);
     const imageUrl = URL.createObjectURL(imageBlob);
-    handleSaveFirmaEvaluador(imageUrl);
+    const newImage = imageUrl.replace(/[blob]+:/, "");
+    handleSaveFirmaEvaluador(newImage);
     alert("Firma del Evaluador guardada.");
   };
 
@@ -58,7 +59,8 @@ function Firma({ data, setData }) {
       signatureRefServidor.current.toDataURL("image/png");
     const imageBlob = dataURLtoBlob(signatureDataServidor);
     const imageUrl = URL.createObjectURL(imageBlob);
-    handleSaveFirmaServidor(imageUrl);
+    const newImage = imageUrl.replace(/[blob]+:/, "");
+    handleSaveFirmaServidor(newImage);
     alert("Firma del Servidor guardada.");
   };
 
@@ -91,9 +93,10 @@ function Firma({ data, setData }) {
         <TextField
           id="outlined-basic"
           label="Escriba un comentario"
+          cy-data-input="comentario"
           variant="outlined"
           value={data.comentarios}
-          onChange={(e) => setData({ ...data, comentarios: e.target.value })}
+          onChange={(e) => setData({ ...data, comentarios: [e.target.value] })}
         />
         <Box sx={{ display: "flex", gap: "20px", alignItems: "center" }}>
           <Typography variant="h6" sx={{ alignItems: "start" }}>
@@ -106,8 +109,9 @@ function Firma({ data, setData }) {
               control={<Radio />}
               label="Si"
               checked={data.calificacion_plan_mejora === "true"}
+              cy-data-input="bool calificacion"
               onChange={(e) =>
-                setData({ ...data, calificacion_plan_mejora: e.target.value })
+                setData({ ...data, calificacion_plan_mejora: true })
               }
             />
 
@@ -117,7 +121,7 @@ function Firma({ data, setData }) {
               label="No"
               checked={data.calificacion_plan_mejora === "false"}
               onChange={(e) =>
-                setData({ ...data, calificacion_plan_mejora: e.target.value })
+                setData({ ...data, calificacion_plan_mejora: false })
               }
             />
           </RadioGroup>
@@ -147,6 +151,7 @@ function Firma({ data, setData }) {
               }}
             >
               <SignaturePad
+                cy-data-signature="firma Evaluador"
                 onSaveSignature={handleSaveFirmaEvaluador}
                 ref={signatureRefEvaluador}
               />
@@ -164,7 +169,11 @@ function Firma({ data, setData }) {
                 <Button variant="contained" onClick={handleClearEvaluador}>
                   Eliminar
                 </Button>
-                <Button variant="contained" onClick={handleSave}>
+                <Button
+                  variant="contained"
+                  cy-data-btn="signature"
+                  onClick={handleSave}
+                >
                   Guardar
                 </Button>
               </Stack>
@@ -187,6 +196,7 @@ function Firma({ data, setData }) {
               }}
             >
               <SignaturePad
+                cy-data-signature="firma Servidor"
                 onSaveSignature={handleSaveFirmaServidor}
                 ref={signatureRefServidor}
               />
@@ -204,7 +214,11 @@ function Firma({ data, setData }) {
                 <Button variant="contained" onClick={handleClearServidor}>
                   Eliminar
                 </Button>
-                <Button variant="contained" onClick={handleSaveServidor}>
+                <Button
+                  variant="contained"
+                  cy-data-btn="signature"
+                  onClick={handleSaveServidor}
+                >
                   Guardar
                 </Button>
               </Stack>

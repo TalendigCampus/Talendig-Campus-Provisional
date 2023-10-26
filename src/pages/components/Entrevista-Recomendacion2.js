@@ -27,6 +27,7 @@ function Recomendacion2({ data, setData }) {
         </Typography>
 
         <TextField
+          cy-data-input="recomendacion 1"
           id="outlined-basic"
           label="Escriba una recomendación"
           variant="outlined"
@@ -35,6 +36,7 @@ function Recomendacion2({ data, setData }) {
         />
 
         <TextField
+          cy-data-input="recomendacion 2"
           id="outlined-basic"
           label="Escriba otra recomendación"
           variant="outlined"
@@ -56,6 +58,7 @@ function Recomendacion2({ data, setData }) {
           </Typography>
 
           <TextField
+            cy-data-input="recomendacion 3"
             id="outlined-basic"
             label="Escriba una recomendación"
             variant="outlined"
@@ -64,6 +67,7 @@ function Recomendacion2({ data, setData }) {
           />
 
           <TextField
+            cy-data-input="recomendacion 4"
             id="outlined-basic"
             label="Escriba otra recomendación"
             variant="outlined"

@@ -29,6 +29,7 @@ function Habilidades({ data, setData }) {
         </Typography>
 
         <TextField
+          cy-data-input="punto fuerte 1"
           id="outlined-basic"
           label="Escriba un punto fuerte"
           variant="outlined"
@@ -37,6 +38,7 @@ function Habilidades({ data, setData }) {
         />
 
         <TextField
+          cy-data-input="punto fuerte 2"
           id="outlined-basic"
           label="Escriba otro punto fuerte"
           variant="outlined"
@@ -57,6 +59,7 @@ function Habilidades({ data, setData }) {
           </Typography>
 
           <TextField
+            cy-data-input="area mejora 1"
             id="outlined-basic"
             label="Escriba una area de mejora"
             variant="outlined"
@@ -66,6 +69,7 @@ function Habilidades({ data, setData }) {
 
           <TextField
             id="outlined-basic"
+            cy-data-input="area mejora 2"
             label="Escriba otra area de mejora"
             variant="outlined"
             value={data.areas_mejora[1]}
