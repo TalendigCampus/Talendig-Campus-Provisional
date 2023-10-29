@@ -3,6 +3,8 @@ import styled from "styled-components/macro";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import axios from "axios";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/JWTContext";
 
 import {
   CardContent,
@@ -78,6 +80,10 @@ function Puntaje({ textoPregunta, nombre, valor, onChange }) {
 }
 
 function FormularioEvaluacion() {
+  const { user } = useContext(AuthContext);
+
+  const { instructor } = useContext(InstructorContext);
+
   const [formValues, setFormValues] = useState({
     propuesta: "1",
     mejoraContinua: "1",
@@ -90,13 +96,25 @@ function FormularioEvaluacion() {
     calidad: "1",
   });
 
-  // TODO: ADD LOGIC TO SEND TO ENDPOINT ONCE ENDPOINT IS CONFIRMED ATT: CARLOS
-
   const handleSubmit = () => {
     console.log(formValues);
 
     axios
-      .post("http://localhost:8080/api/v1/calidadform", formValues)
+      .post("http://localhost:8080/api/v1/calidadform", {
+        userId: user.id,
+        instructorId: instructor.id,
+        proposal: formValues.propuesta,
+        continuousImprovement: formValues.mejoraContinua,
+        responsability: formValues.responsabilidad,
+        accurate: formValues.aprendeErrores,
+        focus: formValues.alineacion,
+        adaptability: formValues.adaptable,
+        interest: formValues.mejora,
+        communication: formValues.comunicacion,
+        quality: formValues.calidad,
+        totalPoints: 0,
+        grade: "",
+      })
       .then((response) => {
         console.log(response);
       })
