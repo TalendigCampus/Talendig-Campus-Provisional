@@ -13,8 +13,12 @@ import Recomendacion1 from "../components/Entrevista-Recomendacion1";
 import Recomendacion2 from "../components/Entrevista-Recomendacion2";
 import Firma from "../components/Entrevista-Firma";
 import axios from "axios";
+import handleFuerteChange from "../components/Entrevista-Habilidades";
+import handleMejoraChange from "../components/Entrevista-Habilidades";
 
 function EntrevistaDeEvaluacion() {
+  const [page, setPage] = useState(1);
+  const [ready, setReady] = useState(false);
   const [data, setData] = useState({
     userId: "6536fae2c23512d9403dfbf6",
     instructorId: "6539d3a4e0a976bef1bf5758",
@@ -31,7 +35,6 @@ function EntrevistaDeEvaluacion() {
   const handleSubmit = () => {
     // Crea un objeto que contenga los datos a enviar
     const formData = { data };
-
     // Realiza la solicitud POST al backend
     axios
       .post("http://localhost:8080/api/v1/aspecto-mejora", formData)
@@ -60,7 +63,15 @@ function EntrevistaDeEvaluacion() {
     console.log(data);
   };
 
-  const [page, setPage] = useState(1);
+  const inputArray = [handleFuerteChange, handleMejoraChange];
+
+  const handleReady = () => {
+    if (inputArray) {
+      setReady(true);
+    } else {
+      setReady(false);
+    }
+  };
 
   const PageDisplay = () => {
     switch (page) {
@@ -220,6 +231,7 @@ function EntrevistaDeEvaluacion() {
               {page !== 4 && (
                 <Button
                   variant="contained"
+                  // disabled={!ready}
                   onClick={() => {
                     setPage((index) => index + 1);
                   }}
@@ -228,7 +240,11 @@ function EntrevistaDeEvaluacion() {
                 </Button>
               )}
               {page === 4 && (
-                <Button variant="contained" onClick={handleSubmit}>
+                <Button
+                  variant="contained"
+                  onClick={handleSubmit}
+                  // disabled={!ready}
+                >
                   Someter
                 </Button>
               )}

@@ -102,22 +102,30 @@ function Firma({ data, setData }) {
 
           <RadioGroup row>
             <FormControlLabel
-              value="true"
+              value={true}
               control={<Radio />}
               label="Si"
-              checked={data.calificacion_plan_mejora === "true"}
+              checked={data.calificacion_plan_mejora === true}
               onChange={(e) =>
-                setData({ ...data, calificacion_plan_mejora: e.target.value })
+                setData({
+                  ...data,
+                  calificacion_plan_mejora:
+                    e.target.value === false ? false : true,
+                })
               }
             />
 
             <FormControlLabel
-              value="false"
+              value={false}
               control={<Radio />}
               label="No"
-              checked={data.calificacion_plan_mejora === "false"}
+              checked={data.calificacion_plan_mejora === false}
               onChange={(e) =>
-                setData({ ...data, calificacion_plan_mejora: e.target.value })
+                setData({
+                  ...data,
+                  calificacion_plan_mejora:
+                    e.target.value === true ? true : false,
+                })
               }
             />
           </RadioGroup>
