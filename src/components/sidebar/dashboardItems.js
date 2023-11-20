@@ -214,7 +214,7 @@ const elementsSection = [
       },
       {
         href: "/forms/FormularioLogroMetasResultados", //Ruta dada en el routs
-        title: "Formulario Logro de Metas y Resultados", //Nombre que aparecera en el Sidebar
+        title: "Logro de Metas y Resultados", //Nombre que aparecera en el Sidebar
       },
     ],
   },
