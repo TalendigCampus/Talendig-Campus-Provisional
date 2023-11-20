@@ -42,6 +42,7 @@ import SelectionCtrls from "./pages/forms/SelectionControls";
 import Selects from "./pages/forms/Selects";
 import TextFields from "./pages/forms/TextFields";
 import EntrevistaDeEvaluacion from "./pages/forms/EntrevistaDeEvaluacion";
+import Test from "./pages/forms/test"; //Este debe de ser el componente que ejecuta todo el formulario
 
 // Icon components
 import MaterialIcons from "./pages/icons/MaterialIcons";
@@ -333,6 +334,10 @@ const routes = [
       {
         path: "Entreviste-De-Evaluacion",
         element: <EntrevistaDeEvaluacion />,
+      },
+      {
+        path: "Test",
+        element: <Test />,
       },
     ],
   },
