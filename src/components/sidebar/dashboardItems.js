@@ -213,8 +213,8 @@ const elementsSection = [
         title: "Entrevista De Evaluacion",
       },
       {
-        href: "/forms/Test", //Ruta dada en el routs
-        title: "Test", //Nombre que aparecera en el Sidebar
+        href: "/forms/FormularioLogroMetasResultados", //Ruta dada en el routs
+        title: "Formulario Logro de Metas y Resultados", //Nombre que aparecera en el Sidebar
       },
     ],
   },
