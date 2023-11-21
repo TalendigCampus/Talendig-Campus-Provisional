@@ -1,6 +1,8 @@
 import React from "react";
 import { Container, Typography, Grid } from "@mui/material";
 
+import "./forms_styles/FormularioLogroMetasResultadosStyles.css";
+
 import LogrosPage1 from "./LogrosPage1";
 
 function FormularioLogroMetasResultados() {
