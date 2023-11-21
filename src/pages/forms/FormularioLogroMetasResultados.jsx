@@ -4,6 +4,7 @@ import { Container, Typography, Grid } from "@mui/material";
 import "./forms_styles/FormularioLogroMetasResultadosStyles.css";
 
 import LogrosPage1 from "./LogrosPage1";
+import LogrosPage2 from "./LogrosPage2";
 
 function FormularioLogroMetasResultados() {
   return (
@@ -22,7 +23,7 @@ function FormularioLogroMetasResultados() {
       </Container>
       <form>
         <Grid Container>
-          <LogrosPage1 />
+          <LogrosPage2 />
         </Grid>
       </form>
     </>
