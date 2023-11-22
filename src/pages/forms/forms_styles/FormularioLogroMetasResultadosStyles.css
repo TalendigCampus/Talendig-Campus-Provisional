@@ -1,3 +1,11 @@
 .hr {
   margin-bottom: 50px;
 }
+
+.visible {
+  display: block;
+}
+
+.notVisible {
+  display: none;
+}

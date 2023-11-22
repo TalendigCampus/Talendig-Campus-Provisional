@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Grid, TextField, Button } from "@mui/material";
+import { Container, Grid, TextField } from "@mui/material";
 
 function LogrosPage1() {
   return (
@@ -72,7 +72,7 @@ function LogrosPage1() {
           />
         </Grid>
       </Container>
-      <Container>
+      {/* <Container>
         <Button
           variant="contained"
           sx={{
@@ -82,7 +82,7 @@ function LogrosPage1() {
         >
           Siguiente
         </Button>
-      </Container>
+      </Container> */}
     </>
   );
 }
