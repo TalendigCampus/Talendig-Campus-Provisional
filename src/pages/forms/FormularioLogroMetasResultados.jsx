@@ -5,6 +5,7 @@ import "./forms_styles/FormularioLogroMetasResultadosStyles.css";
 
 import LogrosPage1 from "./LogrosPage1";
 import LogrosPage2 from "./LogrosPage2";
+import LogrosPage3 from "./LogrosPage3";
 
 function FormularioLogroMetasResultados() {
   return (
@@ -23,7 +24,7 @@ function FormularioLogroMetasResultados() {
       </Container>
       <form>
         <Grid Container>
-          <LogrosPage2 />
+          <LogrosPage3 />
         </Grid>
       </form>
     </>
