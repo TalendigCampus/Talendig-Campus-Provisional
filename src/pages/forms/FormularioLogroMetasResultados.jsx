@@ -109,6 +109,7 @@ function FormularioLogroMetasResultados() {
           sx={{
             display: "flex",
             justifyContent: "space-around",
+            marginBottom: 5,
           }}
         >
           <Button
@@ -136,6 +137,16 @@ function FormularioLogroMetasResultados() {
           >
             Enviar
           </Button>
+        </Container>
+        <Container sx={{ display: "flex", justifyContent: "center" }}>
+          <Typography
+            sx={{
+              fontSize: "20px",
+              fontWeight: "bold",
+              border: "2px solid #000",
+              padding: 2,
+            }}
+          >{`${page + 1}/4`}</Typography>
         </Container>
       </form>
     </>
