@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Grid, TextField, Typography } from "@mui/material";
 
-function LogrosPage2() {
+function LogrosPage2({ inputData, setInputData }) {
   return (
     <>
       <Container
@@ -19,6 +19,12 @@ function LogrosPage2() {
             Metas del servidor ¿Que tengo que Lograr?
           </Typography>
           <TextField
+            onChange={(e) =>
+              setInputData({ ...inputData, metas_a_lograr: e.target.value })
+            }
+            id="metas_a_lograr"
+            name="metas_a_lograr"
+            value={inputData.metas_a_lograr}
             placeholder="Escriba aqui las metas a lograr"
             fullWidth
             sx={{ marginBottom: 10 }}
@@ -33,6 +39,15 @@ function LogrosPage2() {
             Indicador ¿Cuanto tengo que Lograr?
           </Typography>
           <TextField
+            onChange={(e) =>
+              setInputData({
+                ...inputData,
+                cuanto_tengo_que_lograr: e.target.value,
+              })
+            }
+            id="cuanto_tengo_que_lograr"
+            name="cuanto_tengo_que_lograr"
+            value={inputData.cuanto_tengo_que_lograr}
             placeholder="Escriba aqui el indicador"
             fullWidth
             sx={{ marginBottom: 10 }}
@@ -47,6 +62,15 @@ function LogrosPage2() {
             Ponderacion de Metas
           </Typography>
           <TextField
+            onChange={(e) =>
+              setInputData({
+                ...inputData,
+                ponderacion_de_metas: e.target.value,
+              })
+            }
+            id="ponderacion_de_metas"
+            name="ponderacion_de_metas"
+            value={inputData.ponderacion_de_metas}
             placeholder="Escriba aqui las ponderaciones de metas"
             fullWidth
             sx={{ marginBottom: 10 }}

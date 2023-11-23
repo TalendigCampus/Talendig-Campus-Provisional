@@ -52,13 +52,13 @@ function FormularioLogroMetasResultados() {
 
   const handlePage = () => {
     if (page === 0) {
-      return <LogrosPage1 />;
+      return <LogrosPage1 inputData={inputData} setInputData={setInputData} />;
     } else if (page === 1) {
-      return <LogrosPage2 />;
+      return <LogrosPage2 inputData={inputData} setInputData={setInputData} />;
     } else if (page === 2) {
-      return <LogrosPage3 />;
+      return <LogrosPage3 inputData={inputData} setInputData={setInputData} />;
     } else {
-      return <LogrosPage4 />;
+      return <LogrosPage4 inputData={inputData} setInputData={setInputData} />;
     }
   };
 
@@ -67,7 +67,26 @@ function FormularioLogroMetasResultados() {
   const handleSubmit = (e) => {
     e.preventDefault();
     alert("Formulario enviado");
+    setInputData(formData);
+    setPage(0);
   };
+
+  let formData = {
+    institucion: "",
+    periodoEvaluacion: "",
+    nombreSupervisor: "",
+    cargoActual: "",
+    unidadOrganizativa: "",
+    nombreSupervisor2: "",
+    metas_a_lograr: "",
+    cuanto_tengo_que_lograr: "",
+    ponderacion_de_metas: "",
+    calificacion_otorgada: "",
+    medios_de_verificacion_y_evidencias: "",
+    cuanto_tengo_que_lograr2: "",
+  };
+
+  const [inputData, setInputData] = useState(formData);
 
   return (
     <>
