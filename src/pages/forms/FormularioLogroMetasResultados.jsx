@@ -10,7 +10,7 @@ import LogrosPage3 from "./LogrosPage3";
 import LogrosPage4 from "./LogrosPage4";
 
 function FormularioLogroMetasResultados() {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(3);
 
   //Functions to handle page state
 
