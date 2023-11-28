@@ -42,7 +42,7 @@ import SelectionCtrls from "./pages/forms/SelectionControls";
 import Selects from "./pages/forms/Selects";
 import TextFields from "./pages/forms/TextFields";
 import EntrevistaDeEvaluacion from "./pages/forms/EntrevistaDeEvaluacion";
-
+import RegimenEtico from "./pages/forms/RegimenEtico";
 // Icon components
 import MaterialIcons from "./pages/icons/MaterialIcons";
 
@@ -333,6 +333,10 @@ const routes = [
       {
         path: "Entreviste-De-Evaluacion",
         element: <EntrevistaDeEvaluacion />,
+      },
+      {
+        path: "regimen-etico",
+        element: <RegimenEtico />,
       },
     ],
   },

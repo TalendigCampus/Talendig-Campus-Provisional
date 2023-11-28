@@ -212,6 +212,10 @@ const elementsSection = [
         href: "/forms/Entreviste-De-Evaluacion",
         title: "Entrevista De Evaluacion",
       },
+      {
+        href: "/forms/regimen-etico",
+        title: "Regimen Etico",
+      },
     ],
   },
   {
