@@ -2,9 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { Button, Container, Typography } from "@mui/material";
 import SignatureCanvas from "react-signature-canvas";
-import { DateField } from "@mui/x-date-pickers/DateField";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import "./forms_styles/FormularioLogroMetasResultadosStyles.css";
 
 function LogrosPage4() {
@@ -245,17 +244,17 @@ function LogrosPage4() {
             <Typography textAlign={"center"} fontWeight={"bold"}>
               Fecha del acuerdo
             </Typography>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateField className="date" />
-            </LocalizationProvider>
+            </LocalizationProvider> */}
           </Container>
           <Container className="dateComponentContainer">
             <Typography textAlign={"center"} fontWeight={"bold"}>
               Fecha de evaluacion
             </Typography>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateField className="date" />
-            </LocalizationProvider>
+            </LocalizationProvider> */}
           </Container>
         </Container>
       </Container>
