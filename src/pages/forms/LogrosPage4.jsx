@@ -249,17 +249,17 @@ function LogrosPage4() {
             <Typography textAlign={"center"} fontWeight={"bold"}>
               Fecha del acuerdo
             </Typography>
-            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateField className="date" />
-            </LocalizationProvider> */}
-          </Container>
-          <Container className="dateComponentContainer">
+            </LocalizationProvider> 
+           </Container>
+            <Container className="dateComponentContainer">
             <Typography textAlign={"center"} fontWeight={"bold"}>
               Fecha de evaluacion
             </Typography>
-            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateField className="date" />
-            </LocalizationProvider> */}
+            </LocalizationProvider>
           </Container>
         </Container>
       </Container> */}
