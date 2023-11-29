@@ -8,6 +8,7 @@ import LogrosPage1 from "./LogrosPage1";
 import LogrosPage2 from "./LogrosPage2";
 import LogrosPage3 from "./LogrosPage3";
 import LogrosPage4 from "./LogrosPage4";
+import axios from "axios";
 
 function FormularioLogroMetasResultados() {
   const [page, setPage] = useState(3);
@@ -69,6 +70,10 @@ function FormularioLogroMetasResultados() {
     alert("Formulario enviado");
     setInputData(formData);
     setPage(0);
+    axios
+      .post("http://localhost:8080/api/v1/logro-metas", { inputData })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
 
   let formData = {

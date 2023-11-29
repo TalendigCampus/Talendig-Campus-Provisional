@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Button, Container, Typography } from "@mui/material";
 import SignatureCanvas from "react-signature-canvas";
+// import { DateField } from "@mui/x-date-pickers/DateField";
 // import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 // import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import "./forms_styles/FormularioLogroMetasResultadosStyles.css";
@@ -67,11 +68,15 @@ function LogrosPage4() {
 
   const handleGuardarFirma4 = () => {
     setUrl4(sign4.getTrimmedCanvas().toDataURL("image/png"));
+
     // sign.clear();
   };
 
   console.log(sign4);
   console.log(url4);
+
+  //TODO: Validar formularios
+  //TODO: Enviar datos del formulario al Backend
 
   return (
     <>
@@ -230,7 +235,7 @@ function LogrosPage4() {
           </Container>
         </Container>
       </Container>
-      <Container className="dateOuttertContainer" sx={{ marginBottom: "20px" }}>
+      {/* <Container className="dateOuttertContainer" sx={{ marginBottom: "20px" }}>
         <Container
           className="dateInnerContainer"
           sx={{
@@ -257,7 +262,7 @@ function LogrosPage4() {
             </LocalizationProvider> */}
           </Container>
         </Container>
-      </Container>
+      </Container> */}
     </>
   );
 }
