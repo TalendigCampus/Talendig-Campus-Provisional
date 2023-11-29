@@ -71,7 +71,7 @@ function FormularioLogroMetasResultados() {
     setInputData(formData);
     setPage(0);
     axios
-      .post("Aqui va la url del endpoint backend", { inputData })
+      .post("http://localhost:8080/api/v1/logro-metas", { inputData })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
