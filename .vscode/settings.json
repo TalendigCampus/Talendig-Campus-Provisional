@@ -4,5 +4,12 @@
   "editor.formatOnPaste": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
-  }
+  },
+  "cSpell.enableFiletypes": [
+    "javascript"
+  ],
+  "vscord.status.idle.check": true,
+  "vscord.status.idle.enabled": false,
+  "vscord.status.buttons.button1.git.active.enabled": false,
+  "vscord.status.buttons.button1.git.inactive.enabled": false
 }

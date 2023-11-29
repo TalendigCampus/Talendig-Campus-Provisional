@@ -220,6 +220,10 @@ const elementsSection = [
         href: "/forms/FormularioLogroMetasResultados", //Ruta dada en el routs
         title: "Logro de Metas y Resultados", //Nombre que aparecera en el Sidebar
       },
+      {
+        href: "/forms/orientacion-a-calidad",
+        title: "Orientación a Calidad",
+      },
     ],
   },
   {

@@ -44,6 +44,7 @@ import TextFields from "./pages/forms/TextFields";
 import EntrevistaDeEvaluacion from "./pages/forms/EntrevistaDeEvaluacion";
 import RegimenEtico from "./pages/forms/RegimenEtico";
 import FormularioLogroMetasResultados from "./pages/forms/FormularioLogroMetasResultados"; //Este debe de ser el componente que ejecuta todo el formulario
+import OrientacionCalidad from "./pages/forms/OrientacionCalidad";
 
 // Icon components
 import MaterialIcons from "./pages/icons/MaterialIcons";
@@ -343,6 +344,10 @@ const routes = [
       {
         path: "FormularioLogroMetasResultados",
         element: <FormularioLogroMetasResultados />, //Editar este path y element por el correcto
+      },
+      {
+        path: "orientacion-a-calidad",
+        element: <OrientacionCalidad />,
       },
     ],
   },
