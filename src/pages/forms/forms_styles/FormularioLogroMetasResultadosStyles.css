@@ -1,0 +1,52 @@
+* {
+  box-sizing: border-box;
+}
+
+.hr {
+  margin-bottom: 50px;
+}
+
+.visible {
+  display: block;
+}
+
+.notVisible {
+  display: none;
+}
+
+/*E-SIGNATURE*/
+
+.sigCanvas {
+  border: 2px solid #000;
+  display: block;
+  margin: 0 auto;
+}
+
+.eSignCaption {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.btn {
+  width: 200px;
+  margin: 10px 0;
+}
+
+.limpiarBTN {
+  margin-right: 10px;
+}
+
+.eSignRowContainer {
+  margin-bottom: 100px;
+}
+
+/*Date*/
+
+.dateComponentContainer {
+  width: 200px;
+}
+
+.date {
+  width: 200px;
+}

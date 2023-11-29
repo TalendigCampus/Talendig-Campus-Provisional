@@ -216,6 +216,10 @@ const elementsSection = [
         href: "/forms/regimen-etico",
         title: "Regimen Etico",
       },
+      {
+        href: "/forms/FormularioLogroMetasResultados", //Ruta dada en el routs
+        title: "Logro de Metas y Resultados", //Nombre que aparecera en el Sidebar
+      },
     ],
   },
   {
