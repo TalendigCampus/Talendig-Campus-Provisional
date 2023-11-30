@@ -33,17 +33,6 @@ function Firma({ data, setData }) {
     signatureRefServidor.current.clear();
   };
 
-  // const handleSave = () => {
-  //   const signatureDataEvaluador =
-  //     signatureRefEvaluador.current.toDataURL("image/png");
-  //   handleSaveFirmaEvaluador(signatureDataEvaluador);
-  // };
-
-  // const handleSaveServidor = () => {
-  //   const signatureDataServidor = signatureRefServidor.current.toDataURL();
-  //   handleSaveFirmaServidor(signatureDataServidor);
-  // };
-
   const handleSave = () => {
     const signatureDataEvaluador =
       signatureRefEvaluador.current.toDataURL("image/png");

@@ -1,18 +1,47 @@
-import { Box, Typography, TextField } from "@mui/material";
+import { Box, Typography, TextField, Button } from "@mui/material";
 import PropTypes from "prop-types";
+import { useState, useEffect } from "react";
 
-function Habilidades({ data, setData }) {
+function Habilidades({ data, setData, page, setPage }) {
+  const [errors, setErrors] = useState({
+    fuerte1: false,
+    fuerte2: false,
+    mejora1: false,
+    mejora2: false,
+  });
+
   const handleFuerteChange = (index, value) => {
     const updatedFuerte = [...data.puntos_fuertes];
     updatedFuerte[index] = value;
     setData({ ...data, puntos_fuertes: updatedFuerte });
+    setErrors({ ...errors, [`fuerte${index + 1}`]: value.trim() === "" });
   };
 
   const handleMejoraChange = (index, value) => {
     const updatedMejora = [...data.areas_mejora];
     updatedMejora[index] = value;
     setData({ ...data, areas_mejora: updatedMejora });
+    setErrors({ ...errors, [`mejora${index + 1}`]: value.trim() === "" });
   };
+
+  const [formLoaded, setFormLoaded] = useState(false);
+
+  useEffect(() => {
+    // Check if form has been loaded
+    if (
+      !formLoaded &&
+      data.puntos_fuertes.every((value) => value.trim() !== "") &&
+      data.areas_mejora.every((value) => value.trim() !== "")
+    ) {
+      setFormLoaded(true);
+    }
+  }, [data, formLoaded]);
+
+  const canProceed =
+    formLoaded &&
+    !Object.values(errors).some((error) => error) &&
+    data.puntos_fuertes.every((value) => value.trim() !== "") &&
+    data.areas_mejora.every((value) => value.trim() !== "");
 
   return (
     <>
@@ -34,6 +63,7 @@ function Habilidades({ data, setData }) {
           variant="outlined"
           value={data.puntos_fuertes[0]}
           onChange={(e) => handleFuerteChange(0, e.target.value)}
+          error={errors.fuerte1}
         />
 
         <TextField
@@ -42,6 +72,7 @@ function Habilidades({ data, setData }) {
           variant="outlined"
           value={data.puntos_fuertes[1]}
           onChange={(e) => handleFuerteChange(1, e.target.value)}
+          error={errors.fuerte2}
         />
 
         <Box
@@ -62,6 +93,7 @@ function Habilidades({ data, setData }) {
             variant="outlined"
             value={data.areas_mejora[0]}
             onChange={(e) => handleMejoraChange(0, e.target.value)}
+            error={errors.mejora1}
           />
 
           <TextField
@@ -70,7 +102,24 @@ function Habilidades({ data, setData }) {
             variant="outlined"
             value={data.areas_mejora[1]}
             onChange={(e) => handleMejoraChange(1, e.target.value)}
+            error={errors.mejora2}
           />
+        </Box>
+        <Box>
+          {page !== 4 && (
+            <Button
+              type="submit"
+              variant="contained"
+              onClick={() => {
+                if (canProceed) {
+                  setPage((index) => index + 1);
+                }
+              }}
+              disabled={!canProceed}
+            >
+              Siguiente
+            </Button>
+          )}
         </Box>
       </Box>
     </>
@@ -79,7 +128,6 @@ function Habilidades({ data, setData }) {
 
 Habilidades.propTypes = {
   setData: PropTypes.func.isRequired,
-
   data: PropTypes.shape({
     fuerte1: PropTypes.string,
     fuerte2: PropTypes.string,
