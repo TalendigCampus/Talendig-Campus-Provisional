@@ -22,7 +22,7 @@ function LogrosPage3({ inputData, setInputData }) {
             onChange={(e) => {
               setInputData({
                 ...inputData,
-                calificacion_otorgada: e.target.value,
+                calificacion_otorgada: [parseInt(e.target.value)],
               });
             }}
             id="calificacion_otorgada"
@@ -30,6 +30,7 @@ function LogrosPage3({ inputData, setInputData }) {
             value={inputData.calificacion_otorgada}
             placeholder="Escriba aqui la calificacion otorgada"
             fullWidth
+            type="number"
             sx={{ marginBottom: 10 }}
           />
         </Grid>
@@ -45,7 +46,7 @@ function LogrosPage3({ inputData, setInputData }) {
             onChange={(e) => {
               setInputData({
                 ...inputData,
-                medios_de_verificacion_y_evidencias: e.target.value,
+                medios_de_verificacion_y_evidencias: [e.target.value],
               });
             }}
             id="medios_de_verificacion_y_evidencias"
@@ -62,16 +63,16 @@ function LogrosPage3({ inputData, setInputData }) {
             textAlign={"center"}
             sx={{ marginBottom: 4 }}
           >
-            Indicador ¿Cuanto tengo que lograr?
+            Indicador ¿Cuando tengo que lograr?
           </Typography>
           <TextField
             onChange={(e) => {
               setInputData({
                 ...inputData,
-                cuanto_tengo_que_lograr2: e.target.value,
+                cuanto_tengo_que_lograr2: [e.target.value],
               });
             }}
-            id="cuanto_tengo_que_lograr2"
+            id="cuando_tengo_que_lograr"
             name="cuanto_tengo_que_lograr2"
             value={inputData.cuanto_tengo_que_lograr2}
             placeholder="Escriba aqui los indicadores"

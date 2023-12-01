@@ -1,79 +1,44 @@
-import React from "react";
-import { useState } from "react";
+import React, { useRef } from "react";
 import { Button, Container, Typography } from "@mui/material";
 import SignatureCanvas from "react-signature-canvas";
+
+import { formLogroMetasData } from "./services/data";
 // import { DateField } from "@mui/x-date-pickers/DateField";
 // import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 // import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import "./forms_styles/FormularioLogroMetasResultadosStyles.css";
 
-function LogrosPage4() {
-  const [sign, setSign] = useState();
-  const [url, setUrl] = useState();
+function LogrosPage4({ inputData, setInputData }) {
+  const firmaServidor = useRef(null);
+  const firmaSupervisor = useRef(null);
 
-  const handleClear = () => {
-    sign.clear();
+  const handleClear = () => firmaSupervisor.current.clear();
+
+  const handleClear2 = () => firmaServidor.current.clear();
+
+  const handleSave = () => {
+    setInputData({
+      ...inputData,
+      firmaSupervisor: firmaSupervisor.current
+        .getTrimmedCanvas()
+        .toDataURL("image/png"),
+    });
+
+    alert("firma guardada");
   };
 
-  const handleGuardarFirma = () => {
-    setUrl(sign.getTrimmedCanvas().toDataURL("image/png"));
-    // sign.clear();
+  const handleSave2 = () => {
+    setInputData({
+      ...inputData,
+      firmaServidor: firmaServidor.current
+        .getTrimmedCanvas()
+        .toDataURL("image/png"),
+    });
+
+    alert("firma guardada");
   };
-
-  console.log(sign);
-  console.log(url);
-
-  /* Configuracion segunda firma */
-
-  const [sign2, setSign2] = useState();
-  const [url2, setUrl2] = useState();
-
-  const handleClear2 = () => {
-    sign2.clear();
-  };
-
-  const handleGuardarFirma2 = () => {
-    setUrl2(sign2.getTrimmedCanvas().toDataURL("image/png"));
-    // sign.clear();
-  };
-
-  console.log(sign2);
-  console.log(url2);
 
   /* Configuracion tercera firma */
-
-  const [sign3, setSign3] = useState();
-  const [url3, setUrl3] = useState();
-
-  const handleClear3 = () => {
-    sign3.clear();
-  };
-
-  const handleGuardarFirma3 = () => {
-    setUrl3(sign3.getTrimmedCanvas().toDataURL("image/png"));
-    // sign.clear();
-  };
-
-  console.log(sign3);
-  console.log(url3);
-
-  /* Configuracion cuarta firma */
-
-  const [sign4, setSign4] = useState();
-  const [url4, setUrl4] = useState();
-
-  const handleClear4 = () => {
-    sign4.clear();
-  };
-
-  const handleGuardarFirma4 = () => {
-    setUrl4(sign4.getTrimmedCanvas().toDataURL("image/png"));
-
-    // sign.clear();
-  };
-
-  console.log(sign4);
-  console.log(url4);
 
   //TODO: Validar formularios
   //TODO: Enviar datos del formulario al Backend
@@ -90,42 +55,7 @@ function LogrosPage4() {
           <Typography className="eSignCaption">Firma del Servidor/a</Typography>
 
           <SignatureCanvas
-            ref={(data) => setSign(data)}
-            canvasProps={{ width: 400, height: 200, className: "sigCanvas" }}
-          />
-
-          <Container
-            sx={{
-              width: "300px",
-              display: "flex",
-              justifyContent: "space-around",
-              // margin: "10px 0",
-            }}
-          >
-            <Button
-              className="btn limpiarBTN"
-              variant="contained"
-              onClick={handleClear}
-            >
-              Limpiar
-            </Button>
-            <Button
-              className="btn"
-              variant="contained"
-              onClick={handleGuardarFirma}
-            >
-              Guardar Firma
-            </Button>
-          </Container>
-        </Container>
-
-        {/* Segunda Firma */}
-
-        <Container sx={{ width: "50%" }}>
-          <Typography className="eSignCaption">Firma del Servidor/a</Typography>
-
-          <SignatureCanvas
-            ref={(data) => setSign2(data)}
+            ref={firmaServidor}
             canvasProps={{ width: 400, height: 200, className: "sigCanvas" }}
           />
 
@@ -147,7 +77,44 @@ function LogrosPage4() {
             <Button
               className="btn"
               variant="contained"
-              onClick={handleGuardarFirma2}
+              onClick={handleSave2}
+              cy-data-btn="signature"
+            >
+              Guardar Firma
+            </Button>
+          </Container>
+        </Container>
+
+        {/* Segunda Firma */}
+
+        <Container sx={{ width: "50%" }}>
+          <Typography className="eSignCaption">Firma del Supervisor</Typography>
+
+          <SignatureCanvas
+            ref={firmaSupervisor}
+            canvasProps={{ width: 400, height: 200, className: "sigCanvas" }}
+          />
+
+          <Container
+            sx={{
+              width: "300px",
+              display: "flex",
+              justifyContent: "space-around",
+              // margin: "10px 0",
+            }}
+          >
+            <Button
+              className="btn limpiarBTN"
+              variant="contained"
+              onClick={handleClear}
+            >
+              Limpiar
+            </Button>
+            <Button
+              className="btn"
+              variant="contained"
+              onClick={handleSave}
+              cy-data-btn="signature"
             >
               Guardar Firma
             </Button>
@@ -157,11 +124,11 @@ function LogrosPage4() {
 
       {/* Segunda Fila */}
 
-      <Container
+      {/* <Container
         className="eSignRowContainer"
         sx={{ display: "flex", justifyContent: "space-around" }}
-      >
-        {/* Tercera Firma */}
+      > */}
+      {/* Tercera Firma
 
         <Container sx={{ width: "50%" }}>
           <Typography className="eSignCaption">
@@ -196,9 +163,9 @@ function LogrosPage4() {
               Guardar Firma
             </Button>
           </Container>
-        </Container>
+        </Container> */}
 
-        {/* Cuarta Firma */}
+      {/* Cuarta Firma
 
         <Container sx={{ width: "50%" }}>
           <Typography className="eSignCaption">
@@ -233,8 +200,8 @@ function LogrosPage4() {
               Guardar Firma
             </Button>
           </Container>
-        </Container>
-      </Container>
+        </Container> */}
+      {/* </Container> */}
       {/* <Container className="dateOuttertContainer" sx={{ marginBottom: "20px" }}>
         <Container
           className="dateInnerContainer"

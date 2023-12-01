@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Container, Typography, Grid, Button } from "@mui/material";
+import axios from "axios";
 
 import "./forms_styles/FormularioLogroMetasResultadosStyles.css";
 
@@ -8,12 +9,19 @@ import LogrosPage1 from "./LogrosPage1";
 import LogrosPage2 from "./LogrosPage2";
 import LogrosPage3 from "./LogrosPage3";
 import LogrosPage4 from "./LogrosPage4";
-import axios from "axios";
+import { formLogroMetasData } from "./services/data";
 
 function FormularioLogroMetasResultados() {
-  const [page, setPage] = useState(3);
+  const [page, setPage] = useState(0);
+  const [inputData, setInputData] = useState(formLogroMetasData);
 
-  //Functions to handle page state
+  // * Functions to handle th inputs
+
+  // eslint-disable-next-line prettier/prettier
+  const handleChange = (e) =>
+    setInputData({ ...inputData, [e.target.name]: e.target.value });
+
+  // * Functions to handle page state
 
   const handlePageForward = () => {
     setPage(page + 1);
@@ -23,7 +31,7 @@ function FormularioLogroMetasResultados() {
     setPage(page - 1);
   };
 
-  //Condition to handle buttons visibility
+  // * Condition to handle buttons visibility
 
   let showHideBackwardBTN;
 
@@ -53,7 +61,7 @@ function FormularioLogroMetasResultados() {
 
   const handlePage = () => {
     if (page === 0) {
-      return <LogrosPage1 inputData={inputData} setInputData={setInputData} />;
+      return <LogrosPage1 inputData={inputData} handleChange={handleChange} />;
     } else if (page === 1) {
       return <LogrosPage2 inputData={inputData} setInputData={setInputData} />;
     } else if (page === 2) {
@@ -67,36 +75,49 @@ function FormularioLogroMetasResultados() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const logroMetasBody = {
+      userId: inputData.userId,
+      instructorId: inputData.instructorId,
+      institucion: "65296fbb7189553d2356fe42",
+      firmaServidor: inputData.firmaServidor,
+      firmaSupervisor: inputData.firmaSupervisor,
+      indicadorCuando: inputData.cuanto_tengo_que_lograr,
+      indicadorCuanto: inputData.cuanto_tengo_que_lograr2,
+      metas: inputData.metas_a_lograr,
+      observaciones: inputData.medios_de_verificacion_y_evidencias,
+      ponderacion: inputData.ponderacion_de_metas,
+      unidadOrganizativa: inputData.unidadOrganizativa,
+      calificacion: inputData.calificacion_otorgada,
+      cargoSupervisor: "Maestro",
+      cargoServidor: inputData.cargoActual,
+    };
+    console.log(inputData);
+
+    if (
+      Object.values(inputData).some(
+        (value) => value === undefined || value === null || value === ""
+      )
+    ) {
+      alert("Error favor de llenar los datos");
+      return;
+    }
     alert("Formulario enviado");
-    setInputData(formData);
+    // setInputData(formData);
     setPage(0);
     axios
-      .post("http://localhost:8080/api/v1/logro-metas", { inputData })
-      .then((res) => console.log(res))
+      .post("http://localhost:8080/api/v1/logro-metas", { ...logroMetasBody })
+      .then((res) => {
+        setInputData(formLogroMetasData);
+        console.log(res);
+      })
       .catch((err) => console.log(err));
   };
-
-  let formData = {
-    institucion: "",
-    periodoEvaluacion: "",
-    nombreSupervisor: "",
-    cargoActual: "",
-    unidadOrganizativa: "",
-    nombreSupervisor2: "",
-    metas_a_lograr: "",
-    cuanto_tengo_que_lograr: "",
-    ponderacion_de_metas: "",
-    calificacion_otorgada: "",
-    medios_de_verificacion_y_evidencias: "",
-    cuanto_tengo_que_lograr2: "",
-  };
-
-  const [inputData, setInputData] = useState(formData);
 
   return (
     <>
       <Container>
         <Typography
+          cy-data-title="logroMetasTitle"
           variant="h1"
           sx={{
             textAlign: "center",
@@ -121,6 +142,7 @@ function FormularioLogroMetasResultados() {
             className={showHideBackwardBTN ? "visible" : "notVisible"}
             onClick={handlePageBackward}
             variant="contained"
+            cy-data-btn="btn prev page"
             sx={{ width: "150px", padding: "10px 0" }}
           >
             Atras
@@ -130,6 +152,7 @@ function FormularioLogroMetasResultados() {
             onClick={handlePageForward}
             variant="contained"
             sx={{ width: "150px", padding: "10px 0" }}
+            cy-data-btn="btn next page"
           >
             Siguiente
           </Button>

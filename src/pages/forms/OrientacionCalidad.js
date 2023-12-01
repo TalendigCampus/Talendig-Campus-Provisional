@@ -3,8 +3,8 @@ import styled from "styled-components/macro";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import axios from "axios";
-import { useContext } from "react";
-import { AuthContext } from "../../contexts/JWTContext";
+// import { AuthContext } from "../../contexts/JWTContext";
+import { calidadFormData } from "./services/data";
 
 import {
   CardContent,
@@ -63,12 +63,12 @@ function Puntaje({ textoPregunta, nombre, valor, onChange }) {
             onChange={onChange}
             row
           >
-            {[1, 2, 3, 4, 5].map((opcion) => (
+            {["0", "2.75", "5.5", "8.25", "11.1"].map((opcion, i) => (
               <StyledFormControlLabel
                 key={opcion}
-                value={opcion.toString()}
+                value={parseFloat(opcion)}
                 control={<Radio color="primary" />}
-                label={opcion.toString()}
+                label={`${i + 1}`}
                 labelPlacement="bottom"
               />
             ))}
@@ -80,29 +80,27 @@ function Puntaje({ textoPregunta, nombre, valor, onChange }) {
 }
 
 function FormularioEvaluacion() {
-  const { user } = useContext(AuthContext);
+  //const { user } = useContext(AuthContext);
 
-  const { instructor } = useContext(InstructorContext);
+  // const { instructor } = useContext(InstructorContext);
 
-  const [formValues, setFormValues] = useState({
-    propuesta: "1",
-    mejoraContinua: "1",
-    responsabilidad: "1",
-    aprendeErrores: "1",
-    alineacion: "1",
-    adaptable: "1",
-    mejora: "1",
-    comunicacion: "1",
-    calidad: "1",
-  });
+  const [formValues, setFormValues] = useState(calidadFormData);
 
   const handleSubmit = () => {
     console.log(formValues);
 
+    if (
+      Object.values(formValues).some(
+        (e) => e === null || isNaN(e) || e === undefined || e === ""
+      )
+    ) {
+      alert("Favor de llenar los campos");
+      return;
+    }
     axios
       .post("http://localhost:8080/api/v1/calidadform", {
-        userId: user.id,
-        instructorId: instructor.id,
+        userId: "650c566d33d491669553127b",
+        instructorId: "650c5e97733fc0d37b8bbb3b",
         proposal: formValues.propuesta,
         continuousImprovement: formValues.mejoraContinua,
         responsability: formValues.responsabilidad,
@@ -112,8 +110,6 @@ function FormularioEvaluacion() {
         interest: formValues.mejora,
         communication: formValues.comunicacion,
         quality: formValues.calidad,
-        totalPoints: 0,
-        grade: "",
       })
       .then((response) => {
         console.log(response);
@@ -123,12 +119,11 @@ function FormularioEvaluacion() {
       });
   };
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
+  const handleChange = (e) => {
+    setFormValues({
+      ...formValues,
+      [e.target.name]: parseFloat(e.target.value),
+    });
   };
 
   return (
@@ -220,7 +215,7 @@ function FormularioEvaluacion() {
             color="primary"
             onClick={handleSubmit}
           >
-            Someter
+            Enviar
           </RoundedButton>
         </Grid>
       </CardContent>

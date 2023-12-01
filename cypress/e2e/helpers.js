@@ -29,4 +29,33 @@ const aspectoMejoraElements = {
   titles: '[cy-data-title="Page"]',
 };
 
-export { aspectoMejoraElements };
+const logroMetasElements = {
+  btnNext: '[cy-data-btn="btn next page"]',
+  btnPrev: '[cy-data-btn="btn prev page"]',
+  page1: {
+    input1: '[cy-data-input="institucion"]',
+    imput2: '[cy-data-input="periodoEvaluacion"]',
+    imput3: '[cy-data-input="sepervisor"]',
+    imput4: '[cy-data-input="cargo"]',
+    imput5: '[cy-data-input="unidadOrganizativa"]',
+    imput6: '[cy-data-input="supervisor2"]',
+  },
+
+  page2: {
+    input1: '[id="metas_a_lograr"]',
+    imput2: '[id="cuanto_tengo_que_lograr"]',
+    imput3: '[id="ponderacion_de_metas"]',
+  },
+  page3: {
+    input1: '[id="calificacion_otorgada"]',
+    input2: '[id="medios_de_verificacion_y_evidencias"]',
+    input3: '[id="cuando_tengo_que_lograr"]',
+  },
+
+  page4: {
+    input1: '[cy-data-input="comentario"]',
+    radio: '[cy-data-input="bool calificacion"]',
+  },
+};
+
+export { aspectoMejoraElements, logroMetasElements };

@@ -20,7 +20,7 @@ function LogrosPage2({ inputData, setInputData }) {
           </Typography>
           <TextField
             onChange={(e) =>
-              setInputData({ ...inputData, metas_a_lograr: e.target.value })
+              setInputData({ ...inputData, metas_a_lograr: [e.target.value] })
             }
             id="metas_a_lograr"
             name="metas_a_lograr"
@@ -42,7 +42,7 @@ function LogrosPage2({ inputData, setInputData }) {
             onChange={(e) =>
               setInputData({
                 ...inputData,
-                cuanto_tengo_que_lograr: e.target.value,
+                cuanto_tengo_que_lograr: [e.target.value],
               })
             }
             id="cuanto_tengo_que_lograr"
@@ -65,7 +65,7 @@ function LogrosPage2({ inputData, setInputData }) {
             onChange={(e) =>
               setInputData({
                 ...inputData,
-                ponderacion_de_metas: e.target.value,
+                ponderacion_de_metas: [parseInt(e.target.value)],
               })
             }
             id="ponderacion_de_metas"
@@ -73,6 +73,7 @@ function LogrosPage2({ inputData, setInputData }) {
             value={inputData.ponderacion_de_metas}
             placeholder="Escriba aqui las ponderaciones de metas"
             fullWidth
+            type="number"
             sx={{ marginBottom: 10 }}
           />
         </Grid>
